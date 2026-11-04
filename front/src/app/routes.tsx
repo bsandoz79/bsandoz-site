@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { pages } from '../data/pages';
+import { Composer } from '../pages/Composer';
 import { Home } from '../pages/Home';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
@@ -13,6 +14,7 @@ type PageKey = keyof typeof pages;
 const builtPages: Partial<Record<PageKey, ReactElement>> = {
   accueil: <Home />,
   tarifs: <Tarifs />,
+  composer: <Composer />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

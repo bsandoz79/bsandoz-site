@@ -35,7 +35,7 @@ export const pages = {
     path: '/composer',
     title: 'Composer mon site',
     description: 'Composez votre site option par option et voyez le résultat et le prix en direct.',
-    heading: 'Composer mon site',
+    heading: 'Composez votre site, et regardez-le se construire.',
   },
   realisations: {
     path: '/realisations',

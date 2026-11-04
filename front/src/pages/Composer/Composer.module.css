@@ -1,0 +1,272 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block: var(--space-6) var(--space-8);
+}
+
+/* La colonne des étapes reste lisible ; l'aperçu en direct viendra à sa droite (branche apercu). */
+.entete,
+.panneau {
+  max-width: 48rem;
+}
+
+.entete {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Onglets */
+.onglets {
+  display: inline-flex;
+  align-self: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.onglet {
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.onglet[aria-selected='true'] {
+  background: var(--color-navy);
+  color: var(--color-text-on-dark);
+}
+
+.titre {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+}
+
+.sousTitre {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+/* Étapes */
+.etapes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.etape {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.etapeTitre {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  padding: 0;
+}
+
+.aide {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.grille {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.precision {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.precisionOption {
+  display: block;
+  color: var(--color-rose-dark);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.note {
+  color: var(--color-success);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.suggestions {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.suggestion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-rose-light);
+  border-radius: var(--radius-md);
+  background: var(--color-rose-soft);
+}
+
+.suggestionTitre {
+  font-weight: 700;
+}
+
+/* Estimation */
+.valeur s {
+  color: var(--color-text-on-dark-muted);
+}
+
+.offert {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-navy-2);
+  font-size: var(--text-sm);
+}
+
+.offertTitre {
+  color: var(--color-rose-light);
+  font-weight: 700;
+}
+
+.offertListe,
+.demande {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.marche {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-navy-2);
+  font-size: var(--text-sm);
+}
+
+.marcheTitre {
+  font-weight: 700;
+}
+
+.piste {
+  height: 0.625rem;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.12);
+}
+
+.barreMarche,
+.barrePrix {
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.barreMarche {
+  background: var(--color-text-on-dark-muted);
+}
+
+.barrePrix {
+  background: var(--color-rose-light);
+}
+
+.marchePhrase {
+  font-weight: 600;
+}
+
+.marcheSource {
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.75rem;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Bouton contour blanc sur fond bleu marine */
+.outline,
+.outline:hover {
+  border-color: var(--color-text-on-dark);
+  background: transparent;
+  color: var(--color-text-on-dark);
+}
+.outline:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+
+.estimation .aide {
+  color: var(--color-text-on-dark-muted);
+}
+
+.recommencer,
+.recommencer:hover:not(:disabled) {
+  align-self: center;
+  color: var(--color-text-on-dark);
+}
+.recommencer:hover:not(:disabled) {
+  background: var(--color-navy-2);
+}
+
+@media (min-width: 640px) {
+  .grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .suggestions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 960px) {
+  .page {
+    padding-block: var(--space-7) var(--space-9);
+  }
+
+  .titre {
+    font-size: 2.5rem;
+  }
+}

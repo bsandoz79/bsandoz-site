@@ -11,7 +11,7 @@ Liste des blocs de `front/src/blocks/`. Chaque bloc a son propre `README.md`.
 | [`Card`](../front/src/blocks/Card/README.md) | carte arrondie, trois fonds, effet de survol | prêt |
 | [`Reveal`](../front/src/blocks/Reveal/README.md) | apparition en fondu au défilement | prêt |
 | [`SectionTitle`](../front/src/blocks/SectionTitle/README.md) | sur-titre, titre et introduction de section | prêt |
-| [`ChoiceChips`](../front/src/blocks/ChoiceChips/README.md) | choix unique en pastilles (boutons radio) | prêt |
+| [`ChoiceChips`](../front/src/blocks/ChoiceChips/README.md) | choix unique en pastilles ou en cartes (boutons radio) | prêt |
 | [`OptionCard`](../front/src/blocks/OptionCard/README.md) | carte à cocher : titre, description, prix | prêt |
 | [`PriceSummary`](../front/src/blocks/PriceSummary/README.md) | récapitulatif de prix : total annoncé, détail, lignes offertes | prêt |
 
