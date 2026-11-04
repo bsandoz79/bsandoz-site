@@ -51,3 +51,4 @@
 - Mise en page : une adresse avec ancre (`#…`) descend jusqu'à l'élément visé.
 - Page À propos : présentation, photo et parcours à compléter, lien vers le portfolio, les 4 valeurs, zone d'intervention, rendez-vous.
 - Bloc réutilisable `Accordion` (questions dépliables sur `details` / `summary`, ancre par question).
+- Page FAQ : délais, contenus à fournir, propriété du site, hébergement, modifications, WordPress, paiement ; réponses tirées des données (délais, prix), sans rien inventer.
