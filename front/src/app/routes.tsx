@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { pages } from '../data/pages';
+import { APropos } from '../pages/APropos';
 import { Composer } from '../pages/Composer';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
@@ -24,6 +25,7 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   restaurant: <Metier id="restaurant" />,
   independant: <Metier id="independant" />,
   realisations: <Realisations />,
+  aPropos: <APropos />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

@@ -49,3 +49,4 @@
 - Pages métier (artisan, commerce, restaurant, santé / bien-être) : promesse du cahier des charges, fonctions utiles avec leur prix, exemple de site fictif (aperçu), réalisation proche quand il y en a une, accès au configurateur préréglé.
 - Page Réalisations : une étude de cas par projet (besoin, solution, captures), emplacements « [à compléter] » en attendant les informations réelles ; liens des cartes vers chaque étude.
 - Mise en page : une adresse avec ancre (`#…`) descend jusqu'à l'élément visé.
+- Page À propos : présentation, photo et parcours à compléter, lien vers le portfolio, les 4 valeurs, zone d'intervention, rendez-vous.

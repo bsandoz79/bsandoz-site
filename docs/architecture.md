@@ -29,6 +29,8 @@ front/src/
 
 - **Réalisations** (`pages/Realisations`) : études de cas tirées de `data/realisations.ts` (champs `besoin` et `solution` à compléter), ancre par projet.
 
+- **À propos** (`pages/APropos`) : textes dans `data/apropos.ts` ; les valeurs reprennent celles de l'accueil.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
