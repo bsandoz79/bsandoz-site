@@ -53,6 +53,7 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `src/data/metiers.ts` : contenus des 4 pages métier.
 - `src/data/apropos.ts`, `src/data/faq.ts` : textes des pages À propos et FAQ.
 - `src/data/devis.ts` : étapes, besoins, budgets, délais, limites des photos et textes du parcours de devis.
+- `src/data/seo.ts` : adresses complètes, pages indexables (`pagesNonIndexees`), `genererSitemap`, `robotsTxt`, données structurées (`jsonLdEntreprise`, `jsonLdFaq`, `jsonLdOffres`). Le plugin `fichiersSeo` de `vite.config.ts` écrit `sitemap.xml` et `robots.txt` dans `dist/` au build.
 - `src/data/tarifs.ts` : textes de la page Tarifs.
 - `src/data/accueil.ts` : textes de la page d'accueil, repris de la maquette `Main`.
 - `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.
