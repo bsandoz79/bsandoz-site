@@ -9,3 +9,4 @@
 - Styles globaux segmentés : variables, bases, mise en page, animations.
 - CI GitHub Actions (lint, tests, build) et déploiement FTPS sur o2switch depuis `main`.
 - `.htaccess` : routes React et HTTPS forcé.
+- Routes de toutes les pages publiques (contenu provisoire), page 404, titre et meta description par page.
