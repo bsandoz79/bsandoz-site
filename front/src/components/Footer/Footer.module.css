@@ -1,0 +1,48 @@
+.footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Sur mobile, on laisse de la place sous le contenu pour la barre « Estimer » fixe. */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-block: var(--space-6) calc(var(--space-9) + var(--space-4));
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.column a {
+  display: inline-block;
+  padding-block: var(--space-1);
+  color: var(--color-text-muted);
+}
+.column a:hover {
+  color: var(--color-rose);
+}
+
+.name {
+  color: var(--color-text);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+@media (min-width: 960px) {
+  .inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding-block: var(--space-7);
+  }
+}
