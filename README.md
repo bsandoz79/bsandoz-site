@@ -21,5 +21,6 @@ npm run dev
 - [Architecture](docs/architecture.md)
 - [Conventions](docs/conventions.md)
 - [Blocs réutilisables](docs/blocs.md)
+- [Styles](docs/styles.md)
 - [Déploiement](docs/deploiement.md)
 - [Journal des modifications](docs/CHANGELOG.md)

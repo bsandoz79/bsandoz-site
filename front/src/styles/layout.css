@@ -1,0 +1,12 @@
+/* Mise en page générale. */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+.section { padding-block: var(--space-9); }
+.section--white { background: var(--color-surface); }
+@media (max-width: 640px) {
+  .section { padding-block: var(--space-8); }
+}
