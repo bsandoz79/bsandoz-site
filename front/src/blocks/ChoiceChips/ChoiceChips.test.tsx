@@ -51,6 +51,27 @@ describe('ChoiceChips', () => {
     expect(screen.getByRole('radio', { name: 'Commerce' })).toBeChecked();
   });
 
+  it('affiche des cartes avec description et mise en avant', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <ChoiceChips
+        legend="Type de site"
+        name="type"
+        variant="cards"
+        choices={[
+          { value: 'vitrine', label: 'Vitrine', meta: '99 €', description: '1 page.' },
+          { value: 'plus', label: 'Vitrine+', meta: '390 €' },
+        ]}
+        value={null}
+        onChange={onChange}
+      />,
+    );
+    expect(screen.getByRole('radio', { name: /^Vitrine.*99 €.*1 page\.$/ })).toBeInTheDocument();
+    await user.click(screen.getByText('390 €'));
+    expect(onChange).toHaveBeenCalledWith('plus');
+  });
+
   it('peut masquer visuellement la légende', () => {
     render(<ChoiceChips legend="Question" name="q" choices={choices} value="autre" onChange={() => {}} hideLegend />);
     expect(screen.getByText('Question')).toHaveClass('sr-only');
