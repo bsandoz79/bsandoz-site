@@ -40,3 +40,6 @@
 - Données de l'informatique sur place (`informatique.ts` : prestations, publics, « Bientôt disponible ») et textes du configurateur (`configurateur.ts`).
 - Configurateur : choix mémorisés dans le navigateur (repris par le parcours de devis), formule préremplie par `?formule=`.
 - Page Composer mon site (`/composer`) : onglets accessibles « Sites & applis » / « Informatique sur place », étapes qui s'ouvrent l'une après l'autre (type, activité, options, précisions, suggestions), estimation (valeur barrée, offert, fourchette, délai, détail), comparaison au marché avec sa source ; onglet informatique en « Tarif sur devis ».
+- Bloc réutilisable `SitePreview` (aperçu dessiné d'un site d'exemple : navigateur, hero, sections, appli, résultat Google ; description lue par les lecteurs d'écran).
+- Modèle de l'aperçu (`apercu.ts`) : entreprises d'exemple par métier, sections selon les options choisies ou offertes, description pour les lecteurs d'écran.
+- Configurateur : aperçu en direct en colonne de droite (masqué sous 1 000 px), encadré « Bon à savoir » dans l'onglet informatique.

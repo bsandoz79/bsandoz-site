@@ -112,6 +112,38 @@ describe('Configurateur /composer', () => {
     expect(stocke().config).toEqual({ formule: null, metier: null, options: [], precisions: {} });
   });
 
+  describe('aperçu en direct', () => {
+    const apercu = () => screen.getByRole('complementary', { name: 'Aperçu de votre futur site' });
+
+    it('se remplit au fil des choix et annonce ce qu’il montre', async () => {
+      const user = userEvent.setup();
+      renderComposer();
+      expect(apercu()).toHaveTextContent("Choisissez un type de site : l'aperçu se remplit au fil de vos choix.");
+
+      await user.click(screen.getByRole('radio', { name: /^Fonctionnel/ }));
+      await user.click(screen.getByRole('radio', { name: 'Santé / bien-être' }));
+      expect(apercu()).toHaveTextContent('Studio Équilibre');
+      expect(apercu()).toHaveTextContent('www.studio-equilibre.fr');
+
+      await user.click(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ }));
+      expect(apercu()).toHaveTextContent('Réservez en ligne');
+      expect(within(apercu()).getByText(/Aperçu d'exemple du site « Studio Équilibre », avec : rendez-vous en ligne\./)).toHaveAttribute(
+        'aria-live',
+        'polite',
+      );
+    });
+
+    it('laisse place au « bon à savoir » dans l’onglet informatique', async () => {
+      const user = userEvent.setup();
+      renderComposer();
+      await user.click(screen.getByRole('tab', { name: 'Informatique sur place' }));
+      expect(screen.queryByRole('complementary', { name: 'Aperçu de votre futur site' })).not.toBeInTheDocument();
+      const bon = screen.getByRole('complementary', { name: 'Bon à savoir' });
+      expect(bon).toHaveTextContent('Windows 10 n\'est plus mis à jour depuis octobre 2025.');
+      expect(within(bon).getAllByRole('listitem')).toHaveLength(3);
+    });
+  });
+
   describe('onglets', () => {
     it('passe à l’informatique au clavier, avec les flèches', async () => {
       const user = userEvent.setup();

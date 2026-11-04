@@ -4,6 +4,7 @@ import { Container } from '../../blocks/Container';
 import { PageMeta } from '../../components/PageMeta';
 import { onglets, titres } from '../../data/configurateur';
 import { pages } from '../../data/pages';
+import { Apercu } from './Apercu';
 import { ConfigurateurInformatique } from './ConfigurateurInformatique';
 import { ConfigurateurWeb } from './ConfigurateurWeb';
 import type { Onglet } from './stockage';
@@ -68,8 +69,11 @@ export function Composer() {
           <p className={styles.sousTitre}>{textes.subtitle}</p>
         </div>
 
-        <div role="tabpanel" id={`panneau-${onglet}`} aria-labelledby={`onglet-${onglet}`} className={styles.panneau}>
-          {onglet === 'web' ? <ConfigurateurWeb composer={composer} /> : <ConfigurateurInformatique composer={composer} />}
+        <div className={styles.colonnes}>
+          <div role="tabpanel" id={`panneau-${onglet}`} aria-labelledby={`onglet-${onglet}`} className={styles.panneau}>
+            {onglet === 'web' ? <ConfigurateurWeb composer={composer} /> : <ConfigurateurInformatique composer={composer} />}
+          </div>
+          <Apercu onglet={onglet} config={composer.etat.config} />
         </div>
       </Container>
     </>
