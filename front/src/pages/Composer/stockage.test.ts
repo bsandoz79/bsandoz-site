@@ -2,6 +2,7 @@ import {
   CLE_STOCKAGE,
   chargerEtat,
   enregistrerEtat,
+  etatDepuisAdresse,
   etatVide,
   formuleDepuisAdresse,
   lireEtat,
@@ -72,6 +73,19 @@ describe('stockage du configurateur', () => {
     expect(ongletDepuisAdresse('?onglet=informatique')).toBe('informatique');
     expect(ongletDepuisAdresse('?onglet=web')).toBe('web');
     expect(ongletDepuisAdresse('?onglet=autre')).toBeNull();
+  });
+
+  it('applique formule et métier de l’adresse en gardant les options compatibles', () => {
+    const enregistre = {
+      ...etatVide,
+      onglet: 'informatique' as const,
+      config: { formule: 'fonctionnel' as const, metier: 'artisan' as const, options: ['rdv' as const, 'calcul' as const], precisions: {} },
+    };
+    const etat = etatDepuisAdresse(enregistre, '?formule=fonctionnel&metier=sante');
+    expect(etat.onglet).toBe('web');
+    expect(etat.config).toMatchObject({ formule: 'fonctionnel', metier: 'sante', options: ['rdv'] });
+    expect(etatDepuisAdresse(enregistre, '?metier=pirate')).toBe(enregistre);
+    expect(etatDepuisAdresse(etatVide, '?onglet=informatique').onglet).toBe('informatique');
   });
 
   it('lit la formule demandée dans l’adresse', () => {
