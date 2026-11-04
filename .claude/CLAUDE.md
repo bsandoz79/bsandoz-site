@@ -33,3 +33,14 @@
 - Accessibilité : vrais `<button>`, `<a>`, `<label>` ; contraste AA ; navigation clavier.
 - Mobile d'abord.
 - Textes en français, vouvoiement.
+
+## Sources à suivre
+- `docs/cahier-des-charges.md` : ce que doit faire le site (pages, prix, configurateur, devis, rendez-vous, espace client, textes, design).
+- `docs/plan.md` : l'ordre des branches. Prendre la première case non cochée, la cocher à la fin de la branche.
+- `docs/maquette/*.dc.html` : maquette de référence. Ce sont des fichiers HTML avec styles en ligne ; la logique du configurateur est dans la balise `<script type="text/x-dc">` de `Configurateur.dc.html`. Les reproduire en composants React + CSS Modules, sans copier les styles en ligne.
+
+## À chaque session
+1. Relire ce fichier, `docs/plan.md` et `docs/CHANGELOG.md`.
+2. `git pull`, puis créer la branche de la prochaine case du plan.
+3. Travailler en petits commits, docs à jour à chaque commit.
+4. Lint + tests + build verts → push → fusion dans `main` → résumé de ce qui a été fait.

@@ -18,6 +18,9 @@ npm run dev
 | `npm run build` | version de production dans `front/dist` |
 
 ## Documentation
+- [Cahier des charges](docs/cahier-des-charges.md)
+- [Plan de développement](docs/plan.md)
+- [Maquette de référence](docs/maquette/README.md)
 - [Architecture](docs/architecture.md)
 - [Conventions](docs/conventions.md)
 - [Blocs réutilisables](docs/blocs.md)

@@ -2,9 +2,11 @@
 
 ## [Non publié]
 ### Ajouté
+- Cahier des charges, plan de développement et maquette de référence (`docs/`).
 - Initialisation du front (React, Vite, TypeScript).
 - Règles du projet (`.claude/CLAUDE.md`) et documentation de base.
 - Configuration des tests : Vitest, Testing Library, jsdom (`npm run test`).
 - Styles globaux segmentés : variables, bases, mise en page, animations.
 - CI GitHub Actions (lint, tests, build) et déploiement FTPS sur o2switch depuis `main`.
 - `.htaccess` : routes React et HTTPS forcé.
+- Routes de toutes les pages publiques (contenu provisoire), page 404, titre et meta description par page.

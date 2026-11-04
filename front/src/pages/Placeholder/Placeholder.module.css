@@ -1,0 +1,13 @@
+.inner {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--text-3xl);
+}
+
+.text {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}

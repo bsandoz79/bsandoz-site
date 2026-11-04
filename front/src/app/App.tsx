@@ -1,3 +1,10 @@
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './routes';
+
 export function App() {
-  return <main>bsandoz.fr</main>;
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Espace client – bsandoz.fr</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F6FA}
+a{color:#16213E}a:hover{color:#C9184A}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #16213E; background: #F7F6FA; min-height: 100vh">
+
+<header style="background: #FFFFFF; border-bottom: 1px solid #E4E2EC">
+<div style="max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<a href="#" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 12px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px">S<span style="color: #F28CAB">B</span></span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px">Mon espace</span>
+</a>
+<div style="display: flex; align-items: center; gap: 14px">
+<span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #FCE7EE; color: #9E0F38; display: flex; align-items: center; justify-content: center; font-weight: 700">MD</span>
+<span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">Marie Dupont</span><span style="font-size: 13px; color: #4A5068">Paysagiste · Abbeville</span></span>
+<a href="#" style="margin-left: 8px; font-size: 14px; font-weight: 600">Se déconnecter</a>
+</div>
+</div>
+</header>
+
+<div style="max-width: 1240px; margin: 0 auto; padding: 32px 24px 72px; display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start">
+
+<nav aria-label="Espace client" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 20px; padding: 12px; display: flex; flex-direction: column; gap: 4px; position: sticky; top: 24px">
+<a href="#demandes" aria-current="page" style="text-decoration: none; padding: 12px 14px; border-radius: 12px; background: #FCE7EE; color: #9E0F38; font-weight: 600; font-size: 15px; display: flex; justify-content: space-between">Mes demandes<span style="background: #C9184A; color: #FFFFFF; border-radius: 999px; font-size: 12px; padding: 2px 8px">1</span></a>
+<a href="#rdv" style="text-decoration: none; padding: 12px 14px; border-radius: 12px; font-weight: 500; font-size: 15px">Mes rendez-vous</a>
+<a href="#compte" style="text-decoration: none; padding: 12px 14px; border-radius: 12px; font-weight: 500; font-size: 15px">Mon compte</a>
+<a href="#securite" style="text-decoration: none; padding: 12px 14px; border-radius: 12px; font-weight: 500; font-size: 15px">Sécurité</a>
+<a href="#confidentialite" style="text-decoration: none; padding: 12px 14px; border-radius: 12px; font-weight: 500; font-size: 15px">Confidentialité</a>
+<div style="border-top: 1px solid #E4E2EC; margin: 8px 4px"></div>
+<a href="#" style="text-decoration: none; padding: 12px 14px; border-radius: 12px; background: #16213E; color: #FFFFFF; font-weight: 600; font-size: 15px; text-align: center">Nouvelle demande</a>
+</nav>
+
+<main style="display: flex; flex-direction: column; gap: 28px; min-width: 0">
+
+<section id="demandes" style="display: flex; flex-direction: column; gap: 16px">
+<h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 32px">Mes demandes</h1>
+
+<article style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; color: #4A5068">Demande n° 2026-014 · envoyée le 2 novembre</span>
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">Site avec prise de rendez-vous et devis</h2>
+</div>
+<span style="background: #FFF3D6; color: #7A4B00; font-weight: 600; font-size: 13px; padding: 7px 12px; border-radius: 999px">Devis envoyé · à valider</span>
+</div>
+<ol aria-label="Avancement" style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px">
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #C9184A"></span><span style="font-size: 12px; color: #4A5068">Reçue</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #C9184A"></span><span style="font-size: 12px; color: #4A5068">En étude</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #C9184A"></span><span style="font-size: 12px; font-weight: 700; color: #9E0F38">Devis envoyé</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #E4E2EC"></span><span style="font-size: 12px; color: #4A5068">Accepté</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #E4E2EC"></span><span style="font-size: 12px; color: #4A5068">En cours</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #E4E2EC"></span><span style="font-size: 12px; color: #4A5068">Livré</span></li>
+</ol>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span style="font-weight: 600; font-size: 15px">Derniers échanges</span>
+<div style="border-left: 0; display: flex; flex-direction: column; gap: 10px">
+<div style="background: #F7F6FA; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #4A5068">Baptiste · par mail · 4 nov., 10:12</span><span style="font-size: 14px; line-height: 1.5">Voici votre devis, avec en option le rappel SMS la veille. Dites-moi ce que vous en pensez.</span></div>
+<div style="background: #F7F6FA; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #4A5068">Note d'appel · 3 nov.</span><span style="font-size: 14px; line-height: 1.5">On part sur la formule Fonctionnel avec rendez-vous et calcul du prix selon la surface.</span></div>
+<div style="background: #FCE7EE; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #4A5068">Vous · par mail · 2 nov.</span><span style="font-size: 14px; line-height: 1.5">Je voudrais que mes clients puissent réserver un passage pour la tonte.</span></div>
+</div>
+<a href="#" style="font-size: 14px; font-weight: 600">Voir tout le fil et répondre →</a>
+</div>
+<div style="background: #16213E; color: #FFFFFF; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; color: #C9CDE0">Devis n° 2026-014</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 32px">1 639 €</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+<li style="display: flex; justify-content: space-between"><span>Site fonctionnel</span><span>989 €</span></li>
+<li style="display: flex; justify-content: space-between"><span>Rendez-vous en ligne</span><span>400 €</span></li>
+<li style="display: flex; justify-content: space-between"><span>Calculateur de prix</span><span>250 €</span></li>
+<li style="display: flex; justify-content: space-between; color: #C9CDE0"><span>Option : rappel SMS</span><span>+ [prix]</span></li>
+</ul>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<button type="button" style="font: inherit; flex: 1; font-weight: 600; font-size: 15px; padding: 13px; border-radius: 999px; border: 0; background: #C9184A; color: #FFFFFF; cursor: pointer">Accepter le devis</button>
+<button type="button" style="font: inherit; font-weight: 600; font-size: 15px; padding: 13px 18px; border-radius: 999px; border: 1.5px solid #FFFFFF; background: transparent; color: #FFFFFF; cursor: pointer">PDF</button>
+</div>
+</div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 22px; padding: 20px 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap">
+<span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; color: #4A5068">Demande n° 2026-009 · juin 2026</span><strong style="font-size: 17px">Site vitrine une page</strong></span>
+<span style="background: #E3F5EC; color: #0F6B40; font-weight: 600; font-size: 13px; padding: 7px 12px; border-radius: 999px">Livré</span>
+</article>
+</section>
+
+<section id="rdv" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">Mes rendez-vous</h2>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; background: #F7F6FA; border-radius: 16px; padding: 16px 18px">
+<span style="display: flex; flex-direction: column; gap: 3px"><strong style="font-size: 16px">Mardi 17 novembre · 14:00 – 15:00</strong><span style="font-size: 14px; color: #4A5068">Rendez-vous découverte · chez vous, Abbeville</span></span>
+<span style="display: flex; gap: 10px"><a href="#" style="font-size: 14px; font-weight: 600">Ajouter à l'agenda</a><a href="#" style="font-size: 14px; font-weight: 600">Déplacer</a><a href="#" style="font-size: 14px; font-weight: 600; color: #A3122F">Annuler</a></span>
+</div>
+</section>
+
+<section id="compte" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">Mon compte</h2>
+<button type="button" style="font: inherit; font-weight: 600; font-size: 14px; padding: 10px 16px; border-radius: 999px; border: 0; background: #16213E; color: #FFFFFF; cursor: pointer">Enregistrer</button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px">Prénom et nom<input type="text" value="Marie Dupont" style="font: inherit; font-weight: 400; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid #D7D5E0"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px">Entreprise<input type="text" value="Dupont Jardins" style="font: inherit; font-weight: 400; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid #D7D5E0"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px">E-mail<input type="email" value="marie@dupont-jardins.fr" style="font: inherit; font-weight: 400; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid #D7D5E0"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px">Téléphone<input type="tel" value="06 00 00 00 00" style="font: inherit; font-weight: 400; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid #D7D5E0"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px; grid-column: 1 / -1">Adresse<input type="text" value="12 rue de la Gare, 80100 Abbeville" style="font: inherit; font-weight: 400; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid #D7D5E0"></label>
+</div>
+<span style="font-size: 13px; color: #4A5068">Changer d'e-mail envoie un lien de confirmation à la nouvelle adresse.</span>
+</section>
+
+<section id="securite" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">Sécurité</h2>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 16px 0; border-bottom: 1px solid #E4E2EC">
+<span style="display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 16px">Mot de passe</strong><span style="font-size: 14px; color: #4A5068">Modifié il y a 2 mois. Pour le changer, je vous envoie un lien sécurisé par mail (valable 1 h).</span></span>
+<button type="button" style="font: inherit; font-weight: 600; font-size: 14px; padding: 11px 18px; border-radius: 999px; border: 1.5px solid #16213E; background: #FFFFFF; color: #16213E; cursor: pointer">Recevoir le lien par mail</button>
+</div>
+<div style="display: flex; gap: 10px; align-items: center; background: #E3F5EC; color: #0F6B40; border-radius: 14px; padding: 12px 16px; font-size: 14px; font-weight: 500"><span aria-hidden="true" style="font-weight: 700">✓</span>Lien envoyé à marie@dupont-jardins.fr. Pensez à vérifier vos indésirables.</div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap">
+<span style="display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 16px">Appareils connectés</strong><span style="font-size: 14px; color: #4A5068">Téléphone Android et ordinateur, Abbeville</span></span>
+<a href="#" style="font-size: 14px; font-weight: 600">Déconnecter les autres appareils</a>
+</div>
+</section>
+
+<section id="confidentialite" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0 0 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">Confidentialité et préférences</h2>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 16px 0; border-bottom: 1px solid #E4E2EC">
+<span style="display: flex; flex-direction: column; gap: 4px; max-width: 640px"><strong style="font-size: 16px">Localisation</strong><span style="font-size: 14px; color: #4A5068; line-height: 1.5">Désactivée : vous l'avez refusée. Elle sert seulement à vérifier si je peux me déplacer chez vous (50 km autour d'Amiens) et à pré-remplir votre adresse.</span></span>
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="font-size: 13px; font-weight: 600; color: #6B7085">Désactivée</span>
+<button type="button" role="switch" aria-checked="false" aria-label="Activer la localisation" style="width: 52px; height: 30px; border-radius: 999px; border: 0; background: #D7D5E0; position: relative; cursor: pointer"><span aria-hidden="true" style="position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,.2)"></span></button>
+</span>
+</div>
+<span style="font-size: 13px; color: #4A5068; padding: 10px 0 6px">Si votre navigateur bloque la demande : icône cadenas à gauche de l'adresse du site → Autorisations → Position → Autoriser.</span>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 16px 0; border-bottom: 1px solid #E4E2EC; border-top: 1px solid #E4E2EC">
+<span style="display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 16px">Rappels et notifications par mail</strong><span style="font-size: 14px; color: #4A5068">Rappel la veille d'un rendez-vous, nouvelles réponses</span></span>
+<button type="button" role="switch" aria-checked="true" aria-label="Notifications par mail" style="width: 52px; height: 30px; border-radius: 999px; border: 0; background: #C9184A; position: relative; cursor: pointer"><span aria-hidden="true" style="position: absolute; top: 3px; right: 3px; width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF"></span></button>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 16px 0">
+<span style="display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 16px">Mes données</strong><span style="font-size: 14px; color: #4A5068">Téléchargez tout ce que j'ai sur vous : compte, demandes, échanges.</span></span>
+<a href="#" style="font-size: 14px; font-weight: 600">Télécharger mes données</a>
+</div>
+</section>
+
+<section aria-labelledby="danger-titre" style="background: #FFF5F6; border: 2px solid #E8A3B0; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<h2 id="danger-titre" style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px; color: #A3122F">Zone danger</h2>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap">
+<span style="display: flex; flex-direction: column; gap: 4px; max-width: 640px"><strong style="font-size: 16px">Supprimer mon compte</strong><span style="font-size: 14px; color: #5A2330; line-height: 1.5">Vos informations, demandes et échanges seront effacés définitivement. Les factures sont conservées 10 ans, comme la loi l'impose. Un mail de confirmation vous sera envoyé.</span></span>
+<button type="button" style="font: inherit; font-weight: 600; font-size: 14px; padding: 12px 18px; border-radius: 999px; border: 0; background: #A3122F; color: #FFFFFF; cursor: pointer">Supprimer mon compte</button>
+</div>
+</section>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2500}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

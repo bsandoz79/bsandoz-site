@@ -18,3 +18,10 @@ front/src/
 
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
+
+## Pages et routes
+- Les pages publiques (adresse, titre d'onglet, meta description, titre principal) sont décrites dans `src/data/pages.ts`.
+- `src/app/routes.tsx` crée une route par page, sous la mise en page commune `components/Layout` (balise `<main>`, retour en haut à chaque changement de page).
+- Une page qui n'a pas encore de contenu affiche `pages/Placeholder` ; elle est remplacée par sa vraie page dans la branche prévue au plan.
+- Toute adresse inconnue affiche `pages/NotFound` (404, `noindex`).
+- `components/PageMeta` met à jour le titre de l'onglet (« Titre – Baptiste Sandoz ») et la meta description déjà présents dans `index.html`, sans les dupliquer.
