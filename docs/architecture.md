@@ -21,7 +21,7 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 
 ## Pages et routes
 - Les pages publiques (adresse, titre d'onglet, meta description, titre principal) sont décrites dans `src/data/pages.ts`.
-- `src/app/routes.tsx` crée une route par page, sous la mise en page commune `components/Layout` (balise `<main>`, retour en haut à chaque changement de page).
+- `src/app/routes.tsx` crée une route par page, sous la mise en page commune `components/Layout` : lien d'évitement « Aller au contenu », en-tête, balise `<main id="contenu">`, pied de page, barre mobile, et retour en haut à chaque changement de page.
 - Une page qui n'a pas encore de contenu affiche `pages/Placeholder` ; elle est remplacée par sa vraie page dans la branche prévue au plan.
 - Toute adresse inconnue affiche `pages/NotFound` (404, `noindex`).
 - `src/data/navigation.ts` regroupe les libellés et liens de l'en-tête, des onglets de services, du pied de page et de la barre mobile, ainsi que le contact (le téléphone n'est affiché qu'une fois renseigné).
