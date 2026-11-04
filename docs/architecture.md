@@ -33,6 +33,8 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `src/data/offres.ts` : formules (nom, accroche, prix, délai, points forts), tarif horaire et mentions de prix ; `formatPrix` et `prixFormule` pour l'affichage. Contient aussi les métiers, les options (`prixOption` pour l'affichage), les listes d'options par formule et par métier, les précisions (sous-questions), les packs et les prix du marché.
 - `src/data/calculs.ts` : fonctions pures du configurateur, sans état : `optionsDisponibles`, `garderOptionsValides`, `packsActifs`, `calculerEstimation` (fourchette −5 % / +10 %, jamais sous le prix plancher), `suggestions` (2 au plus), `comparaisonMarche`. Une `Configuration` réunit formule, métier, options et réponses aux précisions.
 - `src/data/realisations.ts` : réalisations présentées (captures à ajouter, emplacements `[…]` en attendant).
+- `src/data/informatique.ts` : prestations d'informatique sur place (sans prix : « Tarif sur devis »), publics.
+- `src/data/configurateur.ts` : textes du configurateur.
 - `src/data/tarifs.ts` : textes de la page Tarifs.
 - `src/data/accueil.ts` : textes de la page d'accueil, repris de la maquette `Main`.
 - `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.

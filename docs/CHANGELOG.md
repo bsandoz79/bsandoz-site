@@ -37,3 +37,4 @@
 - Bloc réutilisable `PriceSummary` (récapitulatif de prix, total annoncé aux lecteurs d'écran, lignes offertes barrées).
 - Bloc `ChoiceChips` : variante « cartes » avec description et prix.
 - Page Tarifs : trois formules avec contenu et délai, encadré « Pourquoi un site fonctionnel coûte plus cher ? », simulateur du Fonctionnel (activité, options, prix et fourchette en direct, packs offerts, suggestion), « Et après la mise en ligne ? ».
+- Données de l'informatique sur place (`informatique.ts` : prestations, publics, « Bientôt disponible ») et textes du configurateur (`configurateur.ts`).
