@@ -1,4 +1,12 @@
-import { CLE_STOCKAGE, chargerEtat, enregistrerEtat, etatVide, formuleDepuisAdresse, lireEtat } from './stockage';
+import {
+  CLE_STOCKAGE,
+  chargerEtat,
+  enregistrerEtat,
+  etatVide,
+  formuleDepuisAdresse,
+  lireEtat,
+  ongletDepuisAdresse,
+} from './stockage';
 
 describe('stockage du configurateur', () => {
   beforeEach(() => window.localStorage.clear());
@@ -58,6 +66,12 @@ describe('stockage du configurateur', () => {
     expect(() => enregistrerEtat(etatVide)).not.toThrow();
     espion.mockRestore();
     espion2.mockRestore();
+  });
+
+  it('lit l’onglet demandé dans l’adresse', () => {
+    expect(ongletDepuisAdresse('?onglet=informatique')).toBe('informatique');
+    expect(ongletDepuisAdresse('?onglet=web')).toBe('web');
+    expect(ongletDepuisAdresse('?onglet=autre')).toBeNull();
   });
 
   it('lit la formule demandée dans l’adresse', () => {
