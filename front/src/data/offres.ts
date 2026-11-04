@@ -12,6 +12,8 @@ export type Formule = {
   delai: string;
   /** Points forts affichés sur les cartes d'offre. */
   pointsForts: string[];
+  /** Description courte, pour le configurateur. */
+  description: string;
 };
 
 export const formules: Formule[] = [
@@ -22,6 +24,7 @@ export const formules: Formule[] = [
     prix: 99,
     prixMinimum: false,
     delai: '3 jours',
+    description: '1 page pour être visible vite.',
     pointsForts: [
       '1 page sur un modèle soigné',
       'Mise en ligne et HTTPS',
@@ -36,6 +39,7 @@ export const formules: Formule[] = [
     prix: 390,
     prixMinimum: false,
     delai: '1 à 2 semaines',
+    description: "Jusqu'à 5 pages, formulaire, référencement local.",
     pointsForts: [
       "Jusqu'à 5 pages, design personnalisé",
       'Formulaire de contact, galerie',
@@ -50,6 +54,7 @@ export const formules: Formule[] = [
     prix: 989,
     prixMinimum: true,
     delai: '3 à 6 semaines',
+    description: 'Rendez-vous, devis, boutique, appli : un outil qui travaille.',
     pointsForts: [
       'Rendez-vous en ligne et acompte',
       'Appli installable sur téléphone',
@@ -58,6 +63,197 @@ export const formules: Formule[] = [
     ],
   },
 ];
+
+/** Retrouve une formule par son identifiant. */
+export function formuleParId(id: FormuleId) {
+  return formules.find((formule) => formule.id === id) as Formule;
+}
+
+/** Activités proposées dans le configurateur. */
+export type MetierId = 'artisan' | 'commerce' | 'restaurant' | 'sante' | 'autre';
+
+export const metiers: { id: MetierId; nom: string }[] = [
+  { id: 'artisan', nom: 'Artisan à domicile' },
+  { id: 'commerce', nom: 'Commerce / e-commerce' },
+  { id: 'restaurant', nom: 'Restaurant / bar' },
+  { id: 'sante', nom: 'Santé / bien-être' },
+  { id: 'autre', nom: 'Autre activité' },
+];
+
+/** Options (cahier des charges, section 4). */
+export type OptionId =
+  | 'page'
+  | 'galerie'
+  | 'textes'
+  | 'logo'
+  | 'avantapres'
+  | 'avis'
+  | 'seo'
+  | 'anglais'
+  | 'rdv'
+  | 'acompte'
+  | 'calcul'
+  | 'pwa'
+  | 'espace'
+  | 'boutique'
+  | 'table'
+  | 'clickcollect';
+
+export type Option = {
+  id: OptionId;
+  nom: string;
+  description: string;
+  prix: number;
+  /** Prix minimum : « dès + 300 € ». */
+  prixMinimum?: boolean;
+  /** Unité de prix, par exemple « / page ». */
+  unite?: string;
+};
+
+export const options: Record<OptionId, Option> = {
+  page: { id: 'page', nom: 'Page supplémentaire', description: 'Une page de plus : services, équipe…', prix: 50 },
+  galerie: { id: 'galerie', nom: 'Galerie photos', description: 'Montrez votre travail en images.', prix: 80 },
+  textes: { id: 'textes', nom: 'Rédaction des textes', description: 'Je les écris pour vous.', prix: 60, unite: ' / page' },
+  logo: { id: 'logo', nom: 'Logo simple', description: 'Une identité à vous.', prix: 150 },
+  avantapres: { id: 'avantapres', nom: 'Avant / après', description: 'Glissez pour voir la différence.', prix: 80 },
+  avis: { id: 'avis', nom: 'Avis Google affichés', description: 'Vos étoiles mises en avant.', prix: 60 },
+  seo: { id: 'seo', nom: 'SEO avancé', description: 'Pages par ville, suivi Google.', prix: 150 },
+  anglais: { id: 'anglais', nom: 'Site en anglais', description: "Pour les touristes et l'export.", prix: 150 },
+  rdv: { id: 'rdv', nom: 'Rendez-vous en ligne', description: 'Vos clients réservent seuls, rappel la veille.', prix: 400 },
+  acompte: { id: 'acompte', nom: 'Acompte en ligne', description: 'Fini les rendez-vous non honorés.', prix: 150 },
+  calcul: {
+    id: 'calcul',
+    nom: 'Calculateur de prix',
+    description: 'Le prix selon vos critères, en direct.',
+    prix: 300,
+    prixMinimum: true,
+  },
+  pwa: { id: 'pwa', nom: 'Appli sur téléphone', description: "Le site s'installe comme une appli.", prix: 200 },
+  espace: { id: 'espace', nom: 'Espace client', description: 'Historique, factures, suivi.', prix: 300 },
+  boutique: {
+    id: 'boutique',
+    nom: 'Boutique en ligne',
+    description: 'Vendez vos produits, paiement sécurisé.',
+    prix: 600,
+    prixMinimum: true,
+  },
+  table: { id: 'table', nom: 'Réservation de table', description: 'Vos clients réservent en 2 clics.', prix: 300 },
+  clickcollect: {
+    id: 'clickcollect',
+    nom: 'Click & collect',
+    description: 'Commande en ligne, retrait sur place.',
+    prix: 300,
+  },
+};
+
+/** Options proposées pour les formules Vitrine et Vitrine+ (quel que soit le métier). */
+export const optionsParFormule: Record<Exclude<FormuleId, 'fonctionnel'>, OptionId[]> = {
+  vitrine: ['page', 'galerie', 'textes', 'logo'],
+  vitrinePlus: ['avantapres', 'avis', 'textes', 'logo', 'seo', 'anglais'],
+};
+
+/** Options proposées pour la formule Fonctionnel, selon le métier. */
+export const optionsParMetier: Record<MetierId, OptionId[]> = {
+  artisan: ['rdv', 'acompte', 'calcul', 'pwa', 'espace', 'avantapres'],
+  commerce: ['boutique', 'clickcollect', 'espace', 'seo', 'avis', 'pwa'],
+  restaurant: ['table', 'clickcollect', 'avis', 'pwa', 'anglais'],
+  sante: ['rdv', 'acompte', 'espace', 'pwa', 'avis'],
+  autre: ['rdv', 'calcul', 'boutique', 'espace', 'pwa', 'seo'],
+};
+
+/** Précisions demandées pour certaines options (sous-questions). */
+export type Precision = {
+  question: string;
+  choix: { id: string; label: string; prix: number; note?: string }[];
+};
+
+export const precisions: Partial<Record<OptionId, Precision>> = {
+  rdv: {
+    question: 'Où ont lieu vos rendez-vous ?',
+    choix: [
+      { id: 'client', label: 'Chez le client', prix: 0, note: "Zone et frais de déplacement calculés selon l'adresse." },
+      { id: 'chezvous', label: 'Chez vous', prix: 0, note: 'Adresse et accès affichés à la réservation.' },
+      { id: 'deux', label: 'Les deux', prix: 0, note: "Le client choisit, les frais s'ajoutent si besoin." },
+    ],
+  },
+  boutique: {
+    question: 'Combien de produits à vendre ?',
+    choix: [
+      { id: 'p20', label: 'Moins de 20', prix: 0 },
+      { id: 'p100', label: '20 à 100', prix: 200 },
+      { id: 'p100plus', label: 'Plus de 100', prix: 500 },
+    ],
+  },
+  calcul: {
+    question: 'Votre prix dépend surtout…',
+    choix: [
+      { id: 'surface', label: "d'une surface", prix: 0, note: 'Le client saisit ses m², le prix s’affiche.' },
+      { id: 'vehicule', label: "d'un véhicule ou modèle", prix: 0, note: "Le client choisit son modèle, le tarif s'adapte." },
+      { id: 'quantite', label: "d'une quantité", prix: 0, note: 'Prix dégressif selon la quantité.' },
+      { id: 'distance', label: "d'une distance", prix: 0, note: 'Calcul automatique depuis votre adresse.' },
+    ],
+  },
+  pwa: {
+    question: 'Des notifications sur le téléphone ?',
+    choix: [
+      { id: 'oui', label: 'Oui, rappels et nouveautés', prix: 0 },
+      { id: 'non', label: 'Non, pas besoin', prix: 0 },
+    ],
+  },
+  table: {
+    question: 'Un acompte pour les grandes tablées ?',
+    choix: [
+      { id: 'oui', label: 'Oui', prix: 150, note: "Acompte demandé au-delà d'un nombre de couverts." },
+      { id: 'non', label: 'Non', prix: 0 },
+    ],
+  },
+};
+
+/** Packs : si toutes les options requises sont choisies, une option est offerte. */
+export type Pack = { id: string; nom: string; requises: OptionId[]; offerte: OptionId };
+
+export const packs: Pack[] = [
+  { id: 'reservation', nom: 'Pack Réservation sereine', requises: ['rdv', 'acompte'], offerte: 'avis' },
+  { id: 'toutEnUn', nom: 'Pack Tout-en-un', requises: ['rdv', 'acompte', 'espace'], offerte: 'pwa' },
+  { id: 'boutique', nom: 'Pack Boutique visible', requises: ['boutique', 'seo'], offerte: 'avis' },
+  { id: 'restaurant', nom: 'Pack Restaurant complet', requises: ['table', 'clickcollect'], offerte: 'avis' },
+  { id: 'image', nom: 'Pack Image de marque', requises: ['logo', 'textes'], offerte: 'page' },
+];
+
+/** Prix du marché, avec leur source (à toujours afficher). */
+export type MarcheId = 'vitrine' | 'vitrinePlus' | 'boutique' | 'surMesure';
+export type Marche = { fourchette: string; bas: number; haut: number; description: string; source: string };
+
+export const marche: Record<MarcheId, Marche> = {
+  vitrine: {
+    fourchette: '300 – 1 200 €',
+    bas: 300,
+    haut: 1200,
+    description: 'site une page par un freelance',
+    source: 'Plateya, 2026',
+  },
+  vitrinePlus: {
+    fourchette: '800 – 4 000 €',
+    bas: 800,
+    haut: 4000,
+    description: 'site vitrine 5 à 10 pages par un freelance',
+    source: 'Plateya, 2026',
+  },
+  boutique: {
+    fourchette: '3 000 – 40 000 €',
+    bas: 3000,
+    haut: 40000,
+    description: 'site e-commerce en agence (médiane 10 000 €)',
+    source: 'La Fabrique du Net, 2026',
+  },
+  surMesure: {
+    fourchette: '6 000 – 45 000 €',
+    bas: 6000,
+    haut: 45000,
+    description: 'site sur mesure / applicatif en agence (médiane 18 000 €)',
+    source: 'La Fabrique du Net, 2026',
+  },
+};
 
 /** Tarif horaire après la mise en ligne. */
 export const tarifHoraire = 50;
@@ -71,6 +267,11 @@ export const mentionsPrix = {
 export function formatPrix(montant: number) {
   const nombre = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 }).format(montant);
   return `${nombre} €`.replace(/[  ]/g, ' ');
+}
+
+/** Prix affiché d'une option : « + 80 € », « dès + 300 € » ou « + 60 € / page ». */
+export function prixOption(option: Option) {
+  return `${option.prixMinimum ? 'dès ' : ''}+ ${formatPrix(option.prix)}${option.unite ?? ''}`;
 }
 
 /** Prix affiché d'une formule : « 99 € » ou « dès 989 € ». */
