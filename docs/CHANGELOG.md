@@ -17,3 +17,4 @@
 - Pied de page : présentation, e-mail, portfolio et pages légales.
 - Barre « Estimer » fixe en bas de l'écran sur mobile, masquée sur les pages Composer et Devis.
 - Mise en page commune : lien d'évitement « Aller au contenu », en-tête, pied de page et barre mobile sur toutes les pages.
+- Bloc réutilisable `RotatingWords` (mots qui défilent, liste complète pour les lecteurs d'écran, figé si animations réduites).
