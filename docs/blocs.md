@@ -10,5 +10,6 @@ Liste des blocs de `front/src/blocks/`. Chaque bloc a son propre `README.md`.
 | [`Marquee`](../front/src/blocks/Marquee/README.md) | bande qui défile en continu | prêt |
 | [`Card`](../front/src/blocks/Card/README.md) | carte arrondie, trois fonds, effet de survol | prêt |
 | [`Reveal`](../front/src/blocks/Reveal/README.md) | apparition en fondu au défilement | prêt |
+| [`SectionTitle`](../front/src/blocks/SectionTitle/README.md) | sur-titre, titre et introduction de section | prêt |
 
 Les blocs animés s'appuient sur `src/blocks/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».

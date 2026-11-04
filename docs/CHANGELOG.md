@@ -21,3 +21,4 @@
 - Bloc réutilisable `Marquee` (bande défilante, figée et sur plusieurs lignes si animations réduites).
 - Bloc réutilisable `Card` (carte, fonds blanc / gris / bleu marine, effet de survol).
 - Bloc réutilisable `Reveal` (apparition au défilement, visible d'emblée si animations réduites).
+- Bloc réutilisable `SectionTitle` (sur-titre, titre, introduction).
