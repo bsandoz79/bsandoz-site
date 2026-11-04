@@ -1,0 +1,170 @@
+.hero {
+  padding-block: var(--space-7) var(--space-8);
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.badge {
+  align-self: flex-start;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-rose-soft);
+  color: var(--color-rose-dark);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.titre {
+  max-width: 48rem;
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.intro {
+  max-width: 40rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.grille {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fonction {
+  height: 100%;
+  gap: var(--space-2);
+}
+
+.fonctionNom {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.prix {
+  margin-top: auto;
+  color: var(--color-rose-dark);
+  font-weight: 700;
+}
+
+.colonnes {
+  display: grid;
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.realisation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 26rem;
+}
+
+.realisationTitre {
+  font-weight: 700;
+}
+
+.appel {
+  padding-bottom: var(--space-8);
+}
+
+.appelBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-7) var(--space-5);
+  border-radius: 2rem;
+  background: var(--color-navy);
+  color: var(--color-text-on-dark);
+}
+
+.appelTexte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 38rem;
+}
+
+.appelTitre {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+}
+
+.appelIntro {
+  color: var(--color-text-on-dark-muted);
+  font-size: var(--text-lg);
+}
+
+.outline,
+.outline:hover {
+  border-color: var(--color-text-on-dark);
+  background: transparent;
+  color: var(--color-text-on-dark);
+}
+.outline:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .hero {
+    padding-block: var(--space-8);
+  }
+
+  .grille {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  .colonnes {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .appel {
+    padding-bottom: var(--space-9);
+  }
+
+  .appelBox {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-8) var(--space-7);
+  }
+}

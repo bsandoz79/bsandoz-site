@@ -5,6 +5,7 @@ import { pages } from '../data/pages';
 import { Composer } from '../pages/Composer';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
+import { Metier } from '../pages/Metier';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
 import { Tarifs } from '../pages/Tarifs';
@@ -17,6 +18,10 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   tarifs: <Tarifs />,
   composer: <Composer />,
   informatique: <Informatique />,
+  artisan: <Metier id="artisan" />,
+  ecommerce: <Metier id="ecommerce" />,
+  restaurant: <Metier id="restaurant" />,
+  independant: <Metier id="independant" />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

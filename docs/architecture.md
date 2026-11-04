@@ -21,9 +21,11 @@ front/src/
 
 - **Tarifs** (`pages/Tarifs`) : formules, encadré sur le prix du fonctionnel, `Simulateur` (simulation du Fonctionnel avec les blocs `ChoiceChips`, `OptionCard` et `PriceSummary`, calculs de `data/calculs.ts`), après la mise en ligne. Textes dans `data/tarifs.ts`. Le configurateur complet reste `/composer`.
 
-- **Composer** (`pages/Composer`) : `useComposer` tient l'état (onglet, configuration, demande d'informatique) et l'enregistre dans le navigateur sous la clé `bsandoz.composer` (`stockage.ts` : lecture validée, sans effet si le stockage est bloqué). `?formule=<id>` préremplit la formule, `?onglet=informatique` ouvre l'onglet informatique. `ConfigurateurWeb` (étapes), `Estimation` (bloc `PriceSummary`), `ComparaisonMarche` (deux barres + source), `ConfigurateurInformatique`. Les onglets suivent le modèle ARIA (flèches, Début, Fin). `Apercu` affiche à droite le bloc `SitePreview` (ou « Bon à savoir » pour l'informatique), collant, masqué sous 1 000 px.
+- **Composer** (`pages/Composer`) : `useComposer` tient l'état (onglet, configuration, demande d'informatique) et l'enregistre dans le navigateur sous la clé `bsandoz.composer` (`stockage.ts` : lecture validée, sans effet si le stockage est bloqué). `etatDepuisAdresse` applique l'adresse : `?formule=<id>` et `?metier=<id>` préremplissent les choix, `?onglet=informatique` ouvre l'onglet informatique. `ConfigurateurWeb` (étapes), `Estimation` (bloc `PriceSummary`), `ComparaisonMarche` (deux barres + source), `ConfigurateurInformatique`. Les onglets suivent le modèle ARIA (flèches, Début, Fin). `Apercu` affiche à droite le bloc `SitePreview` (ou « Bon à savoir » pour l'informatique), collant, masqué sous 1 000 px.
 
 - **Informatique** (`pages/Informatique`) : prestations, déroulement et tarif sur devis ; textes et déroulement (partagé avec le configurateur) dans `data/informatique.ts`.
+
+- **Pages métier** (`pages/Metier`, une seule page paramétrée par `id`) : contenus dans `data/metiers.ts` ; fonctions et prix tirés de `data/offres.ts`, exemple dessiné par `modeleApercu`, bouton vers `/composer?formule=fonctionnel&metier=<id>`.
 
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
@@ -40,6 +42,7 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `src/data/informatique.ts` : prestations d'informatique sur place (sans prix : « Tarif sur devis »), publics.
 - `src/data/configurateur.ts` : textes du configurateur.
 - `src/data/apercu.ts` : `modeleApercu(config)` construit le modèle du bloc `SitePreview` (entreprise d'exemple du métier, navigation, sections, appli, résultat Google) et sa description textuelle.
+- `src/data/metiers.ts` : contenus des 4 pages métier.
 - `src/data/tarifs.ts` : textes de la page Tarifs.
 - `src/data/accueil.ts` : textes de la page d'accueil, repris de la maquette `Main`.
 - `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.

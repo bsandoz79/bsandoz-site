@@ -6,8 +6,7 @@ import {
   chargerEtat,
   enregistrerEtat,
   etatVide,
-  formuleDepuisAdresse,
-  ongletDepuisAdresse,
+  etatDepuisAdresse,
   type EtatComposer,
   type Onglet,
 } from './stockage';
@@ -17,18 +16,7 @@ const basculer = <T>(liste: T[], valeur: T) =>
 
 /** État du configurateur, enregistré dans le navigateur à chaque changement. */
 export function useComposer(recherche: string) {
-  const [etat, setEtat] = useState<EtatComposer>(() => {
-    const initial = chargerEtat();
-    const onglet = ongletDepuisAdresse(recherche);
-    const formule = formuleDepuisAdresse(recherche);
-    if (!formule) return onglet ? { ...initial, onglet } : initial;
-    const { metier, options } = initial.config;
-    return {
-      ...initial,
-      onglet: 'web',
-      config: { ...initial.config, formule, options: garderOptionsValides(options, formule, metier) },
-    };
-  });
+  const [etat, setEtat] = useState<EtatComposer>(() => etatDepuisAdresse(chargerEtat(), recherche));
 
   useEffect(() => enregistrerEtat(etat), [etat]);
 
