@@ -29,7 +29,7 @@ export const pages = {
     title: 'Tarifs',
     description:
       'Trois formules aux prix affichés : vitrine, vitrine+ et site fonctionnel. Simulez le prix de votre site.',
-    heading: 'Tarifs',
+    heading: 'Des prix clairs, selon ce dont vous avez vraiment besoin.',
   },
   composer: {
     path: '/composer',
