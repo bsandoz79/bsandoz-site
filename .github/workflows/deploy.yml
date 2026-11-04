@@ -1,0 +1,43 @@
+name: Déploiement o2switch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build et envoi FTP
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: front/package-lock.json
+      - name: Installation, tests et build
+        working-directory: front
+        run: |
+          npm ci
+          npm run test
+          npm run build
+      - name: Secrets absents
+        if: env.FTP_SERVER == ''
+        run: echo "Secrets FTP non configurés : déploiement ignoré (voir docs/deploiement.md)."
+      - name: Envoi sur o2switch
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: front/dist/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
