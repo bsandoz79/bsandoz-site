@@ -14,7 +14,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/informatique` : onglet et page Informatique sur place (réseau « Bientôt disponible »)
 - [x] `feature/metiers` : 4 pages métier
 - [x] `feature/realisations-apropos-faq`
-- [ ] `feature/devis-front` : parcours en 5 étapes, envoi par mail (service d'envoi simple ou script PHP sur o2switch), sauvegarde locale
+- [x] `feature/devis-front` : parcours en 5 étapes, envoi par mail (service d'envoi simple ou script PHP sur o2switch), sauvegarde locale
 - [ ] `feature/legal-seo` : mentions légales, CGV, confidentialité, données structurées, sitemap, robots.txt
 - [ ] Mise en ligne sur `preview.bsandoz.fr` puis `bsandoz.fr`
 

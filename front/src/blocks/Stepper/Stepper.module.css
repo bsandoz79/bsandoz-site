@@ -1,0 +1,77 @@
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.track {
+  height: 0.375rem;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
+}
+
+.bar {
+  width: var(--stepper-progress, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-rose);
+  transition: width var(--duration);
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--color-border);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.done .dot {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.current {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.current .dot {
+  background: var(--color-rose);
+  color: var(--color-text-on-dark);
+}
+
+/* Sur téléphone, seule l'étape en cours garde son nom. */
+@media (max-width: 639px) {
+  .step:not(.current) .name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
