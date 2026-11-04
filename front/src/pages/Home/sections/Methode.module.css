@@ -1,0 +1,29 @@
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-navy);
+  color: var(--color-text-on-dark);
+  font-weight: 700;
+}
+
+.last {
+  background: var(--color-rose);
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}

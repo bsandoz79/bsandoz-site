@@ -1,0 +1,37 @@
+import { render, screen } from '@testing-library/react';
+import type { ReactElement } from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { realisations } from '../../data/realisations';
+import { RealisationCard } from './RealisationCard';
+
+const [moto, detailing] = realisations;
+
+function renderCard(ui: ReactElement) {
+  return render(<MemoryRouter>{ui}</MemoryRouter>);
+}
+
+describe('RealisationCard', () => {
+  it('affiche le métier, le titre, le résumé et un lien explicite', () => {
+    renderCard(<RealisationCard realisation={moto} />);
+    const article = screen.getByRole('article', { name: moto.titre });
+    expect(article).toHaveTextContent(moto.categorie);
+    expect(article).toHaveTextContent(moto.resume);
+    expect(screen.getByRole('heading', { level: 3, name: moto.titre })).toBeInTheDocument();
+    const link = screen.getByRole('link');
+    expect(link).toHaveAccessibleName(expect.stringContaining(moto.lien.label));
+    expect(link).toHaveAccessibleName(expect.stringContaining(moto.titre));
+    expect(link).toHaveAttribute('href', moto.lien.to);
+  });
+
+  it('cache l’aperçu provisoire aux lecteurs d’écran', () => {
+    const { container } = renderCard(<RealisationCard realisation={detailing} />);
+    const apercu = container.querySelector('[aria-hidden="true"]');
+    expect(apercu).toHaveTextContent('[écran réservation]');
+    expect(apercu).toHaveTextContent('[écran acompte]');
+  });
+
+  it('accepte un titre de niveau 2', () => {
+    renderCard(<RealisationCard realisation={moto} headingLevel={2} />);
+    expect(screen.getByRole('heading', { level: 2, name: moto.titre })).toBeInTheDocument();
+  });
+});

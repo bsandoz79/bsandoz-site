@@ -17,3 +17,12 @@
 - Pied de page : présentation, e-mail, portfolio et pages légales.
 - Barre « Estimer » fixe en bas de l'écran sur mobile, masquée sur les pages Composer et Devis.
 - Mise en page commune : lien d'évitement « Aller au contenu », en-tête, pied de page et barre mobile sur toutes les pages.
+- Bloc réutilisable `RotatingWords` (mots qui défilent, liste complète pour les lecteurs d'écran, figé si animations réduites).
+- Bloc réutilisable `Marquee` (bande défilante, figée et sur plusieurs lignes si animations réduites).
+- Bloc réutilisable `Card` (carte, fonds blanc / gris / bleu marine, effet de survol).
+- Bloc réutilisable `Reveal` (apparition au défilement, visible d'emblée si animations réduites).
+- Bloc réutilisable `SectionTitle` (sur-titre, titre, introduction).
+- Polices Plus Jakarta Sans et Inter chargées ; animation `anim-pulse` pour le bouton principal.
+- Données : formules et formatage des prix (`offres.ts`), réalisations (`realisations.ts`), textes de l'accueil (`accueil.ts`).
+- Composant `RealisationCard` : carte d'une réalisation avec aperçu provisoire en attendant les captures.
+- Page d'accueil complète : hero (mots qui tournent, écran de réservation de démonstration sur ordinateur), bande des métiers, problèmes → solutions, offres, réalisations, méthode en 4 étapes, « Pourquoi travailler avec moi », appel à l'action.
