@@ -89,3 +89,26 @@ export function formuleDepuisAdresse(recherche: string): FormuleId | null {
   const valeur = new URLSearchParams(recherche).get('formule');
   return estFormule(valeur) ? valeur : null;
 }
+
+/** Métier demandé dans l'adresse (`/composer?metier=artisan`), si il existe. */
+export function metierDepuisAdresse(recherche: string): MetierId | null {
+  const valeur = new URLSearchParams(recherche).get('metier');
+  return estMetier(valeur) ? valeur : null;
+}
+
+/**
+ * Applique l'adresse à l'état enregistré : `?onglet=`, `?formule=` et `?metier=`.
+ * Une formule ou un métier ramène sur l'onglet des sites ; les options incompatibles sont retirées.
+ */
+export function etatDepuisAdresse(etat: EtatComposer, recherche: string): EtatComposer {
+  const onglet = ongletDepuisAdresse(recherche);
+  const formule = formuleDepuisAdresse(recherche) ?? etat.config.formule;
+  const metier = metierDepuisAdresse(recherche) ?? etat.config.metier;
+  const changeConfig = formule !== etat.config.formule || metier !== etat.config.metier;
+  if (!changeConfig) return onglet ? { ...etat, onglet } : etat;
+  return {
+    ...etat,
+    onglet: 'web',
+    config: { ...etat.config, formule, metier, options: garderOptionsValides(etat.config.options, formule, metier) },
+  };
+}
