@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button } from './Button';
+import { Button, buttonClassName } from './Button';
 
 describe('Button', () => {
   it('rend un vrai bouton de type « button » par défaut', () => {
@@ -57,5 +57,12 @@ describe('Button', () => {
   it('utilise la variante principale par défaut', () => {
     render(<Button>Voir</Button>);
     expect(screen.getByRole('button')).toHaveClass('primary', 'md');
+  });
+
+  it('fournit les classes pour habiller un autre élément', () => {
+    expect(buttonClassName()).toBe('button primary md');
+    expect(buttonClassName({ variant: 'ghost', block: true, className: 'extra' })).toBe(
+      'button ghost md block extra',
+    );
   });
 });

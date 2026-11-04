@@ -21,6 +21,12 @@ import { Button } from '../blocks/Button';
 
 Toutes les autres propriétés natives (`onClick`, `disabled`, `aria-*`, `target`…) sont transmises.
 
+## Habiller un autre élément
+`buttonClassName({ variant, size, block, className })` renvoie les classes du bouton, par exemple pour un lien de routeur :
+```tsx
+<Link to="/contact" className={buttonClassName({ variant: 'secondary' })}>Me contacter</Link>
+```
+
 ## Accessibilité
 - Hauteur minimale de 44 px (cible tactile).
 - Contour de focus global (`:focus-visible`).

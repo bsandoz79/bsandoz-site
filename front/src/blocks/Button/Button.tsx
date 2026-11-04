@@ -21,20 +21,33 @@ type AsLink = CommonProps &
 
 export type ButtonProps = AsButton | AsLink;
 
+export type ButtonStyleOptions = {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  block?: boolean;
+  className?: string;
+};
+
+/**
+ * Classes CSS du bouton. Permet d'habiller un autre élément (ex. un lien de routeur) comme un bouton.
+ */
+export function buttonClassName({
+  variant = 'primary',
+  size = 'md',
+  block = false,
+  className,
+}: ButtonStyleOptions = {}) {
+  return [styles.button, styles[variant], styles[size], block ? styles.block : '', className ?? '']
+    .filter(Boolean)
+    .join(' ');
+}
+
 /**
  * Bouton réutilisable. Rend un vrai `<button>`, ou un lien `<a>` si `href` est fourni.
  */
 export function Button(props: ButtonProps) {
-  const { children, variant = 'primary', size = 'md', block = false, className, ...rest } = props;
-  const classes = [
-    styles.button,
-    styles[variant],
-    styles[size],
-    block ? styles.block : '',
-    className ?? '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const { children, variant, size, block, className, ...rest } = props;
+  const classes = buttonClassName({ variant, size, block, className });
 
   if (rest.href !== undefined) {
     const linkProps = rest as AnchorHTMLAttributes<HTMLAnchorElement>;
