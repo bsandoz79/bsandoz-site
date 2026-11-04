@@ -25,4 +25,5 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - Une page qui n'a pas encore de contenu affiche `pages/Placeholder` ; elle est remplacée par sa vraie page dans la branche prévue au plan.
 - Toute adresse inconnue affiche `pages/NotFound` (404, `noindex`).
 - `src/data/navigation.ts` regroupe les libellés et liens de l'en-tête, des onglets de services, du pied de page et de la barre mobile, ainsi que le contact (le téléphone n'est affiché qu'une fois renseigné).
+- `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.
 - `components/PageMeta` met à jour le titre de l'onglet (« Titre – Baptiste Sandoz ») et la meta description déjà présents dans `index.html`, sans les dupliquer.
