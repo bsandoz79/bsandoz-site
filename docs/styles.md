@@ -10,4 +10,8 @@ Le CSS est découpé ainsi :
 | `src/styles/animations.css` | animations partagées, coupées si « réduire les animations » |
 | `Bloc.module.css` | styles d'un bloc ou composant, uniquement avec les variables |
 
+Polices : Plus Jakarta Sans (titres) et Inter (texte), chargées depuis Google Fonts dans `index.html`.
+
+Animations partagées : `anim-appear`, `anim-float` (flottement), `anim-pulse` (halo autour du bouton principal), et l'animation `marquee` utilisée par le bloc `Marquee`.
+
 Couleurs : bleu marine `--color-navy` et rose `--color-rose` (logo SB).

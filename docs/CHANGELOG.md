@@ -22,3 +22,4 @@
 - Bloc réutilisable `Card` (carte, fonds blanc / gris / bleu marine, effet de survol).
 - Bloc réutilisable `Reveal` (apparition au défilement, visible d'emblée si animations réduites).
 - Bloc réutilisable `SectionTitle` (sur-titre, titre, introduction).
+- Polices Plus Jakarta Sans et Inter chargées ; animation `anim-pulse` pour le bouton principal.
