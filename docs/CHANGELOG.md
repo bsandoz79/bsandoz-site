@@ -20,3 +20,4 @@
 - Bloc réutilisable `RotatingWords` (mots qui défilent, liste complète pour les lecteurs d'écran, figé si animations réduites).
 - Bloc réutilisable `Marquee` (bande défilante, figée et sur plusieurs lignes si animations réduites).
 - Bloc réutilisable `Card` (carte, fonds blanc / gris / bleu marine, effet de survol).
+- Bloc réutilisable `Reveal` (apparition au défilement, visible d'emblée si animations réduites).
