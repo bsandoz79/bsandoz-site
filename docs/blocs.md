@@ -15,5 +15,6 @@ Liste des blocs de `front/src/blocks/`. Chaque bloc a son propre `README.md`.
 | [`OptionCard`](../front/src/blocks/OptionCard/README.md) | carte à cocher : titre, description, prix | prêt |
 | [`PriceSummary`](../front/src/blocks/PriceSummary/README.md) | récapitulatif de prix : total annoncé, détail, lignes offertes | prêt |
 | [`SitePreview`](../front/src/blocks/SitePreview/README.md) | aperçu dessiné d'un site d'exemple, construit depuis un modèle | prêt |
+| [`Accordion`](../front/src/blocks/Accordion/README.md) | questions dépliables (`details` / `summary`), pour une FAQ | prêt |
 
 Les blocs animés s'appuient sur `src/blocks/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».
