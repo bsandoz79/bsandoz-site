@@ -13,5 +13,6 @@ Liste des blocs de `front/src/blocks/`. Chaque bloc a son propre `README.md`.
 | [`SectionTitle`](../front/src/blocks/SectionTitle/README.md) | sur-titre, titre et introduction de section | prêt |
 | [`ChoiceChips`](../front/src/blocks/ChoiceChips/README.md) | choix unique en pastilles (boutons radio) | prêt |
 | [`OptionCard`](../front/src/blocks/OptionCard/README.md) | carte à cocher : titre, description, prix | prêt |
+| [`PriceSummary`](../front/src/blocks/PriceSummary/README.md) | récapitulatif de prix : total annoncé, détail, lignes offertes | prêt |
 
 Les blocs animés s'appuient sur `src/blocks/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».

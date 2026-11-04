@@ -33,3 +33,4 @@
 - Calculs du configurateur (`calculs.ts`) : options disponibles, packs actifs, estimation détaillée (valeur, offert, total, fourchette, délai), suggestions, comparaison avec le marché.
 - Bloc réutilisable `ChoiceChips` (choix unique en pastilles, vrais boutons radio).
 - Bloc réutilisable `OptionCard` (carte à cocher avec description et prix, option désactivable).
+- Bloc réutilisable `PriceSummary` (récapitulatif de prix, total annoncé aux lecteurs d'écran, lignes offertes barrées).
