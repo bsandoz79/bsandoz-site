@@ -53,4 +53,5 @@
 - Bloc réutilisable `Accordion` (questions dépliables sur `details` / `summary`, ancre par question).
 - Page FAQ : délais, contenus à fournir, propriété du site, hébergement, modifications, WordPress, paiement ; réponses tirées des données (délais, prix), sans rien inventer.
 - Bloc réutilisable `Stepper` (barre de progression et étapes, étape en cours annoncée).
+- Bloc réutilisable `TextField` (champ ou zone de texte, aide et erreur reliées au champ).
 - Demande de devis : données du parcours (`data/devis.ts`) et logique pure (validation par étape, photos, brouillon dans le navigateur, récapitulatif, préparation de l'envoi).
