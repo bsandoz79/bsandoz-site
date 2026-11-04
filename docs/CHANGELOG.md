@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Ajouté
+- Cahier des charges, plan de développement et maquette de référence (`docs/`).
 - Initialisation du front (React, Vite, TypeScript).
 - Règles du projet (`.claude/CLAUDE.md`) et documentation de base.
 - Configuration des tests : Vitest, Testing Library, jsdom (`npm run test`).

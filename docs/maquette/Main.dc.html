@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Accueil – bsandoz.fr</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F6FA}
+a{color:#16213E}a:hover{color:#C9184A}
+.lift{transition:transform .25s ease, box-shadow .25s ease}
+.lift:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(22,33,62,.12)}
+.rot{display:inline-block;height:1.15em;overflow:hidden;vertical-align:bottom}
+.rot-in{display:flex;flex-direction:column;animation:rot 10s infinite}
+@keyframes rot{0%,20%{transform:translateY(0)}25%,45%{transform:translateY(-1.15em)}50%,70%{transform:translateY(-2.3em)}75%,95%{transform:translateY(-3.45em)}100%{transform:translateY(0)}}
+.mq{display:flex;gap:56px;width:max-content;animation:mq 32s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.float{animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px rgba(201,24,74,0)}0%{box-shadow:0 0 0 0 rgba(201,24,74,.35)}}
+@media (prefers-reduced-motion: reduce){.rot-in,.mq,.float,.pulse{animation:none}.lift{transition:none}}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #16213E; background: #F7F6FA; min-height: 100vh">
+
+<header style="background: #FFFFFF; border-bottom: 1px solid #E4E2EC">
+<nav aria-label="Navigation principale" style="max-width: 1180px; margin: 0 auto; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap">
+<a href="#" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 12px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px">S<span style="color: #F28CAB">B</span></span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px; color: #16213E">Baptiste Sandoz</span>
+</a>
+<div style="display: flex; align-items: center; gap: 28px; flex-wrap: wrap; font-size: 15px; font-weight: 500">
+<a href="#" style="text-decoration: none">Réalisations</a>
+<a href="#" style="text-decoration: none">Métiers</a>
+<a href="#" style="text-decoration: none">Tarifs</a>
+<a href="#" style="text-decoration: none">À propos</a>
+<a href="https://portfolio.bsandoz.fr" style="text-decoration: none">Portfolio</a>
+<a href="#" style="text-decoration: none; background: #C9184A; color: #FFFFFF; padding: 12px 20px; border-radius: 999px; font-weight: 600">Estimer mon projet</a>
+</div>
+</nav>
+</header>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 72px 24px 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 56px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span style="align-self: flex-start; background: #FCE7EE; color: #9E0F38; font-weight: 600; font-size: 14px; padding: 8px 14px; border-radius: 999px">Développeur web à Amiens · Somme</span>
+<h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 54px; line-height: 1.08; letter-spacing: -0.02em">Un site qui travaille pour vous, même quand vous êtes sur le terrain.</h1>
+<p style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.2; color: #C9184A">Pour avoir <span class="rot"><span class="rot-in"><span>plus de clients</span><span>moins d'appels manqués</span><span>des rendez-vous la nuit</span><span>des devis en 2 minutes</span></span></span></p>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A5068; max-width: 540px">Sites internet, prise de rendez-vous en ligne et applis pour artisans, commerçants et indépendants. Pensés pour votre métier, à un prix clair.</p>
+<div style="display: flex; gap: 14px; flex-wrap: wrap">
+<a href="Configurateur.dc.html" class="pulse" style="text-decoration: none; background: #C9184A; color: #FFFFFF; padding: 16px 26px; border-radius: 999px; font-weight: 600; font-size: 16px">Estimer mon projet</a>
+<a href="#" style="text-decoration: none; background: #FFFFFF; color: #16213E; padding: 16px 26px; border-radius: 999px; font-weight: 600; font-size: 16px; border: 1.5px solid #16213E">Voir les réalisations</a>
+</div>
+<a href="RDV.dc.html" style="font-size: 15px; font-weight: 600">Vous préférez en parler ? Prenez un rendez-vous gratuit d'une heure →</a>
+<div style="display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; color: #4A5068; font-weight: 500">
+<span>✓ Basé à Amiens</span><span>✓ Réponse sous 24 h</span><span>✓ Votre site vous appartient</span>
+</div>
+</div>
+
+<div style="position: relative; height: 540px; display: flex; justify-content: center; align-items: center">
+<div aria-hidden="true" style="position: absolute; width: 420px; height: 420px; border-radius: 50%; background: #FCE7EE"></div>
+<div class="float" style="position: relative; width: 270px; height: 520px; border-radius: 40px; background: #16213E; padding: 12px; box-sizing: border-box; box-shadow: 0 30px 60px rgba(22,33,62,.25)">
+<div style="width: 100%; height: 100%; border-radius: 30px; background: #FFFFFF; overflow: hidden; display: flex; flex-direction: column">
+<div style="background: #16213E; color: #FFFFFF; padding: 22px 18px 18px">
+<div style="font-size: 12px; opacity: .8">Atelier Brillance</div>
+<div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px; margin-top: 4px">Choisissez votre créneau</div>
+</div>
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; font-weight: 600; color: #4A5068">Novembre 2026</div>
+<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; font-size: 11px; text-align: center">
+<span style="color: #8A8FA3">L</span><span style="color: #8A8FA3">M</span><span style="color: #8A8FA3">M</span><span style="color: #8A8FA3">J</span><span style="color: #8A8FA3">V</span><span style="color: #8A8FA3">S</span><span style="color: #8A8FA3">D</span>
+<span style="padding: 6px 0; color: #B9BCC8">9</span><span style="padding: 6px 0">10</span><span style="padding: 6px 0">11</span><span style="padding: 6px 0">12</span><span style="padding: 6px 0">13</span><span style="padding: 6px 0; background: #C9184A; color: #FFFFFF; border-radius: 8px; font-weight: 600">14</span><span style="padding: 6px 0; color: #B9BCC8">15</span>
+<span style="padding: 6px 0">16</span><span style="padding: 6px 0">17</span><span style="padding: 6px 0">18</span><span style="padding: 6px 0">19</span><span style="padding: 6px 0">20</span><span style="padding: 6px 0">21</span><span style="padding: 6px 0; color: #B9BCC8">22</span>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; font-weight: 600">
+<span style="border: 1.5px solid #C9184A; color: #C9184A; border-radius: 10px; padding: 9px 0; text-align: center; background: #FCE7EE">10:00</span>
+<span style="border: 1px solid #E4E2EC; border-radius: 10px; padding: 9px 0; text-align: center">13:30</span>
+<span style="border: 1px solid #E4E2EC; border-radius: 10px; padding: 9px 0; text-align: center">15:00</span>
+<span style="border: 1px solid #E4E2EC; border-radius: 10px; padding: 9px 0; text-align: center">16:30</span>
+</div>
+<div style="margin-top: 6px; background: #16213E; color: #FFFFFF; border-radius: 12px; padding: 12px; text-align: center; font-size: 13px; font-weight: 600">Réserver · acompte 30 €</div>
+</div>
+</div>
+</div>
+<div class="float" style="position: absolute; left: 0; top: 70px; background: #FFFFFF; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 36px rgba(22,33,62,.14); display: flex; flex-direction: column; gap: 4px; animation-delay: 1s">
+<span style="font-size: 12px; color: #4A5068">Nouveau rendez-vous</span>
+<span style="font-weight: 600; font-size: 14px">Sam. 14 nov · 10:00</span>
+</div>
+<div class="float" style="position: absolute; right: 0; bottom: 90px; background: #FFFFFF; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 36px rgba(22,33,62,.14); display: flex; align-items: center; gap: 10px; animation-delay: 2s">
+<span aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #E3F5EC; color: #13794A; display: flex; align-items: center; justify-content: center; font-weight: 700">✓</span>
+<span style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A5068">Acompte reçu</span><span style="font-weight: 600; font-size: 14px">30,00 €</span></span>
+</div>
+</div>
+</section>
+
+<div style="background: #16213E; color: #FFFFFF; padding: 22px 0; overflow: hidden">
+<div class="mq" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px; white-space: nowrap">
+<span>Detailing auto</span><span style="color: #F28CAB">✦</span><span>Paysagistes</span><span style="color: #F28CAB">✦</span><span>Plombiers</span><span style="color: #F28CAB">✦</span><span>Coiffure à domicile</span><span style="color: #F28CAB">✦</span><span>Restaurants</span><span style="color: #F28CAB">✦</span><span>Boutiques</span><span style="color: #F28CAB">✦</span><span>Coachs</span><span style="color: #F28CAB">✦</span><span>Esthéticiennes</span><span style="color: #F28CAB">✦</span>
+<span>Detailing auto</span><span style="color: #F28CAB">✦</span><span>Paysagistes</span><span style="color: #F28CAB">✦</span><span>Plombiers</span><span style="color: #F28CAB">✦</span><span>Coiffure à domicile</span><span style="color: #F28CAB">✦</span><span>Restaurants</span><span style="color: #F28CAB">✦</span><span>Boutiques</span><span style="color: #F28CAB">✦</span><span>Coachs</span><span style="color: #F28CAB">✦</span><span>Esthéticiennes</span><span style="color: #F28CAB">✦</span>
+</div>
+</div>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 96px 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 680px">
+<span style="color: #C9184A; font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase">Ce qui vous fait perdre des clients</span>
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.15">Votre métier, c'est le terrain. Votre site s'occupe du reste.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<div class="lift" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 15px; color: #4A5068">Vous ratez des appels pendant vos interventions.</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.3">Vos clients réservent seuls, 24 h/24.</span>
+</div>
+<div class="lift" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 15px; color: #4A5068">On ne vous trouve pas sur Google.</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.3">Un site rapide, pensé pour les recherches près de chez vous.</span>
+</div>
+<div class="lift" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 15px; color: #4A5068">Des clients ne viennent pas au rendez-vous.</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.3">Acompte en ligne et rappel automatique la veille.</span>
+</div>
+<div class="lift" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 15px; color: #4A5068">Vous passez vos soirées à faire des devis.</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.3">Un calculateur qui donne le prix à votre place.</span>
+</div>
+</div>
+</section>
+
+<section style="background: #FFFFFF; padding: 96px 0">
+<div style="max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
+<span style="color: #C9184A; font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase">Offres</span>
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.15">Des prix clairs, selon ce dont vous avez vraiment besoin.</h2>
+</div>
+<a href="Configurateur.dc.html" style="font-weight: 600; font-size: 16px">Composer mon site →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: stretch">
+<div class="lift" style="border: 1px solid #E4E2EC; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 18px; background: #F7F6FA">
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">Vitrine</span>
+<span style="font-size: 15px; color: #4A5068">Être visible, vite.</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px">99 €</span>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5">
+<li>1 page sur un modèle soigné</li><li>Mise en ligne et HTTPS</li><li>1 série de retouches</li><li>1 h de formation si vous gérez l'hébergement</li>
+</ul>
+<a href="#" style="margin-top: auto; text-align: center; text-decoration: none; border: 1.5px solid #16213E; border-radius: 999px; padding: 14px; font-weight: 600">Choisir Vitrine</a>
+</div>
+<div class="lift" style="border: 1px solid #E4E2EC; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 18px; background: #F7F6FA">
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">Vitrine+</span>
+<span style="font-size: 15px; color: #4A5068">Une vitrine qui ramène des contacts.</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px">390 €</span>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5">
+<li>Jusqu'à 5 pages, design personnalisé</li><li>Formulaire de contact, galerie</li><li>Référencement local + fiche Google</li><li>2 séries de retouches</li>
+</ul>
+<a href="#" style="margin-top: auto; text-align: center; text-decoration: none; border: 1.5px solid #16213E; border-radius: 999px; padding: 14px; font-weight: 600">Choisir Vitrine+</a>
+</div>
+<div class="lift" style="border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 18px; background: #16213E; color: #FFFFFF; position: relative">
+<span style="position: absolute; top: -14px; right: 24px; background: #C9184A; color: #FFFFFF; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px">Le plus complet</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">Fonctionnel</span>
+<span style="font-size: 15px; color: #C9CDE0">Un outil qui travaille pour vous.</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px">dès 989 €</span>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5">
+<li>Rendez-vous en ligne et acompte</li><li>Appli installable sur téléphone</li><li>Calculateur ou générateur de devis</li><li>Boutique, espace client, sur mesure</li>
+</ul>
+<a href="#" style="margin-top: auto; text-align: center; text-decoration: none; background: #C9184A; color: #FFFFFF; border-radius: 999px; padding: 14px; font-weight: 600">Composer mon projet</a>
+</div>
+</div>
+<p style="margin: 0; font-size: 14px; color: #4A5068">Prix nets, TVA non applicable (art. 293 B du CGI). Après la mise en ligne : 50 € de l'heure, sans engagement.</p>
+</div>
+</section>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 96px 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
+<span style="color: #C9184A; font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase">Réalisations</span>
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.15">Des projets concrets, à tester vous-même.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+<article class="lift" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="height: 200px; background: #1F2B4D; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #F28CAB"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #8A8FA3"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #8A8FA3"></span></div>
+<div style="flex: 1; border-radius: 12px; background: #2C3A63; display: flex; align-items: center; justify-content: center; color: #C9CDE0; font-size: 14px">[capture du site]</div>
+</div>
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; font-weight: 600; color: #9E0F38">Réparation moto à domicile</span>
+<h3 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">Christophe Poix Moto</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #4A5068">Un site une page, rapide et clair sur téléphone, pour être trouvé et contacté en un geste.</p>
+<a href="#" style="font-weight: 600; font-size: 15px">Voir le site →</a>
+</div>
+</article>
+<article class="lift" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="height: 200px; background: #FCE7EE; padding: 20px; box-sizing: border-box; display: flex; gap: 14px; align-items: flex-end; justify-content: center">
+<div style="width: 92px; height: 170px; border-radius: 18px; background: #16213E; padding: 6px; box-sizing: border-box"><div style="width: 100%; height: 100%; border-radius: 13px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #4A5068; text-align: center">[écran réservation]</div></div>
+<div style="width: 92px; height: 140px; border-radius: 18px; background: #16213E; padding: 6px; box-sizing: border-box"><div style="width: 100%; height: 100%; border-radius: 13px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #4A5068; text-align: center">[écran acompte]</div></div>
+</div>
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; font-weight: 600; color: #9E0F38">Detailing auto à domicile · démo</span>
+<h3 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">Réservation avec acompte</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #4A5068">Configurateur de prestation, calendrier du mois, frais selon la distance et acompte en ligne.</p>
+<a href="#" style="font-weight: 600; font-size: 15px">Tester la démo →</a>
+</div>
+</article>
+<article class="lift" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="height: 200px; background: #EEF0F7; padding: 20px; box-sizing: border-box; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px">
+<div style="border-radius: 12px; background: #FFFFFF; border: 1px solid #E4E2EC"></div><div style="border-radius: 12px; background: #FFFFFF; border: 1px solid #E4E2EC"></div><div style="border-radius: 12px; background: #FFFFFF; border: 1px solid #E4E2EC"></div>
+<div style="grid-column: span 3; border-radius: 12px; background: #16213E; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 13px">[recherche de professionnels]</div>
+</div>
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; font-weight: 600; color: #9E0F38">Plateforme de réservation</span>
+<h3 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px">O'RDV</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #4A5068">Des indépendants proposent leurs créneaux, les clients trouvent et réservent. Espaces client et pro.</p>
+<a href="#" style="font-weight: 600; font-size: 15px">Découvrir le projet →</a>
+</div>
+</article>
+</div>
+</section>
+
+<section style="background: #FFFFFF; padding: 96px 0">
+<div style="max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
+<span style="color: #C9184A; font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase">Comment ça se passe</span>
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.15">Quatre étapes, un seul interlocuteur.</h2>
+</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px">
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 20px; background: #F7F6FA"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 12px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700">1</span><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 19px">Vous décrivez votre projet</span><span style="font-size: 15px; line-height: 1.6; color: #4A5068">Avec vos mots, sans jargon. Vous recevez une première estimation tout de suite.</span></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 20px; background: #F7F6FA"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 12px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700">2</span><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 19px">Je vous envoie un devis clair</span><span style="font-size: 15px; line-height: 1.6; color: #4A5068">Avec des idées auxquelles vous n'aviez peut-être pas pensé, en options.</span></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 20px; background: #F7F6FA"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 12px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700">3</span><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 19px">Je crée votre site</span><span style="font-size: 15px; line-height: 1.6; color: #4A5068">Vous le voyez et le validez avant la mise en ligne.</span></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 20px; background: #F7F6FA"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 12px; background: #C9184A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700">4</span><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 19px">Il est en ligne</span><span style="font-size: 15px; line-height: 1.6; color: #4A5068">Vous savez le gérer, et je reste joignable.</span></li>
+</ol>
+</div>
+</section>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 96px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 56px; align-items: center">
+<div style="display: flex; justify-content: center">
+<div style="width: 320px; height: 380px; border-radius: 32px; background: #E4E2EC; display: flex; align-items: center; justify-content: center; color: #4A5068; font-size: 15px; position: relative">[votre photo]
+<span style="position: absolute; bottom: -18px; left: 24px; background: #16213E; color: #FFFFFF; padding: 12px 18px; border-radius: 14px; font-size: 14px; font-weight: 600">Baptiste · développeur à Amiens</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<span style="color: #C9184A; font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase">Pourquoi travailler avec moi</span>
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 36px; line-height: 1.15">Des outils simples, pour ceux qui ont un vrai métier à côté.</h2>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 16px; padding: 18px; font-size: 15px; line-height: 1.5"><strong style="display: block; margin-bottom: 4px">Un seul interlocuteur</strong>Local, qui vous répond.</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 16px; padding: 18px; font-size: 15px; line-height: 1.5"><strong style="display: block; margin-bottom: 4px">Des prix affichés</strong>Sans surprise.</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 16px; padding: 18px; font-size: 15px; line-height: 1.5"><strong style="display: block; margin-bottom: 4px">Votre site vous appartient</strong>Pas d'abonnement imposé.</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 16px; padding: 18px; font-size: 15px; line-height: 1.5"><strong style="display: block; margin-bottom: 4px">Vous restez autonome</strong>Prix, horaires, photos : vous les changez.</div>
+</div>
+<a href="https://portfolio.bsandoz.fr" style="align-self: flex-start; text-decoration: none; border: 1.5px solid #16213E; border-radius: 999px; padding: 14px 22px; font-weight: 600; font-size: 15px">Voir mon parcours et mes compétences sur mon portfolio →</a>
+</div>
+</section>
+
+<section style="padding: 0 24px 96px">
+<div style="max-width: 1132px; margin: 0 auto; background: #16213E; color: #FFFFFF; border-radius: 32px; padding: 64px 48px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.15">Parlez-moi de votre projet.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9CDE0">C'est gratuit, et vous recevez une première estimation tout de suite.</p>
+</div>
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<a href="#" class="pulse" style="text-decoration: none; background: #C9184A; color: #FFFFFF; padding: 18px 30px; border-radius: 999px; font-weight: 600; font-size: 17px">Décrire mon projet</a>
+<a href="#" style="text-decoration: none; background: transparent; color: #FFFFFF; padding: 18px 30px; border-radius: 999px; font-weight: 600; font-size: 17px; border: 1.5px solid #FFFFFF">Prendre rendez-vous (gratuit)</a>
+</div>
+</div>
+</section>
+
+<footer style="background: #FFFFFF; border-top: 1px solid #E4E2EC">
+<div style="max-width: 1180px; margin: 0 auto; padding: 40px 24px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; font-size: 14px; color: #4A5068">
+<div style="display: flex; flex-direction: column; gap: 6px"><strong style="color: #16213E; font-size: 16px">Baptiste Sandoz</strong><span>Création de sites web &amp; développement</span><span>Amiens · Somme · à distance partout en France</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><a href="#">contact@bsandoz.fr</a><span>[téléphone]</span><a href="https://portfolio.bsandoz.fr">Mon portfolio</a></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><a href="#">Mentions légales</a><a href="#">CGV</a><a href="#">Confidentialité</a></div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":4300}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

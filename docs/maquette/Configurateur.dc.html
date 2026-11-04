@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Composer mon site – bsandoz.fr</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F6FA}
+a{color:#16213E}a:hover{color:#C9184A}
+.appear{animation:appear .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.pop{animation:pop .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.card{transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease}
+.card:hover{transform:translateY(-4px)}
+.preview{flex:1 1 520px;min-width:0;position:sticky;top:24px}
+@media (max-width: 1000px){.preview{display:none}}
+@media (prefers-reduced-motion: reduce){.appear,.pop{animation:none}.card{transition:none}.card:hover{transform:none}}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #16213E; background: #F7F6FA; min-height: 100vh">
+
+<header style="background: #FFFFFF; border-bottom: 1px solid #E4E2EC">
+<div style="max-width: 1360px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 12px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px">S<span style="color: #F28CAB">B</span></span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px">Baptiste Sandoz</span>
+</a>
+<div style="display: flex; align-items: center; gap: 12px">
+<sc-if value="{{ webHasType }}" hint-placeholder-val="{{ true }}"><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; color: #9E0F38">{{ totalLabel }}</span></sc-if>
+<button type="button" onClick="{{ reset }}" style="font: inherit; font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 999px; border: 1px solid #D7D5E0; background: #FFFFFF; color: #16213E; cursor: pointer">Recommencer</button>
+</div>
+</div>
+</header>
+
+<div style="max-width: 1360px; margin: 0 auto; padding: 36px 24px 80px; display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start">
+
+<main style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 36px">
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div role="tablist" aria-label="Catégorie de service" style="align-self: flex-start; display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E4E2EC; margin-bottom: 8px">
+<button type="button" role="tab" aria-selected="{{ webSel }}" onClick="{{ setWeb }}" style="font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; padding: 11px 18px; border-radius: 999px; border: 0; {{ webTabStyle }}">Sites &amp; applis</button>
+<button type="button" role="tab" aria-selected="{{ itSel }}" onClick="{{ setIt }}" style="font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; padding: 11px 18px; border-radius: 999px; border: 0; {{ itTabStyle }}">Informatique sur place</button>
+</div>
+<h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.1">{{ title }}</h1>
+<p style="margin: 0; font-size: 16px; color: #4A5068; line-height: 1.6">{{ subtitle }}</p>
+</div>
+
+<sc-if value="{{ isWeb }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 36px">
+<section class="appear" style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">1. Quel type de site ?</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+<sc-for list="{{ types }}" as="t" hint-placeholder-count="3">
+<button type="button" class="card" onClick="{{ t.pick }}" aria-pressed="{{ t.pressed }}" style="font: inherit; text-align: left; cursor: pointer; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 6px; color: #16213E; {{ t.cardStyle }}">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px">{{ t.name }}</span><span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; {{ t.markStyle }}">{{ t.mark }}</span></span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px; color: #9E0F38">{{ t.tag }}</span>
+<span style="font-size: 13px; color: #4A5068; line-height: 1.5">{{ t.desc }}</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<sc-if value="{{ showMetier }}" hint-placeholder-val="{{ true }}">
+<section class="appear" style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">2. Quelle est votre activité ?</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{ metiers }}" as="m" hint-placeholder-count="5">
+<button type="button" class="card" onClick="{{ m.pick }}" aria-pressed="{{ m.pressed }}" style="font: inherit; font-size: 15px; cursor: pointer; padding: 12px 18px; border-radius: 999px; {{ m.chipStyle }}">{{ m.name }}</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ showOptions }}" hint-placeholder-val="{{ true }}">
+<section class="appear" style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">3. {{ optionsTitle }}</h2>
+<span style="font-size: 14px; color: #4A5068">{{ optionsHint }}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+<sc-for list="{{ options }}" as="o" hint-placeholder-count="6">
+<button type="button" class="card" onClick="{{ o.pick }}" aria-pressed="{{ o.pressed }}" style="font: inherit; text-align: left; cursor: pointer; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; color: #16213E; {{ o.cardStyle }}">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-weight: 600; font-size: 15px">{{ o.name }}</span><span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; {{ o.markStyle }}">{{ o.mark }}</span></span>
+<span style="font-size: 13px; color: #4A5068; line-height: 1.45">{{ o.desc }}</span>
+<span style="font-weight: 700; font-size: 14px; color: #9E0F38">{{ o.priceLabel }}</span>
+</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ showDetails }}" hint-placeholder-val="{{ false }}">
+<section class="appear" style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">4. Quelques précisions</h2>
+<sc-for list="{{ details }}" as="d" hint-placeholder-count="1">
+<div class="appear" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; font-weight: 600; color: #9E0F38">{{ d.optName }}</span><span style="font-weight: 600; font-size: 16px">{{ d.q }}</span></span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ d.choices }}" as="c" hint-placeholder-count="3">
+<button type="button" class="card" onClick="{{ c.pick }}" aria-pressed="{{ c.pressed }}" style="font: inherit; font-size: 14px; cursor: pointer; padding: 10px 16px; border-radius: 999px; {{ c.chipStyle }}">{{ c.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ d.hasNote }}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #13794A; font-weight: 500">✓ {{ d.note }}</span></sc-if>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{ showSuggestions }}" hint-placeholder-val="{{ false }}">
+<section class="appear" style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">Vous pourriez aussi y penser</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
+<sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="2">
+<div class="appear" style="background: #16213E; color: #FFFFFF; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 17px">{{ s.title }}</span>
+<span style="font-size: 14px; color: #C9CDE0; line-height: 1.5">{{ s.text }}</span>
+<button type="button" onClick="{{ s.act }}" style="font: inherit; align-self: flex-start; font-weight: 600; font-size: 14px; padding: 10px 16px; border-radius: 999px; border: 0; background: #C9184A; color: #FFFFFF; cursor: pointer">{{ s.label }}</button>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ hasType }}" hint-placeholder-val="{{ true }}">
+<section aria-label="Votre estimation" aria-live="polite" class="appear" style="background: #16213E; color: #FFFFFF; border-radius: 24px; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 14px; color: #C9CDE0; font-weight: 500">Votre estimation</span>
+<sc-if value="{{ hasGift }}" hint-placeholder-val="{{ false }}"><span style="font-size: 17px; color: #C9CDE0; text-decoration: line-through">Valeur {{ valeurLabel }}</span></sc-if>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 42px; line-height: 1">{{ totalLabel }}</span>
+<sc-if value="{{ hasGift }}" hint-placeholder-val="{{ false }}">
+<div class="pop" style="background: #C9184A; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-weight: 700; font-size: 15px">Offert : {{ offertLabel }}</span>
+<sc-for list="{{ gifts }}" as="g" hint-placeholder-count="1">
+<span style="font-size: 14px; display: flex; justify-content: space-between; gap: 10px"><span>{{ g.pack }} · {{ g.label }}</span><span style="text-decoration: line-through; white-space: nowrap">{{ g.value }}</span></span>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ showRange }}" hint-placeholder-val="{{ true }}"><span style="font-size: 14px; color: #C9CDE0">Fourchette : {{ rangeLabel }}</span></sc-if>
+<span style="font-size: 14px; color: #C9CDE0">Délai indicatif : {{ delai }}</span>
+<ul style="margin: 0; padding: 14px 0 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; border-top: 1px solid #33406A">
+<sc-for list="{{ lines }}" as="l" hint-placeholder-count="3">
+<li class="appear" style="display: flex; justify-content: space-between; gap: 12px"><span>{{ l.label }}</span><span style="white-space: nowrap">{{ l.price }}</span></li>
+</sc-for>
+</ul>
+<sc-if value="{{ hasMarket }}" hint-placeholder-val="{{ true }}">
+<div style="background: #22305A; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #F28CAB">Comparé au marché</span>
+<span style="font-size: 12px; color: #C9CDE0">Marché : {{ marketRange }}</span>
+<div style="height: 10px; border-radius: 999px; background: #33406A; overflow: hidden"><div style="height: 100%; border-radius: 999px; background: #8A93B8; {{ marketBar }}"></div></div>
+<span style="font-size: 12px; color: #C9CDE0">Mon prix : {{ totalLabel }}</span>
+<div style="height: 10px; border-radius: 999px; background: #33406A; overflow: hidden"><div style="height: 100%; border-radius: 999px; background: #F28CAB; transition: width .4s ease; {{ myBar }}"></div></div>
+<span style="font-size: 14px; line-height: 1.5">{{ compare }}</span>
+<span style="font-size: 11.5px; color: #C9CDE0; line-height: 1.4">Prix constatés pour un {{ marketWho }}. Source : {{ marketSrc }}.</span>
+</div>
+</sc-if>
+<span style="font-size: 12px; color: #C9CDE0; line-height: 1.5">Estimation indicative, devis précis après échange. Prix nets, TVA non applicable.</span>
+<sc-if value="{{ showFinish }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<a href="Devis.dc.html" style="text-decoration: none; background: #C9184A; color: #FFFFFF; padding: 14px 20px; border-radius: 999px; font-weight: 600; font-size: 15px">Recevoir mon devis détaillé</a>
+<a href="RDV.dc.html" style="text-decoration: none; color: #FFFFFF; padding: 14px 20px; border-radius: 999px; font-weight: 600; font-size: 15px; border: 1.5px solid #FFFFFF">En parler en rendez-vous</a>
+</div>
+</sc-if>
+</section>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isIt }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="display: flex; flex-direction: column; gap: 36px">
+<section style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">1. Pour qui ?</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{ itPublics }}" as="p" hint-placeholder-count="2">
+<button type="button" class="card" onClick="{{ p.pick }}" aria-pressed="{{ p.pressed }}" style="font: inherit; font-size: 15px; cursor: pointer; padding: 12px 18px; border-radius: 999px; {{ p.chipStyle }}">{{ p.name }}</button>
+</sc-for>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px">2. De quoi avez-vous besoin ?</h2>
+<span style="font-size: 14px; color: #4A5068">Cochez tout ce qui vous concerne. Je me déplace dans un rayon de 50 km autour d'Amiens.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
+<sc-for list="{{ itServices }}" as="o" hint-placeholder-count="8">
+<button type="button" class="card" onClick="{{ o.pick }}" aria-pressed="{{ o.pressed }}" disabled="{{ o.soon }}" style="font: inherit; text-align: left; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; color: #16213E; {{ o.cardStyle }}">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-weight: 600; font-size: 15px">{{ o.name }}</span><span aria-hidden="true" style="flex: none; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; {{ o.markStyle }}">{{ o.mark }}</span></span>
+<span style="font-size: 13px; color: #4A5068; line-height: 1.45">{{ o.desc }}</span>
+</button>
+</sc-for>
+</div>
+</section>
+<section aria-label="Votre demande" aria-live="polite" style="background: #16213E; color: #FFFFFF; border-radius: 24px; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 14px; color: #C9CDE0; font-weight: 500">Votre demande · {{ itPublicLabel }}</span>
+<sc-if value="{{ itHasPick }}" hint-placeholder-val="{{ true }}">
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 15px">
+<sc-for list="{{ itPicked }}" as="i" hint-placeholder-count="2"><li class="appear">{{ i.name }}</li></sc-for>
+</ul>
+</sc-if>
+<sc-if value="{{ itNoPick }}" hint-placeholder-val="{{ false }}"><span style="font-size: 15px">Choisissez une ou plusieurs prestations.</span></sc-if>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 26px">Tarif sur devis</span>
+<span style="font-size: 14px; color: #C9CDE0; line-height: 1.5">Je vous donne un prix clair après un premier échange, avant toute intervention.</span>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<a href="RDV.dc.html" style="text-decoration: none; background: #C9184A; color: #FFFFFF; padding: 14px 20px; border-radius: 999px; font-weight: 600; font-size: 15px">Prendre rendez-vous (gratuit)</a>
+<a href="Devis.dc.html" style="text-decoration: none; color: #FFFFFF; padding: 14px 20px; border-radius: 999px; font-weight: 600; font-size: 15px; border: 1.5px solid #FFFFFF">Décrire mon besoin</a>
+</div>
+</section>
+</div>
+</sc-if>
+</main>
+
+<aside class="preview" aria-label="Aperçu de votre futur site">
+<sc-if value="{{ isWeb }}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5068">Aperçu en direct · exemple</span>
+<span style="font-size: 12px; color: #6B7085">s'adapte à vos choix</span>
+</div>
+
+<sc-if value="{{ pv.seo }}" hint-placeholder-val="{{ false }}">
+<div class="pop" style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 11px; color: #4A5068">Google · « {{ pv.query }} »</span>
+<span style="font-size: 15px; color: #1A0DAB; font-weight: 500">{{ pv.name }} – {{ pv.tag }}</span>
+<span style="font-size: 12px; color: #4A5068">www.{{ pv.slug }}.fr · 1er résultat local</span>
+</div>
+</sc-if>
+
+<div style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 18px; overflow: hidden; box-shadow: 0 24px 48px rgba(22,33,62,.12); position: relative">
+<div style="background: #EEF0F7; padding: 10px 14px; display: flex; align-items: center; gap: 10px">
+<span style="display: flex; gap: 5px"><span style="width: 9px; height: 9px; border-radius: 50%; background: #F28CAB"></span><span style="width: 9px; height: 9px; border-radius: 50%; background: #B9BCC8"></span><span style="width: 9px; height: 9px; border-radius: 50%; background: #B9BCC8"></span></span>
+<span style="flex: 1; background: #FFFFFF; border-radius: 8px; padding: 5px 10px; font-size: 11px; color: #4A5068">www.{{ pv.slug }}.fr</span>
+</div>
+
+<div style="padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid #EEF0F7">
+<span style="display: flex; align-items: center; gap: 8px">
+<sc-if value="{{ pv.logo }}" hint-placeholder-val="{{ false }}"><span class="pop" aria-hidden="true" style="width: 28px; height: 28px; border-radius: 8px; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; background: {{ pv.accent }}">{{ pv.initials }}</span></sc-if>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px">{{ pv.name }}</span>
+</span>
+<span style="display: flex; align-items: center; gap: 10px; font-size: 11px; color: #4A5068">
+<sc-for list="{{ pv.nav }}" as="n" hint-placeholder-count="3"><span class="appear">{{ n.label }}</span></sc-for>
+<sc-if value="{{ pv.en }}" hint-placeholder-val="{{ false }}"><span class="pop" style="border: 1px solid #D7D5E0; border-radius: 6px; padding: 2px 5px">FR | EN</span></sc-if>
+<sc-if value="{{ pv.espace }}" hint-placeholder-val="{{ false }}"><span class="pop" style="border-radius: 999px; padding: 4px 9px; color: #FFFFFF; background: {{ pv.accent }}">Mon compte</span></sc-if>
+</span>
+</div>
+
+<div style="padding: 26px 18px; color: #FFFFFF; display: flex; flex-direction: column; gap: 8px; background: {{ pv.accent }}">
+<span style="font-size: 11px; opacity: .85">{{ pv.tag }}</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px; line-height: 1.15">{{ pv.hero }}</span>
+<span style="align-self: flex-start; background: #FFFFFF; border-radius: 999px; padding: 8px 14px; font-size: 12px; font-weight: 700; color: {{ pv.accent }}">{{ pv.cta }}</span>
+</div>
+
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 14px">
+
+<sc-if value="{{ pv.calcul }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="border: 1px solid #E4E2EC; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 700; font-size: 13px">Calculez votre prix</span>
+<span style="display: flex; justify-content: space-between; font-size: 12px; color: #4A5068"><span>{{ pv.calcLabel }}</span><strong style="color: #16213E">{{ pv.calcValue }}</strong></span>
+<span style="height: 6px; border-radius: 999px; background: #EEF0F7; position: relative"><span style="position: absolute; left: 0; top: 0; bottom: 0; width: 55%; border-radius: 999px; background: {{ pv.accent }}"></span></span>
+<span style="font-size: 13px; font-weight: 700; color: {{ pv.accent }}">Prix estimé : {{ pv.calcPrice }}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ pv.rdv }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="border: 1px solid #E4E2EC; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+<span style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 700; font-size: 13px">Réservez en ligne</span><span style="font-size: 11px; color: #4A5068">{{ pv.rdvLieu }}</span></span>
+<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-size: 10px; text-align: center">
+<span style="padding: 5px 0; color: #B9BCC8">9</span><span style="padding: 5px 0">10</span><span style="padding: 5px 0">11</span><span style="padding: 5px 0">12</span><span style="padding: 5px 0; border-radius: 6px; color: #FFFFFF; font-weight: 700; background: {{ pv.accent }}">13</span><span style="padding: 5px 0">14</span><span style="padding: 5px 0; color: #B9BCC8">15</span>
+</div>
+<div style="display: flex; gap: 6px; font-size: 11px; font-weight: 600"><span style="border: 1px solid #D7D5E0; border-radius: 8px; padding: 5px 8px">9:00</span><span style="border-radius: 8px; padding: 5px 8px; color: #FFFFFF; background: {{ pv.accent }}">10:30</span><span style="border: 1px solid #D7D5E0; border-radius: 8px; padding: 5px 8px">14:00</span></div>
+<sc-if value="{{ pv.acompte }}" hint-placeholder-val="{{ false }}"><span class="pop" style="font-size: 11px; background: #E3F5EC; color: #0F6B40; border-radius: 8px; padding: 6px 8px; font-weight: 600">Acompte de 30 € payé en ligne · carte, Apple Pay, Google Pay</span></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ pv.table }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="border: 1px solid #E4E2EC; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 700; font-size: 13px">Réserver une table</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-size: 11px"><span style="border: 1px solid #D7D5E0; border-radius: 8px; padding: 6px">4 personnes</span><span style="border: 1px solid #D7D5E0; border-radius: 8px; padding: 6px">Ven. 13</span><span style="border: 1px solid #D7D5E0; border-radius: 8px; padding: 6px">20:00</span></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pv.boutique }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 700; font-size: 13px">Boutique</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<span style="border: 1px solid #E4E2EC; border-radius: 10px; overflow: hidden; font-size: 10px"><span style="display: block; height: 46px; background: #EEF0F7"></span><span style="display: block; padding: 5px 6px">Produit · 24 €</span></span>
+<span style="border: 1px solid #E4E2EC; border-radius: 10px; overflow: hidden; font-size: 10px"><span style="display: block; height: 46px; background: #E4E2EC"></span><span style="display: block; padding: 5px 6px">Produit · 39 €</span></span>
+<span style="border: 1px solid #E4E2EC; border-radius: 10px; overflow: hidden; font-size: 10px"><span style="display: block; height: 46px; background: #EEF0F7"></span><span style="display: block; padding: 5px 6px">Produit · 18 €</span></span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pv.cc }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="border-radius: 12px; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #FFFFFF; background: {{ pv.accent }}">Commandez en ligne, retirez sur place dès 18:30</div>
+</sc-if>
+
+<sc-if value="{{ pv.galerie }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px"><span style="height: 52px; border-radius: 8px; background: #E4E2EC"></span><span style="height: 52px; border-radius: 8px; background: #D7D5E0"></span><span style="height: 52px; border-radius: 8px; background: #E4E2EC"></span></div>
+</sc-if>
+
+<sc-if value="{{ pv.avantapres }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="position: relative; height: 70px; border-radius: 10px; overflow: hidden; display: flex">
+<span style="flex: 1; background: #B9BCC8; font-size: 10px; color: #16213E; padding: 6px">Avant</span>
+<span style="flex: 1; background: #EEF0F7; font-size: 10px; color: #16213E; padding: 6px; text-align: right">Après</span>
+<span aria-hidden="true" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: #FFFFFF"></span>
+<span aria-hidden="true" style="position: absolute; left: calc(50% - 11px); top: 24px; width: 22px; height: 22px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,.2)"></span>
+</div>
+</sc-if>
+
+<sc-if value="{{ pv.avis }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="background: #FFF8E6; border-radius: 12px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; font-size: 12px"><span style="color: #8A5A00; font-weight: 700">★★★★★ Avis Google</span><span style="color: #4A5068">[note et avis réels du client]</span></div>
+</sc-if>
+
+<sc-if value="{{ pv.contact }}" hint-placeholder-val="{{ true }}">
+<div class="appear" style="border: 1px solid #E4E2EC; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-weight: 700; font-size: 13px">Contact</span>
+<span style="height: 24px; border-radius: 6px; background: #F7F6FA; border: 1px solid #E4E2EC"></span>
+<span style="height: 38px; border-radius: 6px; background: #F7F6FA; border: 1px solid #E4E2EC"></span>
+</div>
+</sc-if>
+<sc-if value="{{ pv.simpleContact }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="display: flex; gap: 8px; font-size: 12px; font-weight: 600"><span style="border: 1px solid #D7D5E0; border-radius: 999px; padding: 7px 12px">Appeler</span><span style="border: 1px solid #D7D5E0; border-radius: 999px; padding: 7px 12px">Écrire un mail</span></div>
+</sc-if>
+</div>
+
+<div style="background: #16213E; color: #C9CDE0; font-size: 10px; padding: 10px 16px; display: flex; justify-content: space-between"><span>{{ pv.name }}</span><span>Mentions légales</span></div>
+
+<sc-if value="{{ pv.pwa }}" hint-placeholder-val="{{ false }}">
+<div class="pop" style="position: absolute; right: 14px; bottom: 44px; background: #FFFFFF; border-radius: 12px; box-shadow: 0 10px 24px rgba(22,33,62,.2); padding: 10px 12px; display: flex; gap: 8px; align-items: center; font-size: 11px">
+<span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 7px; background: {{ pv.accent }}"></span>
+<span style="display: flex; flex-direction: column"><strong style="font-size: 11px">Installer l'appli</strong><span style="color: #4A5068">sur l'écran d'accueil</span></span>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ pv.empty }}" hint-placeholder-val="{{ false }}"><span style="display: block; margin-top: 10px; font-size: 13px; color: #6B7085">Choisissez un type de site : l'aperçu se remplit au fil de vos choix.</span></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ isIt }}" hint-placeholder-val="{{ false }}">
+<div class="appear" style="display: flex; flex-direction: column; gap: 14px">
+<div style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; font-weight: 600; color: #9E0F38">Le bon à savoir</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.3">Votre PC ne passe pas à Windows 11 ? Ne le jetez pas.</span>
+<span style="font-size: 14px; color: #4A5068; line-height: 1.6">Windows 10 n'est plus mis à jour depuis octobre 2025. Avec Linux, un ordinateur de plusieurs années redevient rapide et sûr, et vos fichiers vous suivent.</span>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E2EC; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-weight: 700; font-size: 16px">Comment ça se passe</span>
+<div style="display: flex; gap: 12px; align-items: flex-start"><span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 10px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">1</span><span style="font-size: 14px; line-height: 1.5"><strong>On en parle</strong> : rendez-vous gratuit ou description en ligne.</span></div>
+<div style="display: flex; gap: 12px; align-items: flex-start"><span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 10px; background: #16213E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">2</span><span style="font-size: 14px; line-height: 1.5"><strong>Devis clair</strong> avant toute intervention.</span></div>
+<div style="display: flex; gap: 12px; align-items: flex-start"><span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 10px; background: #C9184A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">3</span><span style="font-size: 14px; line-height: 1.5"><strong>Je viens chez vous</strong>, j'installe, je vous montre, et vos données restent en sécurité.</span></div>
+</div>
+</div>
+</sc-if>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2100}}'>
+var TYPES = [
+  { id: 'vitrine', name: 'Vitrine', price: 99, tag: '99 €', desc: '1 page pour être visible vite.', delai: '3 jours' },
+  { id: 'vplus', name: 'Vitrine+', price: 390, tag: '390 €', desc: 'Jusqu\'à 5 pages, formulaire, référencement local.', delai: '1 à 2 semaines' },
+  { id: 'fonc', name: 'Fonctionnel', price: 989, tag: 'dès 989 €', desc: 'Rendez-vous, devis, boutique, appli : un outil qui travaille.', delai: '3 à 6 semaines' }
+];
+var METIERS = [
+  { id: 'artisan', name: 'Artisan à domicile' },
+  { id: 'commerce', name: 'Commerce / e-commerce' },
+  { id: 'resto', name: 'Restaurant / bar' },
+  { id: 'sante', name: 'Santé / bien-être' },
+  { id: 'autre', name: 'Autre activité' }
+];
+var OPTS = {
+  page: { name: 'Page supplémentaire', desc: 'Une page de plus : services, équipe…', price: 50 },
+  galerie: { name: 'Galerie photos', desc: 'Montrez votre travail en images.', price: 80 },
+  textes: { name: 'Rédaction des textes', desc: 'Je les écris pour vous.', price: 60, suffix: ' / page' },
+  logo: { name: 'Logo simple', desc: 'Une identité à vous.', price: 150 },
+  avantapres: { name: 'Avant / après', desc: 'Glissez pour voir la différence.', price: 80 },
+  avis: { name: 'Avis Google affichés', desc: 'Vos étoiles mises en avant.', price: 60 },
+  seo: { name: 'SEO avancé', desc: 'Pages par ville, suivi Google.', price: 150 },
+  anglais: { name: 'Site en anglais', desc: 'Pour les touristes et l\'export.', price: 150 },
+  rdv: { name: 'Rendez-vous en ligne', desc: 'Vos clients réservent seuls, rappel la veille.', price: 400 },
+  acompte: { name: 'Acompte en ligne', desc: 'Fini les rendez-vous non honorés.', price: 150 },
+  calcul: { name: 'Calculateur de prix', desc: 'Le prix selon vos critères, en direct.', price: 300, from: true },
+  pwa: { name: 'Appli sur téléphone', desc: 'Le site s\'installe comme une appli.', price: 200 },
+  espace: { name: 'Espace client', desc: 'Historique, factures, suivi.', price: 300 },
+  boutique: { name: 'Boutique en ligne', desc: 'Vendez vos produits, paiement sécurisé.', price: 600, from: true },
+  table: { name: 'Réservation de table', desc: 'Vos clients réservent en 2 clics.', price: 300 },
+  clickcollect: { name: 'Click & collect', desc: 'Commande en ligne, retrait sur place.', price: 300 }
+};
+var LISTS = {
+  vitrine: ['page', 'galerie', 'textes', 'logo'],
+  vplus: ['avantapres', 'avis', 'textes', 'logo', 'seo', 'anglais'],
+  artisan: ['rdv', 'acompte', 'calcul', 'pwa', 'espace', 'avantapres'],
+  commerce: ['boutique', 'clickcollect', 'espace', 'seo', 'avis', 'pwa'],
+  resto: ['table', 'clickcollect', 'avis', 'pwa', 'anglais'],
+  sante: ['rdv', 'acompte', 'espace', 'pwa', 'avis'],
+  autre: ['rdv', 'calcul', 'boutique', 'espace', 'pwa', 'seo']
+};
+var SUBS = {
+  rdv: { q: 'Où ont lieu vos rendez-vous ?', choices: [
+    { id: 'client', label: 'Chez le client', price: 0, note: 'Zone et frais de déplacement calculés selon l\'adresse.' },
+    { id: 'chezvous', label: 'Chez vous', price: 0, note: 'Adresse et accès affichés à la réservation.' },
+    { id: 'deux', label: 'Les deux', price: 0, note: 'Le client choisit, les frais s\'ajoutent si besoin.' } ] },
+  boutique: { q: 'Combien de produits à vendre ?', choices: [
+    { id: 'p20', label: 'Moins de 20', price: 0 },
+    { id: 'p100', label: '20 à 100', price: 200 },
+    { id: 'p100plus', label: 'Plus de 100', price: 500 } ] },
+  calcul: { q: 'Votre prix dépend surtout…', choices: [
+    { id: 'surface', label: 'd\'une surface', price: 0, note: 'Le client saisit ses m², le prix s\'affiche.' },
+    { id: 'vehicule', label: 'd\'un véhicule ou modèle', price: 0, note: 'Le client choisit son modèle, le tarif s\'adapte.' },
+    { id: 'quantite', label: 'd\'une quantité', price: 0, note: 'Prix dégressif selon la quantité.' },
+    { id: 'distance', label: 'd\'une distance', price: 0, note: 'Calcul automatique depuis votre adresse.' } ] },
+  pwa: { q: 'Des notifications sur le téléphone ?', choices: [
+    { id: 'oui', label: 'Oui, rappels et nouveautés', price: 0 },
+    { id: 'non', label: 'Non, pas besoin', price: 0 } ] },
+  table: { q: 'Un acompte pour les grandes tablées ?', choices: [
+    { id: 'oui', label: 'Oui', price: 150, note: 'Acompte demandé au-delà d\'un nombre de couverts.' },
+    { id: 'non', label: 'Non', price: 0 } ] }
+};
+var GIFTS = [
+  { name: 'Pack Réservation sereine', need: ['rdv', 'acompte'], gift: 'avis' },
+  { name: 'Pack Tout-en-un', need: ['rdv', 'acompte', 'espace'], gift: 'pwa' },
+  { name: 'Pack Boutique visible', need: ['boutique', 'seo'], gift: 'avis' },
+  { name: 'Pack Restaurant complet', need: ['table', 'clickcollect'], gift: 'avis' },
+  { name: 'Pack Image de marque', need: ['logo', 'textes'], gift: 'page' }
+];
+var MARKET = {
+  vitrine: { range: '300 – 1 200 €', low: 300, high: 1200, who: 'site une page par un freelance', src: 'Plateya, 2026' },
+  vplus: { range: '800 – 4 000 €', low: 800, high: 4000, who: 'site vitrine 5 à 10 pages par un freelance', src: 'Plateya, 2026' },
+  shop: { range: '3 000 – 40 000 €', low: 3000, high: 40000, who: 'site e-commerce en agence (médiane 10 000 €)', src: 'La Fabrique du Net, 2026' },
+  app: { range: '6 000 – 45 000 €', low: 6000, high: 45000, who: 'site sur mesure / applicatif en agence (médiane 18 000 €)', src: 'La Fabrique du Net, 2026' }
+};
+var IT = [
+  { id: 'installation', name: 'Installation d\'un ordinateur', desc: 'Mise en service, comptes, logiciels, transfert de vos fichiers.' },
+  { id: 'linux', name: 'Passage de Windows à Linux', desc: 'Sauvegarde, installation et prise en main. Idéal si votre PC ne passe pas à Windows 11.' },
+  { id: 'peripheriques', name: 'Imprimante, box, wifi', desc: 'Installation et réglages pour que tout fonctionne ensemble.' },
+  { id: 'depannage', name: 'Dépannage et nettoyage', desc: 'PC lent, virus, fenêtres qui s\'ouvrent toutes seules, démarrage difficile.' },
+  { id: 'renovation', name: 'Seconde vie d\'un vieil ordinateur', desc: 'Remise à neuf, disque SSD, système léger.' },
+  { id: 'sauvegarde', name: 'Sauvegarde de vos données', desc: 'Photos et documents en sécurité, automatiquement.' },
+  { id: 'formation', name: 'Formation à domicile', desc: 'Prendre en main son ordinateur, sa messagerie, ses outils.' },
+  { id: 'reseau', name: 'Réseau et NAS', desc: 'Câblage, réseau pro, stockage partagé.', soon: true }
+];
+var IT_PUBLICS = [{ id: 'part', name: 'Particulier' }, { id: 'pro', name: 'Professionnel' }];
+var SEL_CARD = 'border: 2px solid #C9184A; background: #FFF7FA; box-shadow: 0 12px 28px rgba(201,24,74,.16)';
+var NORM_CARD = 'border: 2px solid #E4E2EC; background: #FFFFFF';
+var SEL_MARK = 'background: #C9184A; color: #FFFFFF';
+var NORM_MARK = 'background: #EEF0F7; color: #16213E';
+var SEL_CHIP = 'border: 2px solid #C9184A; background: #FCE7EE; color: #9E0F38; font-weight: 600';
+var NORM_CHIP = 'border: 1px solid #D7D5E0; background: #FFFFFF; color: #16213E; font-weight: 500';
+
+function eur(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €'; }
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cat: 'web', type: null, metier: null, picked: [], subs: {}, itPublic: null, itPicked: [] };
+  }
+  listFor(type, metier) {
+    if (!type) return [];
+    if (type === 'fonc') return metier ? LISTS[metier] : [];
+    return LISTS[type];
+  }
+  keepValid(type, metier) {
+    var list = this.listFor(type, metier);
+    return this.state.picked.filter(function (p) { return list.indexOf(p) >= 0; });
+  }
+  pickType(id) { this.setState({ type: id, picked: this.keepValid(id, this.state.metier) }); }
+  pickMetier(id) { this.setState({ metier: id, picked: this.keepValid(this.state.type, id) }); }
+  toggle(id) {
+    var p = this.state.picked;
+    this.setState({ picked: p.indexOf(id) >= 0 ? p.filter(function (x) { return x !== id; }) : p.concat([id]) });
+  }
+  add(id) { if (this.state.picked.indexOf(id) < 0) this.toggle(id); }
+  pickSub(opt, choice) {
+    var subs = Object.assign({}, this.state.subs);
+    subs[opt] = choice;
+    this.setState({ subs: subs });
+  }
+  setCat(c) { this.setState({ cat: c }); }
+  toggleIt(id) {
+    var p = this.state.itPicked;
+    this.setState({ itPicked: p.indexOf(id) >= 0 ? p.filter(function (x) { return x !== id; }) : p.concat([id]) });
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var type = st.type, metier = st.metier, picked = st.picked;
+    var list = this.listFor(type, metier);
+    var has = function (id) { return picked.indexOf(id) >= 0; };
+    var avail = function (id) { return list.indexOf(id) >= 0; };
+    var typeObj = TYPES.filter(function (t) { return t.id === type; })[0];
+
+    var types = TYPES.map(function (t) {
+      var sel = t.id === type;
+      return { name: t.name, tag: t.tag, desc: t.desc, pressed: sel ? 'true' : 'false', cardStyle: sel ? SEL_CARD : NORM_CARD, markStyle: sel ? SEL_MARK : NORM_MARK, mark: sel ? '✓' : '', pick: function () { self.pickType(t.id); } };
+    });
+    var metiers = METIERS.map(function (m) {
+      var sel = m.id === metier;
+      return { name: m.name, pressed: sel ? 'true' : 'false', chipStyle: sel ? SEL_CHIP : NORM_CHIP, pick: function () { self.pickMetier(m.id); } };
+    });
+    var options = list.map(function (id) {
+      var o = OPTS[id], sel = has(id);
+      return { name: o.name, desc: o.desc, priceLabel: (o.from ? 'dès + ' : '+ ') + eur(o.price) + (o.suffix || ''), pressed: sel ? 'true' : 'false', cardStyle: sel ? SEL_CARD : NORM_CARD, markStyle: sel ? SEL_MARK : NORM_MARK, mark: sel ? '✓' : '+', pick: function () { self.toggle(id); } };
+    });
+
+    var details = picked.filter(function (id) { return SUBS[id]; }).map(function (id) {
+      var sub = SUBS[id], cur = st.subs[id];
+      var curChoice = sub.choices.filter(function (c) { return c.id === cur; })[0];
+      return {
+        optName: OPTS[id].name, q: sub.q,
+        hasNote: !!(curChoice && curChoice.note), note: curChoice && curChoice.note ? curChoice.note : '',
+        choices: sub.choices.map(function (c) {
+          var sel = c.id === cur;
+          return { label: c.label + (c.price ? ' (+ ' + eur(c.price) + ')' : ''), pressed: sel ? 'true' : 'false', chipStyle: sel ? SEL_CHIP : NORM_CHIP, pick: function () { self.pickSub(id, c.id); } };
+        })
+      };
+    });
+
+    var sugg = [];
+    var teased = GIFTS.filter(function (g) { return g.need.every(function (n) { return has(n); }); }).map(function (g) { return g.gift; });
+    GIFTS.forEach(function (g) {
+      var missing = g.need.filter(function (n) { return !has(n); });
+      var allAvail = g.need.every(function (n) { return avail(n); });
+      if (allAvail && missing.length === 1 && g.need.length > 1) {
+        var m = missing[0];
+        if (teased.indexOf(m) >= 0) return;
+        teased.push(m);
+        sugg.push({ title: g.name, text: 'Ajoutez « ' + OPTS[m].name + ' » et je vous offre « ' + OPTS[g.gift].name + ' » (valeur ' + eur(OPTS[g.gift].price) + ').', label: 'Ajouter et profiter de l\'offre', act: function () { self.add(m); } });
+      }
+    });
+    if (type === 'vitrine' && metier) sugg.push({ title: 'Un formulaire et jusqu\'à 5 pages ?', text: 'Vitrine+ ajoute le contact, la galerie et le référencement local.', label: 'Passer à Vitrine+ (390 €)', act: function () { self.pickType('vplus'); } });
+    if (type === 'vplus' && (metier === 'artisan' || metier === 'sante')) sugg.push({ title: 'Et si vos clients réservaient seuls ?', text: 'Avec le Fonctionnel, la prise de rendez-vous travaille pour vous, même la nuit.', label: 'Voir le Fonctionnel', act: function () { self.pickType('fonc'); } });
+    if (type === 'vplus' && metier === 'commerce') sugg.push({ title: 'Vendre aussi en ligne ?', text: 'Le Fonctionnel ajoute une boutique simple à gérer.', label: 'Voir le Fonctionnel', act: function () { self.pickType('fonc'); } });
+    if (type === 'vplus' && metier === 'resto') sugg.push({ title: 'Des réservations sans téléphone ?', text: 'Le Fonctionnel ajoute la réservation de table et le click & collect.', label: 'Voir le Fonctionnel', act: function () { self.pickType('fonc'); } });
+    if (has('rdv') && avail('acompte') && !has('acompte') && teased.indexOf('acompte') < 0) sugg.push({ title: 'Des clients qui ne viennent pas ?', text: 'Un acompte en ligne au moment de réserver règle le problème.', label: 'Ajouter l\'acompte (+ 150 €)', act: function () { self.add('acompte'); } });
+    if ((has('rdv') || has('table')) && avail('pwa') && !has('pwa') && teased.indexOf('pwa') < 0) sugg.push({ title: 'Pour vos clients fidèles', text: 'Ils réservent depuis l\'écran d\'accueil de leur téléphone.', label: 'Ajouter l\'appli (+ 200 €)', act: function () { self.add('pwa'); } });
+    if (has('boutique') && avail('seo') && !has('seo') && teased.indexOf('seo') < 0) sugg.push({ title: 'Être trouvé sur vos produits', text: 'Le SEO avancé travaille vos pages produits et votre ville.', label: 'Ajouter le SEO avancé (+ 150 €)', act: function () { self.add('seo'); } });
+    if (has('calcul') && avail('avantapres') && !has('avantapres')) sugg.push({ title: 'Montrez vos résultats', text: 'Un avant / après rassure juste avant de réserver.', label: 'Ajouter l\'avant / après (+ 80 €)', act: function () { self.add('avantapres'); } });
+    if ((has('table') || has('clickcollect')) && avail('avis') && !has('avis') && teased.indexOf('avis') < 0) sugg.push({ title: 'Vos avis Google', text: 'Les étoiles sur votre site donnent envie de venir.', label: 'Ajouter les avis (+ 60 €)', act: function () { self.add('avis'); } });
+    if (has('acompte') && avail('espace') && !has('espace') && teased.indexOf('espace') < 0) sugg.push({ title: 'Un espace pour vos clients', text: 'Ils retrouvent leurs rendez-vous, acomptes et factures.', label: 'Ajouter l\'espace client (+ 300 €)', act: function () { self.add('espace'); } });
+    sugg = sugg.slice(0, 2);
+
+    var total = typeObj ? typeObj.price : 0;
+    var lines = [];
+    if (typeObj) lines.push({ label: 'Site ' + typeObj.name, price: eur(typeObj.price) });
+    picked.forEach(function (id) {
+      total += OPTS[id].price;
+      lines.push({ label: OPTS[id].name, price: eur(OPTS[id].price) });
+      var sub = SUBS[id], cur = st.subs[id];
+      if (sub && cur) {
+        var c = sub.choices.filter(function (x) { return x.id === cur; })[0];
+        if (c && c.price) { total += c.price; lines.push({ label: OPTS[id].name + ' · ' + c.label, price: eur(c.price) }); }
+      }
+    });
+    var giftIds = [], gifts = [];
+    GIFTS.forEach(function (g) {
+      var ok = g.need.every(function (n) { return has(n); });
+      if (ok && giftIds.indexOf(g.gift) < 0) {
+        giftIds.push(g.gift);
+        gifts.push({ pack: g.name, label: OPTS[g.gift].name, value: eur(OPTS[g.gift].price), price: OPTS[g.gift].price, alreadyPicked: has(g.gift) });
+      }
+    });
+    var offert = 0, valeur = total;
+    gifts.forEach(function (g) { offert += g.price; if (!g.alreadyPicked) valeur += g.price; });
+    total = valeur - offert;
+    var low = Math.round(total * 0.95 / 10) * 10, high = Math.round(total * 1.1 / 10) * 10;
+    var mk = !type ? null : (type === 'fonc' ? (has('boutique') ? MARKET.shop : MARKET.app) : MARKET[type]);
+    var myPct = mk ? Math.max(4, Math.min(100, Math.round(total / mk.high * 100))) : 0;
+    var lowPct = mk ? Math.max(4, Math.min(100, Math.round(mk.low / mk.high * 100))) : 0;
+    var compare = '';
+    if (mk) compare = total < mk.low ? 'Soit ' + eur(mk.low - total) + ' de moins que le bas de la fourchette du marché.' : 'Dans la fourchette du marché, avec un seul interlocuteur local.';
+
+
+    var BIZ = {
+      artisan: { name: 'Atelier Brillance', tag: 'Detailing auto à domicile', slug: 'atelier-brillance', accent: '#1F6FB2', hero: 'Votre voiture comme neuve, sans bouger de chez vous', query: 'detailing auto Amiens' },
+      commerce: { name: 'Maison Lumen', tag: 'Boutique déco à Amiens', slug: 'maison-lumen', accent: '#8A5A44', hero: 'Des objets choisis, livrés ou à retirer', query: 'boutique déco Amiens' },
+      resto: { name: 'Le Petit Comptoir', tag: 'Bistrot de quartier', slug: 'le-petit-comptoir', accent: '#B5452B', hero: 'Cuisine maison, ambiance de quartier', query: 'restaurant Amiens' },
+      sante: { name: 'Studio Équilibre', tag: 'Coach bien-être', slug: 'studio-equilibre', accent: '#2E8B6F', hero: 'Prenez soin de vous, à votre rythme', query: 'coach bien-être Amiens' },
+      autre: { name: 'Votre entreprise', tag: 'Votre activité', slug: 'votre-entreprise', accent: '#16213E', hero: 'Votre accroche ici', query: 'votre métier Amiens' }
+    };
+    var biz = BIZ[metier] || BIZ.autre;
+    var nav = [{ label: 'Accueil' }, { label: 'Prestations' }];
+    if (has('galerie') || has('avantapres')) nav.push({ label: 'Réalisations' });
+    if (has('page')) nav.push({ label: 'À propos' });
+    if (has('boutique')) nav.push({ label: 'Boutique' });
+    if (type && type !== 'vitrine') nav.push({ label: 'Contact' });
+    var cta = has('rdv') ? 'Réserver' : has('table') ? 'Réserver une table' : has('boutique') ? 'Voir la boutique' : has('clickcollect') ? 'Commander' : 'Me contacter';
+    var CALC = {
+      surface: ['Surface', '120 m²', '84 €'], vehicule: ['Véhicule', 'SUV', '89 €'],
+      quantite: ['Quantité', '25 pièces', '210 €'], distance: ['Distance', '18 km', '27 €']
+    };
+    var calc = CALC[st.subs.calcul] || ['Votre critère', 'à définir', '— €'];
+    var LIEU = { client: 'À domicile · frais selon l\'adresse', chezvous: 'Sur place', deux: 'À domicile ou sur place' };
+    var pv = {
+      empty: !type, name: biz.name, tag: biz.tag, slug: biz.slug, accent: biz.accent, hero: biz.hero, query: biz.query,
+      initials: biz.name.split(' ').map(function (w) { return w.charAt(0); }).join('').slice(0, 2).toUpperCase(),
+      nav: nav, cta: cta,
+      logo: has('logo'), en: has('anglais'), espace: has('espace'), seo: has('seo') || type === 'vplus',
+      calcul: has('calcul'), calcLabel: calc[0], calcValue: calc[1], calcPrice: calc[2],
+      rdv: has('rdv'), rdvLieu: LIEU[st.subs.rdv] || 'Créneaux en direct', acompte: has('acompte'),
+      table: has('table'), boutique: has('boutique'), cc: has('clickcollect'),
+      galerie: has('galerie'), avantapres: has('avantapres'), avis: has('avis') || giftIds.indexOf('avis') >= 0,
+      contact: type === 'vplus' || type === 'fonc', simpleContact: type === 'vitrine',
+      pwa: has('pwa') || giftIds.indexOf('pwa') >= 0
+    };
+    var isWeb = st.cat !== 'it';
+    var TAB_ON = 'background: #16213E; color: #FFFFFF', TAB_OFF = 'background: transparent; color: #16213E';
+    var itServices = IT.map(function (o) {
+      var sel = st.itPicked.indexOf(o.id) >= 0;
+      return { name: o.name, desc: o.desc, soon: !!o.soon, pressed: sel ? 'true' : 'false',
+        cardStyle: o.soon ? 'border: 2px dashed #D7D5E0; background: #F7F6FA; opacity: .75; cursor: not-allowed' : (sel ? SEL_CARD : NORM_CARD) + '; cursor: pointer',
+        markStyle: o.soon ? 'background: #FFF3D6; color: #7A4B00' : (sel ? SEL_MARK : NORM_MARK),
+        mark: o.soon ? 'Bientôt disponible' : (sel ? '✓' : '+'),
+        pick: function () { if (!o.soon) self.toggleIt(o.id); } };
+    });
+    var itPicked = IT.filter(function (o) { return st.itPicked.indexOf(o.id) >= 0; }).map(function (o) { return { name: o.name }; });
+    var itPublics = IT_PUBLICS.map(function (pb) {
+      var sel = pb.id === st.itPublic;
+      return { name: pb.name, pressed: sel ? 'true' : 'false', chipStyle: sel ? SEL_CHIP : NORM_CHIP, pick: function () { self.setState({ itPublic: pb.id }); } };
+    });
+    var pubObj = IT_PUBLICS.filter(function (pb) { return pb.id === st.itPublic; })[0];
+    return {
+      isWeb: isWeb, isIt: !isWeb, webSel: isWeb ? 'true' : 'false', itSel: isWeb ? 'false' : 'true',
+      webTabStyle: isWeb ? TAB_ON : TAB_OFF, itTabStyle: isWeb ? TAB_OFF : TAB_ON,
+      setWeb: function () { self.setCat('web'); }, setIt: function () { self.setCat('it'); },
+      title: isWeb ? 'Composez votre site, et regardez-le se construire.' : 'Votre informatique, installée et réglée chez vous.',
+      subtitle: isWeb ? 'Chaque choix ajoute sa partie à l\'aperçu et met le prix à jour.' : 'Installation, passage à Linux, dépannage, sauvegardes : je me déplace autour d\'Amiens.',
+      webHasType: isWeb && !!type,
+      itServices: itServices, itPicked: itPicked, itHasPick: itPicked.length > 0, itNoPick: itPicked.length === 0,
+      itPublics: itPublics, itPublicLabel: pubObj ? pubObj.name : 'particulier ou professionnel',
+      pv: pv,
+      types: types, metiers: metiers, options: options, details: details, suggestions: sugg, lines: lines,
+      showMetier: !!type,
+      showOptions: !!type && (type !== 'fonc' || !!metier),
+      showDetails: details.length > 0,
+      showSuggestions: sugg.length > 0,
+      showFinish: !!type && !!metier,
+      optionsTitle: type === 'fonc' ? 'Que doit faire votre site ?' : 'Envie d\'ajouter quelque chose ?',
+      optionsHint: type === 'fonc' ? 'Les fonctions proposées dépendent de votre activité. Cochez tout ce qui vous sert.' : 'Facultatif : cochez ce qui vous sert.',
+      hasType: !!type, noType: !type,
+      totalLabel: eur(total),
+      hasGift: gifts.length > 0, gifts: gifts,
+      valeurLabel: eur(valeur), offertLabel: '− ' + eur(offert),
+      hasMarket: !!mk,
+      marketRange: mk ? mk.range : '', marketWho: mk ? mk.who : '', marketSrc: mk ? mk.src : '',
+      myBar: 'width: ' + myPct + '%', marketBar: 'margin-left: ' + lowPct + '%; width: ' + (100 - lowPct) + '%',
+      compare: compare,
+      showRange: type === 'fonc',
+      rangeLabel: eur(low) + ' – ' + eur(high),
+      delai: typeObj ? typeObj.delai : '',
+      reset: function () { self.setState({ type: null, metier: null, picked: [], subs: {}, itPublic: null, itPicked: [] }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
