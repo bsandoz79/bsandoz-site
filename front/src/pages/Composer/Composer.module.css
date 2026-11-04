@@ -5,10 +5,85 @@
   padding-block: var(--space-6) var(--space-8);
 }
 
-/* La colonne des étapes reste lisible ; l'aperçu en direct viendra à sa droite (branche apercu). */
-.entete,
-.panneau {
+/* Colonne des choix à gauche, aperçu à droite à partir de 1 000 px (masqué en dessous). */
+.entete {
   max-width: 48rem;
+}
+
+.colonnes {
+  display: grid;
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.panneau {
+  min-width: 0;
+  max-width: 48rem;
+}
+
+.apercu {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .colonnes {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+
+  .apercu {
+    position: sticky;
+    top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-height: calc(100vh - 2 * var(--space-5));
+    overflow-y: auto;
+  }
+}
+
+/* Encadré « bon à savoir » de l'onglet informatique */
+.bonASavoir,
+.deroule {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+}
+
+.bonASavoir {
+  background: var(--color-navy);
+  color: var(--color-text-on-dark);
+}
+
+.deroule {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.bonEyebrow {
+  color: var(--color-rose-light);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.deroule .bonEyebrow {
+  color: var(--color-rose-dark);
+}
+
+.bonTitre {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.derouleListe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
 }
 
 .entete {

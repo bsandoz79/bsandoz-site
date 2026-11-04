@@ -50,6 +50,20 @@ export const marcheTextes = {
   source: (description: string, source: string) => `Prix constatés pour un ${description}. Source : ${source}.`,
 };
 
+/** Encadré de droite de l'onglet informatique (à la place de l'aperçu). */
+export const bonASavoir = {
+  label: 'Bon à savoir',
+  eyebrow: 'Le bon à savoir',
+  title: 'Votre PC ne passe pas à Windows 11 ? Ne le jetez pas.',
+  text: "Windows 10 n'est plus mis à jour depuis octobre 2025. Avec Linux, un ordinateur de plusieurs années redevient rapide et sûr, et vos fichiers vous suivent.",
+  etapesTitre: 'Comment ça se passe',
+  etapes: [
+    { titre: 'On en parle', texte: 'rendez-vous gratuit ou description en ligne.' },
+    { titre: 'Devis clair', texte: 'avant toute intervention.' },
+    { titre: 'Je viens chez vous', texte: "j'installe, je vous montre, et vos données restent en sécurité." },
+  ],
+};
+
 export const informatiqueTextes = {
   public: '1. Pour qui ?',
   besoins: '2. De quoi avez-vous besoin ?',
