@@ -11,12 +11,14 @@ import styles from './Layout.module.css';
  * pied de page et barre « Estimer » sur mobile.
  */
 export function Layout() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
-  // Revient en haut de la page à chaque changement de page.
+  // À chaque changement de page : va à l'ancre demandée (#…) si elle existe, sinon en haut.
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    const cible = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+    if (cible) cible.scrollIntoView();
+    else window.scrollTo(0, 0);
+  }, [pathname, hash]);
 
   return (
     <div className={styles.layout}>

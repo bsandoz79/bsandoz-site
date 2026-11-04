@@ -2,12 +2,15 @@ import type { ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { pages } from '../data/pages';
+import { APropos } from '../pages/APropos';
 import { Composer } from '../pages/Composer';
+import { Faq } from '../pages/Faq';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
 import { Metier } from '../pages/Metier';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
+import { Realisations } from '../pages/Realisations';
 import { Tarifs } from '../pages/Tarifs';
 
 type PageKey = keyof typeof pages;
@@ -22,6 +25,9 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   ecommerce: <Metier id="ecommerce" />,
   restaurant: <Metier id="restaurant" />,
   independant: <Metier id="independant" />,
+  realisations: <Realisations />,
+  aPropos: <APropos />,
+  faq: <Faq />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

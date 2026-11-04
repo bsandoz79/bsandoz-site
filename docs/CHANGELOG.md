@@ -47,3 +47,8 @@
 - Page Informatique sur place : contexte Windows 10 / Linux, 8 prestations (réseau et NAS « Bientôt disponible »), déroulement en 3 étapes, « Tarif sur devis », accès direct à l'onglet informatique du configurateur.
 - Configurateur : `?metier=` choisit l'activité (avec `?formule=`), lecture de l'adresse regroupée dans `etatDepuisAdresse`.
 - Pages métier (artisan, commerce, restaurant, santé / bien-être) : promesse du cahier des charges, fonctions utiles avec leur prix, exemple de site fictif (aperçu), réalisation proche quand il y en a une, accès au configurateur préréglé.
+- Page Réalisations : une étude de cas par projet (besoin, solution, captures), emplacements « [à compléter] » en attendant les informations réelles ; liens des cartes vers chaque étude.
+- Mise en page : une adresse avec ancre (`#…`) descend jusqu'à l'élément visé.
+- Page À propos : présentation, photo et parcours à compléter, lien vers le portfolio, les 4 valeurs, zone d'intervention, rendez-vous.
+- Bloc réutilisable `Accordion` (questions dépliables sur `details` / `summary`, ancre par question).
+- Page FAQ : délais, contenus à fournir, propriété du site, hébergement, modifications, WordPress, paiement ; réponses tirées des données (délais, prix), sans rien inventer.

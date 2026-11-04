@@ -27,12 +27,18 @@ front/src/
 
 - **Pages métier** (`pages/Metier`, une seule page paramétrée par `id`) : contenus dans `data/metiers.ts` ; fonctions et prix tirés de `data/offres.ts`, exemple dessiné par `modeleApercu`, bouton vers `/composer?formule=fonctionnel&metier=<id>`.
 
+- **Réalisations** (`pages/Realisations`) : études de cas tirées de `data/realisations.ts` (champs `besoin` et `solution` à compléter), ancre par projet.
+
+- **À propos** (`pages/APropos`) : textes dans `data/apropos.ts` ; les valeurs reprennent celles de l'accueil.
+
+- **FAQ** (`pages/Faq`) : bloc `Accordion`, questions dans `data/faq.ts` (texte brut, réutilisé plus tard pour les données structurées FAQPage).
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
 ## Pages et routes
 - Les pages publiques (adresse, titre d'onglet, meta description, titre principal) sont décrites dans `src/data/pages.ts`.
-- `src/app/routes.tsx` crée une route par page, sous la mise en page commune `components/Layout` : lien d'évitement « Aller au contenu », en-tête, balise `<main id="contenu">`, pied de page, barre mobile, et retour en haut à chaque changement de page.
+- `src/app/routes.tsx` crée une route par page, sous la mise en page commune `components/Layout` : lien d'évitement « Aller au contenu », en-tête, balise `<main id="contenu">`, pied de page, barre mobile ; à chaque changement de page, défilement vers l'ancre demandée ou en haut.
 - Les pages construites sont déclarées dans `builtPages` (`src/app/routes.tsx`). Une page qui n'a pas encore de contenu affiche `pages/Placeholder` ; elle est remplacée par sa vraie page dans la branche prévue au plan.
 - Toute adresse inconnue affiche `pages/NotFound` (404, `noindex`).
 - `src/data/navigation.ts` regroupe les libellés et liens de l'en-tête, des onglets de services, du pied de page et de la barre mobile, ainsi que le contact (le téléphone n'est affiché qu'une fois renseigné).
@@ -43,6 +49,7 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `src/data/configurateur.ts` : textes du configurateur.
 - `src/data/apercu.ts` : `modeleApercu(config)` construit le modèle du bloc `SitePreview` (entreprise d'exemple du métier, navigation, sections, appli, résultat Google) et sa description textuelle.
 - `src/data/metiers.ts` : contenus des 4 pages métier.
+- `src/data/apropos.ts`, `src/data/faq.ts` : textes des pages À propos et FAQ.
 - `src/data/tarifs.ts` : textes de la page Tarifs.
 - `src/data/accueil.ts` : textes de la page d'accueil, repris de la maquette `Main`.
 - `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.
