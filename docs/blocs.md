@@ -8,5 +8,6 @@ Liste des blocs de `front/src/blocks/`. Chaque bloc a son propre `README.md`.
 | [`Container`](../front/src/blocks/Container/README.md) | conteneur centré à largeur maximale, balise au choix | prêt |
 | [`RotatingWords`](../front/src/blocks/RotatingWords/README.md) | mots qui défilent l'un après l'autre | prêt |
 | [`Marquee`](../front/src/blocks/Marquee/README.md) | bande qui défile en continu | prêt |
+| [`Card`](../front/src/blocks/Card/README.md) | carte arrondie, trois fonds, effet de survol | prêt |
 
 Les blocs animés s'appuient sur `src/blocks/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».
