@@ -11,3 +11,4 @@
 - `.htaccess` : routes React et HTTPS forcé.
 - Routes de toutes les pages publiques (contenu provisoire), page 404, titre et meta description par page.
 - Bloc réutilisable `Button` (bouton ou lien, trois variantes, deux tailles) et `buttonClassName` pour habiller un lien de routeur.
+- Bloc réutilisable `Container` (conteneur centré, balise et largeur au choix).
