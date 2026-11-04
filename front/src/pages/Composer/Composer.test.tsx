@@ -5,7 +5,7 @@ import { AppRoutes } from '../../app/routes';
 import { pages } from '../../data/pages';
 import { CLE_STOCKAGE } from './stockage';
 
-function renderComposer(path = pages.composer.path) {
+function renderComposer(path: string = pages.composer.path) {
   return render(
     <MemoryRouter initialEntries={[path]}>
       <AppRoutes />
