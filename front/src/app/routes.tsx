@@ -8,6 +8,7 @@ import { Informatique } from '../pages/Informatique';
 import { Metier } from '../pages/Metier';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
+import { Realisations } from '../pages/Realisations';
 import { Tarifs } from '../pages/Tarifs';
 
 type PageKey = keyof typeof pages;
@@ -22,6 +23,7 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   ecommerce: <Metier id="ecommerce" />,
   restaurant: <Metier id="restaurant" />,
   independant: <Metier id="independant" />,
+  realisations: <Realisations />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

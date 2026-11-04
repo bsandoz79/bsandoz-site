@@ -27,12 +27,14 @@ front/src/
 
 - **Pages métier** (`pages/Metier`, une seule page paramétrée par `id`) : contenus dans `data/metiers.ts` ; fonctions et prix tirés de `data/offres.ts`, exemple dessiné par `modeleApercu`, bouton vers `/composer?formule=fonctionnel&metier=<id>`.
 
+- **Réalisations** (`pages/Realisations`) : études de cas tirées de `data/realisations.ts` (champs `besoin` et `solution` à compléter), ancre par projet.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
 ## Pages et routes
 - Les pages publiques (adresse, titre d'onglet, meta description, titre principal) sont décrites dans `src/data/pages.ts`.
-- `src/app/routes.tsx` crée une route par page, sous la mise en page commune `components/Layout` : lien d'évitement « Aller au contenu », en-tête, balise `<main id="contenu">`, pied de page, barre mobile, et retour en haut à chaque changement de page.
+- `src/app/routes.tsx` crée une route par page, sous la mise en page commune `components/Layout` : lien d'évitement « Aller au contenu », en-tête, balise `<main id="contenu">`, pied de page, barre mobile ; à chaque changement de page, défilement vers l'ancre demandée ou en haut.
 - Les pages construites sont déclarées dans `builtPages` (`src/app/routes.tsx`). Une page qui n'a pas encore de contenu affiche `pages/Placeholder` ; elle est remplacée par sa vraie page dans la branche prévue au plan.
 - Toute adresse inconnue affiche `pages/NotFound` (404, `noindex`).
 - `src/data/navigation.ts` regroupe les libellés et liens de l'en-tête, des onglets de services, du pied de page et de la barre mobile, ainsi que le contact (le téléphone n'est affiché qu'une fois renseigné).
