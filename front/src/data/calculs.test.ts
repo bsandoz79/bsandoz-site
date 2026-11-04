@@ -109,6 +109,11 @@ describe('calculerEstimation', () => {
     expect(estimation.fourchette).toEqual({ bas: 1320, haut: 1530 });
     expect(estimation.delai).toBe('3 à 6 semaines');
   });
+
+  it('ne descend jamais sous le prix plancher du Fonctionnel', () => {
+    const estimation = calculerEstimation(config({ formule: 'fonctionnel', metier: 'sante' }));
+    expect(estimation.fourchette).toEqual({ bas: 989, haut: 1090 });
+  });
 });
 
 describe('suggestions', () => {

@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Corrigé
+- Fourchette du Fonctionnel : son bas ne descend plus sous le prix plancher de 989 €.
 - Workflow de déploiement invalide (« : » non protégé dans une commande `echo`, ligne 33) : il échouait à chaque push sur `main` sans rien lancer.
 
 ### Ajouté
