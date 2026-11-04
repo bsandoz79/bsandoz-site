@@ -24,6 +24,23 @@ describe('Layout', () => {
     expect(screen.getByRole('complementary', { name: 'Estimation rapide' })).toBeInTheDocument();
   });
 
+  it("va jusqu'à l'ancre demandée dans l'adresse", () => {
+    const scrollIntoView = vi.fn();
+    Element.prototype.scrollIntoView = scrollIntoView;
+    vi.mocked(window.scrollTo).mockClear();
+    render(
+      <MemoryRouter initialEntries={['/#cible']}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<h1 id="cible">Accueil</h1>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(scrollIntoView).toHaveBeenCalled();
+    expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
   it("propose en premier un lien d'évitement vers le contenu", async () => {
     const user = userEvent.setup();
     renderLayout();
