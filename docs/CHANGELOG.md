@@ -23,3 +23,4 @@
 - Bloc réutilisable `Reveal` (apparition au défilement, visible d'emblée si animations réduites).
 - Bloc réutilisable `SectionTitle` (sur-titre, titre, introduction).
 - Polices Plus Jakarta Sans et Inter chargées ; animation `anim-pulse` pour le bouton principal.
+- Données : formules et formatage des prix (`offres.ts`), réalisations (`realisations.ts`), textes de l'accueil (`accueil.ts`).
