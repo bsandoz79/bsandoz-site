@@ -20,5 +20,8 @@ Dépôt → Settings → Secrets and variables → Actions → New repository se
 Conseil : créer un compte FTP limité au dossier `preview.bsandoz.fr` (puis `bsandoz.fr` pour la production).
 Sans ces secrets, le workflow passe mais n'envoie rien.
 
+## Attention au YAML
+Dans un fichier de workflow, une valeur sans guillemets ne doit pas contenir « : » suivi d'une espace (YAML y voit une nouvelle clé et GitHub refuse le fichier : « Fichier de workflow invalide »). Mettre la valeur entière entre guillemets ou utiliser un bloc `run: |`.
+
 ## Routes
 `front/public/.htaccess` renvoie toutes les routes vers `index.html` et force le HTTPS.

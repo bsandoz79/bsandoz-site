@@ -30,7 +30,7 @@ jobs:
           npm run build
       - name: Secrets absents
         if: env.FTP_SERVER == ''
-        run: echo "Secrets FTP non configurés : déploiement ignoré (voir docs/deploiement.md)."
+        run: echo "Secrets FTP non configurés, déploiement ignoré (voir docs/deploiement.md)."
       - name: Envoi sur o2switch
         if: env.FTP_SERVER != ''
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
