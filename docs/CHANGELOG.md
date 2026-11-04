@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Corrigé
+- Fourchette du Fonctionnel : son bas ne descend plus sous le prix plancher de 989 €.
 - Workflow de déploiement invalide (« : » non protégé dans une commande `echo`, ligne 33) : il échouait à chaque push sur `main` sans rien lancer.
 
 ### Ajouté
@@ -31,3 +32,7 @@
 - Page d'accueil complète : hero (mots qui tournent, écran de réservation de démonstration sur ordinateur), bande des métiers, problèmes → solutions, offres, réalisations, méthode en 4 étapes, « Pourquoi travailler avec moi », appel à l'action.
 - Données de prix complètes (`offres.ts`) : métiers, options, listes par formule et par métier, précisions, packs offerts, prix du marché avec leur source.
 - Calculs du configurateur (`calculs.ts`) : options disponibles, packs actifs, estimation détaillée (valeur, offert, total, fourchette, délai), suggestions, comparaison avec le marché.
+- Bloc réutilisable `ChoiceChips` (choix unique en pastilles, vrais boutons radio).
+- Bloc réutilisable `OptionCard` (carte à cocher avec description et prix, option désactivable).
+- Bloc réutilisable `PriceSummary` (récapitulatif de prix, total annoncé aux lecteurs d'écran, lignes offertes barrées).
+- Page Tarifs : trois formules avec contenu et délai, encadré « Pourquoi un site fonctionnel coûte plus cher ? », simulateur du Fonctionnel (activité, options, prix et fourchette en direct, packs offerts, suggestion), « Et après la mise en ligne ? ».

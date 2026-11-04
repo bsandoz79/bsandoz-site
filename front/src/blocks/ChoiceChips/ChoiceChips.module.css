@@ -1,0 +1,63 @@
+.fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  margin-bottom: var(--space-3);
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Le bouton radio est invisible mais reste focalisable et cliquable via son libellé. */
+.input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 500;
+  transition: border-color var(--duration), background-color var(--duration);
+}
+
+.chip:hover .label {
+  border-color: var(--color-rose);
+}
+
+.input:checked + .label {
+  border: 2px solid var(--color-rose);
+  background: var(--color-rose-soft);
+  color: var(--color-rose-dark);
+  font-weight: 600;
+}
+
+.input:focus-visible + .label {
+  outline: 3px solid var(--color-rose);
+  outline-offset: 2px;
+}

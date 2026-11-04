@@ -125,8 +125,14 @@ export function calculerEstimation(config: Configuration): Estimation {
     valeur,
     offert,
     total,
+    // Le bas de la fourchette ne descend jamais sous le prix plancher de la formule (« dès 989 € »).
     fourchette:
-      config.formule === 'fonctionnel' ? { bas: arrondi10(total * 0.95), haut: arrondi10(total * 1.1) } : null,
+      config.formule === 'fonctionnel'
+        ? {
+            bas: Math.max(arrondi10(total * 0.95), formuleParId('fonctionnel').prix),
+            haut: arrondi10(total * 1.1),
+          }
+        : null,
     delai: config.formule ? formuleParId(config.formule).delai : null,
     packs: actifs,
   };

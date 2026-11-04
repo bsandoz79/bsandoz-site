@@ -19,6 +19,8 @@ front/src/
 ## Pages construites
 - **Accueil** (`pages/Home`) : une section = un composant dans `pages/Home/sections/` (Hero, Metiers, Problemes, Offres, Realisations, Methode, Pourquoi, AppelAction), textes dans `data/accueil.ts`. L'illustration du téléphone n'apparaît qu'à partir de 960 px, comme dans la maquette mobile. Les boutons de formule mènent à `/composer?formule=<id>`.
 
+- **Tarifs** (`pages/Tarifs`) : formules, encadré sur le prix du fonctionnel, `Simulateur` (simulation du Fonctionnel avec les blocs `ChoiceChips`, `OptionCard` et `PriceSummary`, calculs de `data/calculs.ts`), après la mise en ligne. Textes dans `data/tarifs.ts`. Le configurateur complet reste `/composer`.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
@@ -29,8 +31,9 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - Toute adresse inconnue affiche `pages/NotFound` (404, `noindex`).
 - `src/data/navigation.ts` regroupe les libellés et liens de l'en-tête, des onglets de services, du pied de page et de la barre mobile, ainsi que le contact (le téléphone n'est affiché qu'une fois renseigné).
 - `src/data/offres.ts` : formules (nom, accroche, prix, délai, points forts), tarif horaire et mentions de prix ; `formatPrix` et `prixFormule` pour l'affichage. Contient aussi les métiers, les options (`prixOption` pour l'affichage), les listes d'options par formule et par métier, les précisions (sous-questions), les packs et les prix du marché.
-- `src/data/calculs.ts` : fonctions pures du configurateur, sans état : `optionsDisponibles`, `garderOptionsValides`, `packsActifs`, `calculerEstimation`, `suggestions` (2 au plus), `comparaisonMarche`. Une `Configuration` réunit formule, métier, options et réponses aux précisions.
+- `src/data/calculs.ts` : fonctions pures du configurateur, sans état : `optionsDisponibles`, `garderOptionsValides`, `packsActifs`, `calculerEstimation` (fourchette −5 % / +10 %, jamais sous le prix plancher), `suggestions` (2 au plus), `comparaisonMarche`. Une `Configuration` réunit formule, métier, options et réponses aux précisions.
 - `src/data/realisations.ts` : réalisations présentées (captures à ajouter, emplacements `[…]` en attendant).
+- `src/data/tarifs.ts` : textes de la page Tarifs.
 - `src/data/accueil.ts` : textes de la page d'accueil, repris de la maquette `Main`.
 - `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.
 - `components/Footer` : présentation, contact et liens légaux. Sur mobile, il garde de la place en bas pour la barre « Estimer ».
