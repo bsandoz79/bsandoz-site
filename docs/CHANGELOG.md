@@ -15,3 +15,4 @@
 - Contenus de navigation, de contact et du pied de page dans `src/data/navigation.ts`.
 - En-tête : onglets « Sites & applis » / « Informatique sur place », logo, menu avec sous-menu « Métiers », bouton « Estimer mon projet », menu repliable sur mobile (Échap, clic en dehors, fermeture au changement de page).
 - Pied de page : présentation, e-mail, portfolio et pages légales.
+- Barre « Estimer » fixe en bas de l'écran sur mobile, masquée sur les pages Composer et Devis.
