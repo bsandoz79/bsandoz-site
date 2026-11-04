@@ -1,0 +1,21 @@
+import { Link, useLocation } from 'react-router-dom';
+import { mobileBar } from '../../data/navigation';
+import styles from './MobileBar.module.css';
+
+/**
+ * Barre « Estimer » fixée en bas de l'écran sur mobile (masquée sur ordinateur par le CSS).
+ * Elle n'est pas affichée sur les pages où l'on est déjà en train d'estimer.
+ */
+export function MobileBar() {
+  const { pathname } = useLocation();
+  if (mobileBar.hiddenOn.includes(pathname)) return null;
+
+  return (
+    <aside className={styles.bar} aria-label={mobileBar.label}>
+      <p className={styles.text}>{mobileBar.text}</p>
+      <Link to={mobileBar.cta.to} className={styles.cta}>
+        {mobileBar.cta.label}
+      </Link>
+    </aside>
+  );
+}

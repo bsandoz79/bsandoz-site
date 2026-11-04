@@ -1,8 +1,14 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { skipLink } from '../../data/navigation';
+import { Footer } from '../Footer';
+import { Header } from '../Header';
+import { MobileBar } from '../MobileBar';
+import styles from './Layout.module.css';
 
 /**
- * Mise en page commune à toutes les pages. L'en-tête et le pied de page viendront s'ajouter ici.
+ * Mise en page commune à toutes les pages : lien d'évitement, en-tête, contenu,
+ * pied de page et barre « Estimer » sur mobile.
  */
 export function Layout() {
   const { pathname } = useLocation();
@@ -13,8 +19,16 @@ export function Layout() {
   }, [pathname]);
 
   return (
-    <main id="contenu">
-      <Outlet />
-    </main>
+    <div className={styles.layout}>
+      <a href={`#${skipLink.target}`} className={styles.skip}>
+        {skipLink.label}
+      </a>
+      <Header />
+      <main id={skipLink.target} tabIndex={-1} className={styles.main}>
+        <Outlet />
+      </main>
+      <Footer />
+      <MobileBar />
+    </div>
   );
 }

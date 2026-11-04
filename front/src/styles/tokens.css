@@ -43,6 +43,8 @@
   --radius-pill: 999px;
 
   --shadow-card: 0 18px 40px rgb(22 33 62 / 0.12);
+  --shadow-bar: 0 12px 30px rgb(22 33 62 / 0.3);
   --container: 74rem;
+  --container-narrow: 46rem;
   --duration: 0.25s;
 }
