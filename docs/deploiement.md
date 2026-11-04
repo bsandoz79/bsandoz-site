@@ -20,6 +20,15 @@ Dépôt → Settings → Secrets and variables → Actions → New repository se
 Conseil : créer un compte FTP limité au dossier `preview.bsandoz.fr` (puis `bsandoz.fr` pour la production).
 Sans ces secrets, le workflow passe mais n'envoie rien.
 
+## Envoi des demandes de devis (`front/public/api/devis.php`)
+Le script est copié avec le site (`dist/api/devis.php`) et utilise la fonction `mail()` d'o2switch : aucun service externe, aucun secret.
+- Destinataire : `contact@bsandoz.fr` ; expéditeur : `no-reply@bsandoz.fr` (adresse à créer dans cPanel pour une bonne délivrabilité, avec SPF/DKIM actifs).
+- Le client reçoit un accusé de réception avec le récapitulatif de sa demande.
+- Anti-spam : champ piège `site_web`, 1 envoi par minute et 3 par heure par adresse IP (empreinte stockée dans le dossier temporaire du serveur).
+- Photos : 3 au plus, 5 Mo chacune, JPEG / PNG / WebP vérifiés sur le contenu.
+- En développement (`npm run dev`), PHP n'est pas servi : l'envoi échoue et le parcours affiche le message d'erreur prévu.
+- Le lien de suivi de la demande viendra avec l'API (V2).
+
 ## Attention au YAML
 Dans un fichier de workflow, une valeur sans guillemets ne doit pas contenir « : » suivi d'une espace (YAML y voit une nouvelle clé et GitHub refuse le fichier : « Fichier de workflow invalide »). Mettre la valeur entière entre guillemets ou utiliser un bloc `run: |`.
 
