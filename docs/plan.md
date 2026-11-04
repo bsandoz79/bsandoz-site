@@ -11,7 +11,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/tarifs` : page Tarifs
 - [x] `feature/configurateur` : bloc `OptionCard`, `ChoiceChips`, `PriceSummary` (créés dès `feature/tarifs`) ; page `/composer` avec étapes, packs, marché
 - [x] `feature/apercu` : bloc `SitePreview` (aperçu en direct), masqué sous 1 000 px
-- [ ] `feature/informatique` : onglet et page Informatique sur place (réseau « Bientôt disponible »)
+- [x] `feature/informatique` : onglet et page Informatique sur place (réseau « Bientôt disponible »)
 - [ ] `feature/metiers` : 4 pages métier
 - [ ] `feature/realisations-apropos-faq`
 - [ ] `feature/devis-front` : parcours en 5 étapes, envoi par mail (service d'envoi simple ou script PHP sur o2switch), sauvegarde locale

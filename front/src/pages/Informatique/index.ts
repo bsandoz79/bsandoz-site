@@ -1,0 +1,1 @@
+export { Informatique } from './Informatique';

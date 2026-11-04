@@ -7,6 +7,7 @@ import {
   enregistrerEtat,
   etatVide,
   formuleDepuisAdresse,
+  ongletDepuisAdresse,
   type EtatComposer,
   type Onglet,
 } from './stockage';
@@ -18,8 +19,9 @@ const basculer = <T>(liste: T[], valeur: T) =>
 export function useComposer(recherche: string) {
   const [etat, setEtat] = useState<EtatComposer>(() => {
     const initial = chargerEtat();
+    const onglet = ongletDepuisAdresse(recherche);
     const formule = formuleDepuisAdresse(recherche);
-    if (!formule) return initial;
+    if (!formule) return onglet ? { ...initial, onglet } : initial;
     const { metier, options } = initial.config;
     return {
       ...initial,

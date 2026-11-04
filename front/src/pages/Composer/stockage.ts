@@ -78,6 +78,12 @@ export function enregistrerEtat(etat: EtatComposer) {
   }
 }
 
+/** Onglet demandé dans l'adresse (`/composer?onglet=informatique`), si il existe. */
+export function ongletDepuisAdresse(recherche: string): Onglet | null {
+  const valeur = new URLSearchParams(recherche).get('onglet');
+  return valeur === 'web' || valeur === 'informatique' ? valeur : null;
+}
+
 /** Formule demandée dans l'adresse (`/composer?formule=vitrine`), si elle existe. */
 export function formuleDepuisAdresse(recherche: string): FormuleId | null {
   const valeur = new URLSearchParams(recherche).get('formule');
