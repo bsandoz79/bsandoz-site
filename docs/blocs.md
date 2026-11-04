@@ -12,5 +12,6 @@ Liste des blocs de `front/src/blocks/`. Chaque bloc a son propre `README.md`.
 | [`Reveal`](../front/src/blocks/Reveal/README.md) | apparition en fondu au défilement | prêt |
 | [`SectionTitle`](../front/src/blocks/SectionTitle/README.md) | sur-titre, titre et introduction de section | prêt |
 | [`ChoiceChips`](../front/src/blocks/ChoiceChips/README.md) | choix unique en pastilles (boutons radio) | prêt |
+| [`OptionCard`](../front/src/blocks/OptionCard/README.md) | carte à cocher : titre, description, prix | prêt |
 
 Les blocs animés s'appuient sur `src/blocks/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».

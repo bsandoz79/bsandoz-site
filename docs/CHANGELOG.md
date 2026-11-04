@@ -29,3 +29,4 @@
 - Données de prix complètes (`offres.ts`) : métiers, options, listes par formule et par métier, précisions, packs offerts, prix du marché avec leur source.
 - Calculs du configurateur (`calculs.ts`) : options disponibles, packs actifs, estimation détaillée (valeur, offert, total, fourchette, délai), suggestions, comparaison avec le marché.
 - Bloc réutilisable `ChoiceChips` (choix unique en pastilles, vrais boutons radio).
+- Bloc réutilisable `OptionCard` (carte à cocher avec description et prix, option désactivable).
