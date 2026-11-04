@@ -21,6 +21,8 @@ front/src/
 
 - **Tarifs** (`pages/Tarifs`) : formules, encadré sur le prix du fonctionnel, `Simulateur` (simulation du Fonctionnel avec les blocs `ChoiceChips`, `OptionCard` et `PriceSummary`, calculs de `data/calculs.ts`), après la mise en ligne. Textes dans `data/tarifs.ts`. Le configurateur complet reste `/composer`.
 
+- **Composer** (`pages/Composer`) : `useComposer` tient l'état (onglet, configuration, demande d'informatique) et l'enregistre dans le navigateur sous la clé `bsandoz.composer` (`stockage.ts` : lecture validée, sans effet si le stockage est bloqué). `?formule=<id>` préremplit la formule.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
