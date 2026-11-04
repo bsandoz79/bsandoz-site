@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé
+- Workflow de déploiement invalide (« : » non protégé dans une commande `echo`, ligne 33) : il échouait à chaque push sur `main` sans rien lancer.
+
 ### Ajouté
 - Cahier des charges, plan de développement et maquette de référence (`docs/`).
 - Initialisation du front (React, Vite, TypeScript).
