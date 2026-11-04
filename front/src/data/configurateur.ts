@@ -1,4 +1,4 @@
-import { informatiqueMentions } from './informatique';
+import { deroulementInformatique, informatiqueMentions } from './informatique';
 import { pages } from './pages';
 
 /** Textes du configurateur `/composer` (maquette `Configurateur`). */
@@ -57,11 +57,7 @@ export const bonASavoir = {
   title: 'Votre PC ne passe pas à Windows 11 ? Ne le jetez pas.',
   text: "Windows 10 n'est plus mis à jour depuis octobre 2025. Avec Linux, un ordinateur de plusieurs années redevient rapide et sûr, et vos fichiers vous suivent.",
   etapesTitre: 'Comment ça se passe',
-  etapes: [
-    { titre: 'On en parle', texte: 'rendez-vous gratuit ou description en ligne.' },
-    { titre: 'Devis clair', texte: 'avant toute intervention.' },
-    { titre: 'Je viens chez vous', texte: "j'installe, je vous montre, et vos données restent en sécurité." },
-  ],
+  etapes: deroulementInformatique,
 };
 
 export const informatiqueTextes = {

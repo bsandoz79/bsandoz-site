@@ -23,6 +23,8 @@ front/src/
 
 - **Composer** (`pages/Composer`) : `useComposer` tient l'état (onglet, configuration, demande d'informatique) et l'enregistre dans le navigateur sous la clé `bsandoz.composer` (`stockage.ts` : lecture validée, sans effet si le stockage est bloqué). `?formule=<id>` préremplit la formule, `?onglet=informatique` ouvre l'onglet informatique. `ConfigurateurWeb` (étapes), `Estimation` (bloc `PriceSummary`), `ComparaisonMarche` (deux barres + source), `ConfigurateurInformatique`. Les onglets suivent le modèle ARIA (flèches, Début, Fin). `Apercu` affiche à droite le bloc `SitePreview` (ou « Bon à savoir » pour l'informatique), collant, masqué sous 1 000 px.
 
+- **Informatique** (`pages/Informatique`) : prestations, déroulement et tarif sur devis ; textes et déroulement (partagé avec le configurateur) dans `data/informatique.ts`.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
