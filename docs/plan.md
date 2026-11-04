@@ -10,7 +10,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/pricing-data` : `src/data/offres.ts` (formules, options, listes par métier, sous-questions, packs, marché) + fonctions de calcul pures (`calculerEstimation`, `packsActifs`, `suggestions`, `comparaisonMarche`) entièrement testées
 - [x] `feature/tarifs` : page Tarifs
 - [x] `feature/configurateur` : bloc `OptionCard`, `ChoiceChips`, `PriceSummary` (créés dès `feature/tarifs`) ; page `/composer` avec étapes, packs, marché
-- [ ] `feature/apercu` : bloc `SitePreview` (aperçu en direct), masqué sous 1 000 px
+- [x] `feature/apercu` : bloc `SitePreview` (aperçu en direct), masqué sous 1 000 px
 - [ ] `feature/informatique` : onglet et page Informatique sur place (réseau « Bientôt disponible »)
 - [ ] `feature/metiers` : 4 pages métier
 - [ ] `feature/realisations-apropos-faq`
