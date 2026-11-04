@@ -55,3 +55,4 @@
 - Bloc réutilisable `Stepper` (barre de progression et étapes, étape en cours annoncée).
 - Bloc réutilisable `TextField` (champ ou zone de texte, aide et erreur reliées au champ).
 - Demande de devis : données du parcours (`data/devis.ts`) et logique pure (validation par étape, photos, brouillon dans le navigateur, récapitulatif, préparation de l'envoi).
+- Page Demande de devis (`/devis`) : 5 étapes avec progression, retour sans perte, brouillon gardé dans le navigateur, reprise de la configuration et de l'estimation du configurateur, erreurs expliquées, récapitulatif et consentement, champ piège anti-robots et délai entre deux envois.

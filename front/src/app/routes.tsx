@@ -4,6 +4,7 @@ import { Layout } from '../components/Layout';
 import { pages } from '../data/pages';
 import { APropos } from '../pages/APropos';
 import { Composer } from '../pages/Composer';
+import { Devis } from '../pages/Devis';
 import { Faq } from '../pages/Faq';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
@@ -28,6 +29,7 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   realisations: <Realisations />,
   aPropos: <APropos />,
   faq: <Faq />,
+  devis: <Devis />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */
