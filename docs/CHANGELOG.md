@@ -35,4 +35,5 @@
 - Bloc réutilisable `ChoiceChips` (choix unique en pastilles, vrais boutons radio).
 - Bloc réutilisable `OptionCard` (carte à cocher avec description et prix, option désactivable).
 - Bloc réutilisable `PriceSummary` (récapitulatif de prix, total annoncé aux lecteurs d'écran, lignes offertes barrées).
+- Bloc `ChoiceChips` : variante « cartes » avec description et prix.
 - Page Tarifs : trois formules avec contenu et délai, encadré « Pourquoi un site fonctionnel coûte plus cher ? », simulateur du Fonctionnel (activité, options, prix et fourchette en direct, packs offerts, suggestion), « Et après la mise en ligne ? ».

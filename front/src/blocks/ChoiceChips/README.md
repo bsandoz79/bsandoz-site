@@ -20,9 +20,10 @@ import { ChoiceChips } from '../blocks/ChoiceChips';
 | --- | --- | --- | --- |
 | `legend` | `ReactNode` | — | question posée |
 | `name` | `string` | — | nom du groupe radio, unique dans la page |
-| `choices` | `{ value, label }[]` | — | réponses possibles |
+| `choices` | `{ value, label, meta?, description? }[]` | — | réponses possibles |
 | `value` | `string \| null` | — | réponse choisie |
 | `onChange` | `(value) => void` | — | appelé au choix |
+| `variant` | `'chips' | 'cards'` | `'chips'` | pastilles compactes, ou cartes avec `description` et `meta` (prix) |
 | `hideLegend` | `boolean` | `false` | légende masquée visuellement (toujours lue) |
 
 ## Accessibilité
