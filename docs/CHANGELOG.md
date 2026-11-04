@@ -24,3 +24,5 @@
 - Bloc réutilisable `SectionTitle` (sur-titre, titre, introduction).
 - Polices Plus Jakarta Sans et Inter chargées ; animation `anim-pulse` pour le bouton principal.
 - Données : formules et formatage des prix (`offres.ts`), réalisations (`realisations.ts`), textes de l'accueil (`accueil.ts`).
+- Composant `RealisationCard` : carte d'une réalisation avec aperçu provisoire en attendant les captures.
+- Page d'accueil complète : hero (mots qui tournent, écran de réservation de démonstration sur ordinateur), bande des métiers, problèmes → solutions, offres, réalisations, méthode en 4 étapes, « Pourquoi travailler avec moi », appel à l'action.
