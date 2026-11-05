@@ -42,6 +42,9 @@ jobs:
       - run: php bin/console lint:yaml config --parse-tags
       - run: php bin/console dbal:run-sql "SELECT 1"
       - run: php bin/console doctrine:schema:validate --skip-sync
+      # Les migrations s'appliquent et donnent exactement le schéma des correspondances.
+      - run: php bin/console doctrine:migrations:migrate --no-interaction
+      - run: php bin/console doctrine:schema:validate
       - run: php bin/phpunit
 
   blocs:
