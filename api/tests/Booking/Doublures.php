@@ -44,6 +44,22 @@ final class RendezVousEnMemoire implements RendezVousRepository
 
         return null;
     }
+
+    public function parId(string $id): ?RendezVous
+    {
+        return $this->tous[$id] ?? null;
+    }
+
+    public function parEmail(string $email): array
+    {
+        $trouves = array_values(array_filter(
+            $this->tous,
+            static fn (RendezVous $r) => mb_strtolower($r->contact->email) === mb_strtolower(trim($email)),
+        ));
+        usort($trouves, static fn (RendezVous $a, RendezVous $b) => [$a->creneau->jour, $a->creneau->heure] <=> [$b->creneau->jour, $b->creneau->heure]);
+
+        return $trouves;
+    }
 }
 
 final class NotificationsEnregistrees implements Notifications
