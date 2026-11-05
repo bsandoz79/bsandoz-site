@@ -2,10 +2,29 @@
 
 Bibliothèque de blocs d'interface React réutilisables : calendrier, cartes d'options, choix en pastilles, récapitulatif de prix, aperçu de site, étapes, champs de saisie, questions dépliables, cartes, boutons…
 
-Chaque bloc reçoit **tout** par ses propriétés (textes, données, actions) : aucun ne connaît bsandoz.fr ni un métier. Le site bsandoz.fr l'utilise, et les sites des clients peuvent l'installer.
+Chaque bloc reçoit **tout** par ses propriétés (textes, données, actions) : aucun ne connaît bsandoz.fr ni un métier.
 
-## Installer dans un site client
-Le paquet est privé, publié sur GitHub Packages.
+C'est la **boîte à outils** de Baptiste : on y prend les fonctionnalités dont un client a besoin, on les personnalise et on les livre dans **son** site.
+
+## Livrer des blocs à un client (cas normal)
+Un site livré appartient au client : il ne doit dépendre ni de cette bibliothèque ni d'un accès privé. On **copie** donc les sources des blocs dans son projet.
+
+```sh
+# depuis la racine du dépôt bsandoz-site
+npm run livrer -- --liste                                          # blocs disponibles
+npm run livrer -- Calendar OptionCard --vers ../site-detailing/src/blocs
+```
+La commande copie les blocs demandés **et ce dont ils ont besoin** (ex. `motion.ts` pour `Reveal`), les styles de base (`styles/base.css`), un `index.ts` et une note `LIVRAISON.md` (version, date, mode d'emploi). Les tests ne sont pas copiés (sauf `--avec-tests`) ; un bloc déjà présent n'est jamais écrasé (sauf `--ecraser`), pour ne pas perdre une personnalisation.
+
+Ensuite, dans le site du client :
+```tsx
+import './blocs/styles/base.css';            // une fois, à l'entrée du site
+import { Calendar, OptionCard } from './blocs';
+```
+Le code livré est à lui : on peut le modifier pour ce client sans toucher à la bibliothèque.
+
+## Installer comme paquet (vos propres sites)
+Pour un site que vous gardez (comme bsandoz.fr), on peut aussi installer le paquet versionné, publié en privé sur GitHub Packages.
 
 1. Créer un jeton GitHub (Settings → Developer settings → Personal access tokens) avec le droit `read:packages`.
 2. À la racine du site client, un fichier `.npmrc` (ne jamais le versionner s'il contient le jeton) :

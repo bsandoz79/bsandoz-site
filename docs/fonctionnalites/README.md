@@ -14,7 +14,7 @@ Une fiche par fonctionnalité : à quoi elle sert, le **chemin** suivi (fichiers
 | [Rendez-vous découverte](rendez-vous.md) | calendrier, créneaux, zone de 50 km | oui (`Calendar`) |
 | [Pages de contenu](pages-de-contenu.md) | accueil, métiers, réalisations, à propos, FAQ, informatique, légal | blocs oui |
 | [SEO](seo.md) | titres, canonique, sitemap, données structurées | oui (fonctions pures) |
-| [Blocs réutilisables](blocs.md) | bibliothèque @bsandoz79/blocs : 15 blocs, publication, sites clients | oui |
+| [Blocs réutilisables](blocs.md) | boîte à outils @bsandoz79/blocs : 15 blocs, livraison par copie dans le site d'un client | oui |
 | [API](api.md) | Symfony modulaire, route `/sante` | modules à venir |
 | [Déploiement et CI](deploiement-et-ci.md) | tests automatiques, mise en ligne, retour à la V1 | — |
 

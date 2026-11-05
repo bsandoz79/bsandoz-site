@@ -19,13 +19,13 @@
 
 ## Architecture
 - Espace de travail npm à la racine (`package.json`) : `packages/blocs` et `front`. Installer et lancer depuis la racine (`npm ci`, `npm run test`, `npm run test -w front`…).
-- `packages/blocs/` : bibliothèque **@bsandoz79/blocs**, blocs RÉUTILISABLES sur plusieurs sites, sans rien de propre à bsandoz.fr (calendrier, boutons, cartes, sélecteur d'options…). Chaque bloc a son dossier `src/<Bloc>/` : `Bloc.tsx`, `Bloc.module.css`, `Bloc.test.tsx`, `index.ts`, `README.md`, et il est exporté par `src/index.ts`. Le site l'importe par `@bsandoz79/blocs` (alias vers les sources). Publication : étiquette `blocs-vX.Y.Z`.
+- `packages/blocs/` : bibliothèque **@bsandoz79/blocs**, blocs RÉUTILISABLES sur plusieurs sites, sans rien de propre à bsandoz.fr (calendrier, boutons, cartes, sélecteur d'options…). Chaque bloc a son dossier `src/<Bloc>/` : `Bloc.tsx`, `Bloc.module.css`, `Bloc.test.tsx`, `index.ts`, `README.md`, et il est exporté par `src/index.ts`. Le site l'importe par `@bsandoz79/blocs` (alias vers les sources). **Un site livré à un client lui appartient et ne dépend pas de nous** : on lui livre les blocs par copie (`npm run livrer -- <Blocs> --vers <dossier>`), jamais par un accès privé. Publication du paquet (sites gardés) : étiquette `blocs-vX.Y.Z`.
 - `front/` : React + Vite + TypeScript.
   - `src/components/` : composants propres à ce site (en-tête, pied de page…), construits avec les blocs.
   - `src/pages/` : une page = un dossier.
   - `src/data/` : contenus et prix (jamais en dur dans les composants).
   - `src/styles/` : CSS global segmenté (tokens, base, mise en page, animations).
-- `api/` : Symfony 7.4, monolithe modulaire, cœur hexagonal (voir `docs/api.md`). Tests : PHPUnit via Docker.
+- `api/` : Symfony 7.4, monolithe modulaire, cœur hexagonal (voir `docs/api.md`). Tests : PHPUnit via Docker. Chaque module (Booking…) doit pouvoir s'installer seul dans l'API d'un client (son hébergement, sa base).
 
 ## CSS
 - Variables de design dans `src/styles/tokens.css` uniquement (couleurs, typo, espacements, rayons, ombres).
