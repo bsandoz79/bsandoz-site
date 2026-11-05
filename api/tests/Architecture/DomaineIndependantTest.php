@@ -42,7 +42,9 @@ final class DomaineIndependantTest extends TestCase
 
             return;
         }
-        preg_match_all('/^use\s+([^;]+);/m', (string) file_get_contents($chemin), $imports);
+        $code = (string) file_get_contents($chemin);
+        self::assertMatchesRegularExpression("/^namespace App\\\\{$module}\\\\Domain(\\\\|;)/m", $code, "$chemin n'est pas dans l'espace de noms de son module");
+        preg_match_all('/^use\s+([^;]+);/m', $code, $imports);
         foreach ($imports[1] as $import) {
             self::assertDoesNotMatchRegularExpression('/^(Symfony|Doctrine)\\\\/', $import, "$chemin importe $import");
             self::assertStringNotContainsString('\\Infrastructure\\', $import, "$chemin importe l'infrastructure");
