@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Demandes de devis : le domaine reste sans annotation ni dépendance à Doctrine. -->
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Prospect\Domain\Demande" table="prospect_demande">
+        <indexes>
+            <index name="idx_prospect_demande_email" columns="demandeur_email"/>
+        </indexes>
+        <unique-constraints>
+            <unique-constraint name="uniq_prospect_demande_numero" columns="numero"/>
+        </unique-constraints>
+        <id name="id" type="string" length="36"/>
+        <field name="numero" type="string" length="12"/>
+        <embedded name="demandeur" class="App\Prospect\Domain\Demandeur"/>
+        <field name="titre" type="string" length="160"/>
+        <field name="recapitulatif" type="text"/>
+        <field name="predevis" type="text"/>
+        <field name="statut" type="string" length="20" enum-type="App\Prospect\Domain\StatutDemande"/>
+        <field name="creeLe" column="cree_le" type="datetime_immutable"/>
+        <field name="statutModifieLe" column="statut_modifie_le" type="datetime_immutable"/>
+    </entity>
+</doctrine-mapping>

@@ -64,7 +64,10 @@ Dans `api/.env.local` sur le serveur (jamais versionné) :
 - `AUTH_URL_SITE=https://bsandoz.fr` : les liens des mails mènent au site ;
 - `AUTH_EXPEDITEUR`, `AUTH_EXPEDITEUR_NOM`, `MAILER_DSN` (SMTP o2switch) ;
 - `AUTH_COOKIE_SECURISE=1` (de toute façon forcé en production) ;
+- `PROSPECT_EXPEDITEUR`, `PROSPECT_PROFESSIONNEL_EMAIL`, `PROSPECT_URL_SITE=https://bsandoz.fr`, `PROSPECT_SIRET` (après immatriculation) ;
 - puis `php bin/console doctrine:migrations:migrate`.
+
+Côté site, une fois l'API en ligne : ajouter `VITE_DEVIS_URL=https://api.bsandoz.fr/demandes` au build (variable du workflow de déploiement) pour que les demandes de devis passent par l'API (enregistrement, compte client, suivi). Sans elle, `devis.php` reste utilisé.
 
 En développement : API sur `http://localhost:8000`, site sur `http://localhost:5173` avec `VITE_API_URL=http://localhost:8000`, `AUTH_COOKIE_SECURISE=0` (valeurs de `api/.env.dist`).
 

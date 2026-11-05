@@ -65,8 +65,12 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | POST | `/auth/compte`, `/auth/email`, `/auth/email/confirmer` | coordonnées et préférences, changement d'e-mail confirmé par la nouvelle adresse |
 | POST | `/auth/suppression`, `/auth/suppression/confirmer` | suppression du compte confirmée par mail (les rendez-vous sont effacés : liaison `DonneesApresSuppression`) |
 | GET | `/espace/donnees` | télécharger toutes ses données (JSON) |
+| POST | `/demandes` | recevoir une demande de devis (module Prospect, même contrat que `devis.php`) |
+| GET | `/espace/demandes` | demandes et devis de la personne connectée |
+| POST | `/espace/demandes/{id}/devis/accepter` | accepter son devis |
+| GET | `/espace/demandes/{id}/devis.pdf` | télécharger son devis en PDF |
 
-Détails, réglages et installation chez un client : `api/src/Booking/README.md`, `api/src/Auth/README.md`.
+Détails, réglages et installation chez un client : `api/src/Booking/README.md`, `api/src/Auth/README.md`, `api/src/Prospect/README.md`.
 
 ## Liaisons entre modules
 Les modules ne se connaissent pas (chacun s'installe seul chez un client). Ce qui les relie sur bsandoz.fr est rangé dans `api/src/Liaisons/` : par exemple `CompteApresRendezVous` écoute l'événement `RendezVousReserve` publié par Booking et ouvre un compte client (module Auth).

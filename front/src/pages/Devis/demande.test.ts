@@ -8,6 +8,7 @@ import {
   lignesRecapitulatif,
   lireBrouillon,
   resumeConfiguration,
+  titreDemande,
   validerEtape,
   verifierPhotos,
   type Demande,
@@ -124,5 +125,22 @@ describe('récapitulatif et envoi', () => {
     const predevis = String(construireEnvoi(complete, config, [], '').get('predevis'));
     expect(predevis).toContain('configuration faite dans « Composer mon site »');
     expect(predevis).toContain('Options retenues : Rendez-vous en ligne');
+  });
+
+  it('envoie aussi le téléphone, l’entreprise et un titre lisible (pour l’API et l’espace client)', () => {
+    const donnees = construireEnvoi(complete, config, [], '');
+    expect(donnees.get('telephone')).toBe('06 12 34 56 78');
+    expect(donnees.get('entreprise')).toBe('Brillance');
+    expect(donnees.get('titre')).toBe('Site Fonctionnel · Rendez-vous en ligne');
+  });
+});
+
+describe('titreDemande', () => {
+  const config = { formule: 'fonctionnel' as const, metier: 'artisan' as const, options: ['rdv' as const], precisions: {} };
+
+  it('reprend la configuration, sinon les besoins, sinon un titre par défaut', () => {
+    expect(titreDemande(complete, config)).toBe('Site Fonctionnel · Rendez-vous en ligne');
+    expect(titreDemande(complete, null)).toBe('Prendre des rendez-vous, Calculer un prix');
+    expect(titreDemande({ ...complete, besoins: ['sais-pas'] }, null)).toBe('Projet de site');
   });
 });

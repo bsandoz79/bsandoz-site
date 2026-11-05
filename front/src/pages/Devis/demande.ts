@@ -162,11 +162,25 @@ export function lignesRecapitulatif(d: Demande, config: Configuration | null): [
   return lignes;
 }
 
-/** Données envoyées au script : récapitulatif, pré-devis, champs utiles, piège anti-robots et photos. */
+/**
+ * Titre court de la demande, affiché dans l'espace client : la configuration choisie
+ * (« Site Fonctionnel · Rendez-vous en ligne, Calculateur de prix »), sinon les besoins cochés.
+ */
+export function titreDemande(d: Demande, config: Configuration | null) {
+  const resume = resumeConfiguration(config);
+  if (resume) return resume.options.length ? `${resume.formule} · ${resume.options.join(', ')}` : resume.formule;
+  const noms = d.besoins.filter((b) => b !== 'sais-pas').map((b) => besoins.find((x) => x.id === b)?.nom ?? '');
+  return noms.length ? noms.join(', ') : 'Projet de site';
+}
+
+/** Données envoyées (au script ou à l'API) : récapitulatif, pré-devis, champs utiles, piège anti-robots et photos. */
 export function construireEnvoi(d: Demande, config: Configuration | null, photos: File[], piege: string) {
   const donnees = new FormData();
   donnees.append('nom', d.nom.trim());
   donnees.append('email', d.email.trim());
+  donnees.append('telephone', d.telephone.trim());
+  donnees.append('entreprise', d.entreprise.trim());
+  donnees.append('titre', titreDemande(d, config));
   donnees.append('recapitulatif', lignesRecapitulatif(d, config).map(([cle, valeur]) => `${cle} : ${valeur}`).join('\n'));
   donnees.append('predevis', texteDuPreDevis(preDevis(d, config)));
   donnees.append('site_web', piege);

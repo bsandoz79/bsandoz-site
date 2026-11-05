@@ -1,6 +1,12 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (demandes et devis)
+- Site : section « Mes demandes » de l'espace client (avancement de Reçue à Livré, devis détaillé, acceptation en deux temps, PDF), comme la maquette ; la demande envoie aussi téléphone, entreprise et un titre lisible ; adresse d'envoi réglable au build (`VITE_DEVIS_URL`, `devis.php` par défaut).
+- API : `POST /demandes` (même contrat que `devis.php` : piège anti-robots, 3 par heure par adresse IP, photos vérifiées et jointes au mail), accusé de réception avec le pré-devis, compte client ouvert à la première demande (liaison `CompteApresDemande`) ; « Mes demandes » (`GET /espace/demandes`, acceptation du devis, devis en PDF avec dompdf). Suppression du compte : demandes et devis effacés ; export : demandes et devis inclus. Tables `prospect_demande`, `prospect_devis`.
+- API, module Prospect : domaine et cas d'usage des demandes de devis (numéro « 2026-014 » par année, statuts Reçue → En étude → Devis envoyé → Accepté → En cours → Livré) et des devis (lignes, total, un devis par demande, acceptation par la seule demandeuse).
+- API : dépendance `dompdf/dompdf` (devis en PDF, en PHP pur, compatible o2switch).
+
 ### Ajouté (espace client : compte)
 - Site : sections « Mon compte » (coordonnées, changement d'e-mail), « Confidentialité et préférences » (état de la localisation et aide pour la réactiver, notifications par mail, téléchargement de ses données) et « Zone danger » (suppression en deux temps puis par le lien du mail) ; pages `/mon-espace/email` (confirmation de la nouvelle adresse, une seule fois) et `/mon-espace/suppression` (rien n'est supprimé sans clic). Politique de confidentialité complétée (espace client, cookie de session).
 - API : coordonnées et préférences du compte (`POST /auth/compte`), changement d'e-mail confirmé par un lien envoyé à la nouvelle adresse (l'ancienne est prévenue), suppression du compte confirmée par mail (compte, liens, sessions et rendez-vous effacés ; un rendez-vous à venir est d'abord annulé), téléchargement de ses données en JSON (`GET /espace/donnees`, sans aucun secret). Migration des nouvelles colonnes.

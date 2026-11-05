@@ -26,3 +26,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+when@test:
+    services:
+        # Établir un devis : appelé par le back-office (à venir) ; les tests l'utilisent dès maintenant.
+        App\Prospect\Application\EtablirDevis:
+            autowire: true
+            public: true

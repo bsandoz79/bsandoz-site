@@ -6,6 +6,7 @@ namespace App\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Pour les tests fonctionnels sur MySQL : recrée le schéma avant chaque test.
@@ -28,5 +29,10 @@ trait AvecBaseDeDonnees
         $metadonnees = $em->getMetadataFactory()->getAllMetadata();
         $schema->dropSchema($metadonnees);
         $schema->createSchema($metadonnees);
+
+        // Compteurs d'essais (connexions, liens, demandes) remis à zéro : chaque test part d'un état propre.
+        $compteurs = static::getContainer()->get('cache.rate_limiter');
+        \assert($compteurs instanceof CacheItemPoolInterface);
+        $compteurs->clear();
     }
 }
