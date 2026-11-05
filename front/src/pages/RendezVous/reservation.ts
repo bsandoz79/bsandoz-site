@@ -117,8 +117,8 @@ export function validerRdv(d: DemandeRdv, verification: ResultatAdresse | null):
   return erreurs;
 }
 
-/** Adresse de l'API (V2). Réglable par `VITE_API_URL` au build. */
-export const urlApi = (import.meta.env.VITE_API_URL as string | undefined) ?? 'https://api.bsandoz.fr';
+/** Adresse de l'API (V2), commune à tout le site : voir `app/api.ts`. */
+export { urlApi } from '../../app/api';
 
 /** Corps envoyé à l'API pour réserver. */
 export function corpsReservation(d: DemandeRdv) {

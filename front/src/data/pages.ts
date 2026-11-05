@@ -119,6 +119,30 @@ export const pages = {
     description: 'Comment vos données personnelles sont collectées, utilisées et protégées.',
     heading: 'Politique de confidentialité',
   },
+  monEspace: {
+    path: '/mon-espace',
+    title: 'Mon espace',
+    description: 'Votre espace client : compte, sécurité et appareils connectés.',
+    heading: 'Mon espace',
+  },
+  connexion: {
+    path: '/mon-espace/connexion',
+    title: 'Connexion',
+    description: 'Connectez-vous à votre espace client, par mot de passe ou par un lien reçu par mail.',
+    heading: 'Connexion à votre espace',
+  },
+  lienConnexion: {
+    path: '/mon-espace/lien',
+    title: 'Connexion par lien',
+    description: 'Ouverture du lien reçu par mail.',
+    heading: 'Connexion en cours',
+  },
+  motDePasse: {
+    path: '/mon-espace/mot-de-passe',
+    title: 'Mot de passe',
+    description: 'Choisissez un nouveau mot de passe pour votre espace client.',
+    heading: 'Choisir un mot de passe',
+  },
 } as const satisfies Record<string, PageInfo>;
 
 export const notFoundPage = {

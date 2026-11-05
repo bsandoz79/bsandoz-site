@@ -10,6 +10,7 @@ import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
 import { Legal } from '../pages/Legal';
 import { Metier } from '../pages/Metier';
+import { Connexion, Lien, MonEspace, MotDePasse } from '../pages/MonEspace';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
 import { Realisations } from '../pages/Realisations';
@@ -36,6 +37,10 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   mentionsLegales: <Legal id="mentionsLegales" />,
   cgv: <Legal id="cgv" />,
   confidentialite: <Legal id="confidentialite" />,
+  monEspace: <MonEspace />,
+  connexion: <Connexion />,
+  lienConnexion: <Lien />,
+  motDePasse: <MotDePasse />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

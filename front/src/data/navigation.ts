@@ -52,6 +52,7 @@ export const footer = {
   contactLabel: 'Contact',
   legalLabel: 'Informations légales',
   portfolioLabel: 'Mon portfolio',
+  espaceClient: { label: 'Espace client', to: pages.monEspace.path },
   legal: [
     { label: 'Mentions légales', to: pages.mentionsLegales.path },
     { label: 'CGV', to: pages.cgv.path },

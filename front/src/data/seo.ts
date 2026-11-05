@@ -3,8 +3,8 @@ import { contact } from './navigation';
 import type { Formule } from './offres';
 import { pages, site } from './pages';
 
-/** Pages pas encore construites : exclues du sitemap et marquées « noindex ». */
-export const pagesNonIndexees: (keyof typeof pages)[] = [];
+/** Pages exclues du sitemap et marquées « noindex » : pages pas encore construites et espace client (privé). */
+export const pagesNonIndexees: (keyof typeof pages)[] = ['monEspace', 'connexion', 'lienConnexion', 'motDePasse'];
 
 /** Adresse complète d'une page. */
 export const urlComplete = (chemin: string) => `${site.url}${chemin === '/' ? '/' : chemin}`;
@@ -23,7 +23,7 @@ export function genererSitemap(chemins: string[] = cheminsIndexables()) {
 }
 
 /** Contenu du fichier `robots.txt`. */
-export const robotsTxt = () => `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`;
+export const robotsTxt = () => `User-agent: *\nAllow: /\nDisallow: ${pages.monEspace.path}\n\nSitemap: ${site.url}/sitemap.xml\n`;
 
 /** Données structurées de l'entreprise (schema.org). Seuls des faits établis : pas d'adresse ni de note inventées. */
 export function jsonLdEntreprise() {

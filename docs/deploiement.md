@@ -56,6 +56,18 @@ Le script est copié avec le site (`dist/api/devis.php`) et utilise la fonction 
 - En développement (`npm run dev`), PHP n'est pas servi : l'envoi échoue et le parcours affiche le message d'erreur prévu.
 - Le lien de suivi de la demande viendra avec l'API (V2).
 
+## API et espace client (à la mise en ligne de `api.bsandoz.fr`)
+Le site appelle l'API à l'adresse `VITE_API_URL` (par défaut `https://api.bsandoz.fr`), avec le cookie de session. `bsandoz.fr` et `api.bsandoz.fr` sont le même site : le cookie `SameSite=Lax` circule.
+
+Dans `api/.env.local` sur le serveur (jamais versionné) :
+- `CORS_ALLOW_ORIGIN='^https://bsandoz\.fr$'` : seul le site peut appeler l'API avec le cookie ;
+- `AUTH_URL_SITE=https://bsandoz.fr` : les liens des mails mènent au site ;
+- `AUTH_EXPEDITEUR`, `AUTH_EXPEDITEUR_NOM`, `MAILER_DSN` (SMTP o2switch) ;
+- `AUTH_COOKIE_SECURISE=1` (de toute façon forcé en production) ;
+- puis `php bin/console doctrine:migrations:migrate`.
+
+En développement : API sur `http://localhost:8000`, site sur `http://localhost:5173` avec `VITE_API_URL=http://localhost:8000`, `AUTH_COOKIE_SECURISE=0` (valeurs de `api/.env.dist`).
+
 ## Attention au YAML
 Dans un fichier de workflow, une valeur sans guillemets ne doit pas contenir « : » suivi d'une espace (YAML y voit une nouvelle clé et GitHub refuse le fichier : « Fichier de workflow invalide »). Mettre la valeur entière entre guillemets ou utiliser un bloc `run: |`.
 

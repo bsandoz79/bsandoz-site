@@ -27,6 +27,9 @@ export function Footer() {
             <li>
               <a href={contact.portfolio}>{footer.portfolioLabel}</a>
             </li>
+            <li>
+              <Link to={footer.espaceClient.to}>{footer.espaceClient.label}</Link>
+            </li>
           </ul>
         </nav>
 
