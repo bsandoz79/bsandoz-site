@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Correspondance Doctrine du compte : le domaine reste sans annotation ni dépendance à Doctrine. -->
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Auth\Domain\Compte" table="auth_compte">
+        <unique-constraints>
+            <unique-constraint name="uniq_auth_compte_email" columns="email"/>
+        </unique-constraints>
+        <id name="id" type="string" length="36"/>
+        <field name="email" type="string" length="200"/>
+        <field name="nom" type="string" length="120"/>
+        <field name="motDePasseHache" column="mot_de_passe_hache" type="string" length="255" nullable="true"/>
+        <field name="statut" type="string" length="20" enum-type="App\Auth\Domain\StatutCompte"/>
+        <field name="creeLe" column="cree_le" type="datetime_immutable"/>
+        <field name="activeLe" column="active_le" type="datetime_immutable" nullable="true"/>
+        <field name="motDePasseModifieLe" column="mot_de_passe_modifie_le" type="datetime_immutable" nullable="true"/>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Liens envoyés par mail : seule l'empreinte SHA-256 du secret est stockée. -->
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Auth\Domain\Lien" table="auth_lien">
+        <indexes>
+            <index name="idx_auth_lien_compte" columns="compte_id,usage_lien"/>
+        </indexes>
+        <unique-constraints>
+            <unique-constraint name="uniq_auth_lien_empreinte" columns="empreinte"/>
+        </unique-constraints>
+        <id name="id" type="string" length="36"/>
+        <field name="compteId" column="compte_id" type="string" length="36"/>
+        <field name="usage" column="usage_lien" type="string" length="20" enum-type="App\Auth\Domain\UsageLien"/>
+        <field name="empreinte" type="string" length="64"/>
+        <field name="creeLe" column="cree_le" type="datetime_immutable"/>
+        <field name="expireLe" column="expire_le" type="datetime_immutable"/>
+        <field name="utiliseLe" column="utilise_le" type="datetime_immutable" nullable="true"/>
+    </entity>
+</doctrine-mapping>

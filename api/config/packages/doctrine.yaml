@@ -24,6 +24,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Booking/Infrastructure/Doctrine/mapping'
                 prefix: 'App\Booking\Domain'
                 alias: Booking
+            Auth:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Auth/Infrastructure/Doctrine/mapping'
+                prefix: 'App\Auth\Domain'
+                alias: Auth
         controller_resolver:
             auto_mapping: false
 

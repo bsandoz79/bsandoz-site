@@ -1,6 +1,12 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (comptes)
+- Site : espace client `/mon-espace` (compte, mot de passe par lien sécurisé, appareils connectés, déconnexion des autres, déconnexion), connexion par mot de passe ou par lien reçu par mail, pages du lien et du mot de passe ; pages exclues du sitemap et des robots ; lien « Espace client » dans le pied de page. Appels à l'API regroupés dans `src/app/api.ts` (cookie inclus).
+- API, module Auth branché : points d'entrée `/auth/…` (liens par mail, connexion, mot de passe, compte connecté, appareils, déconnexion), cookie de session `HttpOnly` et `SameSite=Lax`, limitation des essais (429), corps JSON obligatoire (415), CORS avec cookies pour le site, tables `auth_compte`, `auth_lien`, `auth_session` (migration).
+- Compte client ouvert automatiquement au premier rendez-vous, avec un lien d'activation par mail (`src/Liaisons/CompteApresRendezVous.php`, événement `RendezVousReserve` publié par Booking).
+- API, module Auth : domaine et cas d'usage (compte ouvert automatiquement puis activé par lien, liens à usage unique stockés hachés : activation 7 jours, connexion 15 minutes, mot de passe 1 heure ; connexion par mot de passe sans révéler si l'adresse existe ; sessions de 30 jours glissants, appareils connectés, déconnexion des autres ; changement de mot de passe qui ferme toutes les sessions).
+- API : dépendances `symfony/password-hasher` (hachage des mots de passe) et `symfony/rate-limiter` (limitation des tentatives).
 ### Modifié
 - `.gitattributes` : fins de ligne LF partout, fichiers images en binaire (plus d'avertissements « LF will be replaced by CRLF » ni de faux changements sous Windows).
 

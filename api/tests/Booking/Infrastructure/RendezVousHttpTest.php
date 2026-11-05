@@ -95,7 +95,8 @@ final class RendezVousHttpTest extends WebTestCase
         self::assertSame('14:00', $reponse['creneau']);
         self::assertArrayNotHasKey('jeton', $reponse, 'Le jeton ne doit partir que par mail.');
 
-        self::assertEmailCount(2);
+        // 2 mails du rendez-vous, + 1 lien d'activation : sur bsandoz.fr, le premier rendez-vous ouvre un compte (src/Liaisons).
+        self::assertEmailCount(3);
         $jeton = $this->jetonDuDernierRendezVous();
         $depot = static::getContainer()->get(RendezVousRepository::class);
         self::assertNotNull($depot->parJeton($jeton));

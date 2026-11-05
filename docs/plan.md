@@ -27,7 +27,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] pré-devis automatique par mail
 
 ## V3 – espace client et back-office
-- [ ] Auth (compte créé automatiquement, lien d'activation, mot de passe par lien mail)
+- [x] Auth (compte créé automatiquement, lien d'activation, mot de passe par lien mail)
 - [ ] Espace client complet (demandes, devis à accepter, compte, sécurité, confidentialité, zone danger)
 - [ ] Fil de messages synchronisé avec les mails (IMAP)
 - [ ] Back-office (demandes, devis, prix, disponibilités)

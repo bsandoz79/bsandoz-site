@@ -1,0 +1,47 @@
+# Module Auth : réglages propres à CHAQUE installation.
+# Les valeurs viennent des variables d'environnement (.env.local sur le serveur).
+parameters:
+    auth.url_site: '%env(AUTH_URL_SITE)%'            # adresse du site : les liens des mails y mènent
+    auth.expediteur: '%env(AUTH_EXPEDITEUR)%'
+    auth.expediteur_nom: '%env(AUTH_EXPEDITEUR_NOM)%'
+    auth.cookie_nom: 'bsandoz_session'
+    auth.cookie_securise: '%env(bool:AUTH_COOKIE_SECURISE)%'
+    auth.hachage_rapide: false
+
+framework:
+    rate_limiter:
+        # Connexion par mot de passe : 5 essais par quart d'heure, par adresse IP et e-mail.
+        auth_connexion:
+            policy: sliding_window
+            limit: 5
+            interval: '15 minutes'
+        # Liens envoyés par mail : 5 par heure, par adresse IP et e-mail.
+        auth_lien:
+            policy: sliding_window
+            limit: 5
+            interval: '1 hour'
+
+# Les adaptateurs (contrôleur, mails, hachage…) sont enregistrés par config/services.yaml et lisent
+# leurs réglages par l'attribut #[Autowire('%auth.…%')] : ce fichier n'a pas à les redéclarer.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Ports du domaine → adaptateurs.
+    App\Auth\Domain\Comptes: '@App\Auth\Infrastructure\Doctrine\ComptesDoctrine'
+    App\Auth\Domain\Liens: '@App\Auth\Infrastructure\Doctrine\LiensDoctrine'
+    App\Auth\Domain\Sessions: '@App\Auth\Infrastructure\Doctrine\SessionsDoctrine'
+    App\Auth\Domain\NotificationsCompte: '@App\Auth\Infrastructure\Mail\NotificationsCompteParMail'
+    App\Auth\Domain\HacheurMotDePasse: '@App\Auth\Infrastructure\Systeme\HacheurNatif'
+    App\Auth\Domain\Horloge: '@App\Auth\Infrastructure\Systeme\HorlogeSysteme'
+    App\Auth\Domain\Aleatoire: '@App\Auth\Infrastructure\Systeme\AleatoireSysteme'
+
+when@test:
+    parameters:
+        auth.hachage_rapide: true
+
+when@prod:
+    parameters:
+        # En production, le cookie de session ne circule qu'en HTTPS, quelle que soit la variable.
+        auth.cookie_securise: true

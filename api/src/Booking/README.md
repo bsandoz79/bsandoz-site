@@ -50,6 +50,9 @@ Les adaptateurs lisent leurs réglages par l'attribut `#[Autowire('%booking.…%
 5. Copier la migration `migrations/Version20261105185043.php` (ou `doctrine:migrations:diff`), puis `doctrine:migrations:migrate`.
 6. Renseigner les variables d'environnement ci-dessus.
 
+## Événement
+Après une réservation réussie, le contrôleur publie `Infrastructure/Evenement/RendezVousReserve` (avec le rendez-vous). Une installation peut l'écouter, par exemple pour ouvrir un compte client, ou l'ignorer : le module n'en dépend pas.
+
 ## Tests
 - `tests/Booking/Domain`, `tests/Booking/Application` : domaine et cas d'usage, avec des doublures des ports (sans base ni mails).
 - `tests/Booking/Infrastructure/FichierIcsTest.php`, `NotificationsParMailTest.php` : fichier `.ics` et e-mails (faux mailer).
