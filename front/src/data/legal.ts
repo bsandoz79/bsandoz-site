@@ -87,7 +87,13 @@ export const cgv: PageLegale = {
     },
     {
       titre: 'Propriété du site',
-      paragraphes: [`Le site appartient au client. ${A_COMPLETER('conditions de transfert (par exemple après paiement complet)')}.`],
+      paragraphes: [
+        `Le site appartient au client. ${A_COMPLETER('conditions de transfert (par exemple après paiement complet)')}.`,
+        'Le site est livré complet, avec son code : le client peut le faire héberger, le modifier ou le confier à un autre prestataire, sans dépendre de Baptiste Sandoz.',
+        A_COMPLETER(
+          'clause sur les briques génériques réutilisées (blocs d’interface, modules) : le client en reçoit une copie qu’il peut utiliser et modifier librement, Baptiste Sandoz conserve le droit de les réutiliser pour d’autres projets ; formulation à faire valider par un professionnel du droit',
+        ),
+      ],
     },
     {
       titre: 'Droit de rétractation et médiation',
