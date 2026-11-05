@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Ajouté (espace client : compte)
+- Site : sections « Mon compte » (coordonnées, changement d'e-mail), « Confidentialité et préférences » (état de la localisation et aide pour la réactiver, notifications par mail, téléchargement de ses données) et « Zone danger » (suppression en deux temps puis par le lien du mail) ; pages `/mon-espace/email` (confirmation de la nouvelle adresse, une seule fois) et `/mon-espace/suppression` (rien n'est supprimé sans clic). Politique de confidentialité complétée (espace client, cookie de session).
 - API : coordonnées et préférences du compte (`POST /auth/compte`), changement d'e-mail confirmé par un lien envoyé à la nouvelle adresse (l'ancienne est prévenue), suppression du compte confirmée par mail (compte, liens, sessions et rendez-vous effacés ; un rendez-vous à venir est d'abord annulé), téléchargement de ses données en JSON (`GET /espace/donnees`, sans aucun secret). Migration des nouvelles colonnes.
 
 ### Ajouté (espace client : rendez-vous)
