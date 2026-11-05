@@ -56,3 +56,4 @@ Types de tests :
 | 25 | [Comptes et connexion (module Auth)](25-feature-auth.md) | `feature/auth` | 2026-11-05 |
 | 26 | [Mes rendez-vous dans l’espace client](26-feature-espace-rendez-vous.md) | `feature/espace-rendez-vous` | 2026-11-05 |
 | 27 | [Mon compte, confidentialité et zone danger](27-feature-espace-compte.md) | `feature/espace-compte` | 2026-11-05 |
+| 28 | [Demandes de devis et devis dans l’espace client](28-feature-demandes-devis.md) | `feature/demandes-devis` | 2026-11-05 |
