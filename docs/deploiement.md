@@ -26,17 +26,26 @@ Sans ces secrets, le workflow passe mais n'envoie rien.
 ## Publication de la bibliothèque de blocs (`.github/workflows/blocs-publication.yml`)
 Pousser une étiquette `blocs-vX.Y.Z` identique à la version de `packages/blocs/package.json` : tests, build, puis publication privée sur GitHub Packages (jeton fourni par GitHub, aucun secret à créer).
 
-## Versions et retour à la V1
-Chaque version validée est figée par une étiquette git (`v1.0.0`) et garde une branche de maintenance (`release/v1`).
+## Versions et retour à une version précédente
+Chaque version validée est figée par une étiquette git et garde une branche de maintenance :
 
-**Remettre la V1 en ligne** (sans toucher à `main`) :
+| Version | Étiquette | Branche | Contenu |
+| --- | --- | --- | --- |
+| V1 | `v1.0.0` | `release/v1` | site vitrine et configurateur (front seul) |
+| V2 | `v2.0.0` | `release/v2` | + page Rendez-vous, API Symfony (module Booking), bibliothèque de blocs, pré-devis |
+
+Exemples ci-dessous avec la V1 ; remplacer par `v2.0.0` / `release/v2` pour la V2.
+
+**Remettre une version en ligne** (sans toucher à `main`) :
 1. GitHub → onglet **Actions** → **Déploiement o2switch** → **Run workflow**.
 2. Dans « Use workflow from », choisir **Tags → v1.0.0** (ou la branche `release/v1` si un correctif y a été ajouté).
-3. Lancer : le site V1 est reconstruit et renvoyé sur o2switch.
+3. Lancer : le site de cette version est reconstruit et renvoyé sur o2switch.
 
-**Corriger la V1** : partir de `release/v1` (`git switch release/v1`, puis `git switch -c fix/<nom>`), fusionner le correctif dans `release/v1`, étiqueter `v1.0.1`, puis redéployer comme ci-dessus.
+Ce workflow ne déploie que le site (`front/dist/`) ; l'API n'est pas encore mise en ligne automatiquement.
 
-**Consulter la V1 sur son poste** : `git switch --detach v1.0.0`, puis `npm run dev` dans `front/` (revenir ensuite avec `git switch main`).
+**Corriger une version** : partir de sa branche (`git switch release/v1`, puis `git switch -c fix/<nom>`), fusionner le correctif dans `release/v1`, étiqueter `v1.0.1`, puis redéployer comme ci-dessus.
+
+**Consulter une version sur son poste** : `git switch --detach v1.0.0`, puis `npm ci` et `npm run dev -w front` (revenir ensuite avec `git switch main`). Avant la V2, le front s'installait depuis `front/` (`npm ci` dans `front/`).
 
 ## Envoi des demandes de devis (`front/public/api/devis.php`)
 Le script est copié avec le site (`dist/api/devis.php`) et utilise la fonction `mail()` d'o2switch : aucun service externe, aucun secret.
