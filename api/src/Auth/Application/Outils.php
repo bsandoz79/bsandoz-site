@@ -27,7 +27,7 @@ final class Outils
     }
 
     /** Envoie un nouveau lien ; les liens précédents du même usage cessent de fonctionner. */
-    public function envoyerLien(Compte $compte, UsageLien $usage): void
+    public function envoyerLien(Compte $compte, UsageLien $usage, ?string $nouvelEmail = null): void
     {
         $maintenant = $this->horloge->maintenant();
         foreach ($this->liens->valides($compte->id, $usage, $maintenant) as $ancien) {
@@ -35,8 +35,8 @@ final class Outils
             $this->liens->enregistrer($ancien);
         }
         $secret = $this->aleatoire->secret();
-        $this->liens->enregistrer(Lien::creer($this->aleatoire->identifiant(), $compte->id, $usage, $secret, $maintenant));
-        $this->notifications->lien($compte, $usage, $secret);
+        $this->liens->enregistrer(Lien::creer($this->aleatoire->identifiant(), $compte->id, $usage, $secret, $maintenant, $nouvelEmail));
+        $this->notifications->lien($compte, $usage, $secret, $nouvelEmail);
     }
 
     public function ouvrirSession(Compte $compte, string $appareil): SessionOuverte

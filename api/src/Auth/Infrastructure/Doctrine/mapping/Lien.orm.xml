@@ -17,5 +17,6 @@
         <field name="creeLe" column="cree_le" type="datetime_immutable"/>
         <field name="expireLe" column="expire_le" type="datetime_immutable"/>
         <field name="utiliseLe" column="utilise_le" type="datetime_immutable" nullable="true"/>
+        <field name="nouvelEmail" column="nouvel_email" type="string" length="200" nullable="true"/>
     </entity>
 </doctrine-mapping>

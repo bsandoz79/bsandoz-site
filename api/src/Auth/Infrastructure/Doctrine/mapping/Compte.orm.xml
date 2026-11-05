@@ -15,5 +15,17 @@
         <field name="creeLe" column="cree_le" type="datetime_immutable"/>
         <field name="activeLe" column="active_le" type="datetime_immutable" nullable="true"/>
         <field name="motDePasseModifieLe" column="mot_de_passe_modifie_le" type="datetime_immutable" nullable="true"/>
+        <field name="entreprise" type="string" length="120">
+            <options><option name="default"></option></options>
+        </field>
+        <field name="telephone" type="string" length="20">
+            <options><option name="default"></option></options>
+        </field>
+        <field name="adresse" type="string" length="300">
+            <options><option name="default"></option></options>
+        </field>
+        <field name="notificationsParMail" column="notifications_par_mail" type="boolean">
+            <options><option name="default">1</option></options>
+        </field>
     </entity>
 </doctrine-mapping>

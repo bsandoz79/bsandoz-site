@@ -60,7 +60,7 @@ final class EspaceRendezVousController
             'adresse' => $r->adresse,
             'statut' => $r->statut()->value,
             'aVenir' => $r->estConfirme() && $r->creneau->debut($this->regle->fuseau) > $maintenant,
-        ], $this->rendezVous->parEmail($courante->compte->email));
+        ], $this->rendezVous->parEmail($courante->compte->email()));
 
         return self::json(['rendezVous' => $liste]);
     }
@@ -115,7 +115,7 @@ final class EspaceRendezVousController
             return self::json(['erreur' => 'Non connecté.'], Response::HTTP_UNAUTHORIZED);
         }
         $rendezVous = $this->rendezVous->parId($id);
-        if ($rendezVous === null || mb_strtolower($rendezVous->contact->email) !== $courante->compte->email) {
+        if ($rendezVous === null || mb_strtolower($rendezVous->contact->email) !== $courante->compte->email()) {
             return self::json(['erreur' => 'Rendez-vous introuvable.'], Response::HTTP_NOT_FOUND);
         }
 

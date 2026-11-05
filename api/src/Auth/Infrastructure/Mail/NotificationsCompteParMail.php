@@ -19,8 +19,14 @@ use Symfony\Component\Mime\Email;
  */
 final class NotificationsCompteParMail implements NotificationsCompte
 {
-    public const CHEMIN_LIEN = '/mon-espace/lien';
-    public const CHEMIN_MOT_DE_PASSE = '/mon-espace/mot-de-passe';
+    /** Page du site qui ouvre chaque sorte de lien. */
+    public const CHEMINS = [
+        'activation' => '/mon-espace/lien',
+        'connexion' => '/mon-espace/lien',
+        'mot_de_passe' => '/mon-espace/mot-de-passe',
+        'changement_email' => '/mon-espace/email',
+        'suppression' => '/mon-espace/suppression',
+    ];
 
     public function __construct(
         private readonly MailerInterface $mailer,
@@ -33,18 +39,16 @@ final class NotificationsCompteParMail implements NotificationsCompte
     ) {
     }
 
-    public function lien(Compte $compte, UsageLien $usage, string $secret): void
+    public function lien(Compte $compte, UsageLien $usage, string $secret, ?string $destinataire = null): void
     {
-        $chemin = $usage === UsageLien::MotDePasse ? self::CHEMIN_MOT_DE_PASSE : self::CHEMIN_LIEN;
-        $url = rtrim($this->urlSite, '/') . $chemin . '?jeton=' . $secret;
-        $bonjour = $compte->nom() !== '' ? "Bonjour {$compte->nom()}," : 'Bonjour,';
+        $url = rtrim($this->urlSite, '/') . self::CHEMINS[$usage->value] . '?jeton=' . $secret;
 
         [$sujet, $texte] = match ($usage) {
             UsageLien::Activation => [
                 'Votre espace client est prêt',
                 "Votre espace client a été créé avec votre demande. Vous pourrez y suivre vos demandes, vos devis et vos rendez-vous.\n\n"
                 . "Pour l'activer, ouvrez ce lien (valable 7 jours) :\n{$url}\n\n"
-                . "Vous pourrez ensuite choisir un mot de passe, ou continuer à vous connecter par un lien reçu par mail.",
+                . 'Vous pourrez ensuite choisir un mot de passe, ou continuer à vous connecter par un lien reçu par mail.',
             ],
             UsageLien::Connexion => [
                 'Votre lien de connexion',
@@ -55,27 +59,59 @@ final class NotificationsCompteParMail implements NotificationsCompte
                 "Pour choisir un nouveau mot de passe, ouvrez ce lien (valable 1 heure, une seule fois) :\n{$url}\n\n"
                 . 'Une fois le mot de passe changé, vos appareils connectés seront déconnectés.',
             ],
+            UsageLien::ChangementEmail => [
+                'Confirmez votre nouvelle adresse e-mail',
+                "Vous avez demandé à utiliser cette adresse pour votre espace client.\n\n"
+                . "Pour confirmer, ouvrez ce lien (valable 1 heure, une seule fois) :\n{$url}\n\n"
+                . "Tant que ce lien n'est pas ouvert, votre ancienne adresse reste celle du compte.",
+            ],
+            UsageLien::Suppression => [
+                'Confirmez la suppression de votre compte',
+                "Vous avez demandé la suppression de votre espace client.\n\n"
+                . "Pour confirmer, ouvrez ce lien (valable 1 heure) puis validez :\n{$url}\n\n"
+                . "Vos informations, rendez-vous et échanges seront effacés définitivement. Les factures sont conservées 10 ans, comme la loi l'impose.",
+            ],
         };
 
-        $this->envoyer($compte, $sujet, "{$bonjour}\n\n{$texte}\n\n"
+        $this->envoyer($destinataire ?? $compte->email(), $sujet, self::bonjour($compte->nom()) . "\n\n{$texte}\n\n"
             . "Si vous n'êtes pas à l'origine de cette demande, ignorez ce message : rien ne sera modifié.\n\n"
             . $this->expediteurNom);
     }
 
     public function motDePasseModifie(Compte $compte): void
     {
-        $bonjour = $compte->nom() !== '' ? "Bonjour {$compte->nom()}," : 'Bonjour,';
-        $this->envoyer($compte, 'Votre mot de passe a été modifié', "{$bonjour}\n\n"
+        $this->envoyer($compte->email(), 'Votre mot de passe a été modifié', self::bonjour($compte->nom()) . "\n\n"
             . "Le mot de passe de votre espace client vient d'être modifié, et vos appareils ont été déconnectés.\n\n"
             . "Si vous n'êtes pas à l'origine de ce changement, répondez vite à ce message.\n\n"
             . $this->expediteurNom);
     }
 
-    private function envoyer(Compte $compte, string $sujet, string $texte): void
+    public function emailModifie(Compte $compte, string $ancienneAdresse): void
+    {
+        $this->envoyer($ancienneAdresse, 'L’adresse de votre espace client a changé', self::bonjour($compte->nom()) . "\n\n"
+            . "Votre espace client utilise désormais l'adresse {$compte->email()}. Les prochains messages iront à cette adresse.\n\n"
+            . "Si vous n'êtes pas à l'origine de ce changement, répondez vite à ce message.\n\n"
+            . $this->expediteurNom);
+    }
+
+    public function compteSupprime(string $email, string $nom): void
+    {
+        $this->envoyer($email, 'Votre compte a été supprimé', self::bonjour($nom) . "\n\n"
+            . "Votre espace client et les informations qui s'y rattachent ont été supprimés. Les factures éventuelles sont conservées 10 ans, comme la loi l'impose.\n\n"
+            . "Merci de votre confiance.\n\n"
+            . $this->expediteurNom);
+    }
+
+    private static function bonjour(string $nom): string
+    {
+        return $nom !== '' ? "Bonjour {$nom}," : 'Bonjour,';
+    }
+
+    private function envoyer(string $a, string $sujet, string $texte): void
     {
         $this->mailer->send((new Email())
             ->from(new Address($this->expediteur, $this->expediteurNom))
-            ->to($compte->email)
+            ->to($a)
             ->subject($sujet)
             ->text($texte));
     }

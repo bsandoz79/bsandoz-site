@@ -13,4 +13,7 @@ interface Comptes
     public function parEmail(string $email): ?Compte;
 
     public function enregistrer(Compte $compte): void;
+
+    /** Efface le compte, ses liens et ses sessions. */
+    public function supprimer(Compte $compte): void;
 }

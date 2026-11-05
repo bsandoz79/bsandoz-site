@@ -230,14 +230,7 @@ final class AuthController
     /** @return array<string, mixed> */
     private static function compte(Compte $compte): array
     {
-        return [
-            'id' => $compte->id,
-            'email' => $compte->email,
-            'nom' => $compte->nom(),
-            'statut' => $compte->statut()->value,
-            'motDePasse' => $compte->aUnMotDePasse(),
-            'motDePasseModifieLe' => $compte->motDePasseModifieLe()?->format(\DATE_ATOM),
-        ];
+        return CompteJson::depuis($compte);
     }
 
     private static function erreurs(DonneesInvalides $e): JsonResponse

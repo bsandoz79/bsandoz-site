@@ -6,6 +6,8 @@ namespace App\Auth\Infrastructure\Doctrine;
 
 use App\Auth\Domain\Compte;
 use App\Auth\Domain\Comptes;
+use App\Auth\Domain\Lien;
+use App\Auth\Domain\Session;
 use Doctrine\ORM\EntityManagerInterface;
 
 /** Adaptateur Doctrine du port Comptes (table auth_compte). */
@@ -29,5 +31,17 @@ final class ComptesDoctrine implements Comptes
     {
         $this->em->persist($compte);
         $this->em->flush();
+    }
+
+    public function supprimer(Compte $compte): void
+    {
+        $this->em->wrapInTransaction(function () use ($compte): void {
+            foreach ([Lien::class, Session::class] as $classe) {
+                $this->em->createQueryBuilder()->delete($classe, 'x')->where('x.compteId = :compte')
+                    ->setParameter('compte', $compte->id)->getQuery()->execute();
+            }
+            $this->em->remove($compte);
+        });
+        $this->em->clear();
     }
 }
