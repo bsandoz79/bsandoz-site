@@ -9,11 +9,12 @@ describe('SEO', () => {
     expect(urlComplete('/tarifs')).toBe('https://bsandoz.fr/tarifs');
   });
 
-  it('publie toutes les pages sauf celles pas encore construites', () => {
+  it('publie toutes les pages, maintenant toutes construites', () => {
     const chemins = cheminsIndexables();
     expect(chemins).toContain('/');
     expect(chemins).toContain(pages.mentionsLegales.path);
-    expect(chemins).not.toContain(pages.rendezVous.path);
+    expect(chemins).toContain(pages.rendezVous.path);
+    expect(chemins).toHaveLength(Object.keys(pages).length);
   });
 
   it('génère un sitemap valide', () => {
