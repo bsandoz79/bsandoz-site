@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Ajouté (comptes)
+- API, module Auth : domaine et cas d'usage (compte ouvert automatiquement puis activé par lien, liens à usage unique stockés hachés : activation 7 jours, connexion 15 minutes, mot de passe 1 heure ; connexion par mot de passe sans révéler si l'adresse existe ; sessions de 30 jours glissants, appareils connectés, déconnexion des autres ; changement de mot de passe qui ferme toutes les sessions).
 - API : dépendances `symfony/password-hasher` (hachage des mots de passe) et `symfony/rate-limiter` (limitation des tentatives).
 ### Modifié
 - `.gitattributes` : fins de ligne LF partout, fichiers images en binaire (plus d'avertissements « LF will be replaced by CRLF » ni de faux changements sous Windows).
