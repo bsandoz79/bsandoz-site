@@ -37,6 +37,8 @@ front/src/
 
 - **Pages légales** (`pages/Legal`, paramétrée par `id`) : contenus dans `data/legal.ts`, sections titrées.
 
+- **Rendez-vous** (`pages/RendezVous`) : `RendezVous.tsx` et `reservation.ts` (jours et créneaux réservables, distance, géocodage, validation, corps envoyé). Envoi en `POST` vers `VITE_API_URL` + `/rendez-vous` (par défaut `https://api.bsandoz.fr`) ; 409 = créneau déjà pris.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 

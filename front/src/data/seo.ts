@@ -4,7 +4,7 @@ import type { Formule } from './offres';
 import { pages, site } from './pages';
 
 /** Pages pas encore construites : exclues du sitemap et marquées « noindex ». */
-export const pagesNonIndexees: (keyof typeof pages)[] = ['rendezVous'];
+export const pagesNonIndexees: (keyof typeof pages)[] = [];
 
 /** Adresse complète d'une page. */
 export const urlComplete = (chemin: string) => `${site.url}${chemin === '/' ? '/' : chemin}`;

@@ -93,7 +93,7 @@ export const pages = {
     path: '/rendez-vous',
     title: 'Rendez-vous découverte',
     description: 'Un rendez-vous découverte gratuit d’une heure : chez vous autour d’Amiens, en visio ou par téléphone.',
-    heading: 'Rendez-vous découverte gratuit',
+    heading: 'Comment préférez-vous me présenter votre projet ?',
   },
   faq: {
     path: '/faq',

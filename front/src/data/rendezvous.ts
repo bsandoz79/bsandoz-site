@@ -33,7 +33,7 @@ export const urlGeocodage = 'https://data.geopf.fr/geocodage/search';
 
 export const rdvTextes = {
   choix: {
-    titre: 'Comment préférez-vous me présenter votre projet ?',
+    titre: pages.rendezVous.heading,
     enLigne: { titre: 'Je le décris en ligne', texte: '5 minutes, estimation envoyée tout de suite', to: pages.devis.path },
     voix: { titre: 'Je préfère en parler de vive voix', texte: "Rendez-vous gratuit d'une heure, chez vous ou à distance" },
   },

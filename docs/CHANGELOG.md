@@ -8,6 +8,7 @@
 - CI : job `api` (PHP 8.3, base MySQL de test, conteneur, YAML, Doctrine, PHPUnit).
 - Bloc réutilisable `Calendar` (calendrier mensuel, jours indisponibles, motif ARIA « grid » piloté au clavier) et fonctions de dates sans fuseau horaire.
 - Rendez-vous : lieux, disponibilités (à confirmer : lundi au vendredi, créneaux de la maquette, de demain à 60 jours), zone de 50 km autour d'Amiens ; logique pure (jours et créneaux réservables, distance à vol d'oiseau, vérification de l'adresse par le géocodage de l'IGN, validation).
+- Page Rendez-vous (`/rendez-vous`) : choix « en ligne » ou « de vive voix », lieu, vérification de l'adresse et de la zone de 50 km, calendrier et créneaux d'une heure, coordonnées et consentement, récapitulatif ; réservation envoyée à l'API (`POST /rendez-vous`, branchée par le module Booking), créneau déjà pris signalé. Politique de confidentialité complétée (rendez-vous, géocodage de l'IGN).
 
 ## [1.0.0] – 2026-11-05
 Première version complète du site vitrine et du configurateur (front seul). Étiquette git : `v1.0.0`.

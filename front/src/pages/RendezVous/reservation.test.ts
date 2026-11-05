@@ -8,7 +8,7 @@ import {
   validerRdv,
   verifierAdresse,
   type DemandeRdv,
-} from './rendezvous';
+} from './reservation';
 
 const AUJOURDHUI = '2026-11-05'; // jeudi
 
