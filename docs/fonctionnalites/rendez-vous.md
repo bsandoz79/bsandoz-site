@@ -35,7 +35,7 @@ sequenceDiagram
 
 ## Comment l'appeler
 - Page : `/rendez-vous`.
-- API attendue (module Booking, à venir) : `POST {VITE_API_URL}/rendez-vous`, JSON `{ lieu, adresse|null, jour: "AAAA-MM-JJ", creneau: "HH:MM", nom, telephone, email, activite, message }`. `VITE_API_URL` vaut `https://api.bsandoz.fr` par défaut.
+- API (module Booking, voir [booking.md](booking.md)) : `POST {VITE_API_URL}/rendez-vous`, JSON `{ lieu, adresse|null, jour: "AAAA-MM-JJ", creneau: "HH:MM", nom, telephone, email, activite, message }`. `VITE_API_URL` vaut `https://api.bsandoz.fr` par défaut.
 - Calendrier dans une autre page :
 ```tsx
 <Calendar label="Date" month={mois} onMonthChange={setMois} value={jour} onChange={setJour}

@@ -15,7 +15,8 @@ Une fiche par fonctionnalité : à quoi elle sert, le **chemin** suivi (fichiers
 | [Pages de contenu](pages-de-contenu.md) | accueil, métiers, réalisations, à propos, FAQ, informatique, légal | blocs oui |
 | [SEO](seo.md) | titres, canonique, sitemap, données structurées | oui (fonctions pures) |
 | [Blocs réutilisables](blocs.md) | boîte à outils @bsandoz79/blocs : 15 blocs, livraison par copie dans le site d'un client | oui |
-| [API](api.md) | Symfony modulaire, route `/sante` | modules à venir |
+| [API](api.md) | Symfony modulaire, route `/sante` | modules oui |
+| [Module Booking](booking.md) | réservation, créneau pris refusé, mails + .ics, annulation | oui (API d'un client) |
 | [Déploiement et CI](deploiement-et-ci.md) | tests automatiques, mise en ligne, retour à la V1 | — |
 
 Règle : quand une fonctionnalité change, sa fiche est mise à jour dans la même branche (voir `.claude/CLAUDE.md`).

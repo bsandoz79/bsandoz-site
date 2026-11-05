@@ -51,6 +51,16 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | Méthode | Adresse | Rôle |
 | --- | --- | --- |
 | GET | `/sante` | l'API répond : `{"statut":"ok"}` |
+| POST | `/rendez-vous` | réserver un rendez-vous (module Booking) |
+| GET | `/rendez-vous/{jeton}` | page « déplacer ou annuler » du lien reçu par mail |
+| POST | `/rendez-vous/{jeton}/annuler` | annuler un rendez-vous |
+
+Détails, réglages et installation chez un client : `api/src/Booking/README.md`.
+
+## Migrations
+`api/migrations/` : une migration par changement de schéma (`doctrine:migrations:diff`, puis `doctrine:migrations:migrate`). La CI applique les migrations sur une base vide puis vérifie que le schéma obtenu correspond exactement aux correspondances Doctrine.
+
+Tests sur MySQL en local : le port 3306 peut être déjà pris par un autre MySQL ; lancer alors une base sans port exposé dans un réseau Docker, et un PHP avec `pdo_mysql` (l'image `composer:2` ne l'a pas). Sans base joignable, les tests HTTP du module Booking sont ignorés.
 
 ## Fichiers d'environnement versionnés
 - `.env.dist` : valeurs de développement.
