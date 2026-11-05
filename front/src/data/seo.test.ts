@@ -15,7 +15,7 @@ describe('SEO', () => {
     expect(chemins).toContain(pages.mentionsLegales.path);
     expect(chemins).toContain(pages.rendezVous.path);
     expect(chemins.filter((c) => c.startsWith('/mon-espace'))).toEqual([]);
-    expect(chemins).toHaveLength(Object.keys(pages).length - 4);
+    expect(chemins).toHaveLength(Object.keys(pages).length - 6);
   });
 
   it('demande aux robots de ne pas visiter l’espace client', () => {
