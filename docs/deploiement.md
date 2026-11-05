@@ -1,7 +1,9 @@
 # Déploiement
 
 ## Intégration continue (`.github/workflows/ci.yml`)
-À chaque push, sur toutes les branches : lint, tests, build du front.
+À chaque push, sur toutes les branches :
+- **front** : lint, tests, build ;
+- **api** : PHP 8.3, `composer install`, vérification du conteneur et de la configuration YAML, connexion à une base MySQL 8.0 de test, validation Doctrine, tests PHPUnit.
 
 ## Déploiement continu (`.github/workflows/deploy.yml`)
 À chaque push sur `main` : tests, build, puis envoi du dossier `front/dist/` sur o2switch en FTPS.
