@@ -1,5 +1,7 @@
 # Architecture
 
+Fiches détaillées par fonctionnalité, avec schémas : [docs/fonctionnalites/](fonctionnalites/README.md).
+
 ## Vue d'ensemble
 - **front/** : site React + Vite + TypeScript, compilé en fichiers statiques et hébergé sur o2switch.
 - **api/** (V2) : API Symfony 7.4 pour les rendez-vous, les demandes et devis, puis l'espace client (voir `docs/api.md`).
