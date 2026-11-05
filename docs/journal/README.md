@@ -51,3 +51,4 @@ Types de tests :
 | 20 | [Livraison de blocs à un client](20-feature-livraison-blocs.md) | `feature/livraison-blocs` | 2026-11-05 |
 | 21 | [Module Booking (rendez-vous côté API)](21-feature-booking.md) | `feature/booking` | 2026-11-05 |
 | 22 | [Pré-devis automatique par mail](22-feature-predevis.md) | `feature/predevis` | 2026-11-05 |
+| 23 | [Version 2.0.0](23-chore-version-2.0.0.md) | `chore/version-2.0.0` | 2026-11-05 |

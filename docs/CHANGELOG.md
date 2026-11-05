@@ -1,6 +1,11 @@
 # Journal des modifications
 
 ## [Non publié]
+
+## [2.0.0] – 2026-11-05
+V2 : rendez-vous en ligne et API. Étiquette git : `v2.0.0`, branche de maintenance `release/v2`.
+Le site (front) reste déployé comme en V1 ; l'API (`api/`) est prête mais pas encore mise en ligne sur `api.bsandoz.fr`.
+
 ### Ajouté (pré-devis)
 - Pré-devis automatique dans l'accusé de réception d'une demande de devis : formule conseillée, fourchette de prix, délai et 3 options suggérées au plus (celles qui complètent un pack d'abord), calculés avec les prix du configurateur (`src/data/predevis.ts`). La configuration de « Composer mon site » l'emporte sur les besoins cochés. Le pré-devis figure aussi dans le mail reçu par Baptiste.
 - Page de confirmation du devis : annonce la première estimation par e-mail.
