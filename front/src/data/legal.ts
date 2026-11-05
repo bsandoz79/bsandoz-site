@@ -108,6 +108,7 @@ export const confidentialite: PageLegale = {
       paragraphes: [
         'Uniquement celles que vous envoyez par la demande de devis : activité, besoins, description du projet, site que vous aimez, photos, budget, délai, nom, entreprise, e-mail et téléphone.',
         'Elles servent à répondre à votre demande et à établir un devis. Vous les envoyez après avoir donné votre accord.',
+        'Pour un rendez-vous découverte : lieu (et adresse si je viens chez vous), date et heure, nom, téléphone, e-mail, activité et message. Elles servent uniquement à organiser le rendez-vous.',
       ],
     },
     {
@@ -133,6 +134,7 @@ export const confidentialite: PageLegale = {
       paragraphes: [
         'Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience.',
         'Les polices de caractères sont chargées depuis les serveurs de Google (Google Fonts) : votre adresse IP leur est donc transmise à l’affichage des pages.',
+        'Pour un rendez-vous chez vous, l’adresse saisie est envoyée au service public de géocodage de l’IGN (Géoplateforme) afin de calculer la distance depuis Amiens.',
       ],
     },
     {

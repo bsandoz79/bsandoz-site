@@ -13,6 +13,7 @@ import { Metier } from '../pages/Metier';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
 import { Realisations } from '../pages/Realisations';
+import { RendezVous } from '../pages/RendezVous';
 import { Tarifs } from '../pages/Tarifs';
 
 type PageKey = keyof typeof pages;
@@ -31,6 +32,7 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   aPropos: <APropos />,
   faq: <Faq />,
   devis: <Devis />,
+  rendezVous: <RendezVous />,
   mentionsLegales: <Legal id="mentionsLegales" />,
   cgv: <Legal id="cgv" />,
   confidentialite: <Legal id="confidentialite" />,

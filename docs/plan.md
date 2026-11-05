@@ -20,7 +20,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 
 ## V2 – rendez-vous et API
 - [x] `api` Symfony : structure modulaire, base MySQL, CI
-- [ ] bloc `Calendar` réutilisable + page Rendez-vous (créneaux d'1 h, 50 km, visio, téléphone)
+- [x] bloc `Calendar` réutilisable + page Rendez-vous (créneaux d'1 h, 50 km, visio, téléphone)
 - [ ] module Booking, mails de confirmation, .ics
 - [ ] pré-devis automatique par mail
 

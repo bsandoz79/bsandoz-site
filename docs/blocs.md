@@ -18,5 +18,6 @@ Liste des blocs de `front/src/blocks/`. Chaque bloc a son propre `README.md`.
 | [`Accordion`](../front/src/blocks/Accordion/README.md) | questions dépliables (`details` / `summary`), pour une FAQ | prêt |
 | [`Stepper`](../front/src/blocks/Stepper/README.md) | barre de progression et étapes d'un parcours | prêt |
 | [`TextField`](../front/src/blocks/TextField/README.md) | champ ou zone de texte avec libellé, aide et erreur | prêt |
+| [`Calendar`](../front/src/blocks/Calendar/README.md) | calendrier mensuel accessible, jours indisponibles, navigation clavier | prêt |
 
 Les blocs animés s'appuient sur `src/blocks/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».

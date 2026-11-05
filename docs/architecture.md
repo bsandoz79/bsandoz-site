@@ -37,6 +37,8 @@ front/src/
 
 - **Pages légales** (`pages/Legal`, paramétrée par `id`) : contenus dans `data/legal.ts`, sections titrées.
 
+- **Rendez-vous** (`pages/RendezVous`) : `RendezVous.tsx` et `reservation.ts` (jours et créneaux réservables, distance, géocodage, validation, corps envoyé). Envoi en `POST` vers `VITE_API_URL` + `/rendez-vous` (par défaut `https://api.bsandoz.fr`) ; 409 = créneau déjà pris.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
@@ -57,6 +59,7 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `src/data/devis.ts` : étapes, besoins, budgets, délais, limites des photos et textes du parcours de devis.
 - `src/data/seo.ts` : adresses complètes, pages indexables (`pagesNonIndexees`), `genererSitemap`, `robotsTxt`, données structurées (`jsonLdEntreprise`, `jsonLdFaq`, `jsonLdOffres`). Le plugin `fichiersSeo` de `vite.config.ts` écrit `sitemap.xml` et `robots.txt` dans `dist/` au build.
 - `src/data/legal.ts` : mentions légales, CGV, confidentialité (à compléter et à faire relire).
+- `src/data/rendezvous.ts` : lieux, disponibilités (à confirmer, en attendant le back-office), zone de 50 km, adresse du géocodage, textes.
 - `src/data/tarifs.ts` : textes de la page Tarifs.
 - `src/data/accueil.ts` : textes de la page d'accueil, repris de la maquette `Main`.
 - `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.

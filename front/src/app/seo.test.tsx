@@ -23,10 +23,7 @@ describe('Données structurées et indexation', () => {
     expect(typesJsonLd(path)).toEqual([type]);
   });
 
-  it('marque « noindex » une page encore provisoire et la 404', () => {
-    typesJsonLd(pages.rendezVous.path);
-    expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
-    document.head.innerHTML = '';
+  it('marque « noindex » la page 404', () => {
     typesJsonLd('/adresse-inconnue');
     expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
   });
