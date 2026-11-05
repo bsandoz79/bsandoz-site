@@ -10,6 +10,8 @@ use App\Booking\Domain\CreneauIndisponible;
 use App\Booking\Domain\DonneesInvalides;
 use App\Booking\Domain\RendezVousIntrouvable;
 use App\Booking\Domain\RendezVousRepository;
+use App\Booking\Infrastructure\Evenement\RendezVousReserve;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +31,7 @@ final class RendezVousController
         private readonly ReserverRendezVous $reserver,
         private readonly AnnulerRendezVous $annuler,
         private readonly RendezVousRepository $rendezVous,
+        private readonly EventDispatcherInterface $evenements,
         #[Autowire('%booking.professionnel_nom%')]
         private readonly string $professionnelNom,
         #[Autowire('%booking.professionnel_email%')]
@@ -55,6 +58,7 @@ final class RendezVousController
         } catch (CreneauIndisponible $e) {
             return new JsonResponse(['erreur' => $e->getMessage()], Response::HTTP_CONFLICT);
         }
+        $this->evenements->dispatch(new RendezVousReserve($rendezVous));
 
         return new JsonResponse(
             ['id' => $rendezVous->id, 'statut' => $rendezVous->statut()->value, 'jour' => $rendezVous->creneau->jour, 'creneau' => $rendezVous->creneau->heure],

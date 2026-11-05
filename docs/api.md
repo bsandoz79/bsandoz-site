@@ -54,8 +54,18 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | POST | `/rendez-vous` | réserver un rendez-vous (module Booking) |
 | GET | `/rendez-vous/{jeton}` | page « déplacer ou annuler » du lien reçu par mail |
 | POST | `/rendez-vous/{jeton}/annuler` | annuler un rendez-vous |
+| POST | `/auth/lien`, `/auth/lien/utiliser` | recevoir puis utiliser un lien de connexion, d'activation ou de mot de passe (module Auth) |
+| POST | `/auth/connexion`, `/auth/deconnexion` | se connecter par mot de passe, se déconnecter |
+| POST | `/auth/mot-de-passe` | choisir un mot de passe depuis le lien reçu par mail |
+| GET | `/auth/moi`, `/auth/appareils` | compte connecté, appareils connectés |
+| POST | `/auth/appareils/deconnecter-les-autres` | fermer les autres sessions |
 
-Détails, réglages et installation chez un client : `api/src/Booking/README.md`.
+Détails, réglages et installation chez un client : `api/src/Booking/README.md`, `api/src/Auth/README.md`.
+
+## Liaisons entre modules
+Les modules ne se connaissent pas (chacun s'installe seul chez un client). Ce qui les relie sur bsandoz.fr est rangé dans `api/src/Liaisons/` : par exemple `CompteApresRendezVous` écoute l'événement `RendezVousReserve` publié par Booking et ouvre un compte client (module Auth).
+
+Tests sur MySQL : le trait `tests/AvecBaseDeDonnees.php` recrée le schéma avant chaque test, ou ignore le test si aucune base n'est joignable.
 
 ## Migrations
 `api/migrations/` : une migration par changement de schéma (`doctrine:migrations:diff`, puis `doctrine:migrations:migrate`). La CI applique les migrations sur une base vide puis vérifie que le schéma obtenu correspond exactement aux correspondances Doctrine.
