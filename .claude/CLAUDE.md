@@ -11,9 +11,10 @@
    - `docs: documentation du bloc Calendrier`
    - `fix:`, `refactor:`, `chore:`, `ci:`
 3. Avant CHAQUE commit : mettre à jour la documentation concernée (`docs/`) et `docs/CHANGELOG.md`.
-4. Avant de pousser : `npm run lint`, `npm run test`, `npm run build` doivent passer.
-5. Une fois la fonctionnalité et ses tests verts : push de la branche, fusion dans `main`, puis nouvelle branche pour la suite.
-6. Jamais de secret dans le code : clés, mots de passe et accès vont dans les secrets GitHub ou un `.env` non versionné.
+4. Avant de pousser : `npm run lint`, `npm run test`, `npm run build` doivent passer (et, si `api/` a changé, les tests PHPUnit de l'API).
+5. **Avant CHAQUE push : une fiche dans `docs/journal/`** (une par branche, modèle dans `docs/journal/README.md`) : ce qui a été fait, à quoi ça sert, comment l'utiliser, les tests ajoutés (unitaires, fonctionnels, architecture…) et comment les lancer, les fichiers principaux, ce qui reste ouvert. La fiche est complétée à chaque nouveau push de la même branche.
+6. Une fois la fonctionnalité et ses tests verts : push de la branche, fusion dans `main`, puis nouvelle branche pour la suite.
+7. Jamais de secret dans le code : clés, mots de passe et accès vont dans les secrets GitHub ou un `.env` non versionné.
 
 ## Architecture
 - `front/` : React + Vite + TypeScript.
@@ -22,7 +23,7 @@
   - `src/pages/` : une page = un dossier.
   - `src/data/` : contenus et prix (jamais en dur dans les composants).
   - `src/styles/` : CSS global segmenté (tokens, base, mise en page, animations).
-- `api/` (plus tard) : Symfony, monolithe modulaire, cœur hexagonal.
+- `api/` : Symfony 7.4, monolithe modulaire, cœur hexagonal (voir `docs/api.md`). Tests : PHPUnit via Docker.
 
 ## CSS
 - Variables de design dans `src/styles/tokens.css` uniquement (couleurs, typo, espacements, rayons, ombres).
@@ -43,4 +44,4 @@
 1. Relire ce fichier, `docs/plan.md` et `docs/CHANGELOG.md`.
 2. `git pull`, puis créer la branche de la prochaine case du plan.
 3. Travailler en petits commits, docs à jour à chaque commit.
-4. Lint + tests + build verts → push → fusion dans `main` → résumé de ce qui a été fait.
+4. Lint + tests + build verts → fiche du journal → push → fusion dans `main` → résumé de ce qui a été fait.
