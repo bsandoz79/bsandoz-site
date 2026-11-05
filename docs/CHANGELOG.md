@@ -1,6 +1,13 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (module Booking)
+- API : module Booking autonome branché de bout en bout : `POST /rendez-vous` (201, 400 avec les erreurs, 409 si le créneau est pris), lien du mail `GET /rendez-vous/{jeton}` (page sans effet) et `POST /rendez-vous/{jeton}/annuler` (le créneau redevient libre).
+- E-mails de confirmation et d'annulation à la personne et au professionnel, avec fichier `.ics` (ajout ou retrait de l'agenda).
+- Base : table `booking_rendez_vous` (correspondance Doctrine en XML, migration).
+- Réglages par installation (`config/packages/booking.yaml`, variables `BOOKING_*`) et notice d'installation dans l'API d'un client.
+- CI : migrations appliquées sur une base vide, puis schéma validé.
+
 ### Corrigé
 - CI de l'API : `api/.env.test` (classe du noyau pour PHPUnit, sans secret) n'était pas versionné, les tests échouaient sur GitHub.
 

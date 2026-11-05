@@ -27,17 +27,19 @@ Modules : `Shared`, `Auth` (V3), `Prospect` (demandes, devis), `Booking` (rendez
 | Méthode | Adresse | Réponse |
 | --- | --- | --- |
 | GET | `/sante` | `200 {"statut":"ok"}` |
-| POST | `/rendez-vous` | à venir (module Booking) |
+| POST | `/rendez-vous` | réserver : `201` · `400 {erreurs}` · `409` créneau pris (module Booking) |
+| GET | `/rendez-vous/{jeton}` | page « déplacer ou annuler » du lien reçu par mail |
+| POST | `/rendez-vous/{jeton}/annuler` | annuler le rendez-vous |
 
 ## Règle vérifiée automatiquement
 Un fichier de `Domain/` n'importe ni Symfony, ni Doctrine, ni une `Infrastructure`, ni le domaine d'un autre module (`tests/Architecture/DomaineIndependantTest.php`).
 
 ## Réutilisable ?
-Chaque module est autonome : Booking pourra servir les rendez-vous d'autres sites (à décider avec la proposition « A »).
+Chaque module est autonome et s'installe dans l'API d'un client : voir [Module Booking](booking.md).
 
 ## Tests
-- **fonctionnels** : `tests/Shared/SanteTest.php`.
+- **fonctionnels** : `tests/Shared/SanteTest.php`, `tests/Booking/Infrastructure/RendezVousHttpTest.php` (sur MySQL, ignoré sans base).
 - **architecture** : `tests/Architecture/DomaineIndependantTest.php`.
-- **CI** : job `api` (PHP 8.3, MySQL 8.0 de test, conteneur, YAML, Doctrine, PHPUnit).
+- **CI** : job `api` (PHP 8.3, MySQL 8.0 de test, conteneur, YAML, Doctrine, migrations appliquées puis schéma validé, PHPUnit).
 
 Lancer : `cd api && docker run --rm -v "$PWD:/app" -w /app -e APP_CACHE_DIR=/tmp/cache composer:2 php bin/phpunit`. Détails : `docs/api.md`.

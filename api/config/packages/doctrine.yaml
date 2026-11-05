@@ -16,8 +16,14 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         # Chaque module déclare ici sa correspondance en XML (Infrastructure/Doctrine),
-        # pour que le domaine reste indépendant de Doctrine. Aucun module n'a encore d'entité.
-        mappings: {}
+        # pour que le domaine reste indépendant de Doctrine.
+        mappings:
+            Booking:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Booking/Infrastructure/Doctrine/mapping'
+                prefix: 'App\Booking\Domain'
+                alias: Booking
         controller_resolver:
             auto_mapping: false
 

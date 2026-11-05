@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Correspondance Doctrine du rendez-vous : le domaine reste sans annotation ni dépendance à Doctrine. -->
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Booking\Domain\RendezVous" table="booking_rendez_vous">
+        <indexes>
+            <index name="idx_booking_creneau" columns="creneau_jour,creneau_heure,statut"/>
+        </indexes>
+        <unique-constraints>
+            <unique-constraint name="uniq_booking_jeton" columns="jeton"/>
+        </unique-constraints>
+        <id name="id" type="string" length="36"/>
+        <field name="lieu" type="string" length="20" enum-type="App\Booking\Domain\Lieu"/>
+        <field name="adresse" type="string" length="300" nullable="true"/>
+        <embedded name="creneau" class="App\Booking\Domain\Creneau"/>
+        <embedded name="contact" class="App\Booking\Domain\Contact"/>
+        <field name="activite" type="string" length="120"/>
+        <field name="message" type="text"/>
+        <field name="jeton" type="string" length="64"/>
+        <field name="statut" type="string" length="20" enum-type="App\Booking\Domain\StatutRendezVous"/>
+        <field name="creeLe" column="cree_le" type="datetime_immutable"/>
+    </entity>
+</doctrine-mapping>

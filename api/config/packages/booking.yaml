@@ -1,0 +1,39 @@
+# Module Booking : réglages propres à CHAQUE installation (bsandoz.fr, ou l'API d'un client).
+# Les valeurs viennent des variables d'environnement (.env.local sur le serveur), avec des valeurs par défaut.
+parameters:
+    booking.jours_travailles: [0, 1, 2, 3, 4]          # lundi = 0 … dimanche = 6 (À CONFIRMER)
+    booking.creneaux: ['09:00', '10:30', '14:00', '15:30', '17:00']   # À CONFIRMER
+    booking.duree_minutes: 60
+    booking.delai_min_jours: 1
+    booking.horizon_jours: 60
+    booking.fuseau: 'Europe/Paris'
+    booking.expediteur: '%env(BOOKING_EXPEDITEUR)%'
+    booking.professionnel_nom: '%env(BOOKING_PROFESSIONNEL_NOM)%'
+    booking.professionnel_email: '%env(BOOKING_PROFESSIONNEL_EMAIL)%'
+    booking.url_publique: '%env(BOOKING_URL_PUBLIQUE)%'
+
+# Les adaptateurs (contrôleur, mails…) sont enregistrés par config/services.yaml, chargé APRÈS ce fichier :
+# ils lisent leurs réglages par l'attribut #[Autowire('%booking.…%')], sans être redéclarés ici.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Ports du domaine → adaptateurs (remplacer ici pour changer de base, d'envoi de mail…).
+    App\Booking\Domain\RendezVousRepository: '@App\Booking\Infrastructure\Doctrine\DoctrineRendezVousRepository'
+    App\Booking\Domain\Notifications: '@App\Booking\Infrastructure\Mail\NotificationsParMail'
+    App\Booking\Domain\Horloge: '@App\Booking\Infrastructure\Systeme\HorlogeSysteme'
+    App\Booking\Domain\Identifiants: '@App\Booking\Infrastructure\Systeme\IdentifiantsAleatoires'
+
+    booking.fuseau:
+        class: DateTimeZone
+        arguments: ['%booking.fuseau%']
+
+    App\Booking\Domain\RegleDisponibilite:
+        arguments:
+            $joursTravailles: '%booking.jours_travailles%'
+            $creneaux: '%booking.creneaux%'
+            $dureeMinutes: '%booking.duree_minutes%'
+            $delaiMinJours: '%booking.delai_min_jours%'
+            $horizonJours: '%booking.horizon_jours%'
+            $fuseau: '@booking.fuseau'

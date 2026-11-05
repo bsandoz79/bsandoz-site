@@ -18,6 +18,11 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        # Le domaine (entités, objets valeur) n'est pas un ensemble de services :
+        # ses ports (interfaces) sont reliés automatiquement à leur unique adaptateur d'infrastructure.
+        exclude:
+            - '../src/*/Domain/'
+            - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
