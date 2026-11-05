@@ -13,4 +13,13 @@ interface RendezVousRepository
     public function enregistrer(RendezVous $rendezVous): void;
 
     public function parJeton(string $jeton): ?RendezVous;
+
+    public function parId(string $id): ?RendezVous;
+
+    /**
+     * Rendez-vous pris avec cette adresse e-mail (sans tenir compte des majuscules), du plus proche au plus lointain.
+     *
+     * @return list<RendezVous>
+     */
+    public function parEmail(string $email): array;
 }

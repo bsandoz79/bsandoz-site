@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (espace client : rendez-vous)
+- API : « Mes rendez-vous » pour la personne connectée (`GET /espace/rendez-vous`, fichier `.ics` à ajouter à l'agenda, annulation `POST /espace/rendez-vous/{id}/annuler` qui libère le créneau et prévient par mail) ; un rendez-vous d'une autre adresse répond 404, un rendez-vous passé ne s'annule plus (409). Booking : recherche par identifiant et par adresse e-mail.
+
 ### Ajouté (comptes)
 - Site : espace client `/mon-espace` (compte, mot de passe par lien sécurisé, appareils connectés, déconnexion des autres, déconnexion), connexion par mot de passe ou par lien reçu par mail, pages du lien et du mot de passe ; pages exclues du sitemap et des robots ; lien « Espace client » dans le pied de page. Appels à l'API regroupés dans `src/app/api.ts` (cookie inclus).
 - API, module Auth branché : points d'entrée `/auth/…` (liens par mail, connexion, mot de passe, compte connecté, appareils, déconnexion), cookie de session `HttpOnly` et `SameSite=Lax`, limitation des essais (429), corps JSON obligatoire (415), CORS avec cookies pour le site, tables `auth_compte`, `auth_lien`, `auth_session` (migration).

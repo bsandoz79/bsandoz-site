@@ -40,4 +40,21 @@ final class DoctrineRendezVousRepository implements RendezVousRepository
     {
         return $this->em->getRepository(RendezVous::class)->findOneBy(['jeton' => $jeton]);
     }
+
+    public function parId(string $id): ?RendezVous
+    {
+        return $this->em->find(RendezVous::class, $id);
+    }
+
+    public function parEmail(string $email): array
+    {
+        /** @var list<RendezVous> */
+        return $this->em->createQueryBuilder()
+            ->select('r')->from(RendezVous::class, 'r')
+            ->where('LOWER(r.contact.email) = :email')
+            ->orderBy('r.creneau.jour', 'ASC')
+            ->addOrderBy('r.creneau.heure', 'ASC')
+            ->setParameter('email', mb_strtolower(trim($email)))
+            ->getQuery()->getResult();
+    }
 }
