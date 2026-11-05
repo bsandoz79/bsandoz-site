@@ -30,7 +30,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] Auth (compte créé automatiquement, lien d'activation, mot de passe par lien mail)
 - [ ] Espace client complet (demandes, devis à accepter, compte, sécurité, confidentialité, zone danger), en plusieurs branches :
   - [x] `feature/espace-rendez-vous` : mes rendez-vous (liste, ajouter à l'agenda, annuler, déplacer)
-  - [ ] `feature/espace-compte` : mon compte (coordonnées, changement d'e-mail confirmé), confidentialité (préférences, téléchargement des données), zone danger (suppression confirmée par mail)
+  - [x] `feature/espace-compte` : mon compte (coordonnées, changement d'e-mail confirmé), confidentialité (préférences, téléchargement des données), zone danger (suppression confirmée par mail)
   - [ ] `feature/demandes-devis` : demandes de devis enregistrées par l'API (module Prospect, compte ouvert), suivi du statut, devis à accepter et PDF
 - [ ] Fil de messages synchronisé avec les mails (IMAP)
 - [ ] Back-office (demandes, devis, prix, disponibilités)

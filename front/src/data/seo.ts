@@ -4,7 +4,14 @@ import type { Formule } from './offres';
 import { pages, site } from './pages';
 
 /** Pages exclues du sitemap et marquées « noindex » : pages pas encore construites et espace client (privé). */
-export const pagesNonIndexees: (keyof typeof pages)[] = ['monEspace', 'connexion', 'lienConnexion', 'motDePasse'];
+export const pagesNonIndexees: (keyof typeof pages)[] = [
+  'monEspace',
+  'connexion',
+  'lienConnexion',
+  'motDePasse',
+  'confirmerEmail',
+  'suppression',
+];
 
 /** Adresse complète d'une page. */
 export const urlComplete = (chemin: string) => `${site.url}${chemin === '/' ? '/' : chemin}`;

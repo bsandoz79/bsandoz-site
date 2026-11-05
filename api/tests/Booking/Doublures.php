@@ -60,6 +60,11 @@ final class RendezVousEnMemoire implements RendezVousRepository
 
         return $trouves;
     }
+
+    public function supprimer(RendezVous $rendezVous): void
+    {
+        unset($this->tous[$rendezVous->id]);
+    }
 }
 
 final class NotificationsEnregistrees implements Notifications

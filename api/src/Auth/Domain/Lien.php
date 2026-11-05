@@ -15,13 +15,25 @@ final class Lien
         public readonly \DateTimeImmutable $creeLe,
         public readonly \DateTimeImmutable $expireLe,
         private ?\DateTimeImmutable $utiliseLe,
+        /** Donnée attachée au lien : la nouvelle adresse pour un changement d'e-mail. */
+        public readonly ?string $nouvelEmail = null,
     ) {
     }
 
     /** Crée le lien à partir de son secret (qui part par mail et n'est pas conservé). */
-    public static function creer(string $id, string $compteId, UsageLien $usage, string $secret, \DateTimeImmutable $maintenant): self
-    {
-        return new self($id, $compteId, $usage, Secret::empreinte($secret), $maintenant, $maintenant->add($usage->dureeDeVie()), null);
+    public static function creer(
+        string $id,
+        string $compteId,
+        UsageLien $usage,
+        string $secret,
+        \DateTimeImmutable $maintenant,
+        ?string $nouvelEmail = null,
+    ): self {
+        if (($usage === UsageLien::ChangementEmail) !== ($nouvelEmail !== null)) {
+            throw new \LogicException('Seul un lien de changement d’e-mail porte une nouvelle adresse, et il en porte toujours une.');
+        }
+
+        return new self($id, $compteId, $usage, Secret::empreinte($secret), $maintenant, $maintenant->add($usage->dureeDeVie()), null, $nouvelEmail);
     }
 
     public function utiliseLe(): ?\DateTimeImmutable

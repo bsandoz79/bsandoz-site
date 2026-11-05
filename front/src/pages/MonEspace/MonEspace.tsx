@@ -13,7 +13,10 @@ import {
   type AppareilConnecte,
   type Compte,
 } from './compte';
+import { Confidentialite } from './Confidentialite';
 import { MesRendezVous } from './MesRendezVous';
+import { MonCompteSection } from './MonCompteSection';
+import { ZoneDanger } from './ZoneDanger';
 import styles from './MonEspace.module.css';
 
 const t = espaceTextes;
@@ -109,6 +112,8 @@ export function MonEspace() {
 
         <p className={styles.intro}>{t.compte.aVenir}</p>
 
+        <MonCompteSection compte={compte} onChange={setCompte} />
+
         <section className={styles.carte} aria-labelledby="espace-securite">
           <h2 id="espace-securite">{t.compte.securite}</h2>
           <h3>{t.compte.motDePasse}</h3>
@@ -148,6 +153,9 @@ export function MonEspace() {
             </p>
           )}
         </section>
+
+        <Confidentialite compte={compte} onChange={setCompte} />
+        <ZoneDanger compte={compte} />
       </Container>
     </>
   );

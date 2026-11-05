@@ -115,6 +115,14 @@ export const confidentialite: PageLegale = {
         'Uniquement celles que vous envoyez par la demande de devis : activité, besoins, description du projet, site que vous aimez, photos, budget, délai, nom, entreprise, e-mail et téléphone.',
         'Elles servent à répondre à votre demande et à établir un devis. Vous les envoyez après avoir donné votre accord.',
         'Pour un rendez-vous découverte : lieu (et adresse si je viens chez vous), date et heure, nom, téléphone, e-mail, activité et message. Elles servent uniquement à organiser le rendez-vous.',
+        'Votre premier rendez-vous ouvre un espace client à votre adresse e-mail. Il contient votre nom, votre e-mail, les coordonnées que vous choisissez d’ajouter (entreprise, téléphone, adresse), votre préférence de notifications, votre mot de passe si vous en choisissez un (enregistré sous une forme chiffrée qui ne permet pas de le retrouver) et la liste de vos appareils connectés (navigateur et système, date de dernière activité).',
+      ],
+    },
+    {
+      titre: 'Espace client',
+      paragraphes: [
+        'La connexion à l’espace client repose sur un cookie de session, strictement nécessaire : sans lui, vous ne pourriez pas rester connecté. Il ne sert à rien d’autre et expire après 30 jours sans activité, ou dès que vous vous déconnectez.',
+        'Depuis votre espace, vous pouvez à tout moment corriger vos informations, télécharger toutes vos données (fichier JSON) et supprimer votre compte. La suppression efface votre compte, vos rendez-vous et vos échanges ; seules les factures éventuelles sont conservées 10 ans, comme la loi l’impose.',
       ],
     },
     {
@@ -138,7 +146,7 @@ export const confidentialite: PageLegale = {
     {
       titre: 'Cookies et services tiers',
       paragraphes: [
-        'Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience.',
+        'Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience. Le seul cookie est celui de la session de l’espace client, quand vous vous y connectez.',
         'Les polices de caractères sont chargées depuis les serveurs de Google (Google Fonts) : votre adresse IP leur est donc transmise à l’affichage des pages.',
         'Pour un rendez-vous chez vous, l’adresse saisie est envoyée au service public de géocodage de l’IGN (Géoplateforme) afin de calculer la distance depuis Amiens.',
       ],

@@ -43,9 +43,14 @@ sequenceDiagram
 | Réglages | `api/config/packages/auth.yaml`, variables `AUTH_*`, `CORS_ALLOW_ORIGIN` |
 
 ## Comment l'appeler
-- Pages : `/mon-espace` (réservée aux personnes connectées), `/mon-espace/connexion`, `/mon-espace/lien?jeton=…`, `/mon-espace/mot-de-passe` (avec ou sans `?jeton=…`). Exclues du sitemap, `noindex`, `Disallow: /mon-espace` dans robots.txt.
+- Pages : `/mon-espace` (réservée aux personnes connectées), `/mon-espace/connexion`, `/mon-espace/lien?jeton=…`, `/mon-espace/mot-de-passe` (avec ou sans `?jeton=…`), `/mon-espace/email?jeton=…`, `/mon-espace/suppression?jeton=…`. Exclues du sitemap, `noindex`, `Disallow: /mon-espace` dans robots.txt.
 - API : voir `api/src/Auth/README.md` (`/auth/lien`, `/auth/lien/utiliser`, `/auth/connexion`, `/auth/mot-de-passe`, `/auth/moi`, `/auth/deconnexion`, `/auth/appareils`, `/auth/appareils/deconnecter-les-autres`).
 - Ouvrir un compte depuis un autre module de l'API : `OuvrirCompte($email, $nom)` (rien ne change si le compte existe).
+
+## Mon compte, confidentialité, zone danger
+- **Mon compte** (`MonCompteSection.tsx` → `POST /auth/compte`) : nom, entreprise, téléphone, adresse. **Changer d'e-mail** (`POST /auth/email`) envoie un lien à la nouvelle adresse ; la page `/mon-espace/email` le confirme (`POST /auth/email/confirmer`) et l'ancienne adresse est prévenue.
+- **Confidentialité** (`Confidentialite.tsx`) : état de la localisation dans ce navigateur (rien n'est stocké côté serveur) et aide pour la réactiver ; notifications par mail (enregistrées avec le compte) ; **Télécharger mes données** (`GET /espace/donnees`, JSON sans aucun secret).
+- **Zone danger** (`ZoneDanger.tsx`) : confirmation en deux temps, puis lien par mail vers `/mon-espace/suppression`, où un clic explicite supprime le compte (`POST /auth/suppression/confirmer`). L'événement `CompteSupprime` efface aussi les rendez-vous (liaison `DonneesApresSuppression`, les rendez-vous à venir sont d'abord annulés).
 
 ## Sécurité, en bref
 Secrets jamais stockés (empreinte SHA-256) ni renvoyés par l'API ; liens à usage unique et de courte durée ; cookie `HttpOnly`, `SameSite=Lax`, `Secure` en production ; pas d'énumération des comptes ; 5 essais par quart d'heure ; corps JSON obligatoire et CORS limité au site ; changement de mot de passe = toutes les sessions fermées + mail.

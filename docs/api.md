@@ -62,6 +62,9 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | GET | `/espace/rendez-vous` | rendez-vous de la personne connectée (liaison Auth + Booking) |
 | GET | `/espace/rendez-vous/{id}/agenda.ics` | ajouter un rendez-vous à son agenda |
 | POST | `/espace/rendez-vous/{id}/annuler` | annuler depuis l'espace client |
+| POST | `/auth/compte`, `/auth/email`, `/auth/email/confirmer` | coordonnées et préférences, changement d'e-mail confirmé par la nouvelle adresse |
+| POST | `/auth/suppression`, `/auth/suppression/confirmer` | suppression du compte confirmée par mail (les rendez-vous sont effacés : liaison `DonneesApresSuppression`) |
+| GET | `/espace/donnees` | télécharger toutes ses données (JSON) |
 
 Détails, réglages et installation chez un client : `api/src/Booking/README.md`, `api/src/Auth/README.md`.
 

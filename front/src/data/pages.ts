@@ -143,6 +143,18 @@ export const pages = {
     description: 'Choisissez un nouveau mot de passe pour votre espace client.',
     heading: 'Choisir un mot de passe',
   },
+  confirmerEmail: {
+    path: '/mon-espace/email',
+    title: 'Nouvelle adresse e-mail',
+    description: 'Confirmation de la nouvelle adresse e-mail de votre espace client.',
+    heading: 'Nouvelle adresse e-mail',
+  },
+  suppression: {
+    path: '/mon-espace/suppression',
+    title: 'Supprimer mon compte',
+    description: 'Confirmation de la suppression de votre espace client.',
+    heading: 'Supprimer mon compte',
+  },
 } as const satisfies Record<string, PageInfo>;
 
 export const notFoundPage = {

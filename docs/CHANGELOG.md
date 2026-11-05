@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (espace client : compte)
+- Site : sections « Mon compte » (coordonnées, changement d'e-mail), « Confidentialité et préférences » (état de la localisation et aide pour la réactiver, notifications par mail, téléchargement de ses données) et « Zone danger » (suppression en deux temps puis par le lien du mail) ; pages `/mon-espace/email` (confirmation de la nouvelle adresse, une seule fois) et `/mon-espace/suppression` (rien n'est supprimé sans clic). Politique de confidentialité complétée (espace client, cookie de session).
+- API : coordonnées et préférences du compte (`POST /auth/compte`), changement d'e-mail confirmé par un lien envoyé à la nouvelle adresse (l'ancienne est prévenue), suppression du compte confirmée par mail (compte, liens, sessions et rendez-vous effacés ; un rendez-vous à venir est d'abord annulé), téléchargement de ses données en JSON (`GET /espace/donnees`, sans aucun secret). Migration des nouvelles colonnes.
+
 ### Ajouté (espace client : rendez-vous)
 - Site : section « Mes rendez-vous » dans `/mon-espace` (à venir : ajouter à l'agenda, déplacer, annuler avec confirmation ; passés et annulés).
 - API : « Mes rendez-vous » pour la personne connectée (`GET /espace/rendez-vous`, fichier `.ics` à ajouter à l'agenda, annulation `POST /espace/rendez-vous/{id}/annuler` qui libère le créneau et prévient par mail) ; un rendez-vous d'une autre adresse répond 404, un rendez-vous passé ne s'annule plus (409). Booking : recherche par identifiant et par adresse e-mail.

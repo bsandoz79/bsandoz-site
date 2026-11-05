@@ -38,7 +38,7 @@ final class DomaineTest extends TestCase
     {
         $compte = Compte::ouvrir('c1', 'Marie@Exemple.fr', ' Marie Dupont ', self::maintenant());
 
-        self::assertSame('marie@exemple.fr', $compte->email);
+        self::assertSame('marie@exemple.fr', $compte->email());
         self::assertSame('Marie Dupont', $compte->nom());
         self::assertSame(StatutCompte::EnAttente, $compte->statut());
         self::assertFalse($compte->aUnMotDePasse());

@@ -57,4 +57,10 @@ final class DoctrineRendezVousRepository implements RendezVousRepository
             ->setParameter('email', mb_strtolower(trim($email)))
             ->getQuery()->getResult();
     }
+
+    public function supprimer(RendezVous $rendezVous): void
+    {
+        $this->em->remove($rendezVous);
+        $this->em->flush();
+    }
 }

@@ -6,10 +6,54 @@ export type Compte = {
   id: string;
   email: string;
   nom: string;
+  entreprise: string;
+  telephone: string;
+  adresse: string;
+  notifications: boolean;
   statut: 'en_attente' | 'actif';
   motDePasse: boolean;
   motDePasseModifieLe: string | null;
 };
+
+/** Coordonnées et préférences modifiables dans « Mon compte ». */
+export type Profil = Pick<Compte, 'nom' | 'entreprise' | 'telephone' | 'adresse' | 'notifications'>;
+
+export type ErreursChamps = Partial<Record<string, string>>;
+
+export async function modifierProfil(profil: Profil): Promise<{ ok: true; compte: Compte } | { ok: false; erreurs: ErreursChamps }> {
+  const { statut, corps } = await appelerApi<{ compte?: Compte; erreurs?: ErreursChamps }>('/auth/compte', { corps: profil });
+  if (statut === 200 && corps.compte) return { ok: true, compte: corps.compte };
+  return { ok: false, erreurs: corps.erreurs ?? { general: espaceTextes.erreurReseau } };
+}
+
+/** Envoie le lien de confirmation à la nouvelle adresse ; renvoie le message d'erreur s'il y en a un. */
+export async function demanderChangementEmail(email: string): Promise<{ ok: true } | { ok: false; erreur: string }> {
+  const { statut, corps } = await appelerApi<{ erreurs?: ErreursChamps }>('/auth/email', { corps: { email: email.trim() } });
+  if (statut === 202) return { ok: true };
+  if (statut === 429) return { ok: false, erreur: espaceTextes.tropDEssais };
+  return { ok: false, erreur: corps.erreurs?.email ?? espaceTextes.erreurReseau };
+}
+
+export async function confirmerChangementEmail(jeton: string): Promise<{ etat: 'ok'; email: string } | { etat: 'invalide' | 'refuse' | 'erreur' }> {
+  const { statut, corps } = await appelerApi<{ compte?: Compte }>('/auth/email/confirmer', { corps: { jeton } });
+  if (statut === 200 && corps.compte) return { etat: 'ok', email: corps.compte.email };
+  if (statut === 410) return { etat: 'invalide' };
+  return { etat: statut === 400 ? 'refuse' : 'erreur' };
+}
+
+export async function demanderSuppression(): Promise<boolean> {
+  const { statut } = await appelerApi('/auth/suppression', { corps: {} });
+  return statut === 202;
+}
+
+export async function confirmerSuppression(jeton: string): Promise<'ok' | 'invalide' | 'erreur'> {
+  const { statut } = await appelerApi('/auth/suppression/confirmer', { corps: { jeton } });
+  if (statut === 204) return 'ok';
+  return statut === 410 ? 'invalide' : 'erreur';
+}
+
+/** Fichier JSON de toutes ses données : un simple lien suffit, le cookie l'accompagne. */
+export const urlMesDonnees = () => `${urlApi}/espace/donnees`;
 
 export type AppareilConnecte = {
   id: string;

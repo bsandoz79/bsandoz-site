@@ -22,4 +22,7 @@ interface RendezVousRepository
      * @return list<RendezVous>
      */
     public function parEmail(string $email): array;
+
+    /** Efface définitivement le rendez-vous (droit à l'effacement). */
+    public function supprimer(RendezVous $rendezVous): void;
 }

@@ -31,10 +31,17 @@ Comptes clients (V3) : compte ouvert automatiquement et activé par un lien reç
 | POST | `/auth/deconnexion` | `{}` | 204 (cookie effacé) |
 | GET | `/auth/appareils` | — | 200 `{ appareils: [{ id, appareil, connecteLe, derniereActivite, courant }] }` · 401 |
 | POST | `/auth/appareils/deconnecter-les-autres` | `{}` | 200 `{ deconnectes }` · 401 |
+| POST | `/auth/compte` | `{ nom, entreprise, telephone, adresse, notifications }` | 200 `{ compte }` · 400 · 401 |
+| POST | `/auth/email` | `{ email }` (nouvelle adresse) | 202 (lien envoyé à la nouvelle adresse) · 400 · 401 · 429 |
+| POST | `/auth/email/confirmer` | `{ jeton }` | 200 `{ compte }` (l'ancienne adresse est prévenue) · 400 · 410 |
+| POST | `/auth/suppression` | `{}` | 202 (lien de confirmation par mail) · 401 |
+| POST | `/auth/suppression/confirmer` | `{ jeton }` | 204 (compte, liens et sessions effacés, cookie effacé, mail de confirmation, événement `CompteSupprime`) · 410 |
 
-`compte` : `{ id, email, nom, statut: "en_attente" | "actif", motDePasse: bool, motDePasseModifieLe }`.
+`compte` : `{ id, email, nom, entreprise, telephone, adresse, notifications: bool, statut: "en_attente" | "actif", motDePasse: bool, motDePasseModifieLe }`.
 
-Liens des mails : `{AUTH_URL_SITE}/mon-espace/lien?jeton=…` (activation, connexion) et `{AUTH_URL_SITE}/mon-espace/mot-de-passe?jeton=…`.
+Liens des mails : `{AUTH_URL_SITE}/mon-espace/lien?jeton=…` (activation, connexion), `/mon-espace/mot-de-passe?jeton=…`, `/mon-espace/email?jeton=…` (changement d'e-mail, 1 h) et `/mon-espace/suppression?jeton=…` (suppression, 1 h).
+
+Événement : après une suppression, `Infrastructure/Evenement/CompteSupprime` (adresse, nom) est publié, pour effacer ailleurs ce qui s'y rattache.
 
 ## Réglages
 `config/packages/auth.yaml` (paramètres, limites d'essais, ports) et variables d'environnement : `AUTH_URL_SITE`, `AUTH_EXPEDITEUR`, `AUTH_EXPEDITEUR_NOM`, `AUTH_COOKIE_SECURISE` (forcé à vrai en production), plus `MAILER_DSN` et `CORS_ALLOW_ORIGIN`.

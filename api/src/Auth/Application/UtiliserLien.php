@@ -30,7 +30,7 @@ final class UtiliserLien
     {
         $maintenant = $this->horloge->maintenant();
         $lien = $this->liens->parEmpreinte(Secret::empreinte($secret));
-        if ($lien === null || $lien->usage === UsageLien::MotDePasse || !$lien->estValide($maintenant)) {
+        if ($lien === null || !in_array($lien->usage, [UsageLien::Activation, UsageLien::Connexion], true) || !$lien->estValide($maintenant)) {
             throw new LienInvalide('Ce lien a expiré ou a déjà servi.');
         }
         $compte = $this->comptes->parId($lien->compteId) ?? throw new LienInvalide('Compte introuvable.');

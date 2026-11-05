@@ -24,7 +24,7 @@ final class DemanderLien
     /** @throws DonneesInvalides adresse mal formée, ou usage non demandable */
     public function __invoke(string $email, UsageLien $usage): void
     {
-        if ($usage === UsageLien::Activation) {
+        if (!in_array($usage, [UsageLien::Connexion, UsageLien::MotDePasse], true)) {
             throw new DonneesInvalides(['usage' => 'Usage inconnu.']);
         }
         $compte = $this->comptes->parEmail(Email::normaliser($email));

@@ -63,6 +63,65 @@ export const espaceTextes = {
     annuleOk: 'Le rendez-vous est annulé. Un e-mail de confirmation vous a été envoyé.',
     echec: 'L’annulation n’a pas abouti. Réessayez, ou répondez au mail de confirmation.',
   },
+  monCompte: {
+    titre: 'Mon compte',
+    nom: 'Prénom et nom',
+    entreprise: 'Entreprise',
+    telephone: 'Téléphone',
+    adresse: 'Adresse',
+    enregistrer: 'Enregistrer',
+    enregistre: 'Vos informations sont enregistrées.',
+    email: 'E-mail',
+    changerEmail: 'Changer d’e-mail',
+    nouvelEmail: 'Nouvelle adresse e-mail',
+    envoyerLien: 'Envoyer le lien de confirmation',
+    emailAide: 'Changer d’e-mail envoie un lien de confirmation à la nouvelle adresse.',
+    lienEnvoye: (email: string) =>
+      `Un lien de confirmation vient de partir à ${email}. Votre adresse actuelle reste valable tant qu’il n’est pas ouvert.`,
+  },
+  confidentialite: {
+    titre: 'Confidentialité et préférences',
+    localisation: 'Localisation',
+    localisationAide:
+      'Elle sert seulement à vérifier si je peux me déplacer chez vous (50 km autour d’Amiens) et à pré-remplir votre adresse.',
+    etats: {
+      granted: 'Autorisée.',
+      denied: 'Désactivée : vous l’avez refusée.',
+      prompt: 'Pas encore demandée.',
+      inconnu: 'Votre navigateur ne permet pas de connaître ce réglage.',
+    },
+    autoriser: 'Autoriser la localisation',
+    aideNavigateur:
+      'Si votre navigateur bloque la demande : icône cadenas à gauche de l’adresse du site → Autorisations → Position → Autoriser.',
+    notifications: 'Rappels et notifications par mail',
+    notificationsAide: 'Rappel la veille d’un rendez-vous, nouvelles réponses.',
+    preferencesEnregistrees: 'Préférence enregistrée.',
+    donnees: 'Mes données',
+    donneesAide: 'Téléchargez tout ce que j’ai sur vous : compte, appareils connectés, rendez-vous.',
+    telecharger: 'Télécharger mes données',
+  },
+  zoneDanger: {
+    titre: 'Zone danger',
+    supprimer: 'Supprimer mon compte',
+    texte:
+      'Vos informations, rendez-vous et échanges seront effacés définitivement. Les factures sont conservées 10 ans, comme la loi l’impose. Un mail de confirmation vous sera envoyé.',
+    confirmer: 'Oui, m’envoyer le mail de confirmation',
+    garder: 'Garder mon compte',
+    envoye: (email: string) => `Un mail de confirmation vient de partir à ${email}. Le lien est valable 1 heure.`,
+  },
+  confirmerEmail: {
+    ok: (email: string) => `C’est fait : votre espace client utilise désormais ${email}.`,
+    refuse: 'Cette adresse est déjà utilisée par un autre compte.',
+    espace: { label: 'Aller à mon espace', to: pages.monEspace.path },
+  },
+  suppression: {
+    avertissement:
+      'Vous êtes sur le point de supprimer définitivement votre espace client : vos informations, vos rendez-vous et vos échanges seront effacés. Les rendez-vous à venir seront annulés.',
+    bouton: 'Supprimer définitivement mon compte',
+    garder: { label: 'Garder mon compte', to: pages.monEspace.path },
+    fait: 'Votre compte est supprimé. Un mail de confirmation vous a été envoyé. Merci de votre confiance.',
+    accueil: { label: 'Retour à l’accueil', to: pages.accueil.path },
+  },
   compte: {
     bonjour: (nom: string) => (nom ? `Bonjour ${nom}` : 'Bonjour'),
     aVenir: 'Bientôt ici : vos demandes et vos devis.',
