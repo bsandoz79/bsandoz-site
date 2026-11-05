@@ -59,3 +59,4 @@
 - Script d'envoi `api/devis.php` (o2switch) : e-mail à Baptiste avec photos jointes, accusé de réception au client, champ piège, limite d'envois par adresse IP, contrôle des photos.
 - SEO : `sitemap.xml` et `robots.txt` générés au build depuis la liste des pages (`data/seo.ts`), données structurées de l'entreprise, de la FAQ et des formules (faits établis seulement).
 - SEO : adresse canonique sur chaque page, « noindex » sur les pages provisoires et la 404, données structurées affichées sur l'accueil, la FAQ et Tarifs (composant `StructuredData`).
+- Pages légales (mentions légales, CGV, confidentialité) : faits établis seulement, mentions manquantes en « [à compléter] » (SIRET, adresse, acompte, conservation, médiateur) ; à faire relire avant la mise en ligne publique.

@@ -35,6 +35,8 @@ front/src/
 
 - **Devis** (`pages/Devis`) : `Devis.tsx` (étapes, focus sur le titre à chaque étape, envoi), `Etapes.tsx`, `demande.ts` (validation, brouillon `bsandoz.devis`, récapitulatif, `FormData`). Reprend `bsandoz.composer`. Envoi en `POST` vers `/api/devis.php` (voir `docs/deploiement.md`).
 
+- **Pages légales** (`pages/Legal`, paramétrée par `id`) : contenus dans `data/legal.ts`, sections titrées.
+
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).
 
@@ -54,6 +56,7 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `src/data/apropos.ts`, `src/data/faq.ts` : textes des pages À propos et FAQ.
 - `src/data/devis.ts` : étapes, besoins, budgets, délais, limites des photos et textes du parcours de devis.
 - `src/data/seo.ts` : adresses complètes, pages indexables (`pagesNonIndexees`), `genererSitemap`, `robotsTxt`, données structurées (`jsonLdEntreprise`, `jsonLdFaq`, `jsonLdOffres`). Le plugin `fichiersSeo` de `vite.config.ts` écrit `sitemap.xml` et `robots.txt` dans `dist/` au build.
+- `src/data/legal.ts` : mentions légales, CGV, confidentialité (à compléter et à faire relire).
 - `src/data/tarifs.ts` : textes de la page Tarifs.
 - `src/data/accueil.ts` : textes de la page d'accueil, repris de la maquette `Main`.
 - `components/Header` : onglets des deux catégories de services (l'onglet « Informatique sur place » est actif sur les adresses qui commencent par `/informatique`), navigation principale et sous-menu « Métiers ». Sous 960 px, la navigation est repliée derrière un bouton de menu.
