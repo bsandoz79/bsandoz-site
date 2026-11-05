@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+
+## [1.0.0] – 2026-11-05
+Première version complète du site vitrine et du configurateur (front seul). Étiquette git : `v1.0.0`.
+
 ### Corrigé
 - Fourchette du Fonctionnel : son bas ne descend plus sous le prix plancher de 989 €.
 - Workflow de déploiement invalide (« : » non protégé dans une commande `echo`, ligne 33) : il échouait à chaque push sur `main` sans rien lancer.
