@@ -1,6 +1,8 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (comptes)
+- API : dépendances `symfony/password-hasher` (hachage des mots de passe) et `symfony/rate-limiter` (limitation des tentatives).
 ### Modifié
 - `.gitattributes` : fins de ligne LF partout, fichiers images en binaire (plus d'avertissements « LF will be replaced by CRLF » ni de faux changements sous Windows).
 
