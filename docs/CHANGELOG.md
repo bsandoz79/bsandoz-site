@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Ajouté (demandes et devis)
+- API, module Prospect : domaine et cas d'usage des demandes de devis (numéro « 2026-014 » par année, statuts Reçue → En étude → Devis envoyé → Accepté → En cours → Livré) et des devis (lignes, total, un devis par demande, acceptation par la seule demandeuse).
 - API : dépendance `dompdf/dompdf` (devis en PDF, en PHP pur, compatible o2switch).
 
 ### Ajouté (espace client : compte)

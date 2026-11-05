@@ -1,6 +1,6 @@
 # Module Prospect
 
-Demandes, devis et fil de messages (V2 : pré-devis ; V3 : suivi).
+Demandes de devis et devis (V3) : la demande envoyée depuis le site est numérotée et suivie de « Reçue » à « Livré » ; le devis, établi par le professionnel, est accepté par le client depuis son espace. Fil de messages : plus tard (IMAP).
 
 ## Couches
 - `Domain/` : règles métier (entités, objets valeur, ports). Aucune dépendance à Symfony, Doctrine ou à un autre module.
