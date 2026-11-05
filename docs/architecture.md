@@ -60,4 +60,5 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `components/Footer` : présentation, contact et liens légaux. Sur mobile, il garde de la place en bas pour la barre « Estimer ».
 - `components/MobileBar` : barre « Estimer » fixe en bas de l'écran sous 960 px ; masquée sur les pages listées dans `mobileBar.hiddenOn`.
 - `components/RealisationCard` : carte d'une réalisation (accueil, page Réalisations).
-- `components/PageMeta` met à jour le titre de l'onglet (« Titre – Baptiste Sandoz ») et la meta description déjà présents dans `index.html`, sans les dupliquer.
+- `components/StructuredData` : insère un JSON-LD (accueil : entreprise, FAQ : FAQPage, Tarifs : formules).
+- `components/PageMeta` gère aussi l'adresse canonique et, avec `noindex`, la balise robots (pages provisoires, 404). Il met à jour le titre de l'onglet (« Titre – Baptiste Sandoz ») et la meta description déjà présents dans `index.html`, sans les dupliquer.

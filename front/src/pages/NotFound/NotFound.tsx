@@ -7,8 +7,7 @@ import styles from './NotFound.module.css';
 export function NotFound() {
   return (
     <section className="section">
-      <PageMeta title={notFoundPage.title} description={notFoundPage.description} />
-      <meta name="robots" content="noindex" />
+      <PageMeta title={notFoundPage.title} description={notFoundPage.description} noindex />
       <div className={`container ${styles.inner}`}>
         <p className={styles.code} aria-hidden="true">
           404

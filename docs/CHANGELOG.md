@@ -58,3 +58,4 @@
 - Page Demande de devis (`/devis`) : 5 étapes avec progression, retour sans perte, brouillon gardé dans le navigateur, reprise de la configuration et de l'estimation du configurateur, erreurs expliquées, récapitulatif et consentement, champ piège anti-robots et délai entre deux envois.
 - Script d'envoi `api/devis.php` (o2switch) : e-mail à Baptiste avec photos jointes, accusé de réception au client, champ piège, limite d'envois par adresse IP, contrôle des photos.
 - SEO : `sitemap.xml` et `robots.txt` générés au build depuis la liste des pages (`data/seo.ts`), données structurées de l'entreprise, de la FAQ et des formules (faits établis seulement).
+- SEO : adresse canonique sur chaque page, « noindex » sur les pages provisoires et la 404, données structurées affichées sur l'accueil, la FAQ et Tarifs (composant `StructuredData`).

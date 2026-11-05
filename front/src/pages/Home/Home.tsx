@@ -1,5 +1,7 @@
 import { PageMeta } from '../../components/PageMeta';
+import { StructuredData } from '../../components/StructuredData';
 import { pages } from '../../data/pages';
+import { jsonLdEntreprise } from '../../data/seo';
 import { AppelAction } from './sections/AppelAction';
 import { Hero } from './sections/Hero';
 import { Metiers } from './sections/Metiers';
@@ -14,6 +16,7 @@ export function Home() {
   return (
     <>
       <PageMeta title={pages.accueil.title} description={pages.accueil.description} />
+      <StructuredData data={jsonLdEntreprise()} />
       <Hero />
       <Metiers />
       <Problemes />
