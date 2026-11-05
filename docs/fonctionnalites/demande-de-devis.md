@@ -40,6 +40,9 @@ sequenceDiagram
 | Textes, besoins, budgets, délais, limites des photos | `data/devis.ts` |
 | Réception et mails | `front/public/api/devis.php` (copié dans `dist/api/`) |
 
+## Avec l'API (V3)
+Une fois l'API en ligne, construire le site avec `VITE_DEVIS_URL=https://api.bsandoz.fr/demandes` : le même formulaire est alors reçu par le module Prospect (`POST /demandes`). La demande est enregistrée et numérotée (« 2026-014 »), le compte client est ouvert (lien d'activation), et le client suit sa demande, accepte son devis et le télécharge en PDF dans `/mon-espace` (`pages/MonEspace/MesDemandes.tsx`). Sans cette variable, `devis.php` continue d'envoyer la demande par mail. Détails : `api/src/Prospect/README.md`.
+
 ## Comment l'appeler
 - Page : `/devis` (reprend la configuration de `/composer` si elle existe).
 - Script : `POST /api/devis.php`, `multipart/form-data` : `nom`, `email`, `recapitulatif`, `predevis` (texte brut, facultatif, 3 000 caractères au plus), `site_web` (piège, vide), `photos[]` (3 au plus). Réponses : `200 {ok:true}`, `400`, `405`, `429` (trop d'envois), `500`.

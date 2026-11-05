@@ -14,6 +14,7 @@ import {
   type Compte,
 } from './compte';
 import { Confidentialite } from './Confidentialite';
+import { MesDemandes } from './MesDemandes';
 import { MesRendezVous } from './MesRendezVous';
 import { MonCompteSection } from './MonCompteSection';
 import { ZoneDanger } from './ZoneDanger';
@@ -108,9 +109,8 @@ export function MonEspace() {
           </Button>
         </div>
 
+        <MesDemandes />
         <MesRendezVous />
-
-        <p className={styles.intro}>{t.compte.aVenir}</p>
 
         <MonCompteSection compte={compte} onChange={setCompte} />
 

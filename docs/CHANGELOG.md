@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Ajouté (demandes et devis)
+- Site : section « Mes demandes » de l'espace client (avancement de Reçue à Livré, devis détaillé, acceptation en deux temps, PDF), comme la maquette ; la demande envoie aussi téléphone, entreprise et un titre lisible ; adresse d'envoi réglable au build (`VITE_DEVIS_URL`, `devis.php` par défaut).
 - API : `POST /demandes` (même contrat que `devis.php` : piège anti-robots, 3 par heure par adresse IP, photos vérifiées et jointes au mail), accusé de réception avec le pré-devis, compte client ouvert à la première demande (liaison `CompteApresDemande`) ; « Mes demandes » (`GET /espace/demandes`, acceptation du devis, devis en PDF avec dompdf). Suppression du compte : demandes et devis effacés ; export : demandes et devis inclus. Tables `prospect_demande`, `prospect_devis`.
 - API, module Prospect : domaine et cas d'usage des demandes de devis (numéro « 2026-014 » par année, statuts Reçue → En étude → Devis envoyé → Accepté → En cours → Livré) et des devis (lignes, total, un devis par demande, acceptation par la seule demandeuse).
 - API : dépendance `dompdf/dompdf` (devis en PDF, en PHP pur, compatible o2switch).

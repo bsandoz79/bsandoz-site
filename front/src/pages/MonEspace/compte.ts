@@ -52,6 +52,37 @@ export async function confirmerSuppression(jeton: string): Promise<'ok' | 'inval
   return statut === 410 ? 'invalide' : 'erreur';
 }
 
+/** Demande de devis telle que l'espace client la reçoit (liaison Auth + Prospect de l'API). */
+export type MaDemande = {
+  id: string;
+  numero: string;
+  titre: string;
+  envoyeeLe: string;
+  statut: string;
+  etapes: { statut: string; libelle: string; atteinte: boolean }[];
+  devis: {
+    numero: string;
+    lignes: { libelle: string; prix: number }[];
+    total: number;
+    statut: 'envoye' | 'accepte';
+    envoyeLe: string;
+    accepteLe: string | null;
+  } | null;
+};
+
+export async function mesDemandes(): Promise<MaDemande[]> {
+  const { statut, corps } = await appelerApi<{ demandes?: MaDemande[] }>('/espace/demandes');
+  return statut === 200 ? (corps.demandes ?? []) : [];
+}
+
+/** Accepte le devis ; renvoie la demande à jour, ou null si l'API refuse. */
+export async function accepterDevis(id: string): Promise<MaDemande | null> {
+  const { statut, corps } = await appelerApi<{ demande?: MaDemande }>(`/espace/demandes/${encodeURIComponent(id)}/devis/accepter`, { corps: {} });
+  return statut === 200 && corps.demande ? corps.demande : null;
+}
+
+export const urlDevisPdf = (id: string) => `${urlApi}/espace/demandes/${encodeURIComponent(id)}/devis.pdf`;
+
 /** Fichier JSON de toutes ses données : un simple lien suffit, le cookie l'accompagne. */
 export const urlMesDonnees = () => `${urlApi}/espace/donnees`;
 
