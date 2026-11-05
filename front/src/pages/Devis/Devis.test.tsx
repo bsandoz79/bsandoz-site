@@ -112,7 +112,9 @@ describe('Parcours de demande de devis', () => {
     const envoi = fetchMock.mock.calls[0][1].body as FormData;
     expect(envoi.get('recapitulatif')).toContain('Activité : Artisan à domicile');
     expect(envoi.get('site_web')).toBe('');
+    expect(envoi.get('predevis')).toContain('Formule conseillée : Fonctionnel');
     expect(await screen.findByRole('heading', { level: 1, name: 'Merci, votre demande est envoyée !' })).toBeInTheDocument();
+    expect(screen.getByText(/première estimation, calculée d’après vos réponses/)).toBeInTheDocument();
     expect(window.localStorage.getItem(CLE_BROUILLON)).toBeNull();
   });
 
