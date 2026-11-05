@@ -11,7 +11,7 @@ flowchart LR
   entreprises["entreprisesExemple<br/>(nom, couleur, accroche par métier)"] --> modele
   modele --> m["SitePreviewModel<br/>name, accent, nav, cta, sections[], search, install"]
   modele --> d["description<br/>(lue par les lecteurs d'écran)"]
-  m --> bloc["blocks/SitePreview"]
+  m --> bloc["@bsandoz79/blocs<br/>SitePreview"]
   d --> bloc
 ```
 
@@ -22,7 +22,7 @@ flowchart LR
 
 ## Comment l'appeler
 ```tsx
-import { SitePreview } from '../blocks/SitePreview';
+import { SitePreview } from '@bsandoz79/blocs';
 import { modeleApercu } from '../data/apercu';
 
 const { modele, description } = modeleApercu(config);
@@ -35,5 +35,5 @@ Utilisé par `/composer` (colonne de droite) et les pages métier (exemple ficti
 - `modeleApercu` : propre aux options de ce site.
 
 ## Tests
-- **unitaires** : `blocks/SitePreview/SitePreview.test.tsx` (chaque type de section, description, message vide), `data/apercu.test.ts` (sections selon les options, options offertes, précisions, métier par défaut).
+- **unitaires** : `packages/blocs/src/SitePreview/SitePreview.test.tsx` (chaque type de section, description, message vide), `data/apercu.test.ts` (sections selon les options, options offertes, précisions, métier par défaut).
 - **fonctionnels** : section « aperçu en direct » de `Composer.test.tsx`.

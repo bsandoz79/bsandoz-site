@@ -47,3 +47,4 @@ Types de tests :
 | 16 | [Correctif CI de l’API](16-fix-ci-api-env-test.md) | `fix/ci-api-env-test` | 2026-11-05 |
 | 17 | [Journal des branches](17-docs-journal-des-branches.md) | `docs/journal-des-branches` | 2026-11-05 |
 | 18 | [Fiches par fonctionnalité](18-docs-fonctionnalites.md) | `docs/fonctionnalites` | 2026-11-05 |
+| 19 | [Bibliothèque de blocs @bsandoz79/blocs](19-feature-paquet-blocs.md) | `feature/paquet-blocs` | 2026-11-05 |

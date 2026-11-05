@@ -8,7 +8,7 @@ Comprendre en une page où se trouve chaque chose et dans quel sens circulent le
 flowchart LR
   subgraph Front["front/ (React + Vite)"]
     data["src/data/<br/>textes, prix, règles"]
-    blocks["src/blocks/<br/>blocs réutilisables"]
+    blocks["@bsandoz79/blocs<br/>packages/blocs (bibliothèque)"]
     components["src/components/<br/>éléments du site"]
     pages["src/pages/<br/>une page = un dossier"]
     app["src/app/routes.tsx<br/>adresse → page"]
@@ -32,11 +32,11 @@ flowchart LR
 ## Le chemin d'une page
 1. L'adresse (ex. `/tarifs`) est déclarée dans `src/data/pages.ts` (adresse, titre d'onglet, description, titre principal).
 2. `src/app/routes.tsx` associe chaque adresse à sa page (`builtPages`), sous la mise en page commune `components/Layout`.
-3. La page (`src/pages/Tarifs/`) assemble des **blocs** (`src/blocks/`) et des **composants** (`src/components/`), avec les textes et prix de `src/data/`.
+3. La page (`src/pages/Tarifs/`) assemble des **blocs** (`@bsandoz79/blocs`) et des **composants** (`src/components/`), avec les textes et prix de `src/data/`.
 
 ## Les règles qui tiennent l'ensemble
 - **Aucun texte ni prix en dur** dans un composant : tout vient de `src/data/`.
-- **Un bloc ne connaît pas bsandoz.fr** : il reçoit tout par ses paramètres, il peut donc servir sur un autre site.
+- **Un bloc ne connaît pas bsandoz.fr** : il reçoit tout par ses paramètres. Les blocs forment la bibliothèque `@bsandoz79/blocs` (`packages/blocs`), installable par d'autres sites.
 - **La logique est en fonctions pures** (`data/calculs.ts`, `pages/*/reservation.ts`, `pages/Devis/demande.ts`…) : testables sans écran.
 - **CSS** : variables dans `src/styles/tokens.css`, un `*.module.css` par bloc ou composant.
 

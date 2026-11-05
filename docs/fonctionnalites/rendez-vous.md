@@ -10,7 +10,7 @@ sequenceDiagram
   participant P as pages/RendezVous/RendezVous.tsx
   participant R as reservation.ts
   participant G as IGN Géoplateforme
-  participant C as blocks/Calendar
+  participant C as Calendar (@bsandoz79/blocs)
   participant A as API (POST /rendez-vous)
   V->>P: lieu « Chez vous » + adresse
   P->>R: verifierAdresse(adresse)
@@ -31,7 +31,7 @@ sequenceDiagram
 | Page | `pages/RendezVous/RendezVous.tsx` |
 | Jours, créneaux, distance, géocodage, validation, corps envoyé | `pages/RendezVous/reservation.ts` |
 | Lieux, **disponibilités**, zone, textes | `data/rendezvous.ts` |
-| Calendrier | `blocks/Calendar/` (+ `dates.ts`) |
+| Calendrier | `packages/blocs/src/Calendar/` (+ `dates.ts`) |
 
 ## Comment l'appeler
 - Page : `/rendez-vous`.

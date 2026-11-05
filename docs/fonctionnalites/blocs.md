@@ -1,12 +1,25 @@
-# Blocs réutilisables
+# Blocs réutilisables : la bibliothèque `@bsandoz79/blocs`
 
 ## À quoi ça sert
-Des briques d'interface **indépendantes de bsandoz.fr** : elles reçoivent tout (textes, données, actions) par leurs paramètres. Elles servent sur ce site et pourront servir sur les sites des clients.
+Une seule bibliothèque de blocs d'interface, **indépendants de tout site**, installable par n'importe quel site : bsandoz.fr aujourd'hui, les sites des clients ensuite. On écrit un calendrier une fois, on l'utilise partout, et chaque site garde ses couleurs.
 
-## Schéma : qui utilise quoi
+## Schéma : un dépôt, une bibliothèque, plusieurs sites
 ```mermaid
 flowchart LR
-  subgraph Blocs["src/blocks/"]
+  subgraph Depot["Dépôt bsandoz-site (espace de travail npm)"]
+    blocs["packages/blocs/<br/>@bsandoz79/blocs<br/>sources + tests"]
+    front["front/<br/>site bsandoz.fr"]
+    blocs -- "alias vers les sources<br/>(changement visible tout de suite)" --> front
+  end
+  blocs -- "étiquette blocs-v1.x.y<br/>workflow de publication" --> registre[("GitHub Packages<br/>paquet privé versionné")]
+  registre -- "npm install @bsandoz79/blocs@1.x" --> c1["Site client A<br/>(detailing)"]
+  registre -- "npm install @bsandoz79/blocs@1.x" --> c2["Site client B<br/>(paysagiste)"]
+```
+
+## Schéma : qui utilise quoi dans bsandoz.fr
+```mermaid
+flowchart LR
+  subgraph Blocs["@bsandoz79/blocs"]
     Button; Container; Card; SectionTitle; Reveal; RotatingWords; Marquee
     ChoiceChips; OptionCard; PriceSummary; SitePreview; Stepper; TextField; Accordion; Calendar
   end
@@ -19,22 +32,31 @@ flowchart LR
   Metier["Pages métier"] --> SitePreview & Card
 ```
 
-## Contrat d'un bloc
-```
-src/blocks/MonBloc/
-  MonBloc.tsx          le composant (aucun import de src/data/)
-  MonBloc.module.css   ses styles, uniquement avec les variables de tokens.css
-  MonBloc.test.tsx     ses tests unitaires
-  index.ts             ce qu'il expose
-  README.md            son mode d'emploi : utilisation, propriétés, accessibilité
-```
+## Chemin
+| Élément | Où |
+| --- | --- |
+| Sources des blocs | `packages/blocs/src/<Bloc>/` (`Bloc.tsx`, `.module.css`, `.test.tsx`, `index.ts`, `README.md`) |
+| Point d'entrée | `packages/blocs/src/index.ts` (exporte tous les blocs) |
+| Styles de base | `packages/blocs/src/styles/base.css` (variables par défaut sous `:where(:root)`, `.sr-only`), ajoutés en tête de `dist/blocs.css` au build |
+| Build | `packages/blocs/vite.config.ts` → `dist/blocs.js` (sans React), `dist/blocs.css` (classes préfixées `bsb-`), `dist/types/` |
+| Utilisation dans le site | alias `@bsandoz79/blocs` → `packages/blocs/src/index.ts` (`front/vite.config.ts`, `front/vitest.config.ts`, `front/tsconfig.app.json`) |
+| Publication | `.github/workflows/blocs-publication.yml` (étiquette `blocs-vX.Y.Z`) |
 
-## Comment en appeler un
+## Comment l'appeler
 ```tsx
-import { Calendar } from '../blocks/Calendar';
-import { OptionCard } from '../blocks/OptionCard';
+import { Calendar, OptionCard } from '@bsandoz79/blocs';
+import '@bsandoz79/blocs/styles.css'; // dans un site client, une fois
+
+<OptionCard title="Galerie photos" price="+ 80 €" checked={coche} onChange={setCoche} />
 ```
-Le mode d'emploi de chaque bloc (paramètres, exemples, accessibilité) est dans son `README.md` ; la liste est dans `docs/blocs.md`.
+Installation dans un site client, personnalisation des couleurs, publication d'une version : `packages/blocs/README.md`.
+
+## Contrat d'un bloc
+- Aucun import de `front/` ni de données d'un site ; tout passe par les propriétés.
+- CSS uniquement avec les variables (`--color-*`, `--space-*`…), dans son `*.module.css`.
+- Animations déclarées dans son propre CSS et coupées si « réduire les animations ».
+- Accessibilité : vrais éléments natifs, navigation clavier, textes lus par les lecteurs d'écran.
+- Un `README.md` (utilisation, propriétés, accessibilité) et des tests unitaires.
 
 ## Catalogue
 | Bloc | Rôle | Accessibilité clé |
@@ -55,8 +77,10 @@ Le mode d'emploi de chaque bloc (paramètres, exemples, accessibilité) est dans
 | Accordion | questions dépliables | `details`/`summary` natifs |
 | Calendar | calendrier mensuel | grille ARIA, clavier complet |
 
-## Réutiliser sur un autre site
-Aujourd'hui les blocs vivent dans ce dépôt (`front/src/blocks/`). Pour qu'un autre site les installe, il faudra les sortir dans un paquet versionné (proposition « A » en attente de validation).
+## Versions
+`packages/blocs/package.json` porte la version de la bibliothèque, indépendante de celle du site. Un site client choisit sa version et ne change que s'il le décide.
 
 ## Tests
-**unitaires** : un fichier par bloc, à côté du bloc. Lancer : `cd front && npm run test -- src/blocks`.
+- **unitaires** : un fichier par bloc (62 tests). Lancer : `npm run test -w packages/blocs`.
+- **CI** : job « Bibliothèque de blocs » (lint, tests, build) à chaque push.
+- **intégration** (fait à la création) : paquet installé dans un site client vierge (`npm pack`), type-check et build réussis, styles et variables présents.
