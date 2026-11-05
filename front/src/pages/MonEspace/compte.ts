@@ -1,4 +1,4 @@
-import { appelerApi } from '../../app/api';
+import { appelerApi, urlApi } from '../../app/api';
 import { espaceTextes, MOT_DE_PASSE_MIN } from '../../data/espace';
 
 /** Compte renvoyé par l'API (module Auth). */
@@ -66,6 +66,34 @@ export async function appareilsConnectes(): Promise<AppareilConnecte[]> {
 export async function deconnecterLesAutres(): Promise<number> {
   const { corps } = await appelerApi<{ deconnectes?: number }>('/auth/appareils/deconnecter-les-autres', { corps: {} });
   return corps.deconnectes ?? 0;
+}
+
+/** Rendez-vous de la personne connectée (liaison Auth + Booking de l'API). */
+export type MonRendezVous = {
+  id: string;
+  jour: string;
+  debut: string;
+  fin: string;
+  lieu: 'chezvous' | 'visio' | 'telephone';
+  lieuLibelle: string;
+  adresse: string | null;
+  statut: 'confirme' | 'annule';
+  aVenir: boolean;
+};
+
+export async function mesRendezVous(): Promise<MonRendezVous[]> {
+  const { statut, corps } = await appelerApi<{ rendezVous?: MonRendezVous[] }>('/espace/rendez-vous');
+  return statut === 200 ? (corps.rendezVous ?? []) : [];
+}
+
+export async function annulerRendezVous(id: string): Promise<boolean> {
+  const { statut } = await appelerApi(`/espace/rendez-vous/${encodeURIComponent(id)}/annuler`, { corps: {} });
+  return statut === 200;
+}
+
+/** Adresse du fichier .ics : un simple lien suffit, le cookie de session l'accompagne. */
+export function urlAgenda(id: string) {
+  return `${urlApi}/espace/rendez-vous/${encodeURIComponent(id)}/agenda.ics`;
 }
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

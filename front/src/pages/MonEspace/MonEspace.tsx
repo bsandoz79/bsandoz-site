@@ -13,6 +13,7 @@ import {
   type AppareilConnecte,
   type Compte,
 } from './compte';
+import { MesRendezVous } from './MesRendezVous';
 import styles from './MonEspace.module.css';
 
 const t = espaceTextes;
@@ -103,6 +104,8 @@ export function MonEspace() {
             {t.compte.deconnexion}
           </Button>
         </div>
+
+        <MesRendezVous />
 
         <p className={styles.intro}>{t.compte.aVenir}</p>
 

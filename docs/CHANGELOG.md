@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Ajouté (espace client : rendez-vous)
+- Site : section « Mes rendez-vous » dans `/mon-espace` (à venir : ajouter à l'agenda, déplacer, annuler avec confirmation ; passés et annulés).
 - API : « Mes rendez-vous » pour la personne connectée (`GET /espace/rendez-vous`, fichier `.ics` à ajouter à l'agenda, annulation `POST /espace/rendez-vous/{id}/annuler` qui libère le créneau et prévient par mail) ; un rendez-vous d'une autre adresse répond 404, un rendez-vous passé ne s'annule plus (409). Booking : recherche par identifiant et par adresse e-mail.
 
 ### Ajouté (comptes)

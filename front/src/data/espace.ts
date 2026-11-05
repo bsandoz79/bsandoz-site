@@ -47,9 +47,25 @@ export const espaceTextes = {
     enregistre: 'Votre mot de passe est enregistré. Vos appareils ont été déconnectés : connectez-vous avec votre nouveau mot de passe.',
     seConnecter: { label: 'Se connecter', to: pages.connexion.path },
   },
+  rendezVous: {
+    titre: 'Mes rendez-vous',
+    aucun: 'Aucun rendez-vous pour le moment.',
+    prendre: { label: 'Prendre rendez-vous (gratuit)', to: pages.rendezVous.path },
+    type: 'Rendez-vous découverte',
+    passes: 'Rendez-vous passés et annulés',
+    annule: 'annulé',
+    agenda: 'Ajouter à l’agenda',
+    deplacer: { label: 'Déplacer', to: pages.rendezVous.path },
+    deplacerAide: 'Pour déplacer : choisissez un nouveau créneau, puis annulez celui-ci.',
+    annuler: 'Annuler',
+    confirmer: 'Confirmer l’annulation',
+    garder: 'Garder le rendez-vous',
+    annuleOk: 'Le rendez-vous est annulé. Un e-mail de confirmation vous a été envoyé.',
+    echec: 'L’annulation n’a pas abouti. Réessayez, ou répondez au mail de confirmation.',
+  },
   compte: {
     bonjour: (nom: string) => (nom ? `Bonjour ${nom}` : 'Bonjour'),
-    aVenir: 'Bientôt ici : vos demandes, vos devis et vos rendez-vous.',
+    aVenir: 'Bientôt ici : vos demandes et vos devis.',
     deconnexion: 'Se déconnecter',
     securite: 'Sécurité',
     motDePasse: 'Mot de passe',
@@ -66,6 +82,15 @@ export const espaceTextes = {
       n === 0 ? 'Aucun autre appareil n’était connecté.' : n === 1 ? '1 appareil a été déconnecté.' : `${n} appareils ont été déconnectés.`,
   },
 };
+
+/** Jour d'un rendez-vous : « Mardi 17 novembre » (date AAAA-MM-JJ, sans fuseau horaire). */
+export function jourLisible(jour: string) {
+  const [annee, mois, j] = jour.split('-').map(Number);
+  const texte = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(
+    new Date(Date.UTC(annee, mois - 1, j)),
+  );
+  return texte.charAt(0).toUpperCase() + texte.slice(1);
+}
 
 /** Date lisible : « 5 novembre 2026 ». */
 export function dateLisible(iso: string | null | undefined) {

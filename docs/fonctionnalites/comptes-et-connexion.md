@@ -35,7 +35,7 @@ sequenceDiagram
 ## Chemin
 | Élément | Fichier |
 | --- | --- |
-| Pages du site | `front/src/pages/MonEspace/` : `Connexion.tsx`, `Lien.tsx`, `MotDePasse.tsx`, `MonEspace.tsx` |
+| Pages du site | `front/src/pages/MonEspace/` : `Connexion.tsx`, `Lien.tsx`, `MotDePasse.tsx`, `MonEspace.tsx` (avec `MesRendezVous.tsx`) |
 | Appels à l'API | `front/src/pages/MonEspace/compte.ts`, `front/src/app/api.ts` (adresse `VITE_API_URL`, cookie inclus) |
 | Textes | `front/src/data/espace.ts` ; adresses et titres : `front/src/data/pages.ts` |
 | API | `api/src/Auth/` (domaine, cas d'usage, contrôleur, Doctrine, mails) |
