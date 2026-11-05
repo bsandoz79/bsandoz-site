@@ -59,6 +59,9 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | POST | `/auth/mot-de-passe` | choisir un mot de passe depuis le lien reçu par mail |
 | GET | `/auth/moi`, `/auth/appareils` | compte connecté, appareils connectés |
 | POST | `/auth/appareils/deconnecter-les-autres` | fermer les autres sessions |
+| GET | `/espace/rendez-vous` | rendez-vous de la personne connectée (liaison Auth + Booking) |
+| GET | `/espace/rendez-vous/{id}/agenda.ics` | ajouter un rendez-vous à son agenda |
+| POST | `/espace/rendez-vous/{id}/annuler` | annuler depuis l'espace client |
 
 Détails, réglages et installation chez un client : `api/src/Booking/README.md`, `api/src/Auth/README.md`.
 

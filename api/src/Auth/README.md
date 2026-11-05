@@ -7,6 +7,7 @@ Comptes clients (V3) : compte ouvert automatiquement et activé par un lien reç
 - `Application/` : `OuvrirCompte`, `DemanderLien`, `UtiliserLien`, `SeConnecter`, `DefinirMotDePasse`, `Sessions` (session courante, déconnexion, appareils, déconnecter les autres).
 - `Infrastructure/` :
   - `Http/AuthController.php` : points d'entrée JSON, cookie de session ; `Http/Appareil.php` : « Firefox sur Windows » d'après le User-Agent.
+  - `Http/SessionDeLaRequete.php` : session de la personne qui fait la requête (lecture du cookie), pour protéger d'autres points d'entrée.
   - `Doctrine/` : dépôts et correspondances XML (tables `auth_compte`, `auth_lien`, `auth_session`).
   - `Mail/NotificationsCompteParMail.php` : mails des liens et de confirmation.
   - `Systeme/` : horloge, aléatoire (UUID v7, secrets de 256 bits), hachage natif (Argon2id ou bcrypt).

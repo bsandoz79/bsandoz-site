@@ -42,6 +42,9 @@ sequenceDiagram
   isDisabled={(d) => jourDeLaSemaine(d) >= 5} min={aujourdhui()} today={aujourdhui()} />
 ```
 
+## Dans l'espace client
+La personne connectée retrouve ses rendez-vous (par son adresse e-mail) dans `/mon-espace` : `front/src/pages/MonEspace/MesRendezVous.tsx` → `GET /espace/rendez-vous`. Elle peut ajouter un rendez-vous à son agenda (`.ics`), le déplacer (nouveau créneau, puis annulation) ou l'annuler (`POST /espace/rendez-vous/{id}/annuler`, même cas d'usage que le lien du mail). Côté API : `api/src/Liaisons/EspaceRendezVousController.php`.
+
 ## Règles
 - Réservable : de demain à 60 jours, jours travaillés seulement (**à confirmer**, dans `disponibilites`).
 - Créneaux d'une heure espacés de 30 minutes pour le trajet.

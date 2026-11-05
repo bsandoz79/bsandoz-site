@@ -54,3 +54,4 @@ Types de tests :
 | 23 | [Version 2.0.0](23-chore-version-2.0.0.md) | `chore/version-2.0.0` | 2026-11-05 |
 | 24 | [Fins de ligne](24-chore-fins-de-ligne.md) | `chore/fins-de-ligne` | 2026-11-05 |
 | 25 | [Comptes et connexion (module Auth)](25-feature-auth.md) | `feature/auth` | 2026-11-05 |
+| 26 | [Mes rendez-vous dans l’espace client](26-feature-espace-rendez-vous.md) | `feature/espace-rendez-vous` | 2026-11-05 |
