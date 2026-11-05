@@ -1,6 +1,7 @@
 <?php
 /**
  * Réception d'une demande de devis (V1 : envoi simple par e-mail, cahier des charges section 6).
+ * L'accusé de réception contient le pré-devis calculé par le site (champ `predevis`).
  * Déposé avec le site sur o2switch. Aucun secret ici : seules des adresses publiques.
  *
  * Réponses JSON : { ok: true } ; 400 données invalides ; 405 mauvaise méthode ; 429 trop d'envois ; 500 échec d'envoi.
@@ -11,6 +12,7 @@ const EXPEDITEUR = 'Baptiste Sandoz <no-reply@bsandoz.fr>';
 const MAX_PAR_HEURE = 3;
 const DELAI_MIN_SECONDES = 60;
 const MAX_PHOTOS = 3;
+const TAILLE_MAX_PREDEVIS = 3000;
 const TAILLE_MAX_PHOTO = 5 * 1024 * 1024;
 const TYPES_PHOTOS = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
 
@@ -57,6 +59,8 @@ if (count($envois) >= MAX_PAR_HEURE || ($envois && max($envois) > $maintenant - 
 $nom = ligne($_POST['nom'] ?? '', 120);
 $email = ligne($_POST['email'] ?? '', 200);
 $recapitulatif = mb_substr(trim((string) ($_POST['recapitulatif'] ?? '')), 0, 8000);
+// Pré-devis calculé par le site (front/src/data/predevis.ts) : texte brut, facultatif.
+$predevis = mb_substr(trim(str_replace("\r", '', (string) ($_POST['predevis'] ?? ''))), 0, TAILLE_MAX_PREDEVIS);
 
 if ($nom === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($recapitulatif) < 20) {
     repondre(400, ['ok' => false]);
@@ -110,9 +114,13 @@ function envoyer(string $a, string $sujet, string $texte, string $repondreA, arr
 }
 
 $pourBaptiste = "Nouvelle demande de devis reçue sur bsandoz.fr\n\n" . $recapitulatif
-    . ($pieces ? "\n\nPhotos jointes : " . count($pieces) : '');
+    . ($pieces ? "\n\nPhotos jointes : " . count($pieces) : '')
+    . ($predevis !== '' ? "\n\nPré-devis envoyé au client :\n\n$predevis" : '');
 $pourClient = "Bonjour $nom,\n\n"
-    . "Merci pour votre demande. Je l'ai bien reçue et je vous réponds sous 24 h avec une première estimation.\n\n"
+    . ($predevis !== ''
+        ? "Merci pour votre demande, je l'ai bien reçue. Voici une première estimation, calculée d'après vos réponses. "
+            . "Je vous réponds sous 24 h pour la confirmer ou l'ajuster.\n\n$predevis\n\n"
+        : "Merci pour votre demande. Je l'ai bien reçue et je vous réponds sous 24 h avec une première estimation.\n\n")
     . "Pour rappel, voici ce que vous m'avez indiqué :\n\n$recapitulatif\n\n"
     . "Pour ajouter une précision, répondez simplement à cet e-mail.\n\n"
     . "Baptiste Sandoz\nbsandoz.fr";
@@ -120,7 +128,8 @@ $pourClient = "Bonjour $nom,\n\n"
 if (!envoyer(DESTINATAIRE, "Demande de devis : $nom", $pourBaptiste, $email, $pieces)) {
     repondre(500, ['ok' => false]);
 }
-envoyer($email, 'Votre demande de devis est bien reçue', $pourClient, DESTINATAIRE);
+$sujetClient = $predevis !== '' ? 'Votre demande de devis et une première estimation' : 'Votre demande de devis est bien reçue';
+envoyer($email, $sujetClient, $pourClient, DESTINATAIRE);
 
 $envois[] = $maintenant;
 @file_put_contents($fichierLimite, implode(',', $envois), LOCK_EX);

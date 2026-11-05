@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (pré-devis)
+- Pré-devis automatique dans l'accusé de réception d'une demande de devis : formule conseillée, fourchette de prix, délai et 3 options suggérées au plus (celles qui complètent un pack d'abord), calculés avec les prix du configurateur (`src/data/predevis.ts`). La configuration de « Composer mon site » l'emporte sur les besoins cochés. Le pré-devis figure aussi dans le mail reçu par Baptiste.
+- Page de confirmation du devis : annonce la première estimation par e-mail.
+
 ### Ajouté (module Booking)
 - API : module Booking autonome branché de bout en bout : `POST /rendez-vous` (201, 400 avec les erreurs, 409 si le créneau est pris), lien du mail `GET /rendez-vous/{jeton}` (page sans effet) et `POST /rendez-vous/{jeton}/annuler` (le créneau redevient libre).
 - E-mails de confirmation et d'annulation à la personne et au professionnel, avec fichier `.ics` (ajout ou retrait de l'agenda).

@@ -117,7 +117,8 @@ export const devisTextes = {
   },
   envoye: {
     titre: 'Merci, votre demande est envoyée !',
-    texte: 'Vous allez recevoir un e-mail de confirmation. Je vous réponds sous 24 h avec une première estimation.',
+    texte:
+      'Vous allez recevoir un e-mail de confirmation avec une première estimation, calculée d’après vos réponses. Je vous réponds ensuite sous 24 h pour la confirmer ou l’ajuster.',
     accueil: { label: "Retour à l'accueil", to: pages.accueil.path },
     rdv: { label: 'Prendre rendez-vous (gratuit)', to: pages.rendezVous.path },
   },
