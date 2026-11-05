@@ -5,6 +5,7 @@ coverage/
 .env.*
 !.env.example
 !.env.dist
+!.env.test
 *.log
 .DS_Store
 .idea/

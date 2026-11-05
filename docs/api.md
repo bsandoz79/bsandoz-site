@@ -51,3 +51,8 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | Méthode | Adresse | Rôle |
 | --- | --- | --- |
 | GET | `/sante` | l'API répond : `{"statut":"ok"}` |
+
+## Fichiers d'environnement versionnés
+- `.env.dist` : valeurs de développement.
+- `.env.test` : `KERNEL_CLASS` pour PHPUnit et une `APP_SECRET` factice propre aux tests. Sans lui, les tests HTTP échouent (« You must set the KERNEL_CLASS environment variable »).
+Les secrets réels restent dans `.env` / `.env.local`, jamais versionnés.
