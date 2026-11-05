@@ -123,7 +123,7 @@ final class EspaceCompteTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertStringContainsString('attachment; filename=mes-donnees-bsandoz.json', (string) $this->client->getResponse()->headers->get('content-disposition'));
         $donnees = json_decode((string) $this->client->getResponse()->getContent(), true, 16, \JSON_THROW_ON_ERROR);
-        self::assertSame(['exporteLe', 'compte', 'appareilsConnectes', 'rendezVous'], array_keys($donnees));
+        self::assertSame(['exporteLe', 'compte', 'appareilsConnectes', 'rendezVous', 'demandes'], array_keys($donnees));
         self::assertSame('marie@exemple.fr', $donnees['compte']['email']);
         self::assertCount(1, $donnees['appareilsConnectes']);
         self::assertSame(['Paysagiste', 'Bonjour'], [$donnees['rendezVous'][0]['activite'], $donnees['rendezVous'][0]['message']]);

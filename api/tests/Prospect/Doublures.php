@@ -40,6 +40,11 @@ final class DemandesEnMemoire implements Demandes
     {
         $this->toutes[$demande->id] = $demande;
     }
+
+    public function supprimer(Demande $demande): void
+    {
+        unset($this->toutes[$demande->id]);
+    }
 }
 
 final class DevisEnMemoire implements DevisEnregistres
