@@ -17,3 +17,17 @@ Sous Git Bash (Windows), préfixer par `MSYS_NO_PATHCONV=1` et utiliser `$(pwd -
 ## Configuration
 - `api/.env.dist` : valeurs de développement, sans secret (versionné). Symfony le lit quand `api/.env` n'existe pas.
 - `api/.env.local` (non versionné) : valeurs réelles du poste ou du serveur (base de données, `APP_SECRET`…).
+
+## Base de données
+MySQL (cahier des charges). En développement, `api/compose.yaml` lance MySQL 8.0 dans Docker (identifiants de développement `app` / `app`, base `bsandoz`) :
+
+```sh
+# depuis api/
+docker compose up -d database
+```
+
+`DATABASE_URL` (dans `.env.dist`) pointe sur cette base. Sur o2switch, la vraie valeur va dans `api/.env.local` ; ajuster `serverVersion` à la version réelle du serveur (MySQL ou MariaDB).
+
+Doctrine : pas d'entités Doctrine dans le domaine. Chaque module déclare sa correspondance en XML dans `Infrastructure/Doctrine`, ajoutée sous `doctrine.orm.mappings` (`config/packages/doctrine.yaml`).
+
+Sous Windows avec Docker, placer le cache hors du dossier partagé : `-e APP_CACHE_DIR=/tmp/cache`.
