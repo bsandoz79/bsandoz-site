@@ -1,6 +1,8 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié
+- `.gitattributes` : fins de ligne LF partout, fichiers images en binaire (plus d'avertissements « LF will be replaced by CRLF » ni de faux changements sous Windows).
 
 ## [2.0.0] – 2026-11-05
 V2 : rendez-vous en ligne et API. Étiquette git : `v2.0.0`, branche de maintenance `release/v2`.
