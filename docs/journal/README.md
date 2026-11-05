@@ -52,3 +52,4 @@ Types de tests :
 | 21 | [Module Booking (rendez-vous côté API)](21-feature-booking.md) | `feature/booking` | 2026-11-05 |
 | 22 | [Pré-devis automatique par mail](22-feature-predevis.md) | `feature/predevis` | 2026-11-05 |
 | 23 | [Version 2.0.0](23-chore-version-2.0.0.md) | `chore/version-2.0.0` | 2026-11-05 |
+| 24 | [Fins de ligne](24-chore-fins-de-ligne.md) | `chore/fins-de-ligne` | 2026-11-05 |
