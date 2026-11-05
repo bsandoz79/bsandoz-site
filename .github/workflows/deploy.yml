@@ -21,13 +21,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: front/package-lock.json
       - name: Installation, tests et build
-        working-directory: front
         run: |
           npm ci
-          npm run test
-          npm run build
+          npm run test -w packages/blocs
+          npm run test -w front
+          npm run build -w front
       - name: Secrets absents
         if: env.FTP_SERVER == ''
         run: echo "Secrets FTP non configurés, déploiement ignoré (voir docs/deploiement.md)."
