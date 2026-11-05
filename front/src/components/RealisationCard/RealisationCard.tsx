@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Card } from '../../blocks/Card';
+import { Card } from '@bsandoz79/blocs';
 import type { Realisation } from '../../data/realisations';
 import styles from './RealisationCard.module.css';
 

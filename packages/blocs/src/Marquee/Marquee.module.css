@@ -1,0 +1,53 @@
+.marquee {
+  overflow: hidden;
+}
+
+/* Défilement continu : la piste contient deux fois la liste, on la décale de la moitié. */
+@keyframes defilement {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: defilement var(--marquee-duration, 32s) linear infinite;
+}
+
+.list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Séparateur décoratif entre les éléments */
+.item::after {
+  content: '✦';
+  margin-inline: var(--space-6);
+  color: var(--marquee-accent, currentColor);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    width: auto;
+    animation: none;
+  }
+
+  .list {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: var(--space-2);
+  }
+
+  .copy {
+    display: none;
+  }
+}

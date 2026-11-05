@@ -1,7 +1,4 @@
-import { Card } from '../../../blocks/Card';
-import { Container } from '../../../blocks/Container';
-import { Reveal } from '../../../blocks/Reveal';
-import { SectionTitle } from '../../../blocks/SectionTitle';
+import { Card, Container, Reveal, SectionTitle } from '@bsandoz79/blocs';
 import { problemes } from '../../../data/accueil';
 import styles from './Sections.module.css';
 

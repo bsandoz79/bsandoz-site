@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-import { buttonClassName } from '../../../blocks/Button';
-import { Container } from '../../../blocks/Container';
-import { Reveal } from '../../../blocks/Reveal';
+import { Container, Reveal, buttonClassName } from '@bsandoz79/blocs';
 import { appelAction } from '../../../data/accueil';
 import styles from './AppelAction.module.css';
 

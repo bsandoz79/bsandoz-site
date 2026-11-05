@@ -1,8 +1,5 @@
 import { Link } from 'react-router-dom';
-import { buttonClassName } from '../../blocks/Button';
-import { Card } from '../../blocks/Card';
-import { Container } from '../../blocks/Container';
-import { SectionTitle } from '../../blocks/SectionTitle';
+import { Card, Container, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { aPropos } from '../../data/apropos';
 import { pages } from '../../data/pages';

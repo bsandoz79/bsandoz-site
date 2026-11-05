@@ -18,8 +18,9 @@
 7. Jamais de secret dans le code : clés, mots de passe et accès vont dans les secrets GitHub ou un `.env` non versionné.
 
 ## Architecture
+- Espace de travail npm à la racine (`package.json`) : `packages/blocs` et `front`. Installer et lancer depuis la racine (`npm ci`, `npm run test`, `npm run test -w front`…).
+- `packages/blocs/` : bibliothèque **@bsandoz79/blocs**, blocs RÉUTILISABLES sur plusieurs sites, sans rien de propre à bsandoz.fr (calendrier, boutons, cartes, sélecteur d'options…). Chaque bloc a son dossier `src/<Bloc>/` : `Bloc.tsx`, `Bloc.module.css`, `Bloc.test.tsx`, `index.ts`, `README.md`, et il est exporté par `src/index.ts`. Le site l'importe par `@bsandoz79/blocs` (alias vers les sources). Publication : étiquette `blocs-vX.Y.Z`.
 - `front/` : React + Vite + TypeScript.
-  - `src/blocks/` : blocs RÉUTILISABLES, sans rien de propre à bsandoz.fr (calendrier, boutons, cartes, sélecteur d'options…). Chaque bloc a son dossier : `Bloc.tsx`, `Bloc.module.css`, `Bloc.test.tsx`, `index.ts`, `README.md`.
   - `src/components/` : composants propres à ce site (en-tête, pied de page…), construits avec les blocs.
   - `src/pages/` : une page = un dossier.
   - `src/data/` : contenus et prix (jamais en dur dans les composants).

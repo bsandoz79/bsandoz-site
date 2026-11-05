@@ -1,7 +1,4 @@
-import { buttonClassName } from '../../../blocks/Button';
-import { Container } from '../../../blocks/Container';
-import { Reveal } from '../../../blocks/Reveal';
-import { SectionTitle } from '../../../blocks/SectionTitle';
+import { Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { pourquoi } from '../../../data/accueil';
 import styles from './Pourquoi.module.css';
 

@@ -1,8 +1,5 @@
 import { Link } from 'react-router-dom';
-import { buttonClassName } from '../../blocks/Button';
-import { ChoiceChips } from '../../blocks/ChoiceChips';
-import { OptionCard } from '../../blocks/OptionCard';
-import { PriceSummary } from '../../blocks/PriceSummary';
+import { ChoiceChips, OptionCard, PriceSummary, buttonClassName } from '@bsandoz79/blocs';
 import { informatiqueTextes } from '../../data/configurateur';
 import { informatiqueMentions, publicsInformatique, servicesInformatique } from '../../data/informatique';
 import type { useComposer } from './useComposer';

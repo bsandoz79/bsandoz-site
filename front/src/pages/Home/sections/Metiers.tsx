@@ -1,4 +1,4 @@
-import { Marquee } from '../../../blocks/Marquee';
+import { Marquee } from '@bsandoz79/blocs';
 import { metiers } from '../../../data/accueil';
 import styles from './Metiers.module.css';
 

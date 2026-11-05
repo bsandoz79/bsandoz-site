@@ -1,9 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, buttonClassName } from '../../blocks/Button';
-import { Container } from '../../blocks/Container';
-import { Stepper } from '../../blocks/Stepper';
-import { TextField } from '../../blocks/TextField';
+import { Button, Container, Stepper, TextField, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { besoins, devisTextes, etapesDevis, urlEnvoiDevis } from '../../data/devis';
 import { metiers } from '../../data/offres';

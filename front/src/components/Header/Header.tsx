@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { buttonClassName } from '../../blocks/Button';
-import { Container } from '../../blocks/Container';
+import { Container, buttonClassName } from '@bsandoz79/blocs';
 import { header, informatiquePrefix, metierLinks, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
 import styles from './Header.module.css';
 

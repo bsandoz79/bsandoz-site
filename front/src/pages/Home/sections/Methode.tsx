@@ -1,6 +1,4 @@
-import { Container } from '../../../blocks/Container';
-import { Reveal } from '../../../blocks/Reveal';
-import { SectionTitle } from '../../../blocks/SectionTitle';
+import { Container, Reveal, SectionTitle } from '@bsandoz79/blocs';
 import { methode } from '../../../data/accueil';
 import sections from './Sections.module.css';
 import styles from './Methode.module.css';

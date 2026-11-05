@@ -1,6 +1,4 @@
-import { Container } from '../../../blocks/Container';
-import { Reveal } from '../../../blocks/Reveal';
-import { SectionTitle } from '../../../blocks/SectionTitle';
+import { Container, Reveal, SectionTitle } from '@bsandoz79/blocs';
 import { RealisationCard } from '../../../components/RealisationCard';
 import { realisationsSection } from '../../../data/accueil';
 import { realisations } from '../../../data/realisations';

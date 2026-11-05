@@ -1,9 +1,5 @@
 import { Link } from 'react-router-dom';
-import { buttonClassName } from '../../../blocks/Button';
-import { Card } from '../../../blocks/Card';
-import { Container } from '../../../blocks/Container';
-import { Reveal } from '../../../blocks/Reveal';
-import { SectionTitle } from '../../../blocks/SectionTitle';
+import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { offres } from '../../../data/accueil';
 import { formules, mentionsPrix, prixFormule } from '../../../data/offres';
 import { pages } from '../../../data/pages';

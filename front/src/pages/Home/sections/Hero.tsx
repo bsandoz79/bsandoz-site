@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-import { buttonClassName } from '../../../blocks/Button';
-import { Container } from '../../../blocks/Container';
-import { RotatingWords } from '../../../blocks/RotatingWords';
+import { Container, RotatingWords, buttonClassName } from '@bsandoz79/blocs';
 import { hero } from '../../../data/accueil';
 import { pages } from '../../../data/pages';
 import { HeroDemo } from './HeroDemo';

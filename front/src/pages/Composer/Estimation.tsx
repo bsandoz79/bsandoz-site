@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button, buttonClassName } from '../../blocks/Button';
-import { PriceSummary } from '../../blocks/PriceSummary';
+import { Button, PriceSummary, buttonClassName } from '@bsandoz79/blocs';
 import { calculerEstimation, comparaisonMarche, type Configuration } from '../../data/calculs';
 import { estimationTextes } from '../../data/configurateur';
 import { formatPrix, metiers, options } from '../../data/offres';

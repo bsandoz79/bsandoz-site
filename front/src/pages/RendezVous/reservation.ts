@@ -1,4 +1,4 @@
-import { ajouterJours, comparer, jourDeLaSemaine, type DateIso } from '../../blocks/Calendar';
+import { ajouterJours, comparer, jourDeLaSemaine, type DateIso } from '@bsandoz79/blocs';
 import { disponibilites, rdvTextes, urlGeocodage, zone, type LieuId } from '../../data/rendezvous';
 
 /** Premier et dernier jours réservables. */
