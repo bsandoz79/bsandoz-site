@@ -10,6 +10,10 @@ use App\Auth\Infrastructure\Http\CompteJson;
 use App\Auth\Infrastructure\Http\SessionDeLaRequete;
 use App\Booking\Domain\RendezVous;
 use App\Booking\Domain\RendezVousRepository;
+use App\Prospect\Domain\Demande;
+use App\Prospect\Domain\Demandes;
+use App\Prospect\Domain\DevisEnregistres;
+use App\Prospect\Domain\LigneDevis;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +30,8 @@ final class EspaceDonneesController
         private readonly SessionDeLaRequete $session,
         private readonly Sessions $sessions,
         private readonly RendezVousRepository $rendezVous,
+        private readonly Demandes $demandes,
+        private readonly DevisEnregistres $devis,
     ) {
     }
 
@@ -58,6 +64,21 @@ final class EspaceDonneesController
                 'statut' => $r->statut()->value,
                 'prisLe' => $r->creeLe->format(\DATE_ATOM),
             ], $this->rendezVous->parEmail($compte->email())),
+            'demandes' => array_map(fn (Demande $d) => [
+                'numero' => $d->numero,
+                'titre' => $d->titre,
+                'envoyeeLe' => $d->creeLe->format(\DATE_ATOM),
+                'statut' => $d->statut()->libelle(),
+                'demandeur' => ['nom' => $d->demandeur->nom, 'email' => $d->demandeur->email, 'telephone' => $d->demandeur->telephone, 'entreprise' => $d->demandeur->entreprise],
+                'recapitulatif' => $d->recapitulatif,
+                'predevis' => $d->predevis,
+                'devis' => ($devis = $this->devis->pourDemande($d->id)) === null ? null : [
+                    'lignes' => array_map(static fn (LigneDevis $l) => $l->enTableau(), $devis->lignes()),
+                    'total' => $devis->total,
+                    'statut' => $devis->statut()->value,
+                    'accepteLe' => $devis->accepteLe()?->format(\DATE_ATOM),
+                ],
+            ], $this->demandes->parEmail($compte->email())),
         ];
 
         $reponse = new JsonResponse($donnees, Response::HTTP_OK, ['Cache-Control' => 'no-store']);

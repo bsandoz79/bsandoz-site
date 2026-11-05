@@ -16,4 +16,7 @@ interface Demandes
     public function nombreRecuesEn(int $annee): int;
 
     public function enregistrer(Demande $demande): void;
+
+    /** Efface la demande et son devis (droit à l'effacement). */
+    public function supprimer(Demande $demande): void;
 }

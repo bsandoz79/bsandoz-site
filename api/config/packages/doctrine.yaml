@@ -30,6 +30,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Auth/Infrastructure/Doctrine/mapping'
                 prefix: 'App\Auth\Domain'
                 alias: Auth
+            Prospect:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Prospect/Infrastructure/Doctrine/mapping'
+                prefix: 'App\Prospect\Domain'
+                alias: Prospect
         controller_resolver:
             auto_mapping: false
 

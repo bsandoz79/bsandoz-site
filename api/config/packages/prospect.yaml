@@ -1,0 +1,27 @@
+# Module Prospect : réglages propres à CHAQUE installation (.env.local sur le serveur).
+parameters:
+    prospect.expediteur: '%env(PROSPECT_EXPEDITEUR)%'
+    prospect.professionnel_nom: '%env(PROSPECT_PROFESSIONNEL_NOM)%'
+    prospect.professionnel_email: '%env(PROSPECT_PROFESSIONNEL_EMAIL)%'
+    prospect.url_site: '%env(PROSPECT_URL_SITE)%'      # lien « espace client » des mails
+    prospect.siret: '%env(PROSPECT_SIRET)%'             # vide tant que l'immatriculation n'est pas faite : « [à compléter] » sur le PDF
+
+framework:
+    rate_limiter:
+        # Demandes de devis : 3 par heure et par adresse IP (comme l'ancien script devis.php).
+        prospect_demande:
+            policy: sliding_window
+            limit: 3
+            interval: '1 hour'
+
+# Les adaptateurs lisent leurs réglages par #[Autowire('%prospect.…%')] : rien à redéclarer ici.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Prospect\Domain\Demandes: '@App\Prospect\Infrastructure\Doctrine\DemandesDoctrine'
+    App\Prospect\Domain\DevisEnregistres: '@App\Prospect\Infrastructure\Doctrine\DevisDoctrine'
+    App\Prospect\Domain\NotificationsProspect: '@App\Prospect\Infrastructure\Mail\NotificationsProspectParMail'
+    App\Prospect\Domain\Horloge: '@App\Prospect\Infrastructure\Systeme\HorlogeSysteme'
+    App\Prospect\Domain\Identifiants: '@App\Prospect\Infrastructure\Systeme\IdentifiantsUuid'
