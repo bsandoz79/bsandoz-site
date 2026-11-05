@@ -5,6 +5,7 @@
 - CI de l'API : `api/.env.test` (classe du noyau pour PHPUnit, sans secret) n'était pas versionné, les tests échouaient sur GitHub.
 
 ### Ajouté
+- Fiches par fonctionnalité (`docs/fonctionnalites/`) : à quoi ça sert, chemin des fichiers et des données, comment l'appeler, réutilisabilité, schéma Mermaid, tests ; vue d'ensemble de l'architecture.
 - Journal des branches (`docs/journal/`) : une fiche par branche (ce qui a été fait, à quoi ça sert, utilisation, tests et comment les lancer, points ouverts) ; nouvelle règle « une fiche avant chaque push » dans `.claude/CLAUDE.md`.
 - API (V2) : squelette Symfony 7.4 dans `api/` (Doctrine, migrations, PHPUnit), PHP 8.3 visé ; valeurs de développement dans `api/.env.dist` (sans secret).
 - API : base MySQL (MySQL 8.0 en développement via Docker), correspondances Doctrine par module.

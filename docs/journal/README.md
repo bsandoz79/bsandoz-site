@@ -46,3 +46,4 @@ Types de tests :
 | 15 | [Calendrier et page Rendez-vous](15-feature-calendar-rdv.md) | `feature/calendar-rdv` | 2026-11-05 |
 | 16 | [Correctif CI de l’API](16-fix-ci-api-env-test.md) | `fix/ci-api-env-test` | 2026-11-05 |
 | 17 | [Journal des branches](17-docs-journal-des-branches.md) | `docs/journal-des-branches` | 2026-11-05 |
+| 18 | [Fiches par fonctionnalité](18-docs-fonctionnalites.md) | `docs/fonctionnalites` | 2026-11-05 |

@@ -13,6 +13,7 @@
 3. Avant CHAQUE commit : mettre à jour la documentation concernée (`docs/`) et `docs/CHANGELOG.md`.
 4. Avant de pousser : `npm run lint`, `npm run test`, `npm run build` doivent passer (et, si `api/` a changé, les tests PHPUnit de l'API).
 5. **Avant CHAQUE push : une fiche dans `docs/journal/`** (une par branche, modèle dans `docs/journal/README.md`) : ce qui a été fait, à quoi ça sert, comment l'utiliser, les tests ajoutés (unitaires, fonctionnels, architecture…) et comment les lancer, les fichiers principaux, ce qui reste ouvert. La fiche est complétée à chaque nouveau push de la même branche.
+   **Et la fiche de la fonctionnalité dans `docs/fonctionnalites/`** (créée ou mise à jour) : à quoi elle sert, le chemin suivi (fichiers et données), comment l'appeler (adresse, composant, fonction, point d'API et paramètres), si elle est réutilisable, un schéma Mermaid, ses tests. Vérifier que le schéma s'affiche.
 6. Une fois la fonctionnalité et ses tests verts : push de la branche, fusion dans `main`, puis nouvelle branche pour la suite.
 7. Jamais de secret dans le code : clés, mots de passe et accès vont dans les secrets GitHub ou un `.env` non versionné.
 
