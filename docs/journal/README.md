@@ -49,3 +49,4 @@ Types de tests :
 | 18 | [Fiches par fonctionnalité](18-docs-fonctionnalites.md) | `docs/fonctionnalites` | 2026-11-05 |
 | 19 | [Bibliothèque de blocs @bsandoz79/blocs](19-feature-paquet-blocs.md) | `feature/paquet-blocs` | 2026-11-05 |
 | 20 | [Livraison de blocs à un client](20-feature-livraison-blocs.md) | `feature/livraison-blocs` | 2026-11-05 |
+| 21 | [Module Booking (rendez-vous côté API)](21-feature-booking.md) | `feature/booking` | 2026-11-05 |

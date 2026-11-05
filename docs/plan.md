@@ -23,7 +23,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/paquet-blocs` : bibliothèque `@bsandoz79/blocs` (espace de travail npm, blocs déplacés, styles par défaut, CI, publication GitHub Packages)
 - [x] `feature/livraison-blocs` : commande `npm run livrer` (copie de blocs dans le projet d'un client, sans dépendance), clause CGV à compléter
 - [x] bloc `Calendar` réutilisable + page Rendez-vous (créneaux d'1 h, 50 km, visio, téléphone)
-- [ ] module Booking **autonome**, installable dans l'API de chaque client (son hébergement, sa base, son domaine) : réservation, créneau pris refusé, mails de confirmation, .ics
+- [x] module Booking **autonome**, installable dans l'API de chaque client (son hébergement, sa base, son domaine) : réservation, créneau pris refusé, mails de confirmation, .ics
 - [ ] pré-devis automatique par mail
 
 ## V3 – espace client et back-office
