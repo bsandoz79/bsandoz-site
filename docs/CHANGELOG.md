@@ -5,6 +5,7 @@
 - CI de l'API : `api/.env.test` (classe du noyau pour PHPUnit, sans secret) n'était pas versionné, les tests échouaient sur GitHub.
 
 ### Ajouté
+- Bibliothèque de blocs `@bsandoz79/blocs` (`packages/blocs`) : les 15 blocs, autonomes (styles de base et variables par défaut, animations propres, classes préfixées `bsb-`, types), installable par d'autres sites ; espace de travail npm à la racine ; CI de la bibliothèque et publication sur GitHub Packages par étiquette `blocs-vX.Y.Z`.
 - Fiches par fonctionnalité (`docs/fonctionnalites/`) : à quoi ça sert, chemin des fichiers et des données, comment l'appeler, réutilisabilité, schéma Mermaid, tests ; vue d'ensemble de l'architecture.
 - Journal des branches (`docs/journal/`) : une fiche par branche (ce qui a été fait, à quoi ça sert, utilisation, tests et comment les lancer, points ouverts) ; nouvelle règle « une fiche avant chaque push » dans `.claude/CLAUDE.md`.
 - API (V2) : squelette Symfony 7.4 dans `api/` (Doctrine, migrations, PHPUnit), PHP 8.3 visé ; valeurs de développement dans `api/.env.dist` (sans secret).

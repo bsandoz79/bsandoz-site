@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Container } from '../../blocks/Container';
+import { Container } from '@bsandoz79/blocs';
 import { contact, footer } from '../../data/navigation';
 import styles from './Footer.module.css';
 

@@ -1,0 +1,69 @@
+/*
+ * Styles de base des blocs.
+ * Variables par défaut sous :where(:root) (spécificité nulle) : un site les remplace simplement
+ * en redéfinissant les mêmes variables dans son propre :root.
+ */
+:where(:root) {
+  --color-navy: #16213e;
+  --color-navy-2: #22305a;
+  --color-rose: #c9184a;
+  --color-rose-dark: #9e0f38;
+  --color-rose-soft: #fce7ee;
+  --color-rose-light: #f28cab;
+  --color-bg: #f7f6fa;
+  --color-surface: #ffffff;
+  --color-border: #e4e2ec;
+  --color-border-strong: #d7d5e0;
+  --color-text: #16213e;
+  --color-text-muted: #4a5068;
+  --color-text-on-dark: #ffffff;
+  --color-text-on-dark-muted: #c9cde0;
+  --color-success: #13794a;
+  --color-success-soft: #e3f5ec;
+  --color-danger: #a3122f;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 2rem;
+  --text-section: 2.5rem;
+  --text-3xl: clamp(2.25rem, 5vw, 3.375rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 18px 40px rgb(22 33 62 / 0.12);
+  --shadow-bar: 0 12px 30px rgb(22 33 62 / 0.3);
+  --container: 74rem;
+  --container-narrow: 46rem;
+  --duration: 0.25s;
+}
+
+/* Texte masqué à l'écran mais lu par les lecteurs d'écran (utilisé par plusieurs blocs). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+

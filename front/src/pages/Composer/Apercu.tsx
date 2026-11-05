@@ -1,4 +1,4 @@
-import { SitePreview } from '../../blocks/SitePreview';
+import { SitePreview } from '@bsandoz79/blocs';
 import { apercuTextes, modeleApercu } from '../../data/apercu';
 import type { Configuration } from '../../data/calculs';
 import { bonASavoir } from '../../data/configurateur';

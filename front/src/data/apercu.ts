@@ -1,4 +1,4 @@
-import type { PreviewSection, SitePreviewModel } from '../blocks/SitePreview';
+import type { PreviewSection, SitePreviewModel } from '@bsandoz79/blocs';
 import { packsActifs, type Configuration } from './calculs';
 import { options, type MetierId, type OptionId } from './offres';
 

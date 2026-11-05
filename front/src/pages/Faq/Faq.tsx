@@ -1,8 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Accordion } from '../../blocks/Accordion';
-import { buttonClassName } from '../../blocks/Button';
-import { Container } from '../../blocks/Container';
-import { SectionTitle } from '../../blocks/SectionTitle';
+import { Accordion, Container, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { pageFaq, questionsFaq } from '../../data/faq';

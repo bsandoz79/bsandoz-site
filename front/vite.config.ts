@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react'
+import { fileURLToPath } from 'node:url'
 import { createServer, defineConfig, type Plugin } from 'vite'
 
 type ModuleSeo = { genererSitemap: () => string; robotsTxt: () => string }
@@ -32,4 +33,10 @@ function fichiersSeo(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), fichiersSeo()],
+  resolve: {
+    // Dans ce dépôt, le site utilise directement les sources de la bibliothèque de blocs
+    // (un site client, lui, installe le paquet publié @bsandoz79/blocs).
+    alias: { '@bsandoz79/blocs': fileURLToPath(new URL('../packages/blocs/src/index.ts', import.meta.url)) },
+    dedupe: ['react', 'react-dom'],
+  },
 })

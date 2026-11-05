@@ -1,10 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, buttonClassName } from '../../blocks/Button';
-import { Calendar, aujourdhui, debutDuMois, libelleLong } from '../../blocks/Calendar';
-import { ChoiceChips } from '../../blocks/ChoiceChips';
-import { Container } from '../../blocks/Container';
-import { TextField } from '../../blocks/TextField';
+import { Button, Calendar, ChoiceChips, Container, TextField, aujourdhui, buttonClassName, debutDuMois, libelleLong } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { pages } from '../../data/pages';
 import { lieux, rdvTextes, type LieuId } from '../../data/rendezvous';

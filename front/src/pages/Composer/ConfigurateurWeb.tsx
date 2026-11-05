@@ -1,6 +1,4 @@
-import { Button } from '../../blocks/Button';
-import { ChoiceChips } from '../../blocks/ChoiceChips';
-import { OptionCard } from '../../blocks/OptionCard';
+import { Button, ChoiceChips, OptionCard } from '@bsandoz79/blocs';
 import { optionsDisponibles, packsActifs, suggestions } from '../../data/calculs';
 import { estimationTextes, etapes } from '../../data/configurateur';
 import {

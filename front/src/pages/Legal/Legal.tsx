@@ -1,5 +1,4 @@
-import { Container } from '../../blocks/Container';
-import { SectionTitle } from '../../blocks/SectionTitle';
+import { Container, SectionTitle } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { miseAJour, pagesLegales, type PageLegaleId } from '../../data/legal';
 import styles from './Legal.module.css';

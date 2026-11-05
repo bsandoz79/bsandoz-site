@@ -1,0 +1,13 @@
+{
+  "name": "bsandoz-site",
+  "private": true,
+  "workspaces": [
+    "packages/blocs",
+    "front"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces",
+    "build": "npm run build --workspaces"
+  }
+}

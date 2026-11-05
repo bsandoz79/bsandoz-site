@@ -1,6 +1,4 @@
-import { Card } from '../../blocks/Card';
-import { Container } from '../../blocks/Container';
-import { SectionTitle } from '../../blocks/SectionTitle';
+import { Card, Container, SectionTitle } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { formules, mentionsPrix, prixFormule } from '../../data/offres';

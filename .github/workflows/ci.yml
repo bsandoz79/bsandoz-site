@@ -44,20 +44,30 @@ jobs:
       - run: php bin/console doctrine:schema:validate --skip-sync
       - run: php bin/phpunit
 
-  front:
-    name: Front – lint, tests, build
+  blocs:
+    name: Bibliothèque de blocs – lint, tests, build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: front
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: front/package-lock.json
       - run: npm ci
-      - run: npm run lint
-      - run: npm run test
-      - run: npm run build
+      - run: npm run lint -w packages/blocs
+      - run: npm run test -w packages/blocs
+      - run: npm run build -w packages/blocs
+
+  front:
+    name: Front – lint, tests, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint -w front
+      - run: npm run test -w front
+      - run: npm run build -w front

@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, buttonClassName } from '../../blocks/Button';
-import { ChoiceChips } from '../../blocks/ChoiceChips';
-import { OptionCard } from '../../blocks/OptionCard';
-import { PriceSummary } from '../../blocks/PriceSummary';
-import { SectionTitle } from '../../blocks/SectionTitle';
+import { Button, ChoiceChips, OptionCard, PriceSummary, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import {
   calculerEstimation,
   garderOptionsValides,

@@ -2,7 +2,8 @@
 
 ## Intégration continue (`.github/workflows/ci.yml`)
 À chaque push, sur toutes les branches :
-- **front** : lint, tests, build ;
+- **blocs** : lint, tests, build de la bibliothèque `@bsandoz79/blocs` ;
+- **front** : lint, tests, build du site ;
 - **api** : PHP 8.3, `composer install`, vérification du conteneur et de la configuration YAML, connexion à une base MySQL 8.0 de test, validation Doctrine, tests PHPUnit.
 
 ## Déploiement continu (`.github/workflows/deploy.yml`)
@@ -21,6 +22,9 @@ Dépôt → Settings → Secrets and variables → Actions → New repository se
 
 Conseil : créer un compte FTP limité au dossier `preview.bsandoz.fr` (puis `bsandoz.fr` pour la production).
 Sans ces secrets, le workflow passe mais n'envoie rien.
+
+## Publication de la bibliothèque de blocs (`.github/workflows/blocs-publication.yml`)
+Pousser une étiquette `blocs-vX.Y.Z` identique à la version de `packages/blocs/package.json` : tests, build, puis publication privée sur GitHub Packages (jeton fourni par GitHub, aucun secret à créer).
 
 ## Versions et retour à la V1
 Chaque version validée est figée par une étiquette git (`v1.0.0`) et garde une branche de maintenance (`release/v1`).

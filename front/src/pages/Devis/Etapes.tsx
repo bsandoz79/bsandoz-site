@@ -1,6 +1,4 @@
-import { ChoiceChips } from '../../blocks/ChoiceChips';
-import { OptionCard } from '../../blocks/OptionCard';
-import { TextField } from '../../blocks/TextField';
+import { ChoiceChips, OptionCard, TextField } from '@bsandoz79/blocs';
 import { besoins, budgets, delais, devisTextes, limitesPhotos } from '../../data/devis';
 import { metiers } from '../../data/offres';
 import type { Demande, Erreurs } from './demande';

@@ -10,7 +10,6 @@ Fiches détaillées par fonctionnalité, avec schémas : [docs/fonctionnalites/]
 ```
 front/src/
   app/         point d'entrée, routes
-  blocks/      blocs réutilisables (indépendants du site)
   components/  composants propres à bsandoz.fr
   pages/       une page = un dossier
   data/        contenus, offres et prix
@@ -40,6 +39,9 @@ front/src/
 - **Pages légales** (`pages/Legal`, paramétrée par `id`) : contenus dans `data/legal.ts`, sections titrées.
 
 - **Rendez-vous** (`pages/RendezVous`) : `RendezVous.tsx` et `reservation.ts` (jours et créneaux réservables, distance, géocodage, validation, corps envoyé). Envoi en `POST` vers `VITE_API_URL` + `/rendez-vous` (par défaut `https://api.bsandoz.fr`) ; 409 = créneau déjà pris.
+
+## Bibliothèque de blocs
+Les blocs réutilisables sont dans `packages/blocs` (paquet `@bsandoz79/blocs`, voir son README et `docs/fonctionnalites/blocs.md`). Le site les importe par `@bsandoz79/blocs`.
 
 ## Règle des blocs
 Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propriétés (props). Il peut ainsi être réutilisé tel quel sur un site client (detailing, espaces verts…).

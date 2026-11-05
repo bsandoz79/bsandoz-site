@@ -1,6 +1,6 @@
 import { useRef, type KeyboardEvent } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container } from '../../blocks/Container';
+import { Container } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { onglets, titres } from '../../data/configurateur';
 import { pages } from '../../data/pages';
