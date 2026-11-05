@@ -1,6 +1,11 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté
+- API (V2) : squelette Symfony 7.4 dans `api/` (Doctrine, migrations, PHPUnit), PHP 8.3 visé ; valeurs de développement dans `api/.env.dist` (sans secret).
+- API : base MySQL (MySQL 8.0 en développement via Docker), correspondances Doctrine par module.
+- API : structure modulaire à cœur hexagonal (Shared, Auth, Prospect, Booking, Notification), route `/sante`, test d'indépendance du domaine.
+- CI : job `api` (PHP 8.3, base MySQL de test, conteneur, YAML, Doctrine, PHPUnit).
 
 ## [1.0.0] – 2026-11-05
 Première version complète du site vitrine et du configurateur (front seul). Étiquette git : `v1.0.0`.

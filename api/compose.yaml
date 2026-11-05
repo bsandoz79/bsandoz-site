@@ -1,0 +1,21 @@
+services:
+  # Base MySQL de développement (identifiants de développement uniquement, jamais ceux du serveur).
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: bsandoz
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-papp", "-uapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - database_data:/var/lib/mysql
+
+volumes:
+  database_data:
