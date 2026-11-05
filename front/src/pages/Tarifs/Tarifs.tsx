@@ -2,8 +2,10 @@ import { Card } from '../../blocks/Card';
 import { Container } from '../../blocks/Container';
 import { SectionTitle } from '../../blocks/SectionTitle';
 import { PageMeta } from '../../components/PageMeta';
+import { StructuredData } from '../../components/StructuredData';
 import { formules, mentionsPrix, prixFormule } from '../../data/offres';
 import { pages } from '../../data/pages';
+import { jsonLdOffres } from '../../data/seo';
 import { apresMiseEnLigne, contenuFormules, formulesSection, intro, pourquoiFonctionnel } from '../../data/tarifs';
 import { Simulateur } from './Simulateur';
 import styles from './Tarifs.module.css';
@@ -15,6 +17,7 @@ export function Tarifs() {
   return (
     <>
       <PageMeta title={page.title} description={page.description} />
+      <StructuredData data={jsonLdOffres(formules)} />
 
       <section className={styles.intro} aria-labelledby="tarifs-titre">
         <Container>

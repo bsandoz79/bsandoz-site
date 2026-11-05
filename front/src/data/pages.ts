@@ -1,6 +1,8 @@
 /** Informations générales du site. */
 export const site = {
   name: 'Baptiste Sandoz',
+  /** Adresse publique du site, sans barre finale. */
+  url: 'https://bsandoz.fr',
   defaultTitle: 'Baptiste Sandoz – Création de sites web à Amiens',
 } as const;
 

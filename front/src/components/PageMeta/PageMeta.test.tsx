@@ -30,6 +30,18 @@ describe('PageMeta', () => {
     expect(descriptionTags()[0]).toHaveAttribute('content', 'Questions');
   });
 
+  it('donne l’adresse canonique de la page', () => {
+    render(<PageMeta title="Accueil" description="d" />);
+    expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute('href', 'https://bsandoz.fr/');
+  });
+
+  it('marque une page « noindex », puis retire la mention', () => {
+    const { rerender } = render(<PageMeta title="Provisoire" description="d" noindex />);
+    expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
+    rerender(<PageMeta title="Construite" description="d" />);
+    expect(document.head.querySelector('meta[name="robots"]')).toBeNull();
+  });
+
   it('suit les changements de page', () => {
     const { rerender } = render(<PageMeta title="A" description="Page A" />);
     rerender(<PageMeta title="B" description="Page B" />);

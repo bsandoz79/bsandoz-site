@@ -1,0 +1,30 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block: var(--space-7) var(--space-8);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.titre {
+  color: var(--color-text);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.miseAJour {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 960px) {
+  .page {
+    padding-block: var(--space-8) var(--space-9);
+  }
+}

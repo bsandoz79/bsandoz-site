@@ -1,0 +1,160 @@
+import { formuleParId, mentionsPrix, tarifHoraire } from './offres';
+import { contact } from './navigation';
+import { pages } from './pages';
+
+/**
+ * Pages légales. Seuls des faits établis sont écrits ; tout le reste est marqué [à compléter].
+ * À faire relire avant la mise en ligne publique.
+ */
+export type SectionLegale = { titre: string; paragraphes: string[] };
+export type PageLegale = { intro: string; sections: SectionLegale[] };
+
+const A_COMPLETER = (quoi: string) => `[${quoi} à compléter]`;
+
+export const miseAJour = 'Dernière mise à jour : novembre 2026.';
+
+export const mentionsLegales: PageLegale = {
+  intro: 'Informations sur l’éditeur et l’hébergeur du site bsandoz.fr.',
+  sections: [
+    {
+      titre: 'Éditeur du site',
+      paragraphes: [
+        'Baptiste Sandoz, création de sites web et informatique sur place.',
+        `Statut : ${A_COMPLETER('statut juridique')}. SIRET : ${A_COMPLETER('numéro SIRET')} (après immatriculation).`,
+        `Adresse : ${A_COMPLETER('adresse')}, Amiens (Somme).`,
+        `E-mail : ${contact.email}.`,
+        'Directeur de la publication : Baptiste Sandoz.',
+      ],
+    },
+    {
+      titre: 'Hébergeur',
+      paragraphes: [`o2switch. ${A_COMPLETER('adresse et téléphone de l’hébergeur')}.`],
+    },
+    {
+      titre: 'Propriété intellectuelle',
+      paragraphes: [
+        'Les textes, images et éléments graphiques de ce site appartiennent à Baptiste Sandoz, sauf mention contraire. Leur reproduction sans autorisation est interdite.',
+      ],
+    },
+    {
+      titre: 'Données personnelles',
+      paragraphes: ['Leur traitement est décrit dans la politique de confidentialité.'],
+    },
+  ],
+};
+
+const vitrine = formuleParId('vitrine');
+const vitrinePlus = formuleParId('vitrinePlus');
+const fonctionnel = formuleParId('fonctionnel');
+
+export const cgv: PageLegale = {
+  intro: 'Conditions applicables aux prestations de Baptiste Sandoz : création de sites internet et informatique sur place.',
+  sections: [
+    {
+      titre: 'Prix',
+      paragraphes: [
+        mentionsPrix.tva,
+        'Les prix des formules et des options sont affichés sur la page Tarifs. Les prestations d’informatique sur place sont sur devis.',
+      ],
+    },
+    {
+      titre: 'Commande',
+      paragraphes: ['La commande est confirmée par l’acceptation du devis.'],
+    },
+    {
+      titre: 'Paiement',
+      paragraphes: [
+        `Un acompte est versé à la commande (${A_COMPLETER('montant ou pourcentage de l’acompte')}), le solde à la mise en ligne.`,
+        `Moyens de paiement : ${A_COMPLETER('moyens de paiement acceptés')}.`,
+      ],
+    },
+    {
+      titre: 'Délais',
+      paragraphes: [
+        `Délais indicatifs : ${vitrine.delai} pour une Vitrine, ${vitrinePlus.delai} pour une Vitrine+, ${fonctionnel.delai} pour un site fonctionnel.`,
+      ],
+    },
+    {
+      titre: 'Nom de domaine et hébergement',
+      paragraphes: [
+        'Avec la formule Vitrine, le nom de domaine et l’hébergement sont à la charge du client.',
+        'Une formule hébergement + maintenance est disponible sur demande.',
+      ],
+    },
+    {
+      titre: 'Après la mise en ligne',
+      paragraphes: [`Les modifications sont facturées ${tarifHoraire} € de l’heure, sans engagement ; toute demi-heure entamée est due.`],
+    },
+    {
+      titre: 'Propriété du site',
+      paragraphes: [`Le site appartient au client. ${A_COMPLETER('conditions de transfert (par exemple après paiement complet)')}.`],
+    },
+    {
+      titre: 'Droit de rétractation et médiation',
+      paragraphes: [A_COMPLETER('droit de rétractation pour les particuliers et coordonnées du médiateur de la consommation')],
+    },
+  ],
+};
+
+export const confidentialite: PageLegale = {
+  intro: 'Quelles données sont collectées sur ce site, pourquoi, et comment exercer vos droits.',
+  sections: [
+    {
+      titre: 'Responsable du traitement',
+      paragraphes: [`Baptiste Sandoz, joignable à ${contact.email}.`],
+    },
+    {
+      titre: 'Données collectées',
+      paragraphes: [
+        'Uniquement celles que vous envoyez par la demande de devis : activité, besoins, description du projet, site que vous aimez, photos, budget, délai, nom, entreprise, e-mail et téléphone.',
+        'Elles servent à répondre à votre demande et à établir un devis. Vous les envoyez après avoir donné votre accord.',
+      ],
+    },
+    {
+      titre: 'Destinataire',
+      paragraphes: [
+        'Votre demande m’est transmise par e-mail, via l’hébergeur o2switch. Elle n’est ni revendue ni utilisée à d’autres fins.',
+        'Vous recevez une copie de votre demande en accusé de réception.',
+      ],
+    },
+    {
+      titre: 'Durée de conservation',
+      paragraphes: [A_COMPLETER('durée de conservation des demandes')],
+    },
+    {
+      titre: 'Données gardées dans votre navigateur',
+      paragraphes: [
+        'Vos choix dans « Composer mon site » et le brouillon de votre demande de devis sont gardés dans votre navigateur (stockage local), pour que vous ne perdiez rien. Ils restent sur votre appareil et ne me sont pas envoyés tant que vous n’envoyez pas votre demande.',
+        'Vous pouvez les effacer à tout moment en supprimant les données de ce site dans votre navigateur.',
+      ],
+    },
+    {
+      titre: 'Cookies et services tiers',
+      paragraphes: [
+        'Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience.',
+        'Les polices de caractères sont chargées depuis les serveurs de Google (Google Fonts) : votre adresse IP leur est donc transmise à l’affichage des pages.',
+      ],
+    },
+    {
+      titre: 'Protection contre les envois abusifs',
+      paragraphes: [
+        'Pour limiter les envois automatiques, une empreinte chiffrée de votre adresse IP est gardée une heure sur le serveur. L’adresse elle-même n’est pas enregistrée.',
+      ],
+    },
+    {
+      titre: 'Vos droits',
+      paragraphes: [
+        `Vous pouvez demander l’accès à vos données, leur correction, leur effacement ou leur portabilité, et vous opposer à leur traitement, en écrivant à ${contact.email}.`,
+        'Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr).',
+      ],
+    },
+  ],
+};
+
+export const pagesLegales = {
+  mentionsLegales: { page: pages.mentionsLegales, contenu: mentionsLegales },
+  cgv: { page: pages.cgv, contenu: cgv },
+  confidentialite: { page: pages.confidentialite, contenu: confidentialite },
+};
+
+export type PageLegaleId = keyof typeof pagesLegales;

@@ -8,6 +8,7 @@ import { Devis } from '../pages/Devis';
 import { Faq } from '../pages/Faq';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
+import { Legal } from '../pages/Legal';
 import { Metier } from '../pages/Metier';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
@@ -30,6 +31,9 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   aPropos: <APropos />,
   faq: <Faq />,
   devis: <Devis />,
+  mentionsLegales: <Legal id="mentionsLegales" />,
+  cgv: <Legal id="cgv" />,
+  confidentialite: <Legal id="confidentialite" />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

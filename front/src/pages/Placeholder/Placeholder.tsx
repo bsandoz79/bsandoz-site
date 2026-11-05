@@ -8,7 +8,7 @@ type PlaceholderProps = { page: PageInfo };
 export function Placeholder({ page }: PlaceholderProps) {
   return (
     <section className="section">
-      <PageMeta title={page.title} description={page.description} />
+      <PageMeta title={page.title} description={page.description} noindex />
       <div className={`container ${styles.inner}`}>
         <h1 className={styles.title}>{page.heading}</h1>
         <p className={styles.text}>{placeholderContent.text}</p>
