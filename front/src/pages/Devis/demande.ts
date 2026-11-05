@@ -1,6 +1,7 @@
 import { calculerEstimation, type Configuration } from '../../data/calculs';
 import { besoins, budgets, delais, devisTextes, limitesPhotos, type BesoinId } from '../../data/devis';
 import { formatPrix, formuleParId, metiers, options, type MetierId } from '../../data/offres';
+import { preDevis, texteDuPreDevis } from '../../data/predevis';
 
 /** Réponses du parcours de devis (sans les photos, qui ne sont pas enregistrées). */
 export type Demande = {
@@ -161,12 +162,13 @@ export function lignesRecapitulatif(d: Demande, config: Configuration | null): [
   return lignes;
 }
 
-/** Données envoyées au script : récapitulatif, champs utiles, piège anti-robots et photos. */
+/** Données envoyées au script : récapitulatif, pré-devis, champs utiles, piège anti-robots et photos. */
 export function construireEnvoi(d: Demande, config: Configuration | null, photos: File[], piege: string) {
   const donnees = new FormData();
   donnees.append('nom', d.nom.trim());
   donnees.append('email', d.email.trim());
   donnees.append('recapitulatif', lignesRecapitulatif(d, config).map(([cle, valeur]) => `${cle} : ${valeur}`).join('\n'));
+  donnees.append('predevis', texteDuPreDevis(preDevis(d, config)));
   donnees.append('site_web', piege);
   photos.forEach((photo) => donnees.append('photos[]', photo, photo.name));
   return donnees;

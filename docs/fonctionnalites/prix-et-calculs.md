@@ -37,6 +37,14 @@ const idees = suggestions(config);                // [{ titre, texte, libelle, a
 const marche = comparaisonMarche('fonctionnel', config.options, estimation.total);
 optionsDisponibles('fonctionnel', 'artisan');     // options proposées pour ce métier
 ```
+Pré-devis d'une demande de devis (`src/data/predevis.ts`) :
+```ts
+import { preDevis, texteDuPreDevis } from '../data/predevis';
+
+const p = preDevis({ metier: 'artisan', besoins: ['rdv'] }, configurationDuConfigurateur ?? null);
+// { source: 'besoins', formule: 'fonctionnel', options: ['rdv'], fourchette: { bas: 1320, haut: 1530 }, delai, suggestions: ['acompte', …] }
+texteDuPreDevis(p); // bloc de texte brut pour l'e-mail
+```
 Affichage : `formatPrix(1200)` → « 1 200 € », `prixFormule(f)` → « dès 989 € », `prixOption(o)` → « + 60 € / page ».
 
 ## Réutilisable ?
@@ -47,9 +55,10 @@ Oui : `calculs.ts` ne dépend d'aucun écran. Pour un autre site, il suffit de r
 - Une option n'est offerte qu'une fois, même si deux packs l'offrent.
 - Fourchette seulement pour le Fonctionnel, arrondie à 10 €, jamais sous le prix plancher.
 - Marché : boutique choisie → e-commerce, sinon sur mesure ; la source est toujours affichée.
+- Pré-devis : la configuration du configurateur l'emporte ; sinon, les besoins cochés donnent la formule (rendez-vous, prix, devis, appli ou vente → Fonctionnel ; réalisations, Google ou contact → Vitrine+ ; sinon aucune) et les options (adaptées au métier : un restaurant « réserve » des tables). 3 options suggérées au plus, celles qui complètent un pack d'abord.
 
 ## Tests
-- **unitaires** : `src/data/calculs.test.ts` (options, packs, estimation, fourchette, suggestions, marché), `src/data/offres.test.ts` (formatage, cohérence : chaque option citée existe, chaque pack est proposable).
+- **unitaires** : `src/data/calculs.test.ts` (options, packs, estimation, fourchette, suggestions, marché), `src/data/offres.test.ts` (formatage, cohérence : chaque option citée existe, chaque pack est proposable), `src/data/predevis.test.ts` (formule déduite des besoins, options par métier, suggestions, texte de l'e-mail).
 
 ## Modifier
 Un prix, une option, un pack : `src/data/offres.ts`, puis relancer les tests (ils vérifient la cohérence).

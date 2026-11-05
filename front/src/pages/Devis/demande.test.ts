@@ -112,4 +112,17 @@ describe('récapitulatif et envoi', () => {
     expect(donnees.get('recapitulatif')).toContain('Projet : Je fais du nettoyage de voitures à domicile.');
     expect(donnees.getAll('photos[]')).toHaveLength(1);
   });
+
+  it('joint le pré-devis calculé d’après les besoins', () => {
+    const predevis = String(construireEnvoi(complete, null, [], '').get('predevis'));
+    expect(predevis).toContain('Première estimation (indicative)');
+    expect(predevis).toContain('Formule conseillée : Fonctionnel');
+    expect(predevis).toContain('Options retenues : Rendez-vous en ligne, Calculateur de prix');
+  });
+
+  it('joint le pré-devis de la configuration du configurateur quand elle existe', () => {
+    const predevis = String(construireEnvoi(complete, config, [], '').get('predevis'));
+    expect(predevis).toContain('configuration faite dans « Composer mon site »');
+    expect(predevis).toContain('Options retenues : Rendez-vous en ligne');
+  });
 });
