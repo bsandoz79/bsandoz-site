@@ -101,6 +101,34 @@
   font-weight: 600;
 }
 
+.rendezVous {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rendezVous li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.annule {
+  color: var(--color-text-muted);
+}
+
 @media (min-width: 48rem) {
   .formulaire {
     max-width: 28rem;
