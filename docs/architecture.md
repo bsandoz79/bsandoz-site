@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 - **front/** : site React + Vite + TypeScript, compilé en fichiers statiques et hébergé sur o2switch.
-- **api/** (V2) : API Symfony pour les demandes de devis, rendez-vous et espace client.
+- **api/** (V2) : API Symfony 7.4 pour les rendez-vous, les demandes et devis, puis l'espace client (voir `docs/api.md`).
 
 ## Dossiers du front
 ```

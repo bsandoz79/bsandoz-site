@@ -1,6 +1,8 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté
+- API (V2) : squelette Symfony 7.4 dans `api/` (Doctrine, migrations, PHPUnit), PHP 8.3 visé ; valeurs de développement dans `api/.env.dist` (sans secret).
 
 ## [1.0.0] – 2026-11-05
 Première version complète du site vitrine et du configurateur (front seul). Étiquette git : `v1.0.0`.
