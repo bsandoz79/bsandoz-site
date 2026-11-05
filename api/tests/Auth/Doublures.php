@@ -30,7 +30,7 @@ final class ComptesEnMemoire implements Comptes
     public function parEmail(string $email): ?Compte
     {
         foreach ($this->tous as $compte) {
-            if ($compte->email === $email) {
+            if ($compte->email() === $email) {
                 return $compte;
             }
         }
@@ -41,6 +41,11 @@ final class ComptesEnMemoire implements Comptes
     public function enregistrer(Compte $compte): void
     {
         $this->tous[$compte->id] = $compte;
+    }
+
+    public function supprimer(Compte $compte): void
+    {
+        unset($this->tous[$compte->id]);
     }
 }
 
@@ -161,14 +166,24 @@ final class MailsEnregistres implements NotificationsCompte
     /** @var list<array{type: string, email: string, secret: ?string}> */
     public array $envoyes = [];
 
-    public function lien(Compte $compte, UsageLien $usage, string $secret): void
+    public function lien(Compte $compte, UsageLien $usage, string $secret, ?string $destinataire = null): void
     {
-        $this->envoyes[] = ['type' => $usage->value, 'email' => $compte->email, 'secret' => $secret];
+        $this->envoyes[] = ['type' => $usage->value, 'email' => $destinataire ?? $compte->email(), 'secret' => $secret];
     }
 
     public function motDePasseModifie(Compte $compte): void
     {
-        $this->envoyes[] = ['type' => 'mot_de_passe_modifie', 'email' => $compte->email, 'secret' => null];
+        $this->envoyes[] = ['type' => 'mot_de_passe_modifie', 'email' => $compte->email(), 'secret' => null];
+    }
+
+    public function emailModifie(Compte $compte, string $ancienneAdresse): void
+    {
+        $this->envoyes[] = ['type' => 'email_modifie', 'email' => $ancienneAdresse, 'secret' => null];
+    }
+
+    public function compteSupprime(string $email, string $nom): void
+    {
+        $this->envoyes[] = ['type' => 'compte_supprime', 'email' => $email, 'secret' => null];
     }
 
     /** Secret du dernier lien envoyé pour cet usage. */

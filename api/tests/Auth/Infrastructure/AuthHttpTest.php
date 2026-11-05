@@ -99,7 +99,11 @@ final class AuthHttpTest extends WebTestCase
 
         $this->client->request('GET', '/auth/moi');
         self::assertResponseIsSuccessful();
-        self::assertSame(['id', 'email', 'nom', 'statut', 'motDePasse', 'motDePasseModifieLe'], array_keys($this->reponse()['compte']));
+        self::assertSame(
+            ['id', 'email', 'nom', 'entreprise', 'telephone', 'adresse', 'notifications', 'statut', 'motDePasse', 'motDePasseModifieLe'],
+            array_keys($this->reponse()['compte']),
+            'Jamais le mot de passe haché.',
+        );
         self::assertSame('marie@exemple.fr', $this->reponse()['compte']['email']);
     }
 
