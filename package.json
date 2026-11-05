@@ -8,6 +8,7 @@
   "scripts": {
     "lint": "npm run lint --workspaces",
     "test": "npm run test --workspaces",
-    "build": "npm run build --workspaces"
+    "build": "npm run build --workspaces",
+    "livrer": "npm run livrer -w packages/blocs --"
   }
 }

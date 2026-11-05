@@ -1,20 +1,36 @@
 # Blocs réutilisables : la bibliothèque `@bsandoz79/blocs`
 
 ## À quoi ça sert
-Une seule bibliothèque de blocs d'interface, **indépendants de tout site**, installable par n'importe quel site : bsandoz.fr aujourd'hui, les sites des clients ensuite. On écrit un calendrier une fois, on l'utilise partout, et chaque site garde ses couleurs.
+La **boîte à outils** de Baptiste : des blocs d'interface **indépendants de tout site**, écrits et testés une fois. Pour créer le site d'un client, on y prend les fonctionnalités utiles, on les **copie** dans son projet, on les personnalise et on livre. Le site livré appartient au client : il ne dépend ni de cette bibliothèque ni de Baptiste.
 
-## Schéma : un dépôt, une bibliothèque, plusieurs sites
+## Schéma : une boîte à outils, des sites livrés autonomes
 ```mermaid
 flowchart LR
-  subgraph Depot["Dépôt bsandoz-site (espace de travail npm)"]
+  subgraph Depot["Dépôt bsandoz-site (boîte à outils)"]
     blocs["packages/blocs/<br/>@bsandoz79/blocs<br/>sources + tests"]
     front["front/<br/>site bsandoz.fr"]
-    blocs -- "alias vers les sources<br/>(changement visible tout de suite)" --> front
+    blocs -- "alias vers les sources" --> front
   end
-  blocs -- "étiquette blocs-v1.x.y<br/>workflow de publication" --> registre[("GitHub Packages<br/>paquet privé versionné")]
-  registre -- "npm install @bsandoz79/blocs@1.x" --> c1["Site client A<br/>(detailing)"]
-  registre -- "npm install @bsandoz79/blocs@1.x" --> c2["Site client B<br/>(paysagiste)"]
+  blocs -- "npm run livrer -- Calendar OptionCard<br/>(copie des sources)" --> c1["Site client A (detailing)<br/>src/blocs/ : code à lui,<br/>personnalisable"]
+  blocs -- "npm run livrer -- Accordion Card" --> c2["Site client B (paysagiste)"]
+  c1 --> h1[("Son hébergement,<br/>son domaine")]
+  c2 --> h2[("Son hébergement,<br/>son domaine")]
+  blocs -. "option : étiquette blocs-vX.Y.Z<br/>paquet privé (vos propres sites)" .-> registre[("GitHub Packages")]
 ```
+
+## Livrer à un client
+```sh
+npm run livrer -- --liste
+npm run livrer -- Calendar OptionCard --vers ../site-detailing/src/blocs
+```
+| Ce qui est copié | Pourquoi |
+| --- | --- |
+| les dossiers des blocs demandés (sans tests, sauf `--avec-tests`) | le code du bloc et son mode d'emploi |
+| leurs dépendances (ex. `motion.ts`) | trouvées en suivant les imports `../` |
+| `styles/base.css` | variables par défaut et `.sr-only` |
+| `index.ts`, `LIVRAISON.md` | point d'entrée, et note (version, date, utilisation) |
+
+Un bloc déjà livré n'est jamais écrasé sans `--ecraser`, pour ne pas perdre sa personnalisation. Code de la commande : `packages/blocs/scripts/livraison.mjs` (logique) et `livrer.mjs` (ligne de commande).
 
 ## Schéma : qui utilise quoi dans bsandoz.fr
 ```mermaid
@@ -83,4 +99,5 @@ Installation dans un site client, personnalisation des couleurs, publication d'u
 ## Tests
 - **unitaires** : un fichier par bloc (62 tests). Lancer : `npm run test -w packages/blocs`.
 - **CI** : job « Bibliothèque de blocs » (lint, tests, build) à chaque push.
-- **intégration** (fait à la création) : paquet installé dans un site client vierge (`npm pack`), type-check et build réussis, styles et variables présents.
+- **unitaires (livraison)** : `scripts/livraison.test.ts` (blocs listés, dépendances suivies, copie sans tests, index et note, refus d'écraser).
+- **intégration** : paquet installé dans un site client vierge (`npm pack`) ; blocs livrés par copie dans un autre site vierge **sans la bibliothèque** : type-check et build réussis.
