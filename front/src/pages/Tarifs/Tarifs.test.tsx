@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
+import { lignePageSupplementaire, options } from '../../data/offres';
 import { pages } from '../../data/pages';
 
 function renderTarifs() {
@@ -23,6 +24,20 @@ describe('Page Tarifs', () => {
     expect(screen.getByRole('article', { name: 'Vitrine' })).toHaveTextContent(/99\s€.*Délai : 3 jours/);
     expect(screen.getByRole('article', { name: 'Vitrine+' })).toHaveTextContent(/390\s€/);
     expect(screen.getByRole('article', { name: 'Fonctionnel' })).toHaveTextContent(/dès 989\s€/);
+  });
+
+  it('indique le prix d’une page supplémentaire sous chacune des trois formules, depuis l’option', () => {
+    renderTarifs();
+    for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) {
+      expect(screen.getByRole('article', { name: nom })).toHaveTextContent(/Page supplémentaire : \+ 50\s€/);
+    }
+    const prixInitial = options.page.prix;
+    options.page.prix = 149;
+    try {
+      expect(lignePageSupplementaire()).toMatch(/Page supplémentaire : \+ 149\s€/);
+    } finally {
+      options.page.prix = prixInitial;
+    }
   });
 
   it('explique pourquoi le fonctionnel coûte plus cher', () => {
