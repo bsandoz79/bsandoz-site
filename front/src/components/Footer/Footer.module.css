@@ -170,13 +170,12 @@
   background: none;
   color: inherit;
   font: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
   cursor: pointer;
 }
 
 .lienBouton:hover {
   color: var(--color-rose-light);
+  text-decoration: underline;
 }
 
 @media (min-width: 960px) {
