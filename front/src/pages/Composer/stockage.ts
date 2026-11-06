@@ -5,7 +5,7 @@ import {
   type PublicInformatique,
   type ServiceInformatiqueId,
 } from '../../data/informatique';
-import { formules, metierAutreTextes, metiers, options, precisions, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
+import { formules, metierAutreTextes, metiers, nomActivite, options, precisions, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
 
 export type Onglet = 'web' | 'informatique';
 
@@ -119,4 +119,46 @@ export function etatDepuisAdresse(etat: EtatComposer, recherche: string): EtatCo
     onglet: 'web',
     config: { ...etat.config, formule, metier, options: garderOptionsValides(etat.config.options, formule, metier) },
   };
+}
+
+/**
+ * Visite en cours (stockage de session : oublié à la fermeture de l'onglet).
+ * À une nouvelle visite, le configurateur demande s'il faut reprendre l'estimation précédente.
+ */
+export const CLE_VISITE = 'bsandoz.composer.visite';
+
+export function estNouvelleVisite(): boolean {
+  try {
+    return window.sessionStorage.getItem(CLE_VISITE) === null;
+  } catch {
+    return false;
+  }
+}
+
+export function marquerVisite() {
+  try {
+    window.sessionStorage.setItem(CLE_VISITE, '1');
+  } catch {
+    // Stockage de session indisponible : la question ne sera pas posée.
+  }
+}
+
+/** L'état contient-il des choix (sinon, rien à reprendre) ? */
+export function aDesChoix(etat: EtatComposer): boolean {
+  const { config, informatique } = etat;
+  return Boolean(config.formule || config.metier || config.options.length || informatique.public || informatique.services.length);
+}
+
+/** Résumé d'une estimation, pour la question « reprendre ? ». */
+export function resumeEtat(etat: EtatComposer): string {
+  if (etat.onglet === 'informatique' && etat.informatique.services.length) {
+    const n = etat.informatique.services.length;
+    return `${n} prestation${n > 1 ? 's' : ''} d’informatique sur place`;
+  }
+  const { formule, metier, metierAutre, options: choix } = etat.config;
+  const morceaux = [formule ? `Site ${formules.find((f) => f.id === formule)?.nom}` : 'Site à composer'];
+  const activite = nomActivite(metier, metierAutre);
+  if (activite) morceaux.push(activite.toLowerCase());
+  if (choix.length) morceaux.push(`${choix.length} option${choix.length > 1 ? 's' : ''}`);
+  return morceaux.join(' · ');
 }

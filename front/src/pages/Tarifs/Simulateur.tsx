@@ -10,7 +10,7 @@ import {
 } from '../../data/calculs';
 import { formatPrix, formules, metierAutreTextes, metiers, nomActivite, options, prixFormule, prixOption, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
 import { simulateur } from '../../data/tarifs';
-import { chargerEtat, enregistrerEtat } from '../Composer/stockage';
+import { chargerEtat, enregistrerEtat, marquerVisite } from '../Composer/stockage';
 import styles from './Simulateur.module.css';
 
 /**
@@ -30,6 +30,8 @@ export function Simulateur() {
     if (!formule) return;
     const precise = metier === 'autre' && metierAutre.trim() ? { metierAutre } : {};
     enregistrerEtat({ ...chargerEtat(), onglet: 'web', config: { formule, metier, options: choix, precisions: {}, ...precise } });
+    // Simulée pendant cette visite : le configurateur ne demandera pas s'il faut la reprendre.
+    marquerVisite();
   }, [formule, metier, choix, metierAutre]);
   const disponibles = optionsDisponibles(formule, metier);
   const fonctionnel = formule === 'fonctionnel';
