@@ -69,6 +69,19 @@ final class DoctrineRendezVousRepository implements RendezVousRepository
             ->getQuery()->getResult();
     }
 
+    public function entre(string $du, string $au): array
+    {
+        /** @var list<RendezVous> */
+        return $this->em->createQueryBuilder()
+            ->select('r')->from(RendezVous::class, 'r')
+            ->where('r.creneau.jour BETWEEN :du AND :au')
+            ->orderBy('r.creneau.jour', 'ASC')
+            ->addOrderBy('r.creneau.heure', 'ASC')
+            ->setParameter('du', $du)
+            ->setParameter('au', $au)
+            ->getQuery()->getResult();
+    }
+
     public function supprimer(RendezVous $rendezVous): void
     {
         $this->em->remove($rendezVous);

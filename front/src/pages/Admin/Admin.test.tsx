@@ -39,6 +39,8 @@ function simuler(liste: Reponse, actions: Record<string, Reponse> = {}) {
         return new Response(JSON.stringify(r.corps), { status: r.statut });
       }
       if (chemin === '/backoffice/demandes') return new Response(JSON.stringify(liste.corps), { status: liste.statut });
+      if (chemin === '/backoffice/rendez-vous') return new Response(JSON.stringify({ rendezVous: [] }), { status: 200 });
+      if (chemin === '/rendez-vous/disponibilites') return new Response('', { status: 500 });
       return new Response(JSON.stringify({ demande: detail }), { status: 200 });
     }),
   );
@@ -62,6 +64,11 @@ function afficher() {
 }
 
 const avecListe = { statut: 200, corps: { demandes: [ligne, autre] } };
+
+/** Le planning s'ouvre d'abord : on passe à l'onglet Demandes. */
+async function allerAuxDemandes() {
+  await userEvent.click(await screen.findByRole('button', { name: 'Demandes' }));
+}
 
 async function ouvrirLaDemande() {
   await userEvent.click(await screen.findByRole('button', { name: 'Ouvrir la demande 2026-014' }));
@@ -95,6 +102,7 @@ describe('Back-office : demandes', () => {
   it('liste et filtre par statut', async () => {
     simuler(avecListe);
     afficher();
+    await allerAuxDemandes();
     expect(await screen.findByText('Marie Dupont, Dupont Jardins')).toBeInTheDocument();
     expect(screen.getByText('Paul Martin')).toBeInTheDocument();
 
@@ -107,12 +115,14 @@ describe('Back-office : demandes', () => {
   it('annonce une liste vide', async () => {
     simuler({ statut: 200, corps: { demandes: [] } });
     afficher();
+    await allerAuxDemandes();
     expect(await screen.findByText('Aucune demande pour le moment.')).toBeInTheDocument();
   });
 
   it('ouvre le détail avec les coordonnées et le fil', async () => {
     simuler(avecListe);
     afficher();
+    await allerAuxDemandes();
     await ouvrirLaDemande();
 
     expect(screen.getByRole('link', { name: 'marie@exemple.fr' })).toHaveAttribute('href', 'mailto:marie@exemple.fr');
@@ -124,6 +134,7 @@ describe('Back-office : demandes', () => {
   it('enregistre le statut', async () => {
     const appels = simuler(avecListe, { statut: { statut: 200, corps: { demande: { ...detail, statut: 'en_etude' } } } });
     afficher();
+    await allerAuxDemandes();
     await ouvrirLaDemande();
 
     await userEvent.selectOptions(screen.getByLabelText('Statut'), 'en_etude');
@@ -136,6 +147,7 @@ describe('Back-office : demandes', () => {
   it('affiche le refus de l’API et remet le statut d’origine', async () => {
     simuler(avecListe, { statut: { statut: 409, corps: { erreur: 'Établissez d’abord le devis.' } } });
     afficher();
+    await allerAuxDemandes();
     await ouvrirLaDemande();
 
     await userEvent.selectOptions(screen.getByLabelText('Statut'), 'devis_envoye');
@@ -148,6 +160,7 @@ describe('Back-office : demandes', () => {
   it('répond au client, ou note un appel', async () => {
     const appels = simuler(avecListe, { messages: { statut: 200, corps: { demande: detail } } });
     afficher();
+    await allerAuxDemandes();
     await ouvrirLaDemande();
 
     await userEvent.click(screen.getByRole('button', { name: 'Envoyer' }));
@@ -174,6 +187,7 @@ describe('Back-office : devis', () => {
   it('refuse une ligne incomplète ou un prix non entier', async () => {
     const appels = simuler(avecListe);
     afficher();
+    await allerAuxDemandes();
     await ouvrirLaDemande();
 
     await userEvent.type(screen.getByLabelText(/Libellé 1/), 'Site');
@@ -188,6 +202,7 @@ describe('Back-office : devis', () => {
     const accepte = { ...detail, statut: 'devis_envoye', devis: { numero: '2026-014', lignes: [{ libelle: 'Site fonctionnel', prix: 989 }, { libelle: 'Rendez-vous', prix: 400 }], total: 1389, statut: 'envoye', envoyeLe: '2026-11-06T10:00:00+01:00', accepteLe: null } };
     const appels = simuler(avecListe, { devis: { statut: 200, corps: { demande: accepte } } });
     afficher();
+    await allerAuxDemandes();
     await ouvrirLaDemande();
 
     await saisir();
@@ -210,6 +225,7 @@ describe('Back-office : devis', () => {
   it('modifier une ligne annule la confirmation', async () => {
     simuler(avecListe);
     afficher();
+    await allerAuxDemandes();
     await ouvrirLaDemande();
 
     await saisir();
@@ -217,5 +233,12 @@ describe('Back-office : devis', () => {
     await userEvent.type(screen.getByLabelText(/Prix \(€\) 1/), '0');
 
     expect(screen.queryByRole('button', { name: 'Oui, envoyer' })).not.toBeInTheDocument();
+  });
+
+  it('s’ouvre sur le planning', async () => {
+    simuler(avecListe);
+    afficher();
+    expect(await screen.findByRole('heading', { name: 'Planning de la semaine' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Planning', pressed: true })).toBeInTheDocument();
   });
 });

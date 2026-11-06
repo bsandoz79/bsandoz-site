@@ -30,6 +30,13 @@ interface RendezVousRepository
      */
     public function parEmail(string $email): array;
 
+    /**
+     * Rendez-vous de cette période, annulés compris, du plus proche au plus lointain (planning du professionnel).
+     *
+     * @return list<RendezVous>
+     */
+    public function entre(string $du, string $au): array;
+
     /** Efface définitivement le rendez-vous (droit à l'effacement). */
     public function supprimer(RendezVous $rendezVous): void;
 }

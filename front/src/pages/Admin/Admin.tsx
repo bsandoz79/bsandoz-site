@@ -6,6 +6,7 @@ import { adminTextes } from '../../data/admin';
 import { pages } from '../../data/pages';
 import { DemandesAdmin } from './DemandesAdmin';
 import { DisponibilitesAdmin } from './DisponibilitesAdmin';
+import { PlanningAdmin } from './PlanningAdmin';
 import { PrixAdmin } from './PrixAdmin';
 import { listerDemandes, type Acces, type LigneDemande } from './api';
 import styles from './Admin.module.css';
@@ -20,7 +21,7 @@ export function Admin() {
   const navigate = useNavigate();
   const [acces, setAcces] = useState<Acces | null>(null);
   const [demandes, setDemandes] = useState<LigneDemande[]>([]);
-  const [onglet, setOnglet] = useState<Onglet>('demandes');
+  const [onglet, setOnglet] = useState<Onglet>('planning');
 
   useEffect(() => {
     let actif = true;
@@ -61,6 +62,7 @@ export function Admin() {
               </Button>
             ))}
           </nav>
+          {onglet === 'planning' && <PlanningAdmin demandes={demandes} />}
           {onglet === 'demandes' && <DemandesAdmin demandes={demandes} />}
           {onglet === 'prix' && <PrixAdmin />}
           {onglet === 'disponibilites' && <DisponibilitesAdmin />}

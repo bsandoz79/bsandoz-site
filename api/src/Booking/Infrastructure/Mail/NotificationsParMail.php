@@ -90,6 +90,29 @@ final class NotificationsParMail implements Notifications
             ->attach($annulation, 'annulation.ics', 'text/calendar; charset=utf-8; method=CANCEL'));
     }
 
+    public function rendezVousAnnuleParProfessionnel(RendezVous $rendezVous, string $message, string $lien): void
+    {
+        $quand = $this->quand($rendezVous);
+        $annulation = $this->ics($rendezVous, true);
+
+        $this->mailer->send($this->email($rendezVous->contact->email, "Votre rendez-vous du {$quand} doit être déplacé")
+            ->replyTo($this->professionnelEmail)
+            ->text(
+                "Bonjour {$rendezVous->contact->nom},\n\n"
+                . "Un empêchement m'oblige à annuler notre rendez-vous du {$quand}. Veuillez m'en excuser.\n\n"
+                . "Voici mes disponibilités :\n{$message}\n\n"
+                . "Pour reprendre un créneau : {$lien}\n"
+                . "Vous pouvez aussi répondre à ce message.\n\n"
+                . "À bientôt,\n{$this->professionnelNom}"
+            )
+            ->attach($annulation, 'annulation.ics', 'text/calendar; charset=utf-8; method=CANCEL'));
+
+        $this->mailer->send($this->email($this->professionnelEmail, "Rendez-vous annulé par vous : {$rendezVous->contact->nom}, {$quand}")
+            ->replyTo($rendezVous->contact->email)
+            ->text("Vous avez annulé le rendez-vous de {$rendezVous->contact->nom} ({$rendezVous->contact->email}) du {$quand}. Le créneau est de nouveau libre.\n\nDisponibilités proposées :\n{$message}\n")
+            ->attach($annulation, 'annulation.ics', 'text/calendar; charset=utf-8; method=CANCEL'));
+    }
+
     public function rappel(RendezVous $rendezVous): void
     {
         $quand = $this->quand($rendezVous);
