@@ -90,3 +90,4 @@ Types de tests :
 | 59 | [Compléments et simulateur sur les trois formules](59-feature-tarifs-complements.md) | `feature/tarifs-complements` | 2026-11-06 |
 | 60 | [Coordonnées](60-chore-coordonnees.md) | `chore/coordonnees` | 2026-11-06 |
 | 61 | [Zones Amiens et Abbeville, frais kilométriques](61-feature-frais-kilometriques.md) | `feature/frais-kilometriques` | 2026-11-06 |
+| 62 | [Compléments en pointillés, calcul des frais visible](62-style-complements-pointilles.md) | `style/complements-pointilles` | 2026-11-06 |
