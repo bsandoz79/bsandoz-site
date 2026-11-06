@@ -2,6 +2,8 @@ import { calculerEstimation, type Configuration } from '../../data/calculs';
 import { besoins, budgets, delais, devisTextes, limitesPhotos, type BesoinId } from '../../data/devis';
 import { formatPrix, formuleParId, metierAutreTextes, metiers, nomActivite, options, type MetierId, type OptionId } from '../../data/offres';
 import { preDevis, texteDuPreDevis } from '../../data/predevis';
+import { aDistance, formatFrais, kmFactures } from '../../data/zones';
+import type { ResultatAdresse } from '../../app/adresse';
 
 /** Réponses du parcours de devis (sans les photos, qui ne sont pas enregistrées). */
 export type Demande = {
@@ -17,6 +19,8 @@ export type Demande = {
   entreprise: string;
   email: string;
   telephone: string;
+  /** Adresse ou ville : pour estimer d'éventuels frais de déplacement. */
+  adresse: string;
   consentement: boolean;
 };
 
@@ -32,6 +36,7 @@ export const demandeVide: Demande = {
   entreprise: '',
   email: '',
   telephone: '',
+  adresse: '',
   consentement: false,
 };
 
@@ -69,6 +74,7 @@ export function validerEtape(etape: number, d: Demande, photos: File[] = []): Er
     if (!d.nom.trim()) erreurs.nom = E.nom;
     if (!EMAIL.test(d.email.trim())) erreurs.email = E.email;
     if (d.telephone.trim() && !TELEPHONE.test(d.telephone.trim())) erreurs.telephone = E.telephone;
+    if (d.adresse.trim().length < 3) erreurs.adresse = E.adresse;
     if (!d.consentement) erreurs.consentement = E.consentement;
   }
   return erreurs;
@@ -103,6 +109,7 @@ export function lireBrouillon(brut: unknown): Brouillon {
       entreprise: texte(d.entreprise),
       email: texte(d.email),
       telephone: texte(d.telephone),
+      adresse: texte(d.adresse).slice(0, 300),
       consentement: d.consentement === true,
     },
   };
@@ -214,7 +221,7 @@ export function demarrerDevis(brouillon: Brouillon, config: Configuration | null
 
 /** Repartir de zéro : questions du projet vidées, coordonnées gardées. */
 export function demandeRemiseAZero(d: Demande): Demande {
-  return { ...demandeVide, nom: d.nom, entreprise: d.entreprise, email: d.email, telephone: d.telephone };
+  return { ...demandeVide, nom: d.nom, entreprise: d.entreprise, email: d.email, telephone: d.telephone, adresse: d.adresse };
 }
 
 /** Résumé de la configuration faite dans « Composer mon site », s'il y en a une. */
@@ -235,7 +242,23 @@ const libelle = (liste: { value: string; label: string }[], valeur: string | nul
   liste.find((x) => x.value === valeur)?.label ?? '';
 
 /** Lignes lisibles du récapitulatif (affichage et e-mail). */
-export function lignesRecapitulatif(d: Demande, config: Configuration | null): [string, string][] {
+/**
+ * Déplacement, en une phrase, d'après la vérification de l'adresse : gratuit dans la zone,
+ * sinon le montant des frais aller-retour (dus même sans suite) ; vide si l'adresse n'a pas pu être vérifiée.
+ */
+export function texteDeplacement(verification: ResultatAdresse | null): string {
+  if (verification?.statut === 'ok') return `Gratuit : ${aDistance(verification.km, verification.base)}.`;
+  if (verification?.statut === 'hors-zone') {
+    return `Frais kilométriques estimés : ${formatFrais(verification.frais)} (${kmFactures(verification.km)} km aller-retour, ${aDistance(verification.km, verification.base)}), dus même si le projet ne se fait pas.`;
+  }
+  return verification ? 'Adresse à vérifier.' : '';
+}
+
+export function lignesRecapitulatif(
+  d: Demande,
+  config: Configuration | null,
+  verification: ResultatAdresse | null = null,
+): [string, string][] {
   const resume = resumeConfiguration(config);
   const lignes: [string, string][] = [
     ['Activité', nomActivite(d.metier, d.metierAutre)],
@@ -253,6 +276,9 @@ export function lignesRecapitulatif(d: Demande, config: Configuration | null): [
   if (d.entreprise.trim()) lignes.push(['Entreprise', d.entreprise.trim()]);
   lignes.push(['E-mail', d.email.trim()]);
   if (d.telephone.trim()) lignes.push(['Téléphone', d.telephone.trim()]);
+  if (d.adresse.trim()) lignes.push(['Adresse', d.adresse.trim()]);
+  const deplacement = texteDeplacement(verification);
+  if (deplacement) lignes.push(['Déplacement', deplacement]);
   return lignes;
 }
 
@@ -268,15 +294,21 @@ export function titreDemande(d: Demande, config: Configuration | null) {
 }
 
 /** Données envoyées (au script ou à l'API) : récapitulatif, pré-devis, champs utiles, piège anti-robots et photos. */
-export function construireEnvoi(d: Demande, config: Configuration | null, photos: File[], piege: string) {
+export function construireEnvoi(
+  d: Demande,
+  config: Configuration | null,
+  photos: File[],
+  piege: string,
+  verification: ResultatAdresse | null = null,
+) {
   const donnees = new FormData();
   donnees.append('nom', d.nom.trim());
   donnees.append('email', d.email.trim());
   donnees.append('telephone', d.telephone.trim());
   donnees.append('entreprise', d.entreprise.trim());
   donnees.append('titre', titreDemande(d, config));
-  donnees.append('recapitulatif', lignesRecapitulatif(d, config).map(([cle, valeur]) => `${cle} : ${valeur}`).join('\n'));
-  donnees.append('predevis', texteDuPreDevis(preDevis(d, config)));
+  donnees.append('recapitulatif', lignesRecapitulatif(d, config, verification).map(([cle, valeur]) => `${cle} : ${valeur}`).join('\n'));
+  donnees.append('predevis', texteDuPreDevis(preDevis(d, config), texteDeplacement(verification)));
   donnees.append('site_web', piege);
   photos.forEach((photo) => donnees.append('photos[]', photo, photo.name));
   return donnees;

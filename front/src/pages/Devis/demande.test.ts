@@ -19,6 +19,7 @@ import {
   etapeDeReprise,
   etapesActives,
   marqueZero,
+  texteDeplacement,
 } from './demande';
 
 const complete: Demande = {
@@ -33,6 +34,7 @@ const complete: Demande = {
   entreprise: 'Brillance',
   email: 'marie@exemple.fr',
   telephone: '06 12 34 56 78',
+  adresse: '12 rue de la Gare, Abbeville',
   consentement: true,
 };
 
@@ -48,7 +50,7 @@ describe('validerEtape', () => {
     expect(Object.keys(validerEtape(1, demandeVide))).toEqual(['besoins']);
     expect(Object.keys(validerEtape(2, demandeVide))).toEqual(['description']);
     expect(Object.keys(validerEtape(3, demandeVide))).toEqual(['budget', 'delai']);
-    expect(Object.keys(validerEtape(4, demandeVide))).toEqual(['nom', 'email', 'consentement']);
+    expect(Object.keys(validerEtape(4, demandeVide))).toEqual(['nom', 'email', 'adresse', 'consentement']);
   });
 
   it('vérifie le format du lien, de l’e-mail et du téléphone', () => {
@@ -234,7 +236,22 @@ describe('reprise depuis la dernière estimation', () => {
       entreprise: complete.entreprise,
       email: complete.email,
       telephone: complete.telephone,
+      adresse: complete.adresse,
     });
+  });
+
+  it('résume le déplacement : gratuit dans la zone, frais aller-retour au-delà', () => {
+    const base = { ville: 'Lille', base: 'Amiens', adresse: 'Lille' };
+    expect(texteDeplacement({ ...base, statut: 'ok', km: 12, frais: 0 })).toBe('Gratuit : à 12 km d’Amiens.');
+    expect(texteDeplacement({ ...base, statut: 'hors-zone', km: 98, frais: 18 }).replace(/\s/g, ' ')).toBe(
+      'Frais kilométriques estimés : 18,00 € (96 km aller-retour, à 98 km d’Amiens), dus même si le projet ne se fait pas.',
+    );
+    expect(texteDeplacement({ statut: 'erreur' })).toBe('Adresse à vérifier.');
+    expect(texteDeplacement(null)).toBe('');
+    // Dans le récapitulatif et le mail.
+    const lignes = lignesRecapitulatif(complete, null, { ...base, statut: 'hors-zone', km: 98, frais: 18 });
+    expect(lignes).toContainEqual(['Adresse', '12 rue de la Gare, Abbeville']);
+    expect(lignes.find(([cle]) => cle === 'Déplacement')?.[1]).toContain('Frais kilométriques estimés');
   });
 
 describe('autre activité', () => {

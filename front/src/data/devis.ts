@@ -85,6 +85,9 @@ export const devisTextes = {
     entreprise: 'Entreprise (facultatif)',
     email: 'E-mail',
     telephone: 'Téléphone (facultatif)',
+    adresse: 'Votre adresse (ou votre ville)',
+    adresseAide: 'Pour estimer d’éventuels frais de déplacement : gratuit à 50 km d’Amiens ou d’Abbeville, frais kilométriques au-delà.',
+    verification: 'Vérification…',
     consentement:
       "J'accepte que mes informations soient utilisées pour répondre à ma demande. Elles ne sont ni revendues ni utilisées à d'autres fins.",
     confidentialite: { label: 'Politique de confidentialité', to: pages.confidentialite.path },
@@ -94,6 +97,7 @@ export const devisTextes = {
   erreurs: {
     activite: 'Choisissez votre activité.',
     metierAutre: 'Précisez votre activité en quelques mots.',
+    adresse: 'Indiquez votre adresse ou au moins votre ville.',
     besoins: 'Cochez au moins un besoin.',
     description: 'Décrivez votre projet en quelques mots (20 caractères au moins).',
     lien: "L'adresse du site doit commencer par http:// ou https://.",

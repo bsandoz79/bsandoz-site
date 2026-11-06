@@ -100,3 +100,11 @@ Choisir « Autre activité » ouvre le champ « Précisez votre activité » (`m
 - **devis** : champ obligatoire, 2 caractères au moins.
 
 L'activité précisée est gardée dans `Configuration.metierAutre` (configurateur et simulateur) et `Demande.metierAutre` (devis). Elle passe de l'estimation au devis. `nomActivite()` l'affiche à la place de « Autre activité » : estimation, aperçu, récapitulatif, mail.
+
+## Adresse et déplacement
+À l'étape « Coordonnées », l'adresse ou la ville est obligatoire (`Demande.adresse`). À la sortie du champ, elle est vérifiée par `verifierAdresse` (`app/adresse.ts`, partagé avec la page Rendez-vous). `texteDeplacement` résume le résultat :
+- dans la zone : « Gratuit : à 12 km d'Amiens » ;
+- au-delà : frais kilométriques aller-retour estimés, dus même si le projet ne se fait pas ;
+- adresse non vérifiable : « Adresse à vérifier ».
+
+Le message s'affiche sous le champ, puis passe dans le récapitulatif (lignes « Adresse » et « Déplacement »), le mail et le pré-devis. Une adresse pas encore vérifiée l'est au moment de l'envoi. « Repartir de zéro » garde l'adresse, comme les autres coordonnées.
