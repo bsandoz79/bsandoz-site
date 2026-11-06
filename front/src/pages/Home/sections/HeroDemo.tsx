@@ -10,9 +10,20 @@ export function HeroDemo() {
 
   return (
     <div className={styles.scene} aria-hidden="true">
-      <div className={styles.circle} />
+      <div className={`${styles.circle} anim-respire`} />
       <div className={`${styles.phone} anim-float`}>
+        {/* Cadre façon smartphone récent : boutons latéraux, îlot en haut de l'écran, barre d'état. */}
+        <span className={styles.boutonsGauche} />
+        <span className={styles.boutonDroit} />
         <div className={styles.screen}>
+          <span className={styles.ilot} />
+          <div className={styles.barreEtat}>
+            <span>9:41</span>
+            <span className={styles.indicateurs}>
+              <span className={styles.reseau} />
+              <span className={styles.batterie} />
+            </span>
+          </div>
           <div className={styles.top}>
             <span className={styles.business}>{heroDemo.business}</span>
             <span className={styles.screenTitle}>{heroDemo.title}</span>
