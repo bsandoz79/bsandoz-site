@@ -35,6 +35,7 @@ describe("Page d'accueil", () => {
       methode.title,
       pourquoi.title,
       'Parlez-moi de votre projet.',
+      'Je me déplace chez vous.',
     ]);
   });
 

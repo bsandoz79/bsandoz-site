@@ -1,3 +1,4 @@
+import { CarteZones } from '../../components/CarteZones';
 import { ContactRapide } from '../../components/ContactRapide';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
@@ -27,6 +28,7 @@ export function Home() {
       <Methode />
       <Pourquoi />
       <ContactRapide />
+      <CarteZones />
     </>
   );
 }
