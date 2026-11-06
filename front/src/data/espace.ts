@@ -79,6 +79,17 @@ export const espaceTextes = {
     echec: 'L’acceptation n’a pas abouti. Réessayez, ou répondez au mail du devis.',
     pdf: 'PDF',
     mentions: 'Prix nets, TVA non applicable (art. 293 B du CGI).',
+    fil: {
+      titre: 'Nos échanges',
+      aucun: 'Aucun échange pour le moment.',
+      champ: 'Votre message',
+      aide: 'Vous pouvez aussi répondre directement aux mails reçus.',
+      envoyer: 'Envoyer',
+      envoi: 'Envoi…',
+      vide: 'Écrivez votre message.',
+      entete: (auteur: 'client' | 'professionnel', origine: 'site' | 'mail' | 'note', date: string) =>
+        `${auteur === 'client' ? 'Vous' : 'Baptiste'}${origine === 'note' ? ' (note d’appel)' : origine === 'mail' ? ' (par mail)' : ''} · ${date}`,
+    },
   },
   monCompte: {
     titre: 'Mon compte',

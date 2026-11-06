@@ -17,6 +17,7 @@ Une fiche par fonctionnalité : à quoi elle sert, le **chemin** suivi (fichiers
 | [Blocs réutilisables](blocs.md) | boîte à outils @bsandoz79/blocs : 15 blocs, livraison par copie dans le site d'un client | oui |
 | [API](api.md) | Symfony modulaire, route `/sante` | modules oui |
 | [Module Booking](booking.md) | réservation, créneau pris refusé, mails + .ics, annulation | oui (API d'un client) |
+| [Fil de messages](fil-de-messages.md) | échanges d'une demande : site, réponses par mail (IMAP), notes d'appel | oui (module Prospect) |
 | [Comptes et connexion](comptes-et-connexion.md) | compte ouvert au premier rendez-vous, connexion par lien ou mot de passe, appareils | oui (module Auth) |
 | [Mise en place chez un client](mise-en-place-client.md) | fiches d'installation sur un autre domaine, client autonome ou « je gère pour lui » | — |
 | [Déploiement et CI](deploiement-et-ci.md) | tests automatiques, mise en ligne, retour à la V1 | — |

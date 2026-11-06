@@ -69,6 +69,9 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | GET | `/espace/demandes` | demandes et devis de la personne connectée |
 | POST | `/espace/demandes/{id}/devis/accepter` | accepter son devis |
 | GET | `/espace/demandes/{id}/devis.pdf` | télécharger son devis en PDF |
+| POST | `/espace/demandes/{id}/messages` | écrire dans le fil de la demande |
+
+Commande à planifier : `php bin/console prospect:relever-mails` (réponses reçues par mail, toutes les 5 minutes).
 
 Détails, réglages et installation chez un client : `api/src/Booking/README.md`, `api/src/Auth/README.md`, `api/src/Prospect/README.md`.
 
@@ -80,7 +83,7 @@ Tests sur MySQL : le trait `tests/AvecBaseDeDonnees.php` recrée le schéma avan
 ## Migrations
 `api/migrations/` : une migration par changement de schéma (`doctrine:migrations:diff`, puis `doctrine:migrations:migrate`). La CI applique les migrations sur une base vide puis vérifie que le schéma obtenu correspond exactement aux correspondances Doctrine.
 
-Tests sur MySQL en local : le port 3306 peut être déjà pris par un autre MySQL ; lancer alors une base sans port exposé dans un réseau Docker, et un PHP avec `pdo_mysql` (l'image `composer:2` ne l'a pas). Sans base joignable, les tests HTTP du module Booking sont ignorés.
+Tests sur MySQL en local : le port 3306 peut être déjà pris par un autre MySQL ; lancer alors une base sans port exposé dans un réseau Docker, et un PHP avec `pdo_mysql` (l'image `composer:2` ne l'a pas). Pour le relevé des mails, lancer aussi GreenMail (`greenmail/standalone`, voir `.github/workflows/ci.yml`) et définir `IMAP_TEST_HOTE`. Sans base joignable, les tests HTTP du module Booking sont ignorés.
 
 ## Fichiers d'environnement versionnés
 - `.env.dist` : valeurs de développement.

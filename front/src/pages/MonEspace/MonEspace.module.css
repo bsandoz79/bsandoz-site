@@ -229,3 +229,41 @@
     max-width: 28rem;
   }
 }
+
+.fil {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.messageClient,
+.messagePro {
+  max-width: 90%;
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.messageClient {
+  align-self: flex-end;
+}
+
+.messagePro {
+  align-self: flex-start;
+}
+
+.corpsMessage {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

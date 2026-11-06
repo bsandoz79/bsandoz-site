@@ -17,6 +17,11 @@ const avecDevis: MaDemande = {
   envoyeeLe: '2026-11-02T10:00:00+01:00',
   statut: 'devis_envoye',
   etapes: etapes(2),
+  messages: [
+    { id: 'm1', auteur: 'client', origine: 'site', corps: 'Bonjour,\nune question.', envoyeLe: '2026-11-03T09:00:00+01:00' },
+    { id: 'm2', auteur: 'professionnel', origine: 'note', corps: 'Appel : préfère une visio.', envoyeLe: '2026-11-03T15:00:00+01:00' },
+    { id: 'm3', auteur: 'client', origine: 'mail', corps: 'Merci pour l’appel.', envoyeLe: '2026-11-04T08:00:00+01:00' },
+  ],
   devis: {
     numero: '2026-014',
     lignes: [
@@ -32,13 +37,18 @@ const avecDevis: MaDemande = {
 };
 const recue: MaDemande = { ...avecDevis, id: 'd1', numero: '2026-009', titre: 'Site vitrine une page', statut: 'recue', etapes: etapes(0), devis: null };
 
-function simuler(demandes: MaDemande[], acceptation = 200) {
+function simuler(demandes: MaDemande[], acceptation = 200, ecriture = 201) {
   const appels: string[] = [];
   vi.stubGlobal(
     'fetch',
     vi.fn(async (url: string, init: RequestInit = {}) => {
       const chemin = new URL(url).pathname;
       appels.push(`${init.method ?? 'GET'} ${chemin}`);
+      if (chemin.endsWith('/messages')) {
+        const corps = JSON.parse(String(init.body)).corps as string;
+        const demande = { ...avecDevis, messages: [...avecDevis.messages, { id: 'm4', auteur: 'client', origine: 'site', corps, envoyeLe: '2026-11-05T08:00:00+01:00' }] };
+        return new Response(JSON.stringify(ecriture === 201 ? { demande } : { erreurs: { corps: 'Message refusé.' } }), { status: ecriture });
+      }
       if (chemin.endsWith('/devis/accepter')) {
         const demande = { ...avecDevis, statut: 'acceptee', etapes: etapes(3), devis: { ...avecDevis.devis!, statut: 'accepte' as const, accepteLe: '2026-11-08T18:00:00+01:00' } };
         return new Response(JSON.stringify(acceptation === 200 ? { demande } : { erreur: 'x' }), { status: acceptation });
@@ -112,5 +122,66 @@ describe('MesDemandes', () => {
     afficher();
 
     expect(await screen.findByText('Aucune demande de devis pour le moment.')).toBeInTheDocument();
+  });
+});
+
+describe('MesDemandes : fil de messages', () => {
+  const afficher = () =>
+    render(
+      <MemoryRouter>
+        <MesDemandes />
+      </MemoryRouter>,
+    );
+
+  it('affiche les échanges avec leur origine', async () => {
+    simuler([avecDevis]);
+    afficher();
+
+    const fil = within(await screen.findByRole('heading', { name: 'Nos échanges' }).then((h) => h.parentElement!));
+    expect(fil.getByText(/Bonjour,\s+une question\./)).toBeInTheDocument();
+    expect(fil.getByText(/Baptiste \(note d’appel\)/)).toBeInTheDocument();
+    expect(fil.getByText(/Vous \(par mail\)/)).toBeInTheDocument();
+  });
+
+  it('indique quand il n’y a aucun échange', async () => {
+    simuler([{ ...avecDevis, messages: [] }]);
+    afficher();
+
+    expect(await screen.findByText('Aucun échange pour le moment.')).toBeInTheDocument();
+  });
+
+  it('envoie un message, puis vide le champ', async () => {
+    const appels = simuler([avecDevis]);
+    afficher();
+
+    const champ = await screen.findByLabelText(/Votre message/);
+    await userEvent.type(champ, 'Une précision');
+    await userEvent.click(screen.getByRole('button', { name: 'Envoyer' }));
+
+    expect(await screen.findByText('Une précision')).toBeInTheDocument();
+    expect(appels).toContain('POST /espace/demandes/d2/messages');
+    expect(champ).toHaveValue('');
+  });
+
+  it('refuse un message vide sans appeler l’API', async () => {
+    const appels = simuler([avecDevis]);
+    afficher();
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Envoyer' }));
+
+    expect(await screen.findByText('Écrivez votre message.')).toBeInTheDocument();
+    expect(appels.filter((a) => a.startsWith('POST'))).toEqual([]);
+  });
+
+  it('garde le texte et affiche l’erreur si l’envoi est refusé', async () => {
+    simuler([avecDevis], 200, 400);
+    afficher();
+
+    const champ = await screen.findByLabelText(/Votre message/);
+    await userEvent.type(champ, 'Une précision');
+    await userEvent.click(screen.getByRole('button', { name: 'Envoyer' }));
+
+    expect(await screen.findByText('Message refusé.')).toBeInTheDocument();
+    expect(champ).toHaveValue('Une précision');
   });
 });

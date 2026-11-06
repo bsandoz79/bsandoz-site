@@ -4,6 +4,13 @@ parameters:
     prospect.professionnel_nom: '%env(PROSPECT_PROFESSIONNEL_NOM)%'
     prospect.professionnel_email: '%env(PROSPECT_PROFESSIONNEL_EMAIL)%'
     prospect.url_site: '%env(PROSPECT_URL_SITE)%'      # lien « espace client » des mails
+    prospect.boite_reponses: '%env(PROSPECT_BOITE_REPONSES)%'  # vide : pas de fil par mail, on répond directement à l'autre personne
+    prospect.imap_hote: '%env(PROSPECT_IMAP_HOTE)%'
+    prospect.imap_port: '%env(int:PROSPECT_IMAP_PORT)%'
+    prospect.imap_chiffrement: '%env(PROSPECT_IMAP_CHIFFREMENT)%'   # ssl (aucun : seulement pour un serveur de test local)
+    prospect.imap_utilisateur: '%env(PROSPECT_IMAP_UTILISATEUR)%'
+    prospect.imap_mot_de_passe: '%env(PROSPECT_IMAP_MOT_DE_PASSE)%'
+    prospect.imap_dossier: '%env(PROSPECT_IMAP_DOSSIER)%'
     prospect.siret: '%env(PROSPECT_SIRET)%'             # vide tant que l'immatriculation n'est pas faite : « [à compléter] » sur le PDF
 
 framework:
@@ -12,6 +19,11 @@ framework:
         prospect_demande:
             policy: sliding_window
             limit: 3
+            interval: '1 hour'
+        # Messages écrits depuis l'espace client : 20 par heure, par compte.
+        prospect_message:
+            policy: sliding_window
+            limit: 20
             interval: '1 hour'
 
 # Les adaptateurs lisent leurs réglages par #[Autowire('%prospect.…%')] : rien à redéclarer ici.
@@ -23,5 +35,9 @@ services:
     App\Prospect\Domain\Demandes: '@App\Prospect\Infrastructure\Doctrine\DemandesDoctrine'
     App\Prospect\Domain\DevisEnregistres: '@App\Prospect\Infrastructure\Doctrine\DevisDoctrine'
     App\Prospect\Domain\NotificationsProspect: '@App\Prospect\Infrastructure\Mail\NotificationsProspectParMail'
+    App\Prospect\Domain\Messages: '@App\Prospect\Infrastructure\Doctrine\MessagesDoctrine'
+    App\Prospect\Domain\ReferencesFil: '@App\Prospect\Infrastructure\Systeme\ReferencesSignees'
+    App\Prospect\Domain\BoiteDeReception: '@App\Prospect\Infrastructure\Imap\BoiteImap'
+    App\Prospect\Domain\ContactProfessionnel: '@App\Prospect\Infrastructure\Systeme\ContactDepuisLesReglages'
     App\Prospect\Domain\Horloge: '@App\Prospect\Infrastructure\Systeme\HorlogeSysteme'
     App\Prospect\Domain\Identifiants: '@App\Prospect\Infrastructure\Systeme\IdentifiantsUuid'

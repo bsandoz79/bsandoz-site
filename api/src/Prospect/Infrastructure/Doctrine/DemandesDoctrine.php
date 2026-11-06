@@ -7,6 +7,7 @@ namespace App\Prospect\Infrastructure\Doctrine;
 use App\Prospect\Domain\Demande;
 use App\Prospect\Domain\Demandes;
 use App\Prospect\Domain\Devis;
+use App\Prospect\Domain\Message;
 use Doctrine\ORM\EntityManagerInterface;
 
 /** Adaptateur Doctrine du port Demandes (table prospect_demande). */
@@ -19,6 +20,11 @@ final class DemandesDoctrine implements Demandes
     public function parId(string $id): ?Demande
     {
         return $this->em->find(Demande::class, $id);
+    }
+
+    public function parNumero(string $numero): ?Demande
+    {
+        return $this->em->getRepository(Demande::class)->findOneBy(['numero' => $numero]);
     }
 
     public function parEmail(string $email): array
@@ -51,6 +57,8 @@ final class DemandesDoctrine implements Demandes
     {
         $this->em->wrapInTransaction(function () use ($demande): void {
             $this->em->createQueryBuilder()->delete(Devis::class, 'v')->where('v.demandeId = :demande')
+                ->setParameter('demande', $demande->id)->getQuery()->execute();
+            $this->em->createQueryBuilder()->delete(Message::class, 'm')->where('m.demandeId = :demande')
                 ->setParameter('demande', $demande->id)->getQuery()->execute();
             $this->em->remove($demande);
         });

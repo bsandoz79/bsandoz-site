@@ -1,6 +1,11 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (fil de messages)
+- Site : « Nos échanges » dans chaque demande de l'espace client (messages, réponses par mail, notes d'appel). Politique de confidentialité complétée.
+- API, module Prospect : messages d'une demande (`POST /espace/demandes/{id}/messages`, 20 par heure), prévenir l'autre personne par mail ; référence signée dans l'objet des mails ; `prospect:relever-mails` relève la boîte en IMAP et rattache les réponses (expéditeur vérifié, citations et signatures retirées, réponses automatiques ignorées, doublons refusés). Fil inclus dans l'export et effacé avec la demande. Table `prospect_message`.
+- API : dépendance `zbateson/mail-mime-parser` (lecture des mails, PHP pur). CI : serveur IMAP de test GreenMail.
+
 ### Ajouté (mise en place chez un client)
 - `docs/mise-en-place/` : une fiche par fonctionnalité copiable (blocs, prix et référencement, devis par mail, rendez-vous, demandes de devis, espace client) et une page commune : fichiers à copier, réglages, base, mails, domaine, vérifications finales. Deux façons de livrer : client autonome, ou « je gère pour lui » à sa demande.
 

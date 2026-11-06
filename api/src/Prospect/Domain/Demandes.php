@@ -9,6 +9,8 @@ interface Demandes
 {
     public function parId(string $id): ?Demande;
 
+    public function parNumero(string $numero): ?Demande;
+
     /** @return list<Demande> demandes d'une adresse e-mail, la plus récente d'abord */
     public function parEmail(string $email): array;
 
@@ -17,6 +19,6 @@ interface Demandes
 
     public function enregistrer(Demande $demande): void;
 
-    /** Efface la demande et son devis (droit à l'effacement). */
+    /** Efface la demande, son devis et son fil de messages (droit à l'effacement). */
     public function supprimer(Demande $demande): void;
 }
