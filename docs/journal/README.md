@@ -104,3 +104,4 @@ Types de tests :
 | 73 | [Changement de thème en rideau](73-feature-theme-rideau.md) | `feature/theme-rideau` | 2026-11-06 |
 | 74 | [Réalisation Alterno](74-feature-alterno.md) | `feature/alterno` | 2026-11-06 |
 | 75 | [Frais aller-retour, dans les mails du rendez-vous](75-feature-frais-aller-retour.md) | `feature/frais-aller-retour` | 2026-11-06 |
+| 76 | [Lien « rendez-vous » du mail de devis](76-fix-lien-rendez-vous-mail.md) | `fix/lien-rendez-vous-mail` | 2026-11-06 |

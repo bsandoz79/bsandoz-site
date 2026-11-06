@@ -90,3 +90,6 @@ Tests :
 - `demande.test.ts` : besoins réellement choisis, nouvelle estimation (devis neuf), même estimation, absence d'estimation, empreinte, remise à zéro ;
 - `Devis.test.tsx` : ouverture sur « Avec vos mots » avec les choix cochés, autre simulation puis retour, « Repartir de zéro » ;
 - `Tarifs.test.tsx` : le simulateur enregistre sa simulation.
+
+## Liens des mails
+Le pré-devis envoyé par mail (`texteDuPreDevis`, `data/predevis.ts`) termine par un lien vers la prise de rendez-vous. Ce lien utilise `origineDuSite()` (`data/pages.ts`), c'est-à-dire l'adresse du site d'où part la demande : une demande faite sur preview.bsandoz.fr mène à preview, une demande faite sur bsandoz.fr mène à bsandoz.fr. Le plan du site et les adresses canoniques gardent l'adresse publique `site.url`. Les liens des mails envoyés par l'API viennent, eux, des réglages du serveur : `AUTH_URL_SITE`, `BOOKING_URL_PUBLIQUE`, `PROSPECT_URL_SITE`.
