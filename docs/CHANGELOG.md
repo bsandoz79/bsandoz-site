@@ -26,6 +26,7 @@
 - Réalisation **Alterno** : application Android qui planifie les horaires variables d'un alternant. 6 captures, contexte, besoin, solution, fonctionnalités, technos et lien vers le code sur GitHub, repris du portfolio. Filtre « Applis & plateformes », plan du site.
 
 ### Modifié (design)
+- Back-office, disponibilités : plus de texte à taper ni de date à saisir. Jours et heures sont des boutons, les congés se ferment d'un clic dans le calendrier. Bloc `Calendar` : nouvelles options `isMarked` et `markedLabel`.
 - Frais kilométriques :
   - comptés en **aller-retour** : pour 100 km de distance, 100 km facturés, soit 18,75 € ;
   - indiqués dans les **mails de confirmation** du rendez-vous, à la personne (avec la mention « dus même si aucun devis n'est accepté ») et au professionnel ;

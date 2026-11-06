@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { Button, TextField } from '@bsandoz79/blocs';
+import { Button, Calendar, aujourdhui, debutDuMois } from '@bsandoz79/blocs';
 import { adminTextes } from '../../data/admin';
 import { dateLisible } from '../../data/espace';
 import { lireDisponibilites } from '../RendezVous/reservation';
@@ -8,18 +8,21 @@ import styles from './Admin.module.css';
 
 const t = adminTextes.disponibilites;
 
-const lireCreneaux = (texte: string) =>
-  texte
-    .split(/[\s,;]+/)
-    .map((c) => c.trim())
-    .filter(Boolean);
+/** Heures proposées : de 7 h à 20 h, toutes les demi-heures. */
+const HEURES = Array.from({ length: 27 }, (_, i) => {
+  const minutes = 7 * 60 + i * 30;
+  return `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+});
 
-/** Jours travaillés, créneaux et jours fermés. Le calendrier du site les suit. */
+const basculer = <T,>(liste: T[], valeur: T) => (liste.includes(valeur) ? liste.filter((x) => x !== valeur) : [...liste, valeur].sort());
+
+/** Jours travaillés, heures et jours fermés, réglés d'un clic. Le calendrier du site les suit. */
 export function DisponibilitesAdmin() {
   const [jours, setJours] = useState<number[] | null>(null);
-  const [creneaux, setCreneaux] = useState('');
+  const [creneaux, setCreneaux] = useState<string[]>([]);
   const [fermes, setFermes] = useState<string[]>([]);
-  const [nouveauFerme, setNouveauFerme] = useState('');
+  const [jourCourant] = useState(() => aujourdhui());
+  const [mois, setMois] = useState(() => debutDuMois(jourCourant));
   const [retour, setRetour] = useState<{ texte: string; erreur: boolean } | null>(null);
 
   useEffect(() => {
@@ -28,7 +31,7 @@ export function DisponibilitesAdmin() {
       .then((d) => {
         if (!actif) return;
         setJours(d.joursTravailles);
-        setCreneaux(d.creneaux.join(', '));
+        setCreneaux(d.creneaux);
         setFermes(d.joursFermes);
       })
       .catch(() => actif && setRetour({ texte: t.lectureImpossible, erreur: true }));
@@ -37,82 +40,122 @@ export function DisponibilitesAdmin() {
     };
   }, []);
 
-  function basculer(jour: number) {
-    setJours((liste) => {
-      const actuels = liste ?? [];
-      return actuels.includes(jour) ? actuels.filter((j) => j !== jour) : [...actuels, jour].sort();
-    });
-  }
-
-  function ajouterFerme() {
-    if (nouveauFerme && !fermes.includes(nouveauFerme)) setFermes([...fermes, nouveauFerme].sort());
-    setNouveauFerme('');
-  }
-
   async function enregistrer(evenement: FormEvent) {
     evenement.preventDefault();
     if (!jours) return;
-    const regles: ReglesDisponibilites = { joursTravailles: jours, creneaux: lireCreneaux(creneaux), joursFermes: fermes };
+    const regles: ReglesDisponibilites = { joursTravailles: jours, creneaux, joursFermes: fermes };
     setRetour(null);
     try {
       const resultat = await enregistrerDisponibilites(regles);
-      if (resultat.ok) {
-        setCreneaux(resultat.regles.creneaux.join(', '));
-        setRetour({ texte: t.enregistre, erreur: false });
-      } else setRetour({ texte: resultat.erreur, erreur: true });
+      setRetour(resultat.ok ? { texte: t.enregistre, erreur: false } : { texte: resultat.erreur, erreur: true });
     } catch {
       setRetour({ texte: t.echec, erreur: true });
     }
   }
 
+  // Une heure déjà enregistrée hors de la grille (10:15…) reste visible et modifiable.
+  const heures = [...new Set([...HEURES, ...creneaux])].sort();
+
   return (
     <section className={styles.carte} aria-labelledby="admin-disponibilites">
       <h2 id="admin-disponibilites">{t.titre}</h2>
       <p className={styles.aide}>{t.aide}</p>
-      {retour && (
-        <p className={retour.erreur ? styles.erreur : styles.succes} role={retour.erreur ? 'alert' : 'status'}>
-          {retour.texte}
-        </p>
-      )}
       {jours && (
         <form onSubmit={enregistrer} noValidate className={styles.formulaire}>
           <fieldset className={styles.groupe}>
             <legend>{t.jours}</legend>
-            <div className={styles.actions}>
-              {t.nomsDesJours.map((nom, i) => (
-                <label key={nom} className={styles.caseACocher}>
-                  <input type="checkbox" checked={jours.includes(i)} onChange={() => basculer(i)} />
-                  {nom}
-                </label>
+            <p className={styles.aide}>{t.aideJours}</p>
+            <div className={styles.jours}>
+              {t.joursCourts.map((court, i) => (
+                <button
+                  key={court}
+                  type="button"
+                  className={styles.choix}
+                  aria-pressed={jours.includes(i)}
+                  aria-label={t.nomsDesJours[i]}
+                  onClick={() => setJours(basculer(jours, i))}
+                >
+                  {court}
+                </button>
               ))}
             </div>
           </fieldset>
-          <TextField label={t.creneaux} hint={t.aideCreneaux} value={creneaux} onChange={(e) => setCreneaux(e.target.value)} />
+
+          <fieldset className={styles.groupe}>
+            <legend>{t.creneaux}</legend>
+            <p className={styles.aide}>{t.aideCreneaux}</p>
+            {t.periodes.map((periode) => (
+              <div key={periode.nom} className={styles.periode}>
+                <p className={styles.periodeNom}>{periode.nom}</p>
+                <div className={styles.heures}>
+                  {heures
+                    .filter((h) => h >= periode.de && h <= periode.a)
+                    .map((heure) => (
+                      <button
+                        key={heure}
+                        type="button"
+                        className={styles.choix}
+                        aria-pressed={creneaux.includes(heure)}
+                        onClick={() => setCreneaux(basculer(creneaux, heure))}
+                      >
+                        {heure}
+                      </button>
+                    ))}
+                </div>
+              </div>
+            ))}
+          </fieldset>
+
           <fieldset className={styles.groupe}>
             <legend>{t.fermes}</legend>
-            {fermes.length > 0 && (
-              <ul className={styles.liste}>
-                {fermes.map((jour) => (
-                  <li key={jour} className={styles.rangee}>
-                    <span>{dateLisible(`${jour}T12:00:00`)}</span>
-                    <Button variant="ghost" onClick={() => setFermes(fermes.filter((j) => j !== jour))} aria-label={t.rouvrir(dateLisible(`${jour}T12:00:00`))}>
-                      {t.retirer}
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div className={styles.rangee}>
-              <TextField label={t.nouveauFerme} type="date" value={nouveauFerme} onChange={(e) => setNouveauFerme(e.target.value)} />
-              <Button variant="secondary" onClick={ajouterFerme}>
-                {t.ajouterFerme}
-              </Button>
+            <p className={styles.aide}>{t.aideFermes}</p>
+            <div className={styles.conges}>
+              <Calendar
+                label={t.calendrier}
+                month={mois}
+                onMonthChange={setMois}
+                value={null}
+                onChange={(jour) => setFermes(basculer(fermes, jour))}
+                min={jourCourant}
+                today={jourCourant}
+                isMarked={(jour) => fermes.includes(jour)}
+                markedLabel={t.marque}
+              />
+              {fermes.length === 0 ? (
+                <p className={styles.aide}>{t.aucunFerme}</p>
+              ) : (
+                <ul className={styles.fermes}>
+                  {fermes.map((jour) => (
+                    <li key={jour}>
+                      <button
+                        type="button"
+                        className={styles.ferme}
+                        aria-label={t.rouvrir(dateLisible(`${jour}T12:00:00`))}
+                        onClick={() => setFermes(fermes.filter((j) => j !== jour))}
+                      >
+                        {dateLisible(`${jour}T12:00:00`)} <span aria-hidden="true">×</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </fieldset>
-          <div>
+
+          <div className={styles.enregistrer}>
             <Button type="submit">{t.enregistrer}</Button>
+            {retour && (
+              <p className={retour.erreur ? styles.erreur : styles.succes} role={retour.erreur ? 'alert' : 'status'}>
+                {retour.texte}
+              </p>
+            )}
           </div>
         </form>
+      )}
+      {!jours && retour && (
+        <p className={retour.erreur ? styles.erreur : styles.succes} role={retour.erreur ? 'alert' : 'status'}>
+          {retour.texte}
+        </p>
       )}
     </section>
   );

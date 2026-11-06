@@ -236,3 +236,105 @@
     align-items: end;
   }
 }
+
+/* Disponibilités : des boutons à cliquer. Choisi = fond rose plein. */
+.jours {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-2);
+  max-width: 34rem;
+}
+
+.heures {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+  gap: var(--space-2);
+}
+
+.choix {
+  min-height: 2.75rem;
+  padding: var(--space-1);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--duration), background-color var(--duration);
+}
+
+.choix:hover {
+  border-color: var(--color-text-muted);
+}
+
+.choix[aria-pressed='true'] {
+  border-color: var(--color-rose);
+  background: var(--color-rose);
+  color: var(--color-text-on-dark);
+}
+
+.choix:focus-visible,
+.ferme:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 2px;
+}
+
+.periode {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.periodeNom {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.conges {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+  margin-top: var(--space-3);
+}
+
+.fermes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ferme {
+  min-height: 2.5rem;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.ferme:hover {
+  border-color: var(--color-rose);
+}
+
+/* Le bouton et le message d'enregistrement, au même endroit. */
+.enregistrer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+@media (min-width: 760px) {
+  .conges {
+    grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  }
+}

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DisponibilitesAdmin } from './DisponibilitesAdmin';
 
@@ -24,33 +24,54 @@ afterEach(() => vi.unstubAllGlobals());
 const enregistrer = () => userEvent.click(screen.getByRole('button', { name: 'Enregistrer les disponibilités' }));
 
 describe('Back-office : disponibilités', () => {
-  it('montre le réglage en vigueur', async () => {
+  const jour = (name: string, pressed: boolean) => screen.findByRole('button', { name, pressed });
+
+  it('montre le réglage en vigueur : jours et heures en boutons, jour fermé en liste', async () => {
     simuler();
     render(<DisponibilitesAdmin />);
 
-    expect(await screen.findByRole('checkbox', { name: 'Lundi' })).toBeChecked();
-    expect(screen.getByRole('checkbox', { name: 'Mercredi' })).not.toBeChecked();
-    expect(screen.getByLabelText(/Créneaux/)).toHaveValue('09:00, 14:00');
-    expect(screen.getByText(/25 décembre 2026/)).toBeInTheDocument();
+    expect(await jour('Lundi', true)).toBeInTheDocument();
+    expect(await jour('Mercredi', false)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '09:00', pressed: true })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '10:30', pressed: false })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Rouvrir le 25 décembre 2026/ })).toBeInTheDocument();
+    // Plus de champ à remplir à la main.
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 
-  it('enregistre les jours, les créneaux et les jours fermés', async () => {
+  it('enregistre jours, heures et jours fermés, réglés d’un clic', async () => {
     const envois = simuler();
     render(<DisponibilitesAdmin />);
 
-    await userEvent.click(await screen.findByRole('checkbox', { name: 'Mercredi' }));
-    const champ = screen.getByLabelText(/Créneaux/);
-    await userEvent.clear(champ);
-    await userEvent.type(champ, '08:00, 10:00;11:30');
-    fireEvent.change(screen.getByLabelText('Nouveau jour fermé'), { target: { value: '2026-12-24' } });
-    await userEvent.click(screen.getByRole('button', { name: 'Ajouter ce jour' }));
+    await userEvent.click(await jour('Mercredi', false));
+    await userEvent.click(screen.getByRole('button', { name: '09:00', pressed: true }));
+    await userEvent.click(screen.getByRole('button', { name: '10:30', pressed: false }));
     await enregistrer();
 
     expect(await screen.findByRole('status')).toHaveTextContent('enregistrées');
-    expect(envois).toEqual([{ joursTravailles: [0, 1, 2], creneaux: ['08:00', '10:00', '11:30'], joursFermes: ['2026-12-24', '2026-12-25'] }]);
+    expect(envois).toEqual([{ joursTravailles: [0, 1, 2], creneaux: ['10:30', '14:00'], joursFermes: ['2026-12-25'] }]);
   });
 
-  it('rouvre un jour fermé', async () => {
+  it('un clic dans le calendrier ferme un jour, un second clic le rouvre', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date(2026, 10, 5, 10, 0));
+    const envois = simuler();
+    render(<DisponibilitesAdmin />);
+
+    const jourCalendrier = await screen.findByRole('button', { name: /^mardi 17 novembre 2026$/ });
+    await userEvent.click(jourCalendrier);
+    expect(screen.getByRole('button', { name: /^mardi 17 novembre 2026, fermé$/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Rouvrir le 17 novembre 2026/ })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: /^mardi 17 novembre 2026, fermé$/ }));
+    await userEvent.click(screen.getByRole('button', { name: /^mercredi 18 novembre 2026$/ }));
+    await enregistrer();
+
+    await screen.findByRole('status');
+    expect(envois).toEqual([{ joursTravailles: [0, 1], creneaux: ['09:00', '14:00'], joursFermes: ['2026-11-18', '2026-12-25'] }]);
+    vi.useRealTimers();
+  });
+
+  it('rouvre un jour fermé depuis la liste', async () => {
     const envois = simuler();
     render(<DisponibilitesAdmin />);
 
@@ -61,11 +82,21 @@ describe('Back-office : disponibilités', () => {
     expect(envois).toEqual([{ joursTravailles: [0, 1], creneaux: ['09:00', '14:00'], joursFermes: [] }]);
   });
 
+  it('garde visible une heure enregistrée hors de la grille', async () => {
+    simuler();
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(JSON.stringify({ ...enVigueur, creneaux: ['10:15'] }), { status: 200 })),
+    );
+    render(<DisponibilitesAdmin />);
+    expect(await screen.findByRole('button', { name: '10:15', pressed: true })).toBeInTheDocument();
+  });
+
   it('affiche le refus de l’API', async () => {
     simuler({ statut: 400, corps: { erreurs: { creneaux: 'Indiquez au moins un créneau, au format 09:00.' } } });
     render(<DisponibilitesAdmin />);
 
-    await screen.findByRole('checkbox', { name: 'Lundi' });
+    await jour('Lundi', true);
     await enregistrer();
 
     expect(await screen.findByRole('alert')).toHaveTextContent('au format 09:00');
