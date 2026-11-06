@@ -16,17 +16,17 @@ import {
 const AUJOURDHUI = '2026-11-05'; // jeudi
 
 describe('etapesRdv', () => {
-  const abbeville = { statut: 'ok' as const, ville: 'Abbeville', km: 41, adresse: '12 rue de la Gare, Abbeville' };
+  const abbeville = { statut: 'ok' as const, ville: 'Abbeville', km: 0, base: 'Abbeville', frais: 0, adresse: '12 rue de la Gare, Abbeville' };
 
   it('en visio ou par téléphone, le créneau s’ouvre tout de suite', () => {
     expect(etapesRdv({ ...demandeRdvVide, lieu: 'visio' }, null)).toEqual({ creneau: true, coordonnees: false });
     expect(etapesRdv({ ...demandeRdvVide, lieu: 'telephone' }, null)).toEqual({ creneau: true, coordonnees: false });
   });
 
-  it('chez vous, il faut une adresse dans les 50 km (ou un géocodage indisponible)', () => {
+  it('chez vous, il faut une adresse trouvée, dans la zone ou au-delà (ou un géocodage indisponible)', () => {
     const chezVous = { ...demandeRdvVide, lieu: 'chezvous' as const };
     expect(etapesRdv(chezVous, null).creneau).toBe(false);
-    expect(etapesRdv(chezVous, { ...abbeville, statut: 'trop-loin', ville: 'Lille', km: 110 }).creneau).toBe(false);
+    expect(etapesRdv(chezVous, { ...abbeville, statut: 'hors-zone', ville: 'Lille', km: 92, frais: 7.88 }).creneau).toBe(true);
     expect(etapesRdv(chezVous, { statut: 'introuvable' }).creneau).toBe(false);
     expect(etapesRdv(chezVous, abbeville).creneau).toBe(true);
     expect(etapesRdv(chezVous, { statut: 'erreur' }).creneau).toBe(true);
@@ -76,19 +76,23 @@ describe('adresse', () => {
     features: [{ geometry: { coordinates: [lon, lat] }, properties: { city: 'Abbeville', label: '12 rue de la Gare 80100 Abbeville', score } }],
   });
 
-  it('accepte une adresse dans les 50 km', async () => {
+  it('accepte une adresse dans les 50 km d’Amiens ou d’Abbeville, sans frais', async () => {
     const chercher = reponse(lieu(1.8336, 50.1054));
     expect(await verifierAdresse('12 rue de la Gare, Abbeville', chercher)).toEqual({
       statut: 'ok',
       ville: 'Abbeville',
-      km: 41,
+      km: 0,
+      base: 'Abbeville',
+      frais: 0,
       adresse: '12 rue de la Gare 80100 Abbeville',
     });
     expect(String(chercher.mock.calls[0][0])).toContain('https://data.geopf.fr/geocodage/search?q=12+rue+de+la+Gare');
   });
 
-  it('signale une adresse trop loin, introuvable ou un service en panne', async () => {
-    expect((await verifierAdresse('Lille', reponse(lieu(3.0573, 50.6292)))).statut).toBe('trop-loin');
+  it('au-delà de 50 km : frais kilométriques ; signale une adresse introuvable ou un service en panne', async () => {
+    const lille = await verifierAdresse('Lille', reponse(lieu(3.0573, 50.6292)));
+    expect(lille).toMatchObject({ statut: 'hors-zone' });
+    if (lille.statut === 'hors-zone') expect(lille.frais).toBe(Math.round((lille.km - 50) * 0.1875 * 100) / 100);
     expect((await verifierAdresse('???', reponse({ features: [] }))).statut).toBe('introuvable');
     expect((await verifierAdresse('flou', reponse(lieu(2.3, 49.9, 0.2)))).statut).toBe('introuvable');
     expect((await verifierAdresse('x', reponse({}, false))).statut).toBe('erreur');
@@ -109,18 +113,18 @@ describe('validation et envoi', () => {
   };
 
   it('accepte une demande complète', () => {
-    expect(validerRdv(complete, null)).toEqual({});
+    expect(validerRdv(complete)).toEqual({});
   });
 
-  it('exige l’adresse dans la zone pour un rendez-vous chez vous', () => {
-    expect(validerRdv({ ...complete, adresse: '' }, null).adresse).toBeDefined();
-    expect(validerRdv(complete, { statut: 'trop-loin', ville: 'Lille', km: 99, adresse: '' }).adresse).toMatch(/visio/);
-    expect(validerRdv({ ...complete, lieu: 'visio', adresse: '' }, null)).toEqual({});
+  it('exige l’adresse pour un rendez-vous chez vous, même loin (frais kilométriques)', () => {
+    expect(validerRdv({ ...complete, adresse: '' }).adresse).toBeDefined();
+    expect(validerRdv(complete)).toEqual({});
+    expect(validerRdv({ ...complete, lieu: 'visio', adresse: '' })).toEqual({});
   });
 
   it('exige le jour, puis le créneau, et des coordonnées valides', () => {
-    expect(Object.keys(validerRdv(demandeRdvVide, null))).toEqual(['adresse', 'jour', 'nom', 'telephone', 'email', 'consentement']);
-    expect(Object.keys(validerRdv({ ...complete, creneau: null }, null))).toEqual(['creneau']);
+    expect(Object.keys(validerRdv(demandeRdvVide))).toEqual(['adresse', 'jour', 'nom', 'telephone', 'email', 'consentement']);
+    expect(Object.keys(validerRdv({ ...complete, creneau: null }))).toEqual(['creneau']);
   });
 
   it('n’envoie l’adresse que pour un rendez-vous chez vous', () => {

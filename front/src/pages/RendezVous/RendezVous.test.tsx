@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { pages } from '../../data/pages';
+import { formatFrais, fraisKilometriques, kmFactures, situer } from '../../data/zones';
 
 const geocodage = (lon: number, lat: number, ville: string) => ({
   ok: true,
@@ -57,25 +58,30 @@ describe('Page Rendez-vous', () => {
     expect(screen.getByRole('radio', { name: /Chez vous/ })).toBeChecked();
   });
 
-  it('vérifie l’adresse et accepte un déplacement dans les 50 km', async () => {
+  it('vérifie l’adresse et accepte un déplacement sans frais dans les 50 km', async () => {
     const user = userEvent.setup();
     simulerReseau();
     renderRdv();
     await user.type(screen.getByRole('textbox', { name: /Adresse du rendez-vous/ }), '12 rue de la Gare, Abbeville');
     await user.tab();
-    expect(await screen.findByText(/Abbeville, environ 41 km d'Amiens : je me déplace gratuitement\./)).toBeInTheDocument();
+    expect(await screen.findByText(/Abbeville, à moins d’1 km d’Abbeville : je me déplace gratuitement\./)).toBeInTheDocument();
     expect(resume()).toHaveTextContent('Chez vous, Abbeville');
   });
 
-  it('refuse un déplacement au-delà de 50 km et propose la visio', async () => {
+  it('au-delà de 50 km : accepte le déplacement et annonce les frais kilométriques, dus même sans projet', async () => {
     const user = userEvent.setup();
     simulerReseau({ lieu: geocodage(3.0573, 50.6292, 'Lille') });
     renderRdv();
     await user.type(screen.getByRole('textbox', { name: /Adresse du rendez-vous/ }), 'Grand-Place, Lille');
     await user.tab();
-    expect(await screen.findByText(/Lille, environ \d+ km d'Amiens : c'est au-delà de 50 km/)).toBeInTheDocument();
-    await user.click(screen.getByRole('radio', { name: /En visio/ }));
-    expect(screen.queryByRole('textbox', { name: /Adresse du rendez-vous/ })).not.toBeInTheDocument();
+    const { km } = situer(50.6292, 3.0573);
+    const message = await screen.findByText(/au-delà de 50 km, je viens quand même/);
+    const texte = message.textContent!.replace(/\s/g, ' ');
+    expect(texte).toContain(`pour les ${kmFactures(km)} km en plus`);
+    expect(texte).toContain(formatFrais(fraisKilometriques(km)).replace(/\s/g, ' '));
+    expect(texte).toContain('dus même si le projet ne se fait pas');
+    expect(screen.getByRole('group', { name: "2. Choisissez un créneau d'une heure" })).toBeInTheDocument();
+    expect(resume()).toHaveTextContent('Chez vous, Lille');
   });
 
   it('fait apparaître chaque étape quand la précédente est validée', async () => {
@@ -114,16 +120,6 @@ describe('Page Rendez-vous', () => {
     await user.click(screen.getByRole('button', { name: "Vérifier l'adresse" }));
     await screen.findByText(/je me déplace gratuitement/);
     expect(screen.getByRole('radio', { name: '14:00 – 15:00' })).toBeChecked();
-  });
-
-  it('une adresse au-delà de 50 km ne permet pas de continuer', async () => {
-    const user = userEvent.setup();
-    simulerReseau({ lieu: geocodage(3.0573, 50.6292, 'Lille') });
-    renderRdv();
-    await user.type(screen.getByRole('textbox', { name: /Adresse du rendez-vous/ }), 'Grand-Place, Lille');
-    await user.click(screen.getByRole('button', { name: "Vérifier l'adresse" }));
-    await screen.findByText(/c'est au-delà de 50 km/);
-    expect(screen.queryByRole('group', { name: "2. Choisissez un créneau d'une heure" })).not.toBeInTheDocument();
   });
 
   it('ne propose que les jours ouvrés à venir, puis les créneaux du jour choisi', async () => {
