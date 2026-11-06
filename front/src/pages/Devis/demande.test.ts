@@ -23,6 +23,7 @@ import {
 
 const complete: Demande = {
   metier: 'artisan',
+  metierAutre: '',
   besoins: ['rdv', 'prix'],
   description: 'Je fais du nettoyage de voitures à domicile.',
   lien: 'https://exemple.fr',
@@ -235,4 +236,19 @@ describe('reprise depuis la dernière estimation', () => {
       telephone: complete.telephone,
     });
   });
+
+describe('autre activité', () => {
+  it('demande de préciser l’activité quand « Autre activité » est choisie', () => {
+    expect(validerEtape(0, { ...demandeVide, metier: 'autre' })).toHaveProperty('metierAutre');
+    expect(validerEtape(0, { ...demandeVide, metier: 'autre', metierAutre: 'Toiletteur canin' })).toEqual({});
+    expect(validerEtape(0, { ...demandeVide, metier: 'artisan' })).toEqual({});
+  });
+
+  it('affiche l’activité précisée dans le récapitulatif, et la reprend de l’estimation', () => {
+    const lignes = lignesRecapitulatif({ ...complete, metier: 'autre', metierAutre: 'Toiletteur canin' }, null);
+    expect(lignes[0]).toEqual(['Activité', 'Toiletteur canin']);
+    const config = { formule: 'fonctionnel' as const, metier: 'autre' as const, metierAutre: 'Photographe', options: [], precisions: {} };
+    expect(demarrerDevis({ demande: demandeVide, etape: 0, depuis: null }, config).demande).toMatchObject({ metier: 'autre', metierAutre: 'Photographe' });
+  });
+});
 });

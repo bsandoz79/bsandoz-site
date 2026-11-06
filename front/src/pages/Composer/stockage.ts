@@ -5,7 +5,7 @@ import {
   type PublicInformatique,
   type ServiceInformatiqueId,
 } from '../../data/informatique';
-import { formules, metiers, options, precisions, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
+import { formules, metierAutreTextes, metiers, options, precisions, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
 
 export type Onglet = 'web' | 'informatique';
 
@@ -51,7 +51,15 @@ export function lireEtat(brut: unknown): EtatComposer {
 
   return {
     onglet: objet.onglet === 'informatique' ? 'informatique' : 'web',
-    config: { formule, metier, options: garderOptionsValides([...new Set(choix)], formule, metier), precisions: reponses },
+    config: {
+      formule,
+      metier,
+      options: garderOptionsValides([...new Set(choix)], formule, metier),
+      precisions: reponses,
+      ...(metier === 'autre' && typeof config.metierAutre === 'string' && config.metierAutre.trim()
+        ? { metierAutre: config.metierAutre.slice(0, metierAutreTextes.max) }
+        : {}),
+    },
     informatique: {
       public: estPublic(info.public) ? info.public : null,
       services: Array.isArray(info.services) ? [...new Set(info.services.filter(estService))] : [],

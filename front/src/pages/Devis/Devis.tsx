@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Stepper, TextField, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { besoins, devisTextes, etapesDevis, urlEnvoiDevis } from '../../data/devis';
-import { metiers } from '../../data/offres';
+import { nomActivite } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { chargerEtat } from '../Composer/stockage';
 import {
@@ -154,7 +154,7 @@ export function Devis() {
 
   const nbErreurs = Object.keys(erreurs).length;
   const proprietes = { demande, erreurs, maj };
-  const metierNom = metiers.find((m) => m.id === demande.metier)?.nom;
+  const metierNom = nomActivite(demande.metier, demande.metierAutre);
 
   return (
     <>

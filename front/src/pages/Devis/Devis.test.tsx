@@ -198,4 +198,19 @@ describe('Parcours de demande de devis', () => {
     expect(screen.getByRole('alert')).toHaveTextContent('Merci de patienter une minute avant un nouvel envoi.');
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it('« Autre activité » demande de préciser l’activité avant de continuer', async () => {
+    const user = userEvent.setup();
+    renderDevis();
+    expect(screen.queryByRole('textbox', { name: /Précisez votre activité/ })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: 'Autre activité' }));
+    const champ = screen.getByRole('textbox', { name: /Précisez votre activité/ });
+    await user.click(continuer());
+    expect(etapeEnCours()).toHaveTextContent('Activité');
+    expect(screen.getByText('Précisez votre activité en quelques mots.')).toBeInTheDocument();
+    await user.type(champ, 'Toiletteur canin');
+    await user.click(continuer());
+    expect(etapeEnCours()).toHaveTextContent('Besoins');
+    expect(screen.getByRole('complementary', { name: 'Votre projet' })).toHaveTextContent('Toiletteur canin');
+  });
 });

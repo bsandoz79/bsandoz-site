@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button, PriceSummary, buttonClassName } from '@bsandoz79/blocs';
 import { calculerEstimation, comparaisonMarche, type Configuration } from '../../data/calculs';
 import { estimationTextes } from '../../data/configurateur';
-import { formatPrix, metiers, options } from '../../data/offres';
+import { formatPrix, nomActivite, options } from '../../data/offres';
 import { ComparaisonMarche } from './ComparaisonMarche';
 import styles from './Composer.module.css';
 
@@ -13,7 +13,7 @@ export function Estimation({ config, onRecommencer }: Props) {
   const estimation = calculerEstimation(config);
   const total = formatPrix(estimation.total);
   const comparaison = comparaisonMarche(config.formule, config.options, estimation.total);
-  const metierNom = metiers.find((m) => m.id === config.metier)?.nom;
+  const metierNom = nomActivite(config.metier, config.metierAutre);
 
   return (
     <PriceSummary

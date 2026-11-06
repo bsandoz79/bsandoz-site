@@ -1,9 +1,10 @@
-import { Button, ChoiceChips, OptionCard } from '@bsandoz79/blocs';
+import { Button, ChoiceChips, OptionCard, TextField } from '@bsandoz79/blocs';
 import { optionsDisponibles, packsActifs, suggestions } from '../../data/calculs';
 import { estimationTextes, etapes } from '../../data/configurateur';
 import {
   formatPrix,
   formules,
+  metierAutreTextes,
   metiers,
   options,
   precisions,
@@ -49,6 +50,16 @@ export function ConfigurateurWeb({ composer }: Props) {
             value={metier}
             onChange={composer.choisirMetier}
           />
+          {metier === 'autre' && (
+            <TextField
+              className={styles.metierAutre}
+              label={metierAutreTextes.label}
+              placeholder={metierAutreTextes.placeholder}
+              maxLength={metierAutreTextes.max}
+              value={config.metierAutre ?? ''}
+              onChange={(e) => composer.preciserMetier(e.target.value)}
+            />
+          )}
         </section>
       )}
 

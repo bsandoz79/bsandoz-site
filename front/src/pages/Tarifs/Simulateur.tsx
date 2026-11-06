@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, ChoiceChips, OptionCard, PriceSummary, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
+import { Button, ChoiceChips, OptionCard, PriceSummary, SectionTitle, TextField, buttonClassName } from '@bsandoz79/blocs';
 import {
   calculerEstimation,
   garderOptionsValides,
@@ -8,7 +8,7 @@ import {
   suggestions,
   type Configuration,
 } from '../../data/calculs';
-import { formatPrix, formules, metiers, options, prixFormule, prixOption, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
+import { formatPrix, formules, metierAutreTextes, metiers, nomActivite, options, prixFormule, prixOption, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
 import { simulateur } from '../../data/tarifs';
 import { chargerEtat, enregistrerEtat } from '../Composer/stockage';
 import styles from './Simulateur.module.css';
@@ -20,6 +20,7 @@ import styles from './Simulateur.module.css';
 export function Simulateur() {
   const [formule, setFormule] = useState<FormuleId | null>(null);
   const [metier, setMetier] = useState<MetierId | null>(null);
+  const [metierAutre, setMetierAutre] = useState('');
   const [choix, setChoix] = useState<OptionId[]>([]);
 
   const config: Configuration = { formule, metier, options: choix, precisions: {} };
@@ -27,8 +28,9 @@ export function Simulateur() {
   // La simulation devient la dernière estimation : le devis détaillé et « Composer mon site » la reprennent.
   useEffect(() => {
     if (!formule) return;
-    enregistrerEtat({ ...chargerEtat(), onglet: 'web', config: { formule, metier, options: choix, precisions: {} } });
-  }, [formule, metier, choix]);
+    const precise = metier === 'autre' && metierAutre.trim() ? { metierAutre } : {};
+    enregistrerEtat({ ...chargerEtat(), onglet: 'web', config: { formule, metier, options: choix, precisions: {}, ...precise } });
+  }, [formule, metier, choix, metierAutre]);
   const disponibles = optionsDisponibles(formule, metier);
   const fonctionnel = formule === 'fonctionnel';
   const estimation = calculerEstimation(config);
@@ -36,7 +38,7 @@ export function Simulateur() {
   // Seules les suggestions d'option ont du sens ici (la formule est déjà le Fonctionnel).
   const suggestion = suggestions(config).find((s) => s.action.type === 'option');
   const optionSuggeree = suggestion?.action.type === 'option' ? suggestion.action.option : null;
-  const metierNom = metiers.find((m) => m.id === metier)?.nom;
+  const metierNom = nomActivite(metier, metierAutre);
 
   function choisirFormule(id: FormuleId) {
     setFormule(id);
@@ -76,6 +78,16 @@ export function Simulateur() {
             choices={metiers.map((m) => ({ value: m.id, label: m.nom }))}
             value={metier}
             onChange={choisirMetier}
+          />
+        )}
+        {fonctionnel && metier === 'autre' && (
+          <TextField
+            className={styles.metierAutre}
+            label={metierAutreTextes.label}
+            placeholder={metierAutreTextes.placeholder}
+            maxLength={metierAutreTextes.max}
+            value={metierAutre}
+            onChange={(e) => setMetierAutre(e.target.value)}
           />
         )}
         <fieldset className={styles.fieldset}>
