@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { complements, marche, options, prixSeoSeul } from '../../data/offres';
 import { pages } from '../../data/pages';
-import { CLE_STOCKAGE } from '../Composer/stockage';
+import { CLE_STOCKAGE, CLE_VISITE } from '../Composer/stockage';
 
 function renderTarifs() {
   return render(
@@ -150,6 +150,8 @@ describe('Page Tarifs', () => {
       options: ['rdv'],
       precisions: {},
     });
+    // Simulée pendant cette visite : le configurateur ne demandera pas s'il faut la reprendre.
+    expect(window.sessionStorage.getItem(CLE_VISITE)).toBe('1');
   });
 
   it('mène au devis et au configurateur', () => {

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { pages } from '../../data/pages';
-import { CLE_STOCKAGE } from './stockage';
+import { CLE_STOCKAGE, CLE_VISITE } from './stockage';
 
 function renderComposer(path: string = pages.composer.path) {
   return render(
@@ -188,5 +188,56 @@ describe('Configurateur /composer', () => {
     await user.type(screen.getByRole('textbox', { name: /Précisez votre activité/ }), 'Photographe');
     expect(estimation()).toHaveTextContent('photographe');
     expect(JSON.parse(window.localStorage.getItem(CLE_STOCKAGE)!).config.metierAutre).toBe('Photographe');
+  });
+
+  describe('reprendre là où l’on en était', () => {
+    const precedente = { onglet: 'web', config: { formule: 'fonctionnel', metier: 'artisan', options: ['rdv'], precisions: {} } };
+    const fenetre = () => screen.queryByRole('dialog', { name: 'Voulez-vous reprendre là où vous en étiez ?' });
+    beforeEach(() => {
+      window.sessionStorage.clear();
+      window.localStorage.setItem(CLE_STOCKAGE, JSON.stringify(precedente));
+    });
+
+    it('nouvelle visite : demande, avec le résumé, et « Oui » reprend l’estimation', async () => {
+      const user = userEvent.setup();
+      renderComposer();
+      expect(fenetre()).toHaveTextContent('Site Fonctionnel · artisan à domicile · 1 option');
+      expect(screen.getByRole('button', { name: 'Oui, reprendre' })).toHaveFocus();
+      await user.click(screen.getByRole('button', { name: 'Oui, reprendre' }));
+      expect(fenetre()).not.toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ })).toBeChecked();
+      expect(window.sessionStorage.getItem(CLE_VISITE)).toBe('1');
+    });
+
+    it('« Non » repart de zéro, en gardant la formule demandée par le lien', async () => {
+      const user = userEvent.setup();
+      renderComposer(`${pages.composer.path}?formule=vitrine`);
+      await user.click(screen.getByRole('button', { name: 'Non, recommencer' }));
+      expect(fenetre()).not.toBeInTheDocument();
+      expect(stocke().config).toEqual({ formule: 'vitrine', metier: null, options: [], precisions: {} });
+    });
+
+    it('Échap reprend sans rien effacer ; le focus reste dans la fenêtre', async () => {
+      const user = userEvent.setup();
+      renderComposer();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Non, recommencer' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Oui, reprendre' })).toHaveFocus();
+      await user.keyboard('{Escape}');
+      expect(fenetre()).not.toBeInTheDocument();
+      expect(stocke().config.options).toEqual(['rdv']);
+    });
+
+    it('même visite, ou rien d’enregistré : pas de question', () => {
+      window.sessionStorage.setItem(CLE_VISITE, '1');
+      const { unmount } = renderComposer();
+      expect(fenetre()).not.toBeInTheDocument();
+      unmount();
+      window.sessionStorage.clear();
+      window.localStorage.clear();
+      renderComposer();
+      expect(fenetre()).not.toBeInTheDocument();
+    });
   });
 });
