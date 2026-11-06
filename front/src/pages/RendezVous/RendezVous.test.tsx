@@ -78,10 +78,59 @@ describe('Page Rendez-vous', () => {
     expect(screen.queryByRole('textbox', { name: /Adresse du rendez-vous/ })).not.toBeInTheDocument();
   });
 
+  it('fait apparaître chaque étape quand la précédente est validée', async () => {
+    const user = userEvent.setup();
+    simulerReseau();
+    renderRdv();
+    const calendrier = () => screen.queryByRole('group', { name: "2. Choisissez un créneau d'une heure" });
+    const coordonnees = () => screen.queryByRole('group', { name: '3. Vos coordonnées' });
+
+    // Au départ : seulement le lieu. Pas de calendrier, pas de coordonnées, pas de bouton « Confirmer ».
+    expect(calendrier()).not.toBeInTheDocument();
+    expect(coordonnees()).not.toBeInTheDocument();
+    expect(within(resume()).queryByRole('button')).not.toBeInTheDocument();
+    expect(resume()).toHaveTextContent('Choisissez le lieu, puis la date et le créneau, et enfin vos coordonnées.');
+
+    // Chez vous : l'adresse vérifiée dans les 50 km valide le lieu.
+    await user.type(screen.getByRole('textbox', { name: /Adresse du rendez-vous/ }), '12 rue de la Gare, Abbeville');
+    await user.click(screen.getByRole('button', { name: "Vérifier l'adresse" }));
+    expect(await screen.findByText(/je me déplace gratuitement/)).toBeInTheDocument();
+    expect(calendrier()).toBeInTheDocument();
+    expect(screen.getByText('Étape suivante : choisissez une date et un créneau.')).toBeInTheDocument();
+    expect(coordonnees()).not.toBeInTheDocument();
+
+    // Jour et créneau : les coordonnées et le bouton « Confirmer » apparaissent.
+    await user.click(screen.getByRole('button', { name: /^mardi 17 novembre 2026$/ }));
+    expect(coordonnees()).not.toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: '14:00 – 15:00' }));
+    expect(coordonnees()).toBeInTheDocument();
+    expect(confirmer()).toBeInTheDocument();
+    expect(screen.getByText('Étape suivante : indiquez vos coordonnées.')).toBeInTheDocument();
+
+    // Modifier l'adresse : les étapes suivantes se masquent jusqu'à la nouvelle vérification, le choix est gardé.
+    await user.type(screen.getByRole('textbox', { name: /Adresse du rendez-vous/ }), ' bis');
+    expect(calendrier()).not.toBeInTheDocument();
+    expect(coordonnees()).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: "Vérifier l'adresse" }));
+    await screen.findByText(/je me déplace gratuitement/);
+    expect(screen.getByRole('radio', { name: '14:00 – 15:00' })).toBeChecked();
+  });
+
+  it('une adresse au-delà de 50 km ne permet pas de continuer', async () => {
+    const user = userEvent.setup();
+    simulerReseau({ lieu: geocodage(3.0573, 50.6292, 'Lille') });
+    renderRdv();
+    await user.type(screen.getByRole('textbox', { name: /Adresse du rendez-vous/ }), 'Grand-Place, Lille');
+    await user.click(screen.getByRole('button', { name: "Vérifier l'adresse" }));
+    await screen.findByText(/c'est au-delà de 50 km/);
+    expect(screen.queryByRole('group', { name: "2. Choisissez un créneau d'une heure" })).not.toBeInTheDocument();
+  });
+
   it('ne propose que les jours ouvrés à venir, puis les créneaux du jour choisi', async () => {
     const user = userEvent.setup();
     simulerReseau();
     renderRdv();
+    await user.click(screen.getByRole('radio', { name: /En visio/ }));
     expect(screen.getByRole('button', { name: /^jeudi 5 novembre 2026, indisponible$/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /^samedi 7 novembre 2026, indisponible$/ })).toBeInTheDocument();
     expect(screen.getByText('Choisissez un jour pour voir les créneaux.')).toBeInTheDocument();
@@ -98,8 +147,11 @@ describe('Page Rendez-vous', () => {
     const user = userEvent.setup();
     const fetchMock = simulerReseau();
     renderRdv();
+    await user.click(screen.getByRole('radio', { name: /Par téléphone/ }));
+    await user.click(screen.getByRole('button', { name: /^mardi 17 novembre 2026$/ }));
+    await user.click(screen.getByRole('radio', { name: '09:00 – 10:00' }));
     await user.click(confirmer());
-    expect(screen.getByRole('alert')).toHaveTextContent('6 champs sont à corriger.');
+    expect(screen.getByRole('alert')).toHaveTextContent('4 champs sont à corriger.');
     expect((fetchMock.mock.calls as unknown as [string, RequestInit?][]).filter(([, options]) => options?.method === 'POST')).toEqual([]);
   });
 
