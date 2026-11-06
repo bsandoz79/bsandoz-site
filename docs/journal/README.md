@@ -89,3 +89,4 @@ Types de tests :
 | 58 | [Ordre de la fin de l'accueil](58-feature-ordre-accueil.md) | `feature/ordre-accueil` | 2026-11-06 |
 | 59 | [Compléments et simulateur sur les trois formules](59-feature-tarifs-complements.md) | `feature/tarifs-complements` | 2026-11-06 |
 | 60 | [Coordonnées](60-chore-coordonnees.md) | `chore/coordonnees` | 2026-11-06 |
+| 61 | [Zones Amiens et Abbeville, frais kilométriques](61-feature-frais-kilometriques.md) | `feature/frais-kilometriques` | 2026-11-06 |

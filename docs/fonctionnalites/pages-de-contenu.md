@@ -60,7 +60,7 @@ Tests : dans `Home.test.tsx` (« Questions fréquentes ») :
 - redirection de `/faq`.
 
 ## Carte des zones et position
-**Ce que montre la carte.** La section « Je me déplace chez vous » (`components/CarteZones`) trace des cercles de 50 km autour d'Amiens, Abbeville, Arras et Beauvais (`data/zones.ts`). On peut choisir une ville : la carte zoome dessus. Leaflet et les tuiles OpenStreetMap se chargent quand on approche de la carte, sauf si les services tiers ont été refusés (voir [navigation.md](navigation.md)).
+**Ce que montre la carte.** La section « Je me déplace chez vous » (`components/CarteZones`) trace des cercles de 50 km sans frais autour d'Amiens et d'Abbeville (`data/zones.ts`). On peut choisir une ville : la carte zoome dessus. Leaflet et les tuiles OpenStreetMap se chargent quand on approche de la carte, sauf si les services tiers ont été refusés (voir [navigation.md](navigation.md)).
 
 **Quand la position est demandée.** `usePosition` la demande une seule fois, quand la carte est visible à 40 %. Jamais au chargement de la page.
 
@@ -68,7 +68,7 @@ Tests : dans `Home.test.tsx` (« Questions fréquentes ») :
 - **Position donnée** :
   - `situer()` trouve la ville la plus proche ;
   - `placerPosition()` pose le point « Vous êtes ici » et cadre la carte sur ce point et sur la zone ;
-  - le message dit « dans ma zone, à 15 km d'Amiens » ou, hors zone, rassure sur les frais kilométriques (essence).
+  - le message dit « dans ma zone, à 15 km d'Amiens » ou, hors zone, donne le montant des frais kilométriques (dus même si le projet ne se fait pas).
 - **Position refusée** :
   - la carte reste normale, avec un bouton discret « Me situer sur la carte » ;
   - si le navigateur bloque encore après une nouvelle demande, une phrase explique comment réautoriser la position.
@@ -95,3 +95,15 @@ Tests : `CarteZones.test.tsx` (géolocalisation et observateurs simulés) :
 - refus, nouvelle demande, puis navigateur qui bloque ;
 - pas de géolocalisation ;
 - élision « d'Amiens / de Beauvais ».
+
+## Frais kilométriques
+Ils sont calculés dans `data/zones.ts`, par les mêmes fonctions pour la carte, la page Rendez-vous et les CGV :
+- `kmFactures(km)` : les kilomètres au-delà de 50, comptés depuis la base la plus proche (Amiens ou Abbeville, à vol d'oiseau). Exemple : 100 km de distance donnent 50 km facturés ;
+- `fraisKilometriques(km)` : `kmFactures × COUT_KM`, arrondi au centime ;
+- `COUT_KM` : `PRIX_GAZOLE_LITRE` (2,50 €) × `CONSOMMATION_L_100KM` (7,5) / 100, soit 0,1875 € par km.
+
+Ces frais restent dus même si aucun devis n'est accepté après le déplacement (CGV, section « Déplacements »).
+
+La page Rendez-vous accepte donc toute adresse trouvée :
+- dans la zone, elle annonce « je me déplace gratuitement » ;
+- au-delà, elle annonce les km facturés et le montant.

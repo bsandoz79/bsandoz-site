@@ -49,9 +49,13 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/carte-position` : demande de position quand la carte apparaît, point sur la carte, message dans la zone / hors zone (frais kilométriques), bouton pour réactiver
 - [ ] `feature/composer-etapes` : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
 - [x] `feature/ordre-accueil` : fin de l'accueil Questions → Carte → Contact ; pas d'appel du pied de page sur l'accueil
+- [x] `feature/frais-kilometriques` : zones Amiens et Abbeville, frais au-delà de 50 km (2,50 €/L, 7,5 L/100), dus même sans devis
+- [ ] `style/complements-pointilles` : compléments en cadres pointillés, prix à droite
+- [ ] `feature/photo-rideau` : apparition en rideau de la photo au premier passage
+- [ ] `feature/devis-chat` : « Décrivez votre projet » mis en avant, sous forme de conversation guidée
 - [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
 - [ ] `feature/alterno` : projet Alterno dans les réalisations
-- [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code)
+- [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
 - [ ] `feature/edition-en-page` : back-office « comme le site », crayon sur chaque bloc pour modifier textes et images

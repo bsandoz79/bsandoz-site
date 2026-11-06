@@ -111,7 +111,7 @@ export const espaceTextes = {
     titre: 'Confidentialité et préférences',
     localisation: 'Localisation',
     localisationAide:
-      'Elle sert seulement à vérifier si je peux me déplacer chez vous (50 km autour d’Amiens) et à pré-remplir votre adresse.',
+      'Elle sert seulement à vérifier si je peux me déplacer chez vous (sans frais à 50 km d’Amiens ou d’Abbeville, frais kilométriques au-delà) et à pré-remplir votre adresse.',
     etats: {
       granted: 'Autorisée.',
       denied: 'Désactivée : vous l’avez refusée.',

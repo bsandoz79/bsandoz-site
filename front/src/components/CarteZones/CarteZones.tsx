@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button, ChoiceChips, Container } from '@bsandoz79/blocs';
 import { choisir as choisirConsentement, useConsentement } from '../../app/consentement';
-import { aDistance, carteTextes, listeVilles, villes } from '../../data/zones';
+import { aDistance, carteTextes, formatFrais, fraisKilometriques, listeVilles, villes, zoneSansFrais } from '../../data/zones';
 import type { Carte } from './carteLeaflet';
 import styles from './CarteZones.module.css';
 import { usePosition, type EtatPosition } from './usePosition';
@@ -13,7 +13,7 @@ const TOUTES = 'toutes';
 const MARGE_APPROCHE = '300px';
 
 /**
- * Zones d'intervention : cercles de 50 km autour de chaque ville, une ville au choix avec zoom.
+ * Zones d'intervention : cercles de 50 km sans frais autour d'Amiens et d'Abbeville, une ville au choix avec zoom.
  * La carte (OpenStreetMap, Leaflet) se charge d'elle-même quand on approche en défilant,
  * sauf si le visiteur a refusé les services tiers dans le bandeau.
  * Quand elle apparaît à l'écran, elle propose de situer le visiteur par rapport aux zones.
@@ -82,7 +82,7 @@ export function CarteZones() {
           <h2 id="carte-titre" className={styles.titre}>
             {t.titre}
           </h2>
-          <p className={styles.intro}>{t.intro(listeVilles(villes.map((v) => v.nom)))}</p>
+          <p className={styles.intro}>{t.intro(zoneSansFrais())}</p>
           <ChoiceChips
             legend={t.choix}
             name="carte-ville"
@@ -120,7 +120,7 @@ function Position({ etat, demander }: { etat: EtatPosition; demander: () => void
   if (etat.statut === 'enCours') message = p.enCours;
   if (etat.statut === 'trouvee') {
     const { ville, km, dansZone } = etat.situation;
-    message = dansZone ? p.dansZone(aDistance(km, ville.nom)) : p.horsZone(aDistance(km, ville.nom));
+    message = dansZone ? p.dansZone(aDistance(km, ville.nom)) : p.horsZone(aDistance(km, ville.nom), formatFrais(fraisKilometriques(km)));
     ton = dansZone ? styles.succes : styles.info;
   }
   if (etat.statut === 'refusee' && etat.bloquee) message = p.bloquee;

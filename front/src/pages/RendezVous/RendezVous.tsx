@@ -19,6 +19,7 @@ import {
   type ErreursRdv,
   type ResultatAdresse,
 } from './reservation';
+import { aDistance, formatFrais, kmFactures } from '../../data/zones';
 import styles from './RendezVous.module.css';
 import { useCentrerEtape } from './useCentrerEtape';
 
@@ -26,8 +27,9 @@ const t = rdvTextes;
 type Statut = 'saisie' | 'envoi' | 'confirme' | 'echec' | 'complet';
 
 function messageAdresse(resultat: ResultatAdresse) {
-  if (resultat.statut === 'ok') return t.adresse.ok(resultat.ville, resultat.km);
-  if (resultat.statut === 'trop-loin') return t.adresse.tropLoin(resultat.ville, resultat.km);
+  if (resultat.statut === 'ok') return t.adresse.ok(resultat.ville, aDistance(resultat.km, resultat.base));
+  if (resultat.statut === 'hors-zone')
+    return t.adresse.horsZone(resultat.ville, aDistance(resultat.km, resultat.base), kmFactures(resultat.km), formatFrais(resultat.frais));
   return resultat.statut === 'introuvable' ? t.adresse.introuvable : t.adresse.erreur;
 }
 
@@ -77,8 +79,9 @@ export function RendezVous() {
 
   async function confirmer(event: FormEvent) {
     event.preventDefault();
-    const controle = demande.lieu === 'chezvous' && !verification ? await verifier() : verification;
-    const trouvees = validerRdv(demande, controle);
+    // Adresse pas encore vérifiée : on la vérifie (frais éventuels affichés), sans bloquer l'envoi.
+    if (demande.lieu === 'chezvous' && !verification) await verifier();
+    const trouvees = validerRdv(demande);
     setErreurs(trouvees);
     if (Object.keys(trouvees).length > 0) return;
     setStatut('envoi');
@@ -120,7 +123,9 @@ export function RendezVous() {
   const lieu = lieux.find((l) => l.id === demande.lieu)!;
   const nbErreurs = Object.keys(erreurs).length;
   const lieuResume =
-    demande.lieu === 'chezvous' && verification?.statut === 'ok' ? `${lieu.nom}, ${verification.ville}` : lieu.nom;
+    demande.lieu === 'chezvous' && (verification?.statut === 'ok' || verification?.statut === 'hors-zone')
+      ? `${lieu.nom}, ${verification.ville}`
+      : lieu.nom;
 
   return (
     <>

@@ -1,7 +1,19 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { choisir, reinitialiserConsentement } from '../../app/consentement';
-import { aDistance, carteTextes, deVille, listeVilles, situer, villes } from '../../data/zones';
+import {
+  COUT_KM,
+  aDistance,
+  carteTextes,
+  deVille,
+  formatFrais,
+  fraisKilometriques,
+  kmFactures,
+  listeVilles,
+  situer,
+  villes,
+  zoneSansFrais,
+} from '../../data/zones';
 import { CarteZones } from './CarteZones';
 
 // Leaflet ne se dessine pas dans jsdom : on vérifie que la carte est créée et pilotée.
@@ -52,7 +64,8 @@ describe('CarteZones', () => {
   it('nomme les zones en texte, même sans afficher la carte', () => {
     render(<CarteZones />);
     expect(screen.getByRole('heading', { name: 'Je me déplace chez vous.' })).toBeInTheDocument();
-    expect(screen.getByText(/rayon de 50 km autour de Amiens, Abbeville, Arras et Beauvais/)).toBeInTheDocument();
+    expect(screen.getByText(/Sans frais dans un rayon de 50 km autour d’Amiens et d’Abbeville/)).toBeInTheDocument();
+    expect(villes.map((v) => v.nom)).toEqual(['Amiens', 'Abbeville']);
   });
 
   it('se charge d’elle-même quand on approche en défilant, sans clic', async () => {
@@ -101,17 +114,27 @@ describe('CarteZones', () => {
     expect(listeVilles(['Amiens', 'Abbeville', 'Arras'])).toBe('Amiens, Abbeville et Arras');
   });
 
-  it('dit « d’Amiens » mais « de Beauvais », et trouve la zone la plus proche', () => {
+  it('dit « d’Amiens » mais « de Beauvais », et trouve la base la plus proche', () => {
     expect(deVille('Amiens')).toBe('d’Amiens');
     expect(deVille('Arras')).toBe('d’Arras');
     expect(deVille('Beauvais')).toBe('de Beauvais');
     expect(aDistance(0, 'Amiens')).toBe('à moins d’1 km d’Amiens');
     // Gare de Corbie, à une quinzaine de kilomètres d'Amiens.
     expect(situer(49.9085, 2.5097)).toMatchObject({ ville: { id: 'amiens' }, dansZone: true });
-    // Paris : hors zone, Beauvais est la plus proche (environ 70 km).
+    // Paris : hors zone, Amiens est la plus proche (environ 115 km).
     const paris = situer(48.8566, 2.3522);
-    expect(paris).toMatchObject({ ville: { id: 'beauvais' }, dansZone: false });
-    expect(paris.km).toBeGreaterThan(60);
+    expect(paris).toMatchObject({ ville: { id: 'amiens' }, dansZone: false });
+    expect(paris.km).toBeGreaterThan(100);
+  });
+
+  it('frais kilométriques : seuls les km au-delà de 50 sont facturés, à 2,50 €/L et 7,5 L/100 km', () => {
+    expect(COUT_KM).toBe(0.1875);
+    expect(kmFactures(40)).toBe(0);
+    expect(fraisKilometriques(50)).toBe(0);
+    expect(kmFactures(100)).toBe(50); // l'exemple : 100 km de distance, 50 km facturés
+    expect(fraisKilometriques(100)).toBe(9.38);
+    expect(formatFrais(9.38)).toMatch(/^9,38\s€$/);
+    expect(zoneSansFrais()).toBe('d’Amiens et d’Abbeville');
   });
 
   describe('position du visiteur', () => {
@@ -137,7 +160,10 @@ describe('CarteZones', () => {
       render(<CarteZones />);
       act(() => apparaitre());
       repondre(48.8566, 2.3522);
-      expect(screen.getByText(/au-delà de ma zone.*frais kilométriques \(essence\)/)).toBeInTheDocument();
+      const { km } = situer(48.8566, 2.3522);
+      const texte = screen.getByText(/au-delà de ma zone/);
+      expect(texte.textContent!.replace(/\s/g, ' ')).toContain(`${formatFrais(fraisKilometriques(km)).replace(/\s/g, ' ')} d’essence`);
+      expect(texte).toHaveTextContent('dus même si le projet ne se fait pas');
     });
 
     it('refusée : la carte reste normale, un bouton discret permet de réessayer', async () => {

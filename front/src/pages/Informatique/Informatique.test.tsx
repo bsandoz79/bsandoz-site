@@ -35,7 +35,7 @@ describe('Page Informatique sur place', () => {
   it('annonce un tarif sur devis et le déroulement en trois étapes', () => {
     renderInformatique();
     expect(screen.getByRole('complementary', { name: 'Tarif sur devis' })).toHaveTextContent(
-      "Je me déplace dans un rayon de 50 km autour d'Amiens.",
+      "Je me déplace sans frais dans un rayon de 50 km autour d'Amiens et d'Abbeville ; plus loin, seuls les kilomètres en plus sont facturés.",
     );
     expect(within(screen.getByRole('region', { name: 'Trois étapes, sans surprise.' })).getAllByRole('listitem')).toHaveLength(3);
   });
