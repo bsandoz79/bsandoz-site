@@ -73,6 +73,22 @@
 .anim-rideau--ouvert::before { animation: rideau-gauche 1s cubic-bezier(0.7, 0, 0.2, 1) 0.15s forwards; }
 .anim-rideau--ouvert::after { animation: rideau-droite 1s cubic-bezier(0.7, 0, 0.2, 1) 0.15s forwards; }
 .anim-rideau--ouvert > img { animation: rideau-photo 1.4s ease-out both; }
+/*
+ * Changement de thème : la nouvelle couleur se déploie comme un rideau, de gauche à droite.
+ * Utilisé par `changerTheme` (app/theme.ts) via la transition de vue du navigateur.
+ */
+@keyframes rideau-theme {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: rideau-theme 0.7s cubic-bezier(0.7, 0, 0.2, 1);
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .anim-reflet::after { display: none; }

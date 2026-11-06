@@ -101,3 +101,4 @@ Types de tests :
 | 70 | [État « choisi » et bouton de confirmation](70-style-sans-liseres.md) | `style/sans-liseres` | 2026-11-06 |
 | 71 | [Un site plus sobre (« moins IA »)](71-style-moins-ia.md) | `style/moins-ia` | 2026-11-06 |
 | 72 | [Plus de question « Besoins » après une estimation](72-fix-devis-sans-besoins.md) | `fix/devis-sans-besoins` | 2026-11-06 |
+| 73 | [Changement de thème en rideau](73-feature-theme-rideau.md) | `feature/theme-rideau` | 2026-11-06 |

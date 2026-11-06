@@ -17,6 +17,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Modifié (design)
+- Changement de thème : la nouvelle couleur se déploie comme un rideau, de gauche à droite (0,7 s). Le changement est immédiat si le navigateur ne le permet pas ou si les animations sont réduites.
 - Site plus sobre, « moins IA » :
   - fond uni, sans lueurs colorées, et halos des sections retirés ;
   - téléphone, bulles et cercle de l'accueil immobiles ; plus de halo qui pulse sur les boutons, ni de mots qui tournent ;
