@@ -1,4 +1,6 @@
-import { render, screen, within } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { choisir, reinitialiserConsentement, useConsentement } from '../../app/consentement';
 import { MemoryRouter } from 'react-router-dom';
 import { contact } from '../../data/navigation';
 import { pages } from '../../data/pages';
@@ -65,5 +67,26 @@ describe('Footer', () => {
     expect(nav.getByRole('link', { name: 'Mentions légales' })).toHaveAttribute('href', pages.mentionsLegales.path);
     expect(nav.getByRole('link', { name: 'CGV' })).toHaveAttribute('href', pages.cgv.path);
     expect(nav.getByRole('link', { name: 'Confidentialité' })).toHaveAttribute('href', pages.confidentialite.path);
+  });
+
+  it('« Services tiers » rouvre le bandeau pour changer d’avis', async () => {
+    const user = userEvent.setup();
+    window.localStorage.clear();
+    reinitialiserConsentement();
+    act(() => choisir('refuse'));
+    let visible = false;
+    function Temoin() {
+      visible = useConsentement().bandeauVisible;
+      return null;
+    }
+    render(
+      <MemoryRouter>
+        <Footer />
+        <Temoin />
+      </MemoryRouter>,
+    );
+    expect(visible).toBe(false);
+    await user.click(screen.getByRole('button', { name: 'Services tiers' }));
+    expect(visible).toBe(true);
   });
 });

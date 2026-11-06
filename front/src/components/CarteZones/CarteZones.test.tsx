@@ -1,6 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CLE_CARTE, listeVilles, villes } from '../../data/zones';
+import { choisir, reinitialiserConsentement } from '../../app/consentement';
+import { listeVilles, villes } from '../../data/zones';
 import { CarteZones } from './CarteZones';
 
 // Leaflet ne se dessine pas dans jsdom : on vérifie que la carte est créée et pilotée.
@@ -9,11 +10,24 @@ const detruire = vi.fn();
 const creerCarte = vi.fn(() => ({ afficher, detruire }));
 vi.mock('./carteLeaflet', () => ({ creerCarte: (...args: unknown[]) => creerCarte(...(args as [])) }));
 
+/** Observateur simulé : on décide quand la carte arrive à l'écran. */
+let signaler: ((visible: boolean) => void) | null = null;
+class FauxObservateur {
+  constructor(rappel: (entrees: Partial<IntersectionObserverEntry>[]) => void) {
+    signaler = (visible) => rappel([{ isIntersecting: visible }]);
+  }
+  observe() {}
+  disconnect() {}
+}
+
 describe('CarteZones', () => {
   beforeEach(() => {
     window.localStorage.clear();
+    reinitialiserConsentement();
     vi.clearAllMocks();
+    signaler = null;
   });
+  afterEach(() => vi.unstubAllGlobals());
 
   it('nomme les zones en texte, même sans afficher la carte', () => {
     render(<CarteZones />);
@@ -21,28 +35,34 @@ describe('CarteZones', () => {
     expect(screen.getByText(/rayon de 50 km autour de Amiens, Abbeville, Arras et Beauvais/)).toBeInTheDocument();
   });
 
-  it('ne charge la carte qu’après accord, puis s’en souvient', async () => {
-    const user = userEvent.setup();
+  it('se charge d’elle-même quand on approche en défilant, sans clic', async () => {
+    vi.stubGlobal('IntersectionObserver', FauxObservateur);
     const { unmount } = render(<CarteZones />);
-    expect(screen.getByText(/transmet votre adresse IP/)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Afficher la carte/ })).not.toBeInTheDocument();
+    await new Promise((r) => setTimeout(r, 0));
     expect(creerCarte).not.toHaveBeenCalled();
 
-    await user.click(screen.getByRole('button', { name: 'Afficher la carte' }));
+    act(() => signaler!(true));
     await waitFor(() => expect(creerCarte).toHaveBeenCalledTimes(1));
     expect(creerCarte.mock.calls[0]).toEqual([expect.any(HTMLElement), villes]);
-    expect(window.localStorage.getItem(CLE_CARTE)).toBe('oui');
     unmount();
     expect(detruire).toHaveBeenCalled();
+  });
 
-    // Visite suivante : la carte s'affiche d'elle-même.
+  it('ne se charge pas si les services tiers sont refusés, sauf demande depuis la carte', async () => {
+    const user = userEvent.setup();
+    act(() => choisir('refuse'));
     render(<CarteZones />);
-    expect(screen.queryByRole('button', { name: 'Afficher la carte' })).not.toBeInTheDocument();
-    await waitFor(() => expect(creerCarte).toHaveBeenCalledTimes(2));
+    expect(screen.getByText(/refusé les services tiers/)).toBeInTheDocument();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(creerCarte).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole('button', { name: 'Afficher la carte quand même' }));
+    await waitFor(() => expect(creerCarte).toHaveBeenCalledTimes(1));
   });
 
   it('affiche une seule ville et zoome dessus, ou toutes les zones', async () => {
     const user = userEvent.setup();
-    window.localStorage.setItem(CLE_CARTE, 'oui');
     render(<CarteZones />);
     await waitFor(() => expect(creerCarte).toHaveBeenCalled());
 
