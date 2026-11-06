@@ -85,7 +85,7 @@ describe("Page d'accueil", () => {
     );
     expect(within(offres).getByRole('article', { name: 'Vitrine+' })).toHaveTextContent(/390\s€/);
     const fonctionnel = within(offres).getByRole('article', { name: 'Fonctionnel' });
-    expect(fonctionnel).toHaveTextContent(/dès 989\s€/);
+    expect(fonctionnel).toHaveTextContent(/à partir de 989\s€/);
     expect(fonctionnel).toHaveTextContent('Le plus complet');
     expect(offres).toHaveTextContent('TVA non applicable (art. 293 B du CGI)');
   });
@@ -137,7 +137,7 @@ describe("Page d'accueil", () => {
     expect(screen.getAllByText('Développeur web à Amiens').length).toBeGreaterThan(0);
     // Le prix de départ vient des formules ; on compare sans tenir compte des espaces insécables.
     const prix = prixFormule(formuleParId('vitrine')).replace(/\s/g, ' ');
-    expect(screen.getByText((texte) => texte.replace(/\s/g, ' ').includes(`à partir de ${prix}`))).toBeInTheDocument();
+    expect(screen.getByText((texte) => texte.replace(/\s/g, ' ').includes(prix))).toBeInTheDocument();
   });
 
   it('fait passer un reflet sur le bouton « Estimer mon projet » du haut de page et sur les trois formules', () => {

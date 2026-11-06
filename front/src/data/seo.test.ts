@@ -57,7 +57,7 @@ describe('SEO', () => {
 
   it('décrit les formules avec leur prix', () => {
     const offres = jsonLdOffres(formules).itemListElement;
-    expect(offres[0]).toMatchObject({ name: 'Site Vitrine', price: 99, priceCurrency: 'EUR' });
+    expect(offres[0]).toMatchObject({ name: 'Site Vitrine', priceSpecification: { minPrice: 99 }, priceCurrency: 'EUR' });
     expect(offres[2]).toMatchObject({ name: 'Site Fonctionnel', priceSpecification: { minPrice: 989 } });
   });
 });

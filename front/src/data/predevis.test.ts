@@ -146,9 +146,9 @@ describe('texteDuPreDevis', () => {
   it('liste les trois formules quand rien ne permet de trancher', () => {
     const texte = texteDuPreDevis(preDevis({ metier: null, besoins: ['sais-pas'] }, null));
     expect(texte).toContain('Vos besoins ne permettent pas encore de choisir une formule.');
-    expect(texte).toContain(`- Vitrine : ${prix(99)}`);
-    expect(texte).toContain(`- Vitrine+ : ${prix(390)}`);
-    expect(texte).toContain(`- Fonctionnel : dès ${prix(989)}`);
+    expect(texte).toContain(`- Vitrine : à partir de ${prix(99)}`);
+    expect(texte).toContain(`- Vitrine+ : à partir de ${prix(390)}`);
+    expect(texte).toContain(`- Fonctionnel : à partir de ${prix(989)}`);
     expect(texte).not.toContain('Prix estimé');
   });
 

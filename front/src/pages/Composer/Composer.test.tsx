@@ -47,7 +47,7 @@ describe('Configurateur /composer', () => {
   it('propose les options de la vitrine sans attendre l’activité', async () => {
     const user = userEvent.setup();
     renderComposer();
-    await user.click(screen.getByRole('radio', { name: /^Vitrines*99/ }));
+    await user.click(screen.getByRole('radio', { name: /^Vitrine\s*à partir de 99/ }));
     expect(screen.getByRole('group', { name: /Envie d'ajouter quelque chose/ })).toBeInTheDocument();
     await user.click(screen.getByRole('checkbox', { name: /Galerie photos/ }));
     expect(within(estimation()).getByText((_, el) => el?.getAttribute('aria-live') === 'polite')).toHaveTextContent(

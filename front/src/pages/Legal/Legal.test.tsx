@@ -23,7 +23,7 @@ describe('Pages légales', () => {
     renderAt(pages.cgv.path);
     expect(screen.getByRole('region', { name: 'Prix' })).toHaveTextContent('TVA non applicable (art. 293 B du CGI)');
     expect(screen.getByRole('region', { name: 'Paiement' })).toHaveTextContent('le solde à la mise en ligne');
-    expect(screen.getByRole('region', { name: 'Après la mise en ligne' })).toHaveTextContent('50 € de l’heure');
+    expect(screen.getByRole('region', { name: 'Après la mise en ligne' })).toHaveTextContent('29 € de l’heure');
     expect(screen.getByRole('region', { name: 'Délais' })).toHaveTextContent('3 jours pour une Vitrine');
   });
 
