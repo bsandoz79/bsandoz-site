@@ -19,6 +19,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Ajouté
+- Rendez-vous : boutons « Google Agenda », « Outlook » et « Apple ou autre » sur la page de confirmation, et les mêmes liens dans les mails au client et au professionnel.
 - Édition par bloc : connecté avec un compte du back-office, un bouton « Modifier » apparaît sur chaque bloc de l'accueil et sur les formules de la page Tarifs. Il ouvre un panneau avec tout le bloc (textes, prix, images). On enregistre et la page change sur place. Il remplace le crayon prix par prix. API : module `Contenu` (`GET /contenus`, `POST /backoffice/contenus`, `POST /backoffice/images`), migration `Version20261106140000`.
 - Édition directe : connecté avec un compte du back-office, un petit crayon apparaît à côté des prix (formules sur l'accueil et Tarifs, page supplémentaire). On modifie sur place, on enregistre, et le prix change sans passer par `/admin`. Les visiteurs ne voient rien de plus.
 - Première mise en ligne de l'API sur `api.bsandoz.fr` ; `docs/mise-en-ligne.md` note ce qui a été vérifié sur le vrai serveur (chemin de PHP 8.3, MariaDB 11.4, serveur de mail).

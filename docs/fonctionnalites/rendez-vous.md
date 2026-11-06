@@ -72,3 +72,9 @@ L'adresse est géocodée puis rattachée à la base la plus proche, Amiens ou Ab
 - Au-delà : statut `hors-zone`. Le rendez-vous est accepté et le message annonce les km facturés **aller-retour** et le montant (`fraisKilometriques`), dus même si le projet ne se fait pas. Ces frais partent avec la réservation (`kmFactures`, `fraisCentimes`) : ils figurent dans les mails de confirmation, à la personne et au professionnel.
 
 Rien n'est bloqué : la visio et le téléphone restent proposés et gratuits. Le détail du calcul est dans [pages-de-contenu.md](pages-de-contenu.md#frais-kilométriques).
+
+## Ajouter à son agenda
+`AgendaDuRendezVous` (`api/src/Booking/Infrastructure/Mail`) donne un lien Google Agenda, un lien Outlook et un fichier `.ics` pour Apple et les autres. Ces trois liens sont dans la réponse de `POST /rendez-vous` (boutons de la page de confirmation) et dans les deux mails, au client et au professionnel. Le `.ics` reste joint aux mails.
+
+- **Route** : `GET /rendez-vous/{id}/agenda.ics`, publique. Elle répond 404 pour un rendez-vous annulé.
+- **Sécurité** : l'identifiant du rendez-vous n'est pas devinable et ne permet pas d'annuler. Le jeton d'annulation continue de partir uniquement par mail.

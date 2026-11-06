@@ -19,6 +19,8 @@ use Symfony\Component\Mime\Email;
  */
 final class NotificationsParMail implements Notifications
 {
+    private readonly AgendaDuRendezVous $agenda;
+
     public function __construct(
         private readonly MailerInterface $mailer,
         private readonly RegleDisponibilite $regle,
@@ -31,6 +33,7 @@ final class NotificationsParMail implements Notifications
         #[Autowire('%booking.url_publique%')]
         private readonly string $urlPublique,
     ) {
+        $this->agenda = new AgendaDuRendezVous($regle, $professionnelNom, $professionnelEmail, $urlPublique);
     }
 
     public function rendezVousConfirme(RendezVous $rendezVous): void
@@ -40,6 +43,8 @@ final class NotificationsParMail implements Notifications
         $lien = rtrim($this->urlPublique, '/') . "/rendez-vous/{$rendezVous->jeton}";
 
         $frais = $rendezVous->fraisLisibles();
+        $liens = $this->agenda->liens($rendezVous);
+        $ajouter = "Ajouter à votre agenda :\n- Google : {$liens['google']}\n- Outlook : {$liens['outlook']}\n- Apple ou autre : {$liens['ics']}\n\n";
         $fraisClient = $frais === null
             ? "- Durée : {$this->regle->dureeMinutes} minutes, gratuit et sans engagement.\n\n"
             : "- Durée : {$this->regle->dureeMinutes} minutes, sans engagement.\n"
@@ -52,7 +57,7 @@ final class NotificationsParMail implements Notifications
                 . "Votre rendez-vous découverte est confirmé :\n"
                 . "- Quand : {$quand}\n- Où : {$ou}\n"
                 . $fraisClient
-                . "Pour l'ajouter à votre agenda, ouvrez le fichier joint.\n"
+                . $ajouter
                 . "Pour le déplacer ou l'annuler : {$lien}\n\n"
                 . "À bientôt,\n{$this->professionnelNom}"
             )
@@ -65,7 +70,8 @@ final class NotificationsParMail implements Notifications
                 . "Quand : {$quand}\nOù : {$ou}\n"
                 . ($frais === null ? '' : "Frais de déplacement : {$frais} ({$rendezVous->kmFactures} km aller-retour facturés)\n")
                 . "Nom : {$rendezVous->contact->nom}\nE-mail : {$rendezVous->contact->email}\nTéléphone : {$rendezVous->contact->telephone}\n"
-                . "Activité : {$rendezVous->activite}\n\nMessage :\n{$rendezVous->message}\n"
+                . "Activité : {$rendezVous->activite}\n\nMessage :\n{$rendezVous->message}\n\n"
+                . $ajouter
             )
             ->attach($this->ics($rendezVous), 'rendez-vous.ics', 'text/calendar; charset=utf-8; method=REQUEST'));
     }
@@ -125,14 +131,6 @@ final class NotificationsParMail implements Notifications
 
     private function ics(RendezVous $rendezVous, bool $annulation = false): string
     {
-        return FichierIcs::pour(
-            $rendezVous,
-            $this->regle->dureeMinutes,
-            $this->regle->fuseau,
-            "Rendez-vous découverte – {$this->professionnelNom}",
-            $this->professionnelEmail,
-            (string) (parse_url($this->urlPublique, PHP_URL_HOST) ?: 'localhost'),
-            $annulation,
-        );
+        return $this->agenda->ics($rendezVous, $annulation);
     }
 }

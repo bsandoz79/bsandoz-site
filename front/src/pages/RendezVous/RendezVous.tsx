@@ -25,6 +25,8 @@ import { useCentrerEtape } from './useCentrerEtape';
 
 const t = rdvTextes;
 type Statut = 'saisie' | 'envoi' | 'confirme' | 'echec' | 'complet';
+/** Liens donnés par l'API pour ajouter le rendez-vous à son agenda. */
+type LiensAgenda = { google: string; outlook: string; ics: string };
 
 function messageAdresse(resultat: ResultatAdresse) {
   if (resultat.statut === 'ok') return t.adresse.ok(resultat.ville, aDistance(resultat.km, resultat.base));
@@ -43,6 +45,7 @@ export function RendezVous() {
   const [verificationEnCours, setVerificationEnCours] = useState(false);
   const [erreurs, setErreurs] = useState<ErreursRdv>({});
   const [statut, setStatut] = useState<Statut>('saisie');
+  const [agenda, setAgenda] = useState<LiensAgenda | null>(null);
   const etapes = etapesRdv(demande, verification);
   const refCreneau = useRef<HTMLFieldSetElement>(null);
   const refCoordonnees = useRef<HTMLFieldSetElement>(null);
@@ -97,6 +100,8 @@ export function RendezVous() {
         return;
       }
       if (!reponse.ok) throw new Error('Refusé');
+      const corps = (await reponse.json().catch(() => ({}))) as { agenda?: LiensAgenda };
+      setAgenda(corps.agenda ?? null);
       setStatut('confirme');
     } catch {
       setStatut('echec');
@@ -110,6 +115,22 @@ export function RendezVous() {
         <Container size="narrow" className={styles.confirme}>
           <h1 className={styles.titre}>{t.confirme.titre}</h1>
           <p className={styles.aide}>{t.confirme.texte}</p>
+          {agenda && (
+            <div className={styles.agenda}>
+              <p className={styles.agendaTitre}>{t.confirme.agenda}</p>
+              <div className={styles.agendaLiens}>
+                <a href={agenda.google} target="_blank" rel="noopener noreferrer" className={buttonClassName({ variant: 'secondary' })}>
+                  {t.confirme.google}
+                </a>
+                <a href={agenda.outlook} target="_blank" rel="noopener noreferrer" className={buttonClassName({ variant: 'secondary' })}>
+                  {t.confirme.outlook}
+                </a>
+                <a href={agenda.ics} className={buttonClassName({ variant: 'secondary' })}>
+                  {t.confirme.autre}
+                </a>
+              </div>
+            </div>
+          )}
           <Link to={t.confirme.accueil.to} className={buttonClassName({ className: styles.retour })}>
             {t.confirme.accueil.label}
           </Link>

@@ -114,3 +114,4 @@ Types de tests :
 | 83 | [Crayon sur les prix](83-feature-edition-en-page.md) | `feature/edition-en-page` | 2026-11-06 |
 | 84 | [Déploiement bloqué par des tests](84-fix-tests-url-devis.md) | `fix/tests-url-devis` | 2026-11-06 |
 | 85 | [Édition par bloc : textes, prix, images](85-feature-edition-blocs.md) | `feature/edition-blocs` | 2026-11-06 |
+| 86 | [Ajouter le rendez-vous à son agenda](86-feature-agenda-rdv.md) | `feature/agenda-rdv` | 2026-11-06 |

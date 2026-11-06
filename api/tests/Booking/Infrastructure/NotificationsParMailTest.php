@@ -151,4 +151,17 @@ final class NotificationsParMailTest extends TestCase
         self::assertStringContainsString('gratuit et sans engagement', (string) $client->getTextBody());
         self::assertStringNotContainsString('Frais de déplacement', (string) $pro->getTextBody());
     }
+
+    public function testLesDeuxMailsProposentGoogleOutlookEtApple(): void
+    {
+        $this->notifications->rendezVousConfirme($this->rendezVous());
+        foreach ($this->mailer->envoyes as $mail) {
+            $texte = (string) $mail->getTextBody();
+            self::assertStringContainsString('https://calendar.google.com/calendar/render?action=TEMPLATE', $texte);
+            // 14:00 à Paris en novembre : 13:00 UTC.
+            self::assertStringContainsString('20261117T130000Z%2F20261117T140000Z', $texte);
+            self::assertStringContainsString('https://outlook.live.com/calendar/0/action/compose?', $texte);
+            self::assertStringContainsString('https://api.exemple.fr/rendez-vous/rdv-1/agenda.ics', $texte);
+        }
+    }
 }

@@ -111,6 +111,10 @@ export const rdvTextes = {
   confirme: {
     titre: 'Votre rendez-vous est demandé !',
     texte: 'Vous allez recevoir un e-mail de confirmation avec un lien pour le déplacer ou l’annuler.',
+    agenda: 'Ajouter à mon agenda',
+    google: 'Google Agenda',
+    outlook: 'Outlook',
+    autre: 'Apple ou autre',
     accueil: { label: "Retour à l'accueil", to: pages.accueil.path },
   },
   echec: {

@@ -10,6 +10,7 @@ use App\Booking\Domain\CreneauIndisponible;
 use App\Booking\Domain\DonneesInvalides;
 use App\Booking\Domain\RendezVousIntrouvable;
 use App\Booking\Domain\RendezVousRepository;
+use App\Booking\Infrastructure\Mail\AgendaDuRendezVous;
 use App\Booking\Infrastructure\Evenement\RendezVousReserve;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Attribute\Route;
  * Points d'entrée HTTP du module Booking.
  *
  * POST /rendez-vous                  JSON → 201 | 400 { erreurs } | 409
+ * GET  /rendez-vous/{id}/agenda.ics  fichier d'agenda (identifiant non devinable, ne permet pas d'annuler)
  * GET  /rendez-vous/{jeton}          page « déplacer ou annuler » (lien du mail, sans effet)
  * POST /rendez-vous/{jeton}/annuler  annule, puis page de confirmation
  */
@@ -32,6 +34,7 @@ final class RendezVousController
         private readonly AnnulerRendezVous $annuler,
         private readonly RendezVousRepository $rendezVous,
         private readonly EventDispatcherInterface $evenements,
+        private readonly AgendaDuRendezVous $agenda,
         #[Autowire('%booking.professionnel_nom%')]
         private readonly string $professionnelNom,
         #[Autowire('%booking.professionnel_email%')]
@@ -61,9 +64,30 @@ final class RendezVousController
         $this->evenements->dispatch(new RendezVousReserve($rendezVous));
 
         return new JsonResponse(
-            ['id' => $rendezVous->id, 'statut' => $rendezVous->statut()->value, 'jour' => $rendezVous->creneau->jour, 'creneau' => $rendezVous->creneau->heure],
+            [
+                'id' => $rendezVous->id,
+                'statut' => $rendezVous->statut()->value,
+                'jour' => $rendezVous->creneau->jour,
+                'creneau' => $rendezVous->creneau->heure,
+                'agenda' => $this->agenda->liens($rendezVous),
+            ],
             Response::HTTP_CREATED,
         );
+    }
+
+    #[Route('/rendez-vous/{id}/agenda.ics', name: 'booking_agenda', methods: ['GET'], requirements: ['id' => '[A-Za-z0-9-]{1,36}'])]
+    public function agenda(string $id): Response
+    {
+        $rendezVous = $this->rendezVous->parId($id);
+        if ($rendezVous === null || !$rendezVous->estConfirme()) {
+            return new Response('Rendez-vous introuvable.', Response::HTTP_NOT_FOUND, ['Content-Type' => 'text/plain; charset=utf-8']);
+        }
+
+        return new Response($this->agenda->ics($rendezVous), Response::HTTP_OK, [
+            'Content-Type' => 'text/calendar; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="rendez-vous.ics"',
+            'Cache-Control' => 'no-store',
+        ]);
     }
 
     #[Route('/rendez-vous/{jeton}', name: 'booking_gerer', methods: ['GET'], requirements: ['jeton' => '[a-f0-9]{64}'])]
