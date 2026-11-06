@@ -35,3 +35,6 @@ Les dates sont des chaînes `AAAA-MM-JJ` (aucun décalage lié au fuseau horaire
 - Une seule case reçoit le focus (Tab) ; flèches : jour précédent / suivant / semaine ; Début / Fin : début / fin de semaine ; Page préc. / Page suiv. : mois.
 - Chaque jour est un bouton nommé en toutes lettres (« mardi 17 novembre 2026, indisponible »), le jour choisi est `aria-selected`, aujourd'hui `aria-current="date"`.
 - Le mois affiché est annoncé quand il change.
+
+## Jours marqués
+`isMarked` signale des jours sans les désactiver, et `markedLabel` complète leur nom pour les lecteurs d'écran. Exemple : les jours fermés d'un réglage, où un clic ferme ou rouvre le jour.

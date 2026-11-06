@@ -94,4 +94,22 @@ describe('Calendar', () => {
     await user.keyboard('{ArrowLeft}');
     expect(jour(/^jeudi 5 novembre/)).toHaveFocus();
   });
+
+  it('signale les jours marqués, qui restent cliquables', async () => {
+    const choisi = vi.fn();
+    render(
+      <Calendar
+        label="Jours fermés"
+        month="2026-11-01"
+        onMonthChange={() => {}}
+        value={null}
+        onChange={choisi}
+        isMarked={(d) => d === '2026-11-17'}
+        markedLabel="fermé"
+      />,
+    );
+    const marque = screen.getByRole('button', { name: /17 novembre 2026, fermé$/ });
+    await userEvent.click(marque);
+    expect(choisi).toHaveBeenCalledWith('2026-11-17');
+  });
 });

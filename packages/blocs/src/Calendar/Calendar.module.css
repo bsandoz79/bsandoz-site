@@ -83,3 +83,10 @@
   background: var(--color-rose);
   color: var(--color-text-on-dark);
 }
+
+/* Jour marqué (par exemple un jour fermé dans un réglage) : fond plein, reste cliquable. */
+.marque {
+  background: var(--color-text);
+  color: var(--color-surface);
+  font-weight: 700;
+}

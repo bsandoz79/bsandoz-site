@@ -28,6 +28,10 @@ export type CalendarProps = {
   max?: DateIso;
   /** Jour mis en évidence (aujourd'hui). */
   today?: DateIso;
+  /** Jours signalés et toujours cliquables (par exemple les jours fermés, dans un réglage). */
+  isMarked?: (day: DateIso) => boolean;
+  /** Ajouté au nom d'un jour marqué, pour les lecteurs d'écran. */
+  markedLabel?: string;
   weekdays?: string[];
   previousLabel?: string;
   nextLabel?: string;
@@ -49,6 +53,8 @@ export function Calendar({
   value,
   onChange,
   isDisabled = () => false,
+  isMarked = () => false,
+  markedLabel = 'marqué',
   min,
   max,
   today,
@@ -159,13 +165,14 @@ export function Calendar({
                         styles.jour,
                         jour === value ? styles.choisi : '',
                         jour === today ? styles.aujourdhui : '',
+                        isMarked(jour) ? styles.marque : '',
                       ]
                         .filter(Boolean)
                         .join(' ')}
                       tabIndex={jour === focusable ? 0 : -1}
                       aria-disabled={indisponible(jour) || undefined}
                       aria-current={jour === today ? 'date' : undefined}
-                      aria-label={`${libelleLong(jour, locale)}${indisponible(jour) ? `, ${unavailableLabel}` : ''}`}
+                      aria-label={`${libelleLong(jour, locale)}${indisponible(jour) ? `, ${unavailableLabel}` : ''}${isMarked(jour) ? `, ${markedLabel}` : ''}`}
                       onClick={() => {
                         setActif(jour);
                         if (!indisponible(jour)) onChange(jour);
