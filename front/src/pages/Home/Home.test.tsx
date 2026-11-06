@@ -35,9 +35,9 @@ describe("Page d'accueil", () => {
       'Des projets concrets, à tester vous-même.',
       methode.title,
       pourquoi.title,
-      'Parlez-moi de votre projet.',
       faqAccueil.titre,
       'Je me déplace chez vous.',
+      'Parlez-moi de votre projet.',
     ]);
   });
 
@@ -153,10 +153,11 @@ describe("Page d'accueil", () => {
     const questions = () => within(faq()).getAllByRole('heading', { level: 3 }).map((h) => h.textContent);
     const voirPlus = () => within(faq()).queryByRole('button', { name: new RegExp(faqAccueil.voirPlus) });
 
-    it('est en bas de l’accueil, juste avant la carte, avec l’ancre #faq', () => {
+    it('est juste avant la carte, avec l’ancre #faq ; la page se termine par le contact', () => {
       renderHome();
       expect(faq()).toHaveAttribute('id', 'faq');
       expect(faq().nextElementSibling).toBe(section('Je me déplace chez vous.'));
+      expect(section('Je me déplace chez vous.').nextElementSibling).toBe(section('Parlez-moi de votre projet.'));
     });
 
     it('affiche 3 questions, puis 3 de plus à chaque « Voir plus », jusqu’à la dernière', async () => {

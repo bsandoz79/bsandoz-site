@@ -1,14 +1,14 @@
 import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { choisir, reinitialiserConsentement, useConsentement } from '../../app/consentement';
 import { MemoryRouter } from 'react-router-dom';
+import { choisir, reinitialiserConsentement, useConsentement } from '../../app/consentement';
 import { contact } from '../../data/navigation';
 import { pages } from '../../data/pages';
 import { Footer } from './Footer';
 
-function renderFooter() {
+function renderFooter(chemin: string = pages.tarifs.path) {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[chemin]}>
       <Footer />
     </MemoryRouter>,
   );
@@ -51,6 +51,11 @@ describe('Footer', () => {
     expect(screen.getByText('Un projet en tête ?')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute('href', pages.composer.path);
     expect(screen.getByRole('link', { name: 'Rendez-vous gratuit' })).toHaveAttribute('href', pages.rendezVous.path);
+  });
+
+  it('sauf sur l’accueil, qui se termine déjà par le formulaire de contact', () => {
+    renderFooter(pages.accueil.path);
+    expect(screen.queryByText('Un projet en tête ?')).not.toBeInTheDocument();
   });
 
   it('donne accès aux principales pages du site et aux droits de l’année', () => {
