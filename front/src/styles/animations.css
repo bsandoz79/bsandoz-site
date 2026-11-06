@@ -12,6 +12,8 @@
 .anim-pulse { animation: pulse 2.4s ease-in-out infinite; }
 .anim-appear { animation: appear 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 .anim-float { animation: float 5s ease-in-out infinite; }
+@keyframes respire { 50% { transform: scale(1.06); opacity: 1; } }
+.anim-respire { animation: respire 7s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

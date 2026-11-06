@@ -6,6 +6,7 @@
   --color-rose-glow: rgb(201 24 74 / 0.22);
   --color-line-on-dark: rgb(255 255 255 / 0.12);
   --color-veil-on-dark: rgb(255 255 255 / 0.08);
+  --color-veil-navy: rgb(22 33 62 / 0.08);
   --color-border-on-dark: rgb(255 255 255 / 0.35);
   --color-rose: #c9184a;
   --color-rose-dark: #9e0f38;
@@ -51,6 +52,10 @@
   --shadow-card: 0 18px 40px rgb(22 33 62 / 0.12);
   --shadow-bar: 0 12px 30px rgb(22 33 62 / 0.3);
   --shadow-header: 0 8px 24px rgb(22 33 62 / 0.08);
+  --shadow-phone: 0 40px 80px rgb(22 33 62 / 0.3), 0 0 0 1px rgb(255 255 255 / 0.06) inset;
+  --shadow-rose: 0 12px 28px rgb(201 24 74 / 0.32);
+  --color-island: #05070d;
+  --color-phone-edge: #3a4566;
   --container: 74rem;
   --container-narrow: 46rem;
   --duration: 0.25s;
