@@ -101,4 +101,33 @@ final class DomaineTest extends TestCase
             Regles::maintenant(),
         );
     }
+
+    public function testLesFraisDeDeplacementNeSontGardesQueChezLeClientEtSiPlausibles(): void
+    {
+        $reserver = static fn (Lieu $lieu, ?int $km, ?int $centimes): RendezVous => RendezVous::reserver(
+            'rdv-1',
+            $lieu,
+            $lieu === Lieu::ChezLeClient ? 'Grand-Place, Lille' : null,
+            Creneau::depuis('2026-11-17', '14:00'),
+            Contact::depuis('Marie Dupont', 'marie@exemple.fr', '0612345678'),
+            'Detailing',
+            '',
+            str_repeat('a', 64),
+            Regles::maintenant(),
+            $km,
+            $centimes,
+        );
+
+        $chezLui = $reserver(Lieu::ChezLeClient, 100, 1875);
+        self::assertSame(100, $chezLui->kmFactures);
+        self::assertSame(1875, $chezLui->fraisCentimes);
+        self::assertSame('18,75 €', $chezLui->fraisLisibles());
+
+        // En visio : pas de frais, même s'ils sont envoyés.
+        self::assertNull($reserver(Lieu::Visio, 100, 1875)->fraisCentimes);
+        // Valeurs absurdes ou absentes : ignorées.
+        self::assertNull($reserver(Lieu::ChezLeClient, -5, 1875)->fraisCentimes);
+        self::assertNull($reserver(Lieu::ChezLeClient, 100, 99999999)->fraisCentimes);
+        self::assertNull($reserver(Lieu::ChezLeClient, null, null)->fraisLisibles());
+    }
 }

@@ -98,4 +98,21 @@ final class CasUsageTest extends TestCase
         $this->expectException(RendezVousIntrouvable::class);
         ($this->annuler)('inconnu');
     }
+
+    public function testGardeLesFraisDeDeplacementEnvoyesPourUnRendezVousChezLeClient(): void
+    {
+        $rdv = ($this->reserver)([
+            ...$this->demande(),
+            'lieu' => 'chezvous',
+            'adresse' => 'Grand-Place, Lille',
+            'kmFactures' => 96,
+            'fraisCentimes' => 1800,
+        ]);
+        self::assertSame(96, $rdv->kmFactures);
+        self::assertSame(1800, $rdv->fraisCentimes);
+
+        // Des frais envoyés sous forme de texte ne sont pas pris.
+        $autre = ($this->reserver)([...$this->demande(), 'jour' => '2026-11-18', 'lieu' => 'chezvous', 'adresse' => 'Lille', 'fraisCentimes' => '1800', 'kmFactures' => '96']);
+        self::assertNull($autre->fraisCentimes);
+    }
 }

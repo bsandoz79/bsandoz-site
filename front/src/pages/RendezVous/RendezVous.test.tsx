@@ -77,7 +77,7 @@ describe('Page Rendez-vous', () => {
     const { km } = situer(50.6292, 3.0573);
     const message = await screen.findByText(/au-delà de 50 km, je viens quand même/);
     const texte = message.textContent!.replace(/\s/g, ' ');
-    expect(texte).toContain(`pour les ${kmFactures(km)} km en plus`);
+    expect(texte).toContain(`pour ${kmFactures(km)} km aller-retour`);
     expect(texte).toContain(formatFrais(fraisKilometriques(km)).replace(/\s/g, ' '));
     expect(texte).toContain('dus même si le projet ne se fait pas');
     expect(screen.getByText(/^Calcul : /).textContent).toBe(`Calcul : ${detailCalcul(km)} (${origineCoutKm()}).`);

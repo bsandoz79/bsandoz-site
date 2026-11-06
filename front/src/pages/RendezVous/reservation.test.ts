@@ -92,7 +92,7 @@ describe('adresse', () => {
   it('au-delà de 50 km : frais kilométriques ; signale une adresse introuvable ou un service en panne', async () => {
     const lille = await verifierAdresse('Lille', reponse(lieu(3.0573, 50.6292)));
     expect(lille).toMatchObject({ statut: 'hors-zone' });
-    if (lille.statut === 'hors-zone') expect(lille.frais).toBe(Math.round((lille.km - 50) * 0.1875 * 100) / 100);
+    if (lille.statut === 'hors-zone') expect(lille.frais).toBe(Math.round((lille.km - 50) * 2 * 0.1875 * 100) / 100);
     expect((await verifierAdresse('???', reponse({ features: [] }))).statut).toBe('introuvable');
     expect((await verifierAdresse('flou', reponse(lieu(2.3, 49.9, 0.2)))).statut).toBe('introuvable');
     expect((await verifierAdresse('x', reponse({}, false))).statut).toBe('erreur');
@@ -130,6 +130,11 @@ describe('validation et envoi', () => {
   it('n’envoie l’adresse que pour un rendez-vous chez vous', () => {
     expect(corpsReservation(complete).adresse).toBe('12 rue de la Gare, Abbeville');
     expect(corpsReservation({ ...complete, lieu: 'telephone' }).adresse).toBeNull();
+    // Au-delà de 50 km, les frais partent avec la réservation (pour les mails) ; pas dans la zone ni à distance.
+    const lille = { statut: 'hors-zone' as const, ville: 'Lille', km: 98, base: 'Amiens', frais: 18, adresse: 'Lille' };
+    expect(corpsReservation(complete, lille)).toMatchObject({ kmFactures: 96, fraisCentimes: 1800 });
+    expect(corpsReservation({ ...complete, lieu: 'visio' }, lille)).not.toHaveProperty('fraisCentimes');
+    expect(corpsReservation(complete, { ...lille, statut: 'ok', frais: 0 })).not.toHaveProperty('kmFactures');
   });
 });
 
