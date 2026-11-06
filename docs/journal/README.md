@@ -87,3 +87,4 @@ Types de tests :
 | 56 | [Bandeau des services tiers et carte directe](56-feature-bandeau-cookies.md) | `feature/bandeau-cookies` | 2026-11-06 |
 | 57 | [Position du visiteur sur la carte](57-feature-carte-position.md) | `feature/carte-position` | 2026-11-06 |
 | 58 | [Ordre de la fin de l'accueil](58-feature-ordre-accueil.md) | `feature/ordre-accueil` | 2026-11-06 |
+| 59 | [Compléments et simulateur sur les trois formules](59-feature-tarifs-complements.md) | `feature/tarifs-complements` | 2026-11-06 |
