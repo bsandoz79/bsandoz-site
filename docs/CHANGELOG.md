@@ -5,6 +5,7 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Polices Inter et Plus Jakarta Sans hébergées avec le site (paquets Fontsource) : plus aucun appel à Google Fonts.
 - FAQ déplacée en bas de l'accueil, juste avant la carte : 3 questions, puis 3 de plus à chaque « Voir plus ». Le lien « Questions fréquentes » mène à `/#faq`, l'ancienne adresse `/faq` y redirige ; données structurées FAQPage sur l'accueil.
 - Reflet lumineux (effet verre) qui traverse le bouton « Estimer mon projet » du haut de l'accueil et les trois cartes de tarifs, environ toutes les 2 secondes ; coupé si les animations sont réduites.
 - Bouton « revenir en haut » : rond, transparent, en bas à droite, visible une fois la page descendue ; au-dessus de la barre « Estimer » sur mobile.

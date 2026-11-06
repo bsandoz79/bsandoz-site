@@ -10,7 +10,7 @@ Le CSS est découpé ainsi :
 | `src/styles/animations.css` | animations partagées, coupées si « réduire les animations » |
 | `Bloc.module.css` | styles d'un bloc ou composant, uniquement avec les variables |
 
-Polices : Plus Jakarta Sans (titres) et Inter (texte), chargées depuis Google Fonts dans `index.html`.
+Polices : Plus Jakarta Sans (titres) et Inter (texte), hébergées avec le site (paquets `@fontsource-variable/*`, importés dans `src/main.tsx`) : aucun appel à Google Fonts.
 
 Animations partagées : `anim-appear`, `anim-float` (flottement), `anim-pulse` (halo autour du bouton principal), `anim-reflet` (bande lumineuse effet verre qui traverse l'élément ; intensité `--reflet`, décalage `--reflet-delai`), et l'animation `marquee` utilisée par le bloc `Marquee`.
 
