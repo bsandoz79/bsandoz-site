@@ -31,7 +31,7 @@ function renderRdv() {
 }
 
 const resume = () => screen.getByRole('complementary', { name: 'Votre rendez-vous' });
-const confirmer = () => within(resume()).getByRole('button', { name: 'Confirmer le rendez-vous' });
+const confirmer = () => within(screen.getByRole('form')).getByRole('button', { name: 'Confirmer le rendez-vous' });
 
 async function remplirCoordonnees(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByRole('textbox', { name: /Prénom et nom/ }), 'Marie Dupont');
@@ -112,6 +112,10 @@ describe('Page Rendez-vous', () => {
     await user.click(screen.getByRole('radio', { name: '14:00 – 15:00' }));
     expect(coordonnees()).toBeInTheDocument();
     expect(confirmer()).toBeInTheDocument();
+    // Le bouton est en bas du formulaire, après la dernière réponse (la case d'accord), pas dans le récapitulatif.
+    const accord = screen.getByRole('checkbox', { name: /J'accepte que ces informations/ });
+    expect(accord.compareDocumentPosition(confirmer()) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(resume()).queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByText('Étape suivante : indiquez vos coordonnées.')).toBeInTheDocument();
 
     // Modifier l'adresse : les étapes suivantes se masquent jusqu'à la nouvelle vérification, le choix est gardé.
