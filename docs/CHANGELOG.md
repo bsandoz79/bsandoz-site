@@ -18,6 +18,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Ajouté
+- Première mise en ligne de l'API sur `api.bsandoz.fr` ; `docs/mise-en-ligne.md` note ce qui a été vérifié sur le vrai serveur (chemin de PHP 8.3, MariaDB 11.4, serveur de mail).
 - En-tête : lien « Espace client » toujours visible (icône, et texte sur grand écran), et en toutes lettres dans le menu du téléphone. Avant, il n'était que dans le pied de page.
 - Configurateur : à une nouvelle visite, s'il reste une estimation de la fois précédente, une fenêtre demande « Voulez-vous reprendre là où vous en étiez ? ». « Oui, reprendre » garde l'estimation, « Non, recommencer » repart de zéro (en gardant la formule du lien suivi). Pendant une même visite, la question n'est pas posée.
 - Demande de devis : à l'étape « Coordonnées », l'adresse (ou au moins la ville) est demandée. Elle est vérifiée comme pour un rendez-vous, et le déplacement est annoncé sous le champ (« Gratuit : à 12 km d'Amiens » ou les frais kilométriques aller-retour). Il est aussi repris dans le récapitulatif, le mail et le pré-devis.
