@@ -208,6 +208,42 @@
   align-self: stretch;
 }
 
+/* Espace client : icône ronde dans la barre, avec son texte sur grand écran. */
+.espace {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color var(--duration), color var(--duration);
+}
+
+.espace:hover {
+  border-color: var(--color-rose);
+  color: var(--color-accent-texte);
+}
+
+.espaceTexte {
+  display: none;
+}
+
+/* Dans le menu du téléphone, sous le bouton « Estimer ». */
+.espaceMenu {
+  align-self: center;
+  padding-block: var(--space-2);
+  font-weight: 600;
+}
+
 /* Ordinateur : navigation en ligne, bouton de menu masqué */
 @media (min-width: 960px) {
   .bar {
@@ -275,5 +311,71 @@
   .cta {
     align-self: auto;
     white-space: nowrap;
+  }
+
+  .espaceMenu {
+    display: none;
+  }
+}
+
+/* Assez de place : le texte « Espace client » s'affiche à côté de l'icône. */
+@media (min-width: 1200px) {
+  .espace {
+    padding-inline: var(--space-3);
+  }
+
+  .espaceTexte {
+    display: inline;
+  }
+}
+
+/* Les libellés de la barre restent sur une ligne. */
+.name,
+.link {
+  white-space: nowrap;
+}
+
+/* Téléphone : logo, nom et trois boutons tiennent sur une seule ligne. */
+@media (max-width: 959px) {
+  .bar {
+    gap: var(--space-2);
+  }
+
+  .brand {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .outils > * {
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Petit ordinateur : le nom est retiré de l'affichage (le logo reste), pour laisser la place au menu. */
+@media (min-width: 960px) and (max-width: 1099px) {
+  .name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+/* Très petit téléphone : le nom reste entier. */
+@media (max-width: 380px) {
+  .brand {
+    gap: var(--space-2);
+  }
+
+  .name {
+    font-size: var(--text-sm);
   }
 }
