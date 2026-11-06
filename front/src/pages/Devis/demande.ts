@@ -163,11 +163,25 @@ export function besoinsDepuisEstimation(config: Configuration): BesoinId[] {
   return besoins.map((b) => b.id).filter((id) => trouves.has(id));
 }
 
-/** Première étape encore à remplir (la dernière si tout est rempli). */
-export function etapeDeReprise(d: Demande) {
-  for (let etape = 0; etape < 4; etape++) if (Object.keys(validerEtape(etape, d)).length > 0) return etape;
-  return 4;
+/** Étape « Besoins » (deuxième étape du parcours). */
+export const ETAPE_BESOINS = 1;
+
+/**
+ * Étapes affichées. Quand le devis part d'une estimation, l'étape « Besoins » est sautée :
+ * l'estimation (formule et options) dit déjà ce que le site doit faire.
+ */
+export function etapesActives(depuisEstimation: boolean): number[] {
+  return [0, 1, 2, 3, 4].filter((etape) => !(depuisEstimation && etape === ETAPE_BESOINS));
 }
+
+/** Première étape encore à remplir parmi les étapes affichées (la dernière si tout est rempli). */
+export function etapeDeReprise(d: Demande, actives: number[] = etapesActives(false)) {
+  for (const etape of actives.slice(0, -1)) if (Object.keys(validerEtape(etape, d)).length > 0) return etape;
+  return actives[actives.length - 1];
+}
+
+/** Marque d'un brouillon « reparti de zéro » : l'estimation n'est plus reprise, même au rechargement. */
+export const marqueZero = (signature: string | null) => `zero:${signature ?? ''}`;
 
 /**
  * Point de départ du devis.
@@ -178,15 +192,18 @@ export function etapeDeReprise(d: Demande) {
  */
 export function demarrerDevis(brouillon: Brouillon, config: Configuration | null): Brouillon & { prerempli: boolean } {
   const signature = signatureEstimation(config);
-  if (!config || !signature || signature === brouillon.depuis) {
-    return { ...brouillon, prerempli: signature !== null && signature === brouillon.depuis };
+  if (!config || !signature || signature === brouillon.depuis || brouillon.depuis === marqueZero(signature)) {
+    const prerempli = signature !== null && signature === brouillon.depuis;
+    // Ancien brouillon arrêté sur « Besoins », étape désormais sautée : on passe à la suivante.
+    const etape = prerempli && brouillon.etape === ETAPE_BESOINS ? ETAPE_BESOINS + 1 : brouillon.etape;
+    return { ...brouillon, etape, prerempli };
   }
   const demande: Demande = {
     ...demandeRemiseAZero(brouillon.demande),
     metier: config.metier,
     besoins: besoinsDepuisEstimation(config),
   };
-  return { demande, etape: etapeDeReprise(demande), depuis: signature, prerempli: true };
+  return { demande, etape: etapeDeReprise(demande, etapesActives(true)), depuis: signature, prerempli: true };
 }
 
 /** Repartir de zéro : questions du projet vidées, coordonnées gardées. */
@@ -216,9 +233,10 @@ export function lignesRecapitulatif(d: Demande, config: Configuration | null): [
   const resume = resumeConfiguration(config);
   const lignes: [string, string][] = [
     ['Activité', metiers.find((m) => m.id === d.metier)?.nom ?? ''],
-    ['Besoins', d.besoins.map((b) => besoins.find((x) => x.id === b)?.nom).join(', ')],
-    ['Projet', d.description.trim()],
   ];
+  // Sans besoins cochés (devis parti d'une estimation), c'est la configuration qui les décrit.
+  if (d.besoins.length) lignes.push(['Besoins', d.besoins.map((b) => besoins.find((x) => x.id === b)?.nom).join(', ')]);
+  lignes.push(['Projet', d.description.trim()]);
   if (d.lien.trim()) lignes.push(['Site aimé', d.lien.trim()]);
   lignes.push(['Budget', libelle(budgets, d.budget)], ['Délai', libelle(delais, d.delai)]);
   if (resume) {

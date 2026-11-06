@@ -16,6 +16,9 @@ import {
   demandeRemiseAZero,
   demarrerDevis,
   signatureEstimation,
+  etapeDeReprise,
+  etapesActives,
+  marqueZero,
 } from './demande';
 
 const complete: Demande = {
@@ -187,8 +190,31 @@ describe('reprise depuis la dernière estimation', () => {
   });
 
   it('même estimation : le brouillon est repris tel quel, là où il s’était arrêté', () => {
-    const encours = { demande: { ...demandeVide, metier: 'sante' as const }, etape: 1, depuis: signatureEstimation(fonctionnel) };
+    const encours = { demande: { ...demandeVide, metier: 'sante' as const }, etape: 3, depuis: signatureEstimation(fonctionnel) };
     expect(demarrerDevis(encours, fonctionnel)).toEqual({ ...encours, prerempli: true });
+    // Un ancien brouillon arrêté sur « Besoins » (étape sautée) passe à l'étape suivante.
+    expect(demarrerDevis({ ...encours, etape: 1 }, fonctionnel).etape).toBe(2);
+  });
+
+  it('depuis une estimation, l’étape « Besoins » est sautée', () => {
+    expect(etapesActives(true)).toEqual([0, 2, 3, 4]);
+    expect(etapesActives(false)).toEqual([0, 1, 2, 3, 4]);
+    // Vitrine sans activité : on commence par l'activité, puis on passe directement à « Avec vos mots ».
+    expect(etapeDeReprise({ ...demandeVide, metier: 'artisan' }, etapesActives(true))).toBe(2);
+    expect(etapeDeReprise({ ...demandeVide, metier: 'artisan' }, etapesActives(false))).toBe(1);
+  });
+
+  it('après « Repartir de zéro », la même estimation n’est plus reprise, même au rechargement', () => {
+    const zero = { demande: demandeVide, etape: 1, depuis: marqueZero(signatureEstimation(fonctionnel)) };
+    expect(demarrerDevis(zero, fonctionnel)).toEqual({ ...zero, prerempli: false });
+    // Une autre estimation, elle, est reprise.
+    expect(demarrerDevis(zero, vitrine).prerempli).toBe(true);
+  });
+
+  it('le récapitulatif n’affiche pas de ligne « Besoins » vide', () => {
+    const lignes = lignesRecapitulatif({ ...complete, besoins: [] }, fonctionnel).map(([cle]) => cle);
+    expect(lignes).not.toContain('Besoins');
+    expect(lignes).toContain('Configuration');
   });
 
   it('sans estimation : le brouillon est repris tel quel', () => {

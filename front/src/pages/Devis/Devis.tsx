@@ -13,6 +13,9 @@ import {
   demandeRemiseAZero,
   demarrerDevis,
   effacerBrouillon,
+  etapesActives,
+  marqueZero,
+  signatureEstimation,
   enregistrerBrouillon,
   lignesRecapitulatif,
   resumeConfiguration,
@@ -45,6 +48,10 @@ export function Devis() {
   const [demande, setDemande] = useState<Demande>(depart.demande);
   const [etape, setEtape] = useState(depart.etape);
   const [prerempli, setPrerempli] = useState(depart.prerempli);
+  const [depuis, setDepuis] = useState(depart.depuis);
+  // Devis parti d'une estimation : pas d'étape « Besoins », l'estimation dit déjà ce que le site doit faire.
+  const actives = etapesActives(prerempli);
+  const position = Math.max(actives.indexOf(etape), 0);
   const [photos, setPhotos] = useState<File[]>([]);
   const [erreurs, setErreurs] = useState<Erreurs>({});
   const [statut, setStatut] = useState<Statut>('saisie');
@@ -53,13 +60,14 @@ export function Devis() {
   const premierRendu = useRef(true);
 
   useEffect(() => {
-    if (statut !== 'envoye') enregistrerBrouillon(demande, etape, depart.depuis);
-  }, [demande, etape, statut, depart.depuis]);
+    if (statut !== 'envoye') enregistrerBrouillon(demande, etape, depuis);
+  }, [demande, etape, statut, depuis]);
 
   function repartirDeZero() {
     setDemande(demandeRemiseAZero(demande));
     setErreurs({});
     setPrerempli(false);
+    setDepuis(marqueZero(signatureEstimation(config)));
     setEtape(0);
   }
 
@@ -82,7 +90,7 @@ export function Devis() {
   };
 
   const resume = resumeConfiguration(config);
-  const derniere = etape === etapesDevis.length - 1;
+  const derniere = position === actives.length - 1;
 
   async function envoyer() {
     if (Date.now() - dernierEnvoi() < DELAI_ENVOI_MS) {
@@ -119,7 +127,7 @@ export function Devis() {
       return;
     }
     if (derniere) void envoyer();
-    else setEtape(etape + 1);
+    else setEtape(actives[position + 1]);
   }
 
   if (statut === 'envoye') {
@@ -153,7 +161,7 @@ export function Devis() {
       <PageMeta title={pages.devis.title} description={pages.devis.description} />
       <Container className={styles.page}>
         <h1 className="sr-only">{pages.devis.heading}</h1>
-        <Stepper label={t.progression} steps={etapesDevis} current={etape} />
+        <Stepper label={t.progression} steps={actives.map((i) => etapesDevis[i])} current={position} />
         {prerempli && resume && (
           <div className={styles.reprise} role="status">
             <p>
@@ -169,7 +177,7 @@ export function Devis() {
         <div className={styles.colonnes}>
           <form className={styles.formulaire} onSubmit={suivant} noValidate aria-labelledby="devis-etape-titre">
             <div className={styles.entete}>
-              <p className={styles.compteur}>{t.etape(etape + 1, etapesDevis.length)}</p>
+              <p className={styles.compteur}>{t.etape(position + 1, actives.length)}</p>
               <h2 id="devis-etape-titre" ref={titreRef} tabIndex={-1} className={styles.titre}>
                 {TITRES[etape].titre}
               </h2>
@@ -274,8 +282,8 @@ export function Devis() {
             )}
 
             <div className={styles.navigation}>
-              {etape > 0 && (
-                <Button variant="ghost" onClick={() => setEtape(etape - 1)}>
+              {position > 0 && (
+                <Button variant="ghost" onClick={() => setEtape(actives[position - 1])}>
                   {t.retour}
                 </Button>
               )}
