@@ -116,6 +116,13 @@ export function Header() {
 
         {/* Bouton de thème (toujours visible) et bouton du menu (téléphone). */}
         <div className={styles.outils}>
+          <Link to={header.espaceClient.to} className={styles.espace} aria-label={header.espaceClient.label} title={header.espaceClient.label}>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5" />
+            </svg>
+            <span className={styles.espaceTexte}>{header.espaceClient.label}</span>
+          </Link>
           <ThemeToggle />
           <button
             ref={toggleRef}
@@ -170,6 +177,10 @@ export function Header() {
           </ul>
           <Link to={lienEstimer(pathname)} className={buttonClassName({ className: styles.cta })}>
             {header.cta.label}
+          </Link>
+          {/* Dans le menu du téléphone : le lien en toutes lettres. Sur ordinateur, il est dans la barre. */}
+          <Link to={header.espaceClient.to} className={styles.espaceMenu}>
+            {header.espaceClient.label}
           </Link>
         </nav>
       </Container>

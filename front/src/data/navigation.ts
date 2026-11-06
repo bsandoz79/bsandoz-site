@@ -53,6 +53,8 @@ export const header = {
   metiersLabel: 'Métiers',
   openMenu: 'Ouvrir le menu',
   closeMenu: 'Fermer le menu',
+  /** Toujours visible dans la barre : icône, et texte sur grand écran. */
+  espaceClient: { label: 'Espace client', to: pages.monEspace.path },
   links: [
     { label: 'Réalisations', to: pages.realisations.path },
     { label: 'Tarifs', to: pages.tarifs.path },
