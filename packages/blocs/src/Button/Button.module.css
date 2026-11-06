@@ -14,7 +14,20 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--duration), color var(--duration), border-color var(--duration);
+  transition:
+    background-color var(--duration),
+    color var(--duration),
+    border-color var(--duration),
+    transform var(--duration),
+    box-shadow var(--duration);
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .button:disabled {
@@ -28,6 +41,7 @@
 }
 .primary:hover:not(:disabled) {
   background: var(--color-rose-dark);
+  box-shadow: var(--shadow-rose);
   color: var(--color-text-on-dark);
 }
 
