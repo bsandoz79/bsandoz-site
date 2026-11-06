@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { offres } from '../../../data/accueil';
-import { formules, mentionsPrix, prixFormule } from '../../../data/offres';
+import { formules, mentionsPrix, prixFormule, lignePageSupplementaire } from '../../../data/offres';
 import { pages } from '../../../data/pages';
 import sections from './Sections.module.css';
 import styles from './Offres.module.css';
@@ -41,6 +41,7 @@ export function Offres() {
                       <li key={point}>{point}</li>
                     ))}
                   </ul>
+                  <p className={featured ? `${styles.pageSup} ${styles.pageSupDark}` : styles.pageSup}>{lignePageSupplementaire()}</p>
                   <Link
                     to={`${pages.composer.path}?formule=${formule.id}`}
                     className={buttonClassName({

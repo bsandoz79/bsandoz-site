@@ -1,7 +1,7 @@
 import { Card, Container, SectionTitle } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
-import { formules, mentionsPrix, prixFormule } from '../../data/offres';
+import { formules, mentionsPrix, prixFormule, lignePageSupplementaire } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { jsonLdOffres } from '../../data/seo';
 import { apresMiseEnLigne, contenuFormules, formulesSection, intro, pourquoiFonctionnel } from '../../data/tarifs';
@@ -46,6 +46,7 @@ export function Tarifs() {
                     <p className={featured ? styles.formuleContenuDark : styles.formuleContenu}>
                       {formulesSection.delaiLabel} : {formule.delai}
                     </p>
+                    <p className={featured ? `${styles.pageSup} ${styles.pageSupDark}` : styles.pageSup}>{lignePageSupplementaire()}</p>
                   </Card>
                 </li>
               );

@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Modifié (design)
+- Tarifs : prix d'une page supplémentaire affiché sous chacune des trois formules (repris de l'option, modifiable dans le back-office).
 - Accueil plus dynamique : téléphone de démonstration façon smartphone récent (îlot, barre d'état, bords fins, halo qui respire), lueurs en fond, bande « En bref » de chiffres clés réels ; boutons qui se soulèvent au survol avec un halo rose.
 - Formulaire de contact rapide en bas de l'accueil (carte : formulaire à gauche, contact et engagements à droite), envoyé comme une demande de devis ; champs de saisie modernisés sur tout le site (fond teinté, halo rose au focus).
 - Réalisations : une page par projet (`/realisations/<projet>`) qui n'affiche que lui (contexte, besoin, solution, fonctionnalités, captures, démo, projets voisins) ; liste en cartes avec les vraies captures (WebP) ; textes repris du portfolio ; pages de projets dans le plan du site.
