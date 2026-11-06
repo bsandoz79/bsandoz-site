@@ -28,7 +28,7 @@ Blocs : `npm run livrer -- Button Calendar ChoiceChips Container OptionCard Step
 
 Routes à déclarer : `/mon-espace`, `/mon-espace/connexion`, `/mon-espace/lien`, `/mon-espace/mot-de-passe`, `/mon-espace/email`, `/mon-espace/suppression`, `/admin`. Les mails utilisent ces adresses : ne pas les changer. Les exclure du sitemap, et ajouter `Disallow: /mon-espace` et `Disallow: /admin` dans `robots.txt`.
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : tout garder, avec `src/Liaisons/`, `src/BackOffice/` et toutes les migrations. Aucune dépendance à retirer.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : tout garder, avec `src/Liaisons/`, `src/BackOffice/`, `src/Catalogue/` et toutes les migrations. Aucune dépendance à retirer.
 
 ## Réglages
 Dans `.env.local`, en plus des variables de [Rendez-vous](rendez-vous.md) et de [Demandes de devis](demandes-de-devis.md) :

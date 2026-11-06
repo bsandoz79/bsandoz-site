@@ -7,7 +7,7 @@ Le formulaire de [Devis par mail](devis-par-mail.md), mais reçu par l'API : dem
 ## Fichiers à copier
 **Site** : comme [Devis par mail](devis-par-mail.md), sans `devis.php`.
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Prospect/`, `src/Shared/`, `config/packages/prospect.yaml`, `migrations/Version20261105203915.php`, `migrations/Version20261106090000.php`. Retirer Booking, Auth, `src/Liaisons/` et `src/BackOffice/`.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Prospect/`, `src/Shared/`, `config/packages/prospect.yaml`, `migrations/Version20261105203915.php`, `migrations/Version20261106090000.php`. Retirer Booking, Auth, `src/Liaisons/`, `src/BackOffice/` et `src/Catalogue/`.
 ```sh
 composer remove --no-scripts symfony/password-hasher
 ```

@@ -202,7 +202,35 @@
   min-height: 44px;
 }
 
+.onglets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.groupe {
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.groupe legend {
+  padding-inline: var(--space-2);
+  font-weight: 700;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
 @media (min-width: 700px) {
+  .grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .ligneDevis {
     grid-template-columns: 1fr 140px auto;
     align-items: end;

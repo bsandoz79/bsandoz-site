@@ -13,7 +13,7 @@ Calendrier, créneaux, créneau pris refusé, mails avec fichier `.ics`, annulat
 
 Blocs : `npm run livrer -- Button Calendar ChoiceChips Container TextField --vers <projet>/src/blocs`
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Booking/`, `src/Shared/`, `config/packages/booking.yaml`, `migrations/Version20261105185043.php`. Retirer Auth, Prospect, `src/Liaisons/` et `src/BackOffice/`.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Booking/`, `src/Shared/`, `config/packages/booking.yaml`, `migrations/Version20261105185043.php`. Retirer Auth, Prospect, `src/Liaisons/`, `src/BackOffice/` et `src/Catalogue/`.
 ```sh
 composer remove --no-scripts dompdf/dompdf symfony/password-hasher symfony/rate-limiter
 ```

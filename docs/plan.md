@@ -36,5 +36,5 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/fil-messages` : fil de messages synchronisé avec les mails (IMAP)
 - [ ] Back-office, en plusieurs branches :
   - [x] `feature/back-office` : demandes et devis
-  - [ ] `feature/back-office-prix` : prix
+  - [x] `feature/back-office-prix` : prix
   - [ ] `feature/back-office-disponibilites` : disponibilités

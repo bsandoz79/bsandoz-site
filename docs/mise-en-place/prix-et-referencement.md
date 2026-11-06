@@ -7,6 +7,7 @@ Source unique des prix, calcul d'une estimation, sitemap, données structurées.
 | --- | --- |
 | Prix et estimation | `data/offres.ts`, `data/calculs.ts`, et leurs tests |
 | Titres et description des pages | `components/PageMeta/`, `data/seo.ts`, `data/pages.ts`, `data/navigation.ts`, `data/faq.ts`, `data/offres.ts` |
+| Modifier les prix sans redéployer (facultatif, demande le back-office de l'[espace client](espace-client.md)) | `data/prixEnLigne.ts`, avec le `main.tsx` de `front/src/`, et `pages/Admin/PrixAdmin.tsx` |
 | `sitemap.xml` et `robots.txt` au build | la fonction `fichiersSeo` de `front/vite.config.ts` |
 
 Blocs utiles : `PriceSummary`, `OptionCard`, `SitePreview`. Voir [Blocs](blocs.md).
@@ -16,7 +17,7 @@ Blocs utiles : `PriceSummary`, `OptionCard`, `SitePreview`. Voir [Blocs](blocs.m
 - **Référencement** : `site` dans `data/pages.ts` (nom, adresse), `contact` dans `data/navigation.ts`, la liste des pages. Les données structurées de `data/seo.ts` me décrivent : à réécrire pour son activité.
 
 ## Base de données, mails
-Aucun.
+Aucun, sauf pour modifier les prix depuis le back-office : table `catalogue_prix` (module `Catalogue`).
 
 ## Domaine
 `site.url` doit être l'adresse finale du site.
@@ -27,5 +28,5 @@ Aucun.
 - [ ] Aucun de mes prix : voir [Vérifications finales](commun.md#vérifications-finales).
 
 ## Selon la façon de livrer
-- **Autonome** : les prix sont dans le code, un changement demande de reconstruire le site. Le lui expliquer, ou prévoir une intervention.
+- **Autonome** : sans back-office, les prix sont dans le code et un changement demande de reconstruire le site : le lui expliquer, ou prévoir une intervention.
 - **Je gère** : ces changements passent par moi.

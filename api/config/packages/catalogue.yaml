@@ -1,0 +1,7 @@
+# Module Catalogue : prix modifiés depuis le back-office.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Catalogue\Domain\PrixEnregistres: '@App\Catalogue\Infrastructure\Doctrine\PrixDoctrine'

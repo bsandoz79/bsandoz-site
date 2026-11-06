@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (back-office : prix)
+- Site : onglet « Prix » de `/admin` ; le site applique les prix modifiés à son chargement, avec repli sur ceux du code (`data/prixEnLigne.ts`). Les prix actuels ne changent pas.
+- API : module `Catalogue` (`GET /prix`, `POST /backoffice/prix`), table `catalogue_prix`.
+
 ### Ajouté (back-office : demandes et devis)
 - Site : page `/admin` (réservée, non indexée) : demandes, statut, devis confirmé avant l'envoi, réponses et notes d'appel. Après la connexion, retour sur la page demandée.
 - API : `/backoffice/demandes…`, réservé aux adresses de `BACKOFFICE_EMAILS` ; commande `backoffice:ouvrir-acces` ; règles du statut (`ChangerStatut`).
