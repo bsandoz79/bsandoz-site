@@ -116,3 +116,4 @@ Types de tests :
 | 85 | [Édition par bloc : textes, prix, images](85-feature-edition-blocs.md) | `feature/edition-blocs` | 2026-11-06 |
 | 86 | [Ajouter le rendez-vous à son agenda](86-feature-agenda-rdv.md) | `feature/agenda-rdv` | 2026-11-06 |
 | 87 | [Planning et statistiques du back-office](87-feature-planning-admin.md) | `feature/planning-admin` | 2026-11-06 |
+| 88 | [Cartes des autres besoins](88-feature-cibles.md) | `feature/cibles` | 2026-11-06 |
