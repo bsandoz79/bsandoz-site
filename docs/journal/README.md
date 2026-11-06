@@ -99,3 +99,4 @@ Types de tests :
 | 68 | [« Estimer » ouvre le bon onglet](68-fix-estimer-bon-onglet.md) | `fix/estimer-bon-onglet` | 2026-11-06 |
 | 69 | [Le devis ne garde plus les essais précédents](69-fix-devis-sans-anciens-essais.md) | `fix/devis-sans-anciens-essais` | 2026-11-06 |
 | 70 | [État « choisi » et bouton de confirmation](70-style-sans-liseres.md) | `style/sans-liseres` | 2026-11-06 |
+| 71 | [Un site plus sobre (« moins IA »)](71-style-moins-ia.md) | `style/moins-ia` | 2026-11-06 |
