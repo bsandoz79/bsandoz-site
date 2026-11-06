@@ -60,3 +60,4 @@ Types de tests :
 | 29 | [API en production](29-fix-api-production.md) | `fix/api-production` | 2026-11-06 |
 | 30 | [Mise en place chez un client](30-docs-mise-en-place-client.md) | `docs/mise-en-place-client` | 2026-11-06 |
 | 31 | [Fil de messages synchronisé avec les mails](31-feature-fil-messages.md) | `feature/fil-messages` | 2026-11-06 |
+| 32 | [Back-office : demandes et devis](32-feature-back-office.md) | `feature/back-office` | 2026-11-06 |

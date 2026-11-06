@@ -38,6 +38,16 @@ final class DemandesDoctrine implements Demandes
             ->getQuery()->getResult();
     }
 
+    public function recentes(int $maximum): array
+    {
+        /** @var list<Demande> */
+        return $this->em->createQueryBuilder()
+            ->select('d')->from(Demande::class, 'd')
+            ->orderBy('d.creeLe', 'DESC')->addOrderBy('d.id', 'DESC')
+            ->setMaxResults($maximum)
+            ->getQuery()->getResult();
+    }
+
     public function nombreRecuesEn(int $annee): int
     {
         return (int) $this->em->createQueryBuilder()

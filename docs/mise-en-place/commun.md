@@ -29,7 +29,7 @@ PHP 8.3 avec `pdo_mysql`, `ctype`, `iconv`, plus `dom` et `mbstring` pour les de
    - les dossiers `src/<Module>` et les fichiers `config/packages/<module>.yaml` ;
    - leur bloc dans `config/packages/doctrine.yaml` (sous `mappings`) ;
    - leurs migrations ;
-   - `src/Liaisons/`, sauf pour l'espace client ;
+   - `src/Liaisons/` et `src/BackOffice/`, sauf pour l'espace client ;
    - le bloc `when@test` de `config/services.yaml` si Prospect est retiré.
 3. Retirer les dépendances inutiles (liste dans la fiche) : `composer remove --no-scripts <paquets>`.
 4. Installer pour la production :

@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (back-office : demandes et devis)
+- Site : page `/admin` (réservée, non indexée) : demandes, statut, devis confirmé avant l'envoi, réponses et notes d'appel. Après la connexion, retour sur la page demandée.
+- API : `/backoffice/demandes…`, réservé aux adresses de `BACKOFFICE_EMAILS` ; commande `backoffice:ouvrir-acces` ; règles du statut (`ChangerStatut`).
+
 ### Ajouté (fil de messages)
 - Site : « Nos échanges » dans chaque demande de l'espace client (messages, réponses par mail, notes d'appel). Politique de confidentialité complétée.
 - API, module Prospect : messages d'une demande (`POST /espace/demandes/{id}/messages`, 20 par heure), prévenir l'autre personne par mail ; référence signée dans l'objet des mails ; `prospect:relever-mails` relève la boîte en IMAP et rattache les réponses (expéditeur vérifié, citations et signatures retirées, réponses automatiques ignorées, doublons refusés). Fil inclus dans l'export et effacé avec la demande. Table `prospect_message`.

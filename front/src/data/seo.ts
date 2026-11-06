@@ -11,6 +11,7 @@ export const pagesNonIndexees: (keyof typeof pages)[] = [
   'motDePasse',
   'confirmerEmail',
   'suppression',
+  'admin',
 ];
 
 /** Adresse complète d'une page. */
@@ -30,7 +31,7 @@ export function genererSitemap(chemins: string[] = cheminsIndexables()) {
 }
 
 /** Contenu du fichier `robots.txt`. */
-export const robotsTxt = () => `User-agent: *\nAllow: /\nDisallow: ${pages.monEspace.path}\n\nSitemap: ${site.url}/sitemap.xml\n`;
+export const robotsTxt = () => `User-agent: *\nAllow: /\nDisallow: ${pages.monEspace.path}\nDisallow: ${pages.admin.path}\n\nSitemap: ${site.url}/sitemap.xml\n`;
 
 /** Données structurées de l'entreprise (schema.org). Seuls des faits établis : pas d'adresse ni de note inventées. */
 export function jsonLdEntreprise() {

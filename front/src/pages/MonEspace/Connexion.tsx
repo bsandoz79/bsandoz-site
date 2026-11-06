@@ -1,10 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button, Container, TextField } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { espaceTextes } from '../../data/espace';
 import { pages } from '../../data/pages';
-import { compteConnecte, demanderLien, emailValide, seConnecter } from './compte';
+import { adresseDeRetour, compteConnecte, demanderLien, emailValide, seConnecter } from './compte';
 import styles from './MonEspace.module.css';
 
 const t = espaceTextes;
@@ -13,6 +13,8 @@ const page = pages.connexion;
 /** Connexion à l'espace client : par mot de passe, ou par un lien reçu par mail. */
 export function Connexion() {
   const navigate = useNavigate();
+  const [recherche] = useSearchParams();
+  const retour = adresseDeRetour(recherche.get('retour'));
   const [email, setEmail] = useState('');
   const [motDePasse, setMotDePasse] = useState('');
   const [erreur, setErreur] = useState('');
@@ -25,13 +27,13 @@ export function Connexion() {
     let actif = true;
     compteConnecte()
       .then((compte) => {
-        if (actif && compte) navigate(pages.monEspace.path, { replace: true });
+        if (actif && compte) navigate(retour, { replace: true });
       })
       .catch(() => undefined);
     return () => {
       actif = false;
     };
-  }, [navigate]);
+  }, [navigate, retour]);
 
   async function connecter(event: FormEvent) {
     event.preventDefault();
@@ -46,7 +48,7 @@ export function Connexion() {
     try {
       const resultat = await seConnecter(email, motDePasse);
       if (resultat.ok) {
-        navigate(pages.monEspace.path, { replace: true });
+        navigate(retour, { replace: true });
         return;
       }
       setErreur(resultat.raison === 'identifiants' ? t.connexion.incorrect : resultat.raison === 'trop-d-essais' ? t.tropDEssais : t.erreurReseau);

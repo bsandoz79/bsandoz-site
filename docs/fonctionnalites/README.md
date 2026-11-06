@@ -20,6 +20,7 @@ Une fiche par fonctionnalité : à quoi elle sert, le **chemin** suivi (fichiers
 | [Fil de messages](fil-de-messages.md) | échanges d'une demande : site, réponses par mail (IMAP), notes d'appel | oui (module Prospect) |
 | [Comptes et connexion](comptes-et-connexion.md) | compte ouvert au premier rendez-vous, connexion par lien ou mot de passe, appareils | oui (module Auth) |
 | [Mise en place chez un client](mise-en-place-client.md) | fiches d'installation sur un autre domaine, client autonome ou « je gère pour lui » | — |
+| [Back-office](back-office.md) | `/admin` : demandes, devis, réponses, notes d'appel | en partie |
 | [Déploiement et CI](deploiement-et-ci.md) | tests automatiques, mise en ligne, retour à la V1 | — |
 
 Règle : quand une fonctionnalité change, sa fiche est mise à jour dans la même branche (voir `.claude/CLAUDE.md`).

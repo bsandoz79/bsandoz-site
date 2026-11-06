@@ -1,0 +1,61 @@
+import { appelerApi } from '../../app/api';
+import type { MessageDuFil } from '../MonEspace/compte';
+
+/** Une ligne de la liste des demandes. */
+export type LigneDemande = {
+  id: string;
+  numero: string;
+  titre: string;
+  nom: string;
+  entreprise: string;
+  envoyeeLe: string;
+  statut: string;
+  statutLibelle: string;
+};
+
+export type LigneDevis = { libelle: string; prix: number };
+
+/** Le détail d'une demande. */
+export type DemandeAdmin = {
+  id: string;
+  numero: string;
+  titre: string;
+  envoyeeLe: string;
+  statut: string;
+  statuts: { statut: string; libelle: string }[];
+  demandeur: { nom: string; email: string; telephone: string; entreprise: string };
+  recapitulatif: string;
+  predevis: string;
+  messages: MessageDuFil[];
+  devis: { numero: string; lignes: LigneDevis[]; total: number; statut: 'envoye' | 'accepte'; envoyeLe: string; accepteLe: string | null } | null;
+};
+
+/** Accès au back-office : refus distingués, pour afficher la bonne page. */
+export type Acces = 'ok' | 'connexion' | 'interdit' | 'erreur';
+
+export const accesDepuis = (statut: number): Acces => (statut === 401 ? 'connexion' : statut === 403 ? 'interdit' : statut === 200 ? 'ok' : 'erreur');
+
+export async function listerDemandes(): Promise<{ acces: Acces; demandes: LigneDemande[] }> {
+  const { statut, corps } = await appelerApi<{ demandes?: LigneDemande[] }>('/backoffice/demandes');
+  return { acces: accesDepuis(statut), demandes: corps.demandes ?? [] };
+}
+
+export async function voirDemande(id: string): Promise<DemandeAdmin | null> {
+  const { statut, corps } = await appelerApi<{ demande?: DemandeAdmin }>(`/backoffice/demandes/${encodeURIComponent(id)}`);
+  return statut === 200 ? (corps.demande ?? null) : null;
+}
+
+export type Resultat = { ok: true; demande: DemandeAdmin } | { ok: false; erreur: string };
+
+async function agir(id: string, action: 'statut' | 'devis' | 'messages', corps: unknown, repli: string): Promise<Resultat> {
+  const { statut, corps: reponse } = await appelerApi<{ demande?: DemandeAdmin; erreur?: string; erreurs?: Record<string, string> }>(
+    `/backoffice/demandes/${encodeURIComponent(id)}/${action}`,
+    { corps },
+  );
+  if (statut === 200 && reponse.demande) return { ok: true, demande: reponse.demande };
+  return { ok: false, erreur: reponse.erreur ?? Object.values(reponse.erreurs ?? {})[0] ?? repli };
+}
+
+export const changerStatut = (id: string, statut: string, repli: string) => agir(id, 'statut', { statut }, repli);
+export const envoyerDevis = (id: string, lignes: LigneDevis[], repli: string) => agir(id, 'devis', { lignes }, repli);
+export const ajouterMessage = (id: string, corps: string, note: boolean, repli: string) => agir(id, 'messages', { corps, note }, repli);

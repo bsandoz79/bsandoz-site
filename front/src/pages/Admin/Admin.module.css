@@ -1,0 +1,210 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-block: var(--space-6);
+}
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.carte h2 {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.carte h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.aide {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.erreur,
+.succes {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+}
+
+.erreur {
+  font-weight: 600;
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-weight: 600;
+}
+
+.champ select {
+  min-height: 44px;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font: inherit;
+  font-weight: 400;
+}
+
+.liste,
+.coordonnees,
+.messages {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste {
+  gap: var(--space-3);
+}
+
+.coordonnees {
+  gap: var(--space-1);
+}
+
+.messages {
+  gap: var(--space-2);
+}
+
+.ligne {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.ligne p {
+  margin: 0;
+}
+
+.titreLigne {
+  margin: 0;
+  font-weight: 700;
+}
+
+.actions,
+.rangee {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.rangee {
+  align-items: flex-end;
+}
+
+.badge {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.texte {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ligneDevis {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.lignesDevis {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lignesDevis td,
+.lignesDevis th {
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.lignesDevis td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.confirmation p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.messageMoi,
+.messageAutre {
+  max-width: 90%;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.messageMoi {
+  align-self: flex-end;
+  background: var(--color-bg);
+}
+
+.messageAutre {
+  align-self: flex-start;
+}
+
+.caseACocher {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+}
+
+@media (min-width: 700px) {
+  .ligneDevis {
+    grid-template-columns: 1fr 140px auto;
+    align-items: end;
+  }
+}

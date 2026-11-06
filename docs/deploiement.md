@@ -68,6 +68,7 @@ Dans `api/.env.local` sur le serveur (jamais versionné) :
 - `AUTH_COOKIE_SECURISE=1` (de toute façon forcé en production) ;
 - `PROSPECT_EXPEDITEUR`, `PROSPECT_PROFESSIONNEL_EMAIL`, `PROSPECT_URL_SITE=https://bsandoz.fr`, `PROSPECT_SIRET` (après immatriculation) ;
 - `PROSPECT_BOITE_REPONSES`, `PROSPECT_IMAP_HOTE`, `PROSPECT_IMAP_UTILISATEUR`, `PROSPECT_IMAP_MOT_DE_PASSE` : boîte dédiée aux réponses, relevée en IMAP ;
+- `BACKOFFICE_EMAILS=contact@bsandoz.fr` : adresses autorisées dans le back-office, puis une fois `php bin/console backoffice:ouvrir-acces contact@bsandoz.fr "Baptiste Sandoz"` ;
 - puis `php bin/console doctrine:migrations:migrate`.
 
 Tâche planifiée (cPanel → Tâches Cron, toutes les 5 minutes) : `php bin/console prospect:relever-mails`.
