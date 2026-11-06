@@ -1,4 +1,5 @@
 import { appelerApi } from '../../app/api';
+import { adminTextes } from '../../data/admin';
 import type { MessageDuFil } from '../MonEspace/compte';
 
 /** Une ligne de la liste des demandes. */
@@ -48,6 +49,14 @@ export async function voirDemande(id: string): Promise<DemandeAdmin | null> {
 export async function enregistrerPrix(prix: Record<string, number>): Promise<boolean> {
   const { statut } = await appelerApi('/backoffice/prix', { corps: { prix } });
   return statut === 200;
+}
+
+export type ReglesDisponibilites = { joursTravailles: number[]; creneaux: string[]; joursFermes: string[] };
+
+export async function enregistrerDisponibilites(regles: ReglesDisponibilites): Promise<{ ok: true; regles: ReglesDisponibilites } | { ok: false; erreur: string }> {
+  const { statut, corps } = await appelerApi<ReglesDisponibilites & { erreurs?: Record<string, string> }>('/backoffice/disponibilites', { corps: regles });
+  if (statut === 200) return { ok: true, regles: corps };
+  return { ok: false, erreur: Object.values(corps.erreurs ?? {})[0] ?? adminTextes.disponibilites.echec };
 }
 
 export type Resultat = { ok: true; demande: DemandeAdmin } | { ok: false; erreur: string };

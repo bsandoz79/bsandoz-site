@@ -5,6 +5,7 @@ import { PageMeta } from '../../components/PageMeta';
 import { adminTextes } from '../../data/admin';
 import { pages } from '../../data/pages';
 import { DemandesAdmin } from './DemandesAdmin';
+import { DisponibilitesAdmin } from './DisponibilitesAdmin';
 import { PrixAdmin } from './PrixAdmin';
 import { listerDemandes, type Acces, type LigneDemande } from './api';
 import styles from './Admin.module.css';
@@ -62,6 +63,7 @@ export function Admin() {
           </nav>
           {onglet === 'demandes' && <DemandesAdmin demandes={demandes} />}
           {onglet === 'prix' && <PrixAdmin />}
+          {onglet === 'disponibilites' && <DisponibilitesAdmin />}
         </>
       )}
     </Container>
