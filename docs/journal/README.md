@@ -111,3 +111,4 @@ Types de tests :
 | 80 | [Espace client dans l'en-tête](80-feature-lien-espace-client.md) | `feature/lien-espace-client` | 2026-11-06 |
 | 81 | [Mise en ligne de l'API : ce qui a été vérifié](81-chore-doc-serveur.md) | `chore/doc-serveur` | 2026-11-06 |
 | 82 | [Disponibilités réglées d'un clic](82-feature-disponibilites-admin.md) | `feature/disponibilites-admin` | 2026-11-06 |
+| 83 | [Crayon sur les prix](83-feature-edition-en-page.md) | `feature/edition-en-page` | 2026-11-06 |

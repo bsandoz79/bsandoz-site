@@ -1,4 +1,14 @@
 /** Textes du back-office (`/admin`). */
+/** Crayon d'édition, sur les pages du site. */
+export const editionTextes = {
+  modifierPrix: (nom: string) => `Modifier le prix : ${nom}`,
+  nouveauPrix: (nom: string) => `Nouveau prix, en euros : ${nom}`,
+  enregistrer: 'Enregistrer',
+  annuler: 'Annuler',
+  invalide: 'Un montant en euros entiers.',
+  echec: 'L’enregistrement n’a pas abouti. Réessayez.',
+};
+
 export const adminTextes = {
   chargement: 'Chargement…',
   interdit: {
