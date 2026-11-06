@@ -44,6 +44,21 @@ describe('Footer', () => {
     expect(screen.getByRole('link', { name: '06 00 00 00 00' })).toHaveAttribute('href', 'tel:0600000000');
   });
 
+  it('propose d’estimer son projet ou de prendre rendez-vous', () => {
+    renderFooter();
+    expect(screen.getByText('Un projet en tête ?')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute('href', pages.composer.path);
+    expect(screen.getByRole('link', { name: 'Rendez-vous gratuit' })).toHaveAttribute('href', pages.rendezVous.path);
+  });
+
+  it('donne accès aux principales pages du site et aux droits de l’année', () => {
+    renderFooter();
+    const nav = within(screen.getByRole('navigation', { name: 'Le site' }));
+    expect(nav.getByRole('link', { name: 'Tarifs' })).toHaveAttribute('href', pages.tarifs.path);
+    expect(nav.getByRole('link', { name: 'Réalisations' })).toHaveAttribute('href', pages.realisations.path);
+    expect(screen.getByText(`© ${new Date().getFullYear()} Baptiste Sandoz`)).toBeInTheDocument();
+  });
+
   it('donne accès aux pages légales', () => {
     renderFooter();
     const nav = within(screen.getByRole('navigation', { name: 'Informations légales' }));
