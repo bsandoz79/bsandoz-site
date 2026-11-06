@@ -66,11 +66,19 @@ export const questionsFaq: QuestionFaq[] = [
   },
 ];
 
-export const pageFaq = {
+/** Section FAQ de l'accueil, juste avant la carte : 3 questions, puis 3 de plus à chaque « Voir plus ». */
+export const faqAccueil = {
+  /** Ancre de la section : le lien « Questions fréquentes » mène à `/#faq`. */
+  id: 'faq',
+  eyebrow: 'Questions fréquentes',
+  titre: 'Vos questions, mes réponses.',
   intro: 'Les réponses aux questions qu’on me pose le plus souvent. Une autre question ? Parlons-en.',
-  appel: {
-    texte: 'Vous n’avez pas trouvé votre réponse ?',
-    rdv: { label: 'Prendre rendez-vous (gratuit)', to: pages.rendezVous.path },
-    devis: { label: 'Décrire mon projet', to: pages.devis.path },
-  },
+  parPaquet: 3,
+  voirPlus: 'Voir plus de questions',
 };
+
+/** Lien vers la section FAQ de l'accueil. */
+export const lienFaq = `${pages.accueil.path}#${faqAccueil.id}`;
+
+/** Ancienne adresse de la page FAQ : redirigée vers la section de l'accueil. */
+export const ancienneAdresseFaq = '/faq';

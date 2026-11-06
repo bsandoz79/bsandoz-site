@@ -44,7 +44,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/carte-zones` : carte des zones d'intervention (Amiens, Abbeville, Arras, Beauvais, 50 km)
 - [x] `feature/retour-haut` : bouton « revenir en haut »
 - [x] `feature/reflet` : reflet lumineux sur « Estimer mon projet » et les cartes de tarifs
-- [ ] `feature/faq-accueil` : FAQ en bas de l'accueil avant la carte, 3 questions puis « Voir plus » (+3), le lien du menu mène à l'ancre
+- [x] `feature/faq-accueil` : FAQ en bas de l'accueil avant la carte, 3 questions puis « Voir plus » (+3), le lien du menu mène à l'ancre
 - [ ] `feature/bandeau-cookies` : bandeau discret en bas, non bloquant ; carte affichée directement au défilement
 - [ ] `feature/carte-position` : demande de position quand la carte apparaît, point sur la carte, message dans la zone / hors zone (frais kilométriques), bouton pour réactiver
 - [ ] `feature/composer-etapes` : le configurateur s'affiche étape par étape et centre chaque nouvelle étape

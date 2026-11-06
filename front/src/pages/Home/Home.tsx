@@ -3,8 +3,10 @@ import { ContactRapide } from '../../components/ContactRapide';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { pages } from '../../data/pages';
-import { jsonLdEntreprise } from '../../data/seo';
+import { questionsFaq } from '../../data/faq';
+import { jsonLdEntreprise, jsonLdFaq } from '../../data/seo';
 import { Chiffres } from './sections/Chiffres';
+import { Faq } from './sections/Faq';
 import { Hero } from './sections/Hero';
 import { Metiers } from './sections/Metiers';
 import { Methode } from './sections/Methode';
@@ -19,6 +21,7 @@ export function Home() {
     <>
       <PageMeta title={pages.accueil.title} description={pages.accueil.description} />
       <StructuredData data={jsonLdEntreprise()} />
+      <StructuredData data={jsonLdFaq(questionsFaq)} />
       <Hero />
       <Chiffres />
       <Metiers />
@@ -28,6 +31,7 @@ export function Home() {
       <Methode />
       <Pourquoi />
       <ContactRapide />
+      <Faq />
       <CarteZones />
     </>
   );

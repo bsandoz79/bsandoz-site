@@ -13,7 +13,7 @@ flowchart TB
   seo --> pm["components/PageMeta<br/>titre · description · canonique · noindex"]
   seo --> sd["components/StructuredData (JSON-LD)"]
   sd --> h["Accueil : ProfessionalService"]
-  sd --> f["FAQ : FAQPage"]
+  sd --> f["Accueil (section FAQ) : FAQPage"]
   sd --> t["Tarifs : OfferCatalog"]
 ```
 

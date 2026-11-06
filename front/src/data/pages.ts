@@ -95,12 +95,6 @@ export const pages = {
     description: 'Un rendez-vous découverte gratuit d’une heure : chez vous autour d’Amiens, en visio ou par téléphone.',
     heading: 'Comment préférez-vous me présenter votre projet ?',
   },
-  faq: {
-    path: '/faq',
-    title: 'Questions fréquentes',
-    description: 'Délais, contenus à fournir, propriété du site, hébergement, modifications et paiement.',
-    heading: 'Questions fréquentes',
-  },
   mentionsLegales: {
     path: '/mentions-legales',
     title: 'Mentions légales',

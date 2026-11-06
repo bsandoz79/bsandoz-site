@@ -44,7 +44,7 @@ flowchart LR
   Tarifs["/tarifs"] --> ChoiceChips & OptionCard & PriceSummary
   Devis["/devis"] --> Stepper & TextField & OptionCard & ChoiceChips
   RDV["/rendez-vous"] --> Calendar & ChoiceChips & TextField
-  Faq["/faq"] --> Accordion
+  Faq["Accueil, section FAQ"] --> Accordion
   Metier["Pages métier"] --> SitePreview & Card
 ```
 
