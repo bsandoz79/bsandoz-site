@@ -30,6 +30,44 @@ describe('Page Réalisations', () => {
     expect(realisations.map((r) => r.id)).toEqual([...idsRealisations]);
   });
 
+  it('filtre les projets : tout, sites web, applis et plateformes', async () => {
+    const user = userEvent.setup();
+    afficher(pages.realisations.path);
+    const cartes = () => screen.getAllByRole('article').map((a) => a.getAttribute('aria-labelledby'));
+
+    expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
+    expect(screen.getByText('3 projets')).toBeInTheDocument();
+    expect(cartes()).toHaveLength(3);
+
+    await user.click(screen.getByRole('radio', { name: 'Sites web' }));
+    expect(screen.getByText('2 projets')).toBeInTheDocument();
+    expect(screen.queryByRole('article', { name: "O'RDV" })).not.toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Christophe Poix Moto' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('radio', { name: 'Applis & plateformes' }));
+    expect(screen.getByText('1 projet')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: "O'RDV" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('radio', { name: 'Tout' }));
+    expect(cartes()).toHaveLength(3);
+  });
+
+  it('reprend le filtre de l’adresse, et ignore un filtre inconnu', () => {
+    const { unmount } = afficher(`${pages.realisations.path}?type=appli`);
+    expect(screen.getByRole('radio', { name: 'Applis & plateformes' })).toBeChecked();
+    expect(screen.getAllByRole('article')).toHaveLength(1);
+    unmount();
+
+    afficher(`${pages.realisations.path}?type=inconnu`);
+    expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
+    expect(screen.getAllByRole('article')).toHaveLength(3);
+  });
+
+  it('chaque projet a un type couvert par un filtre', () => {
+    const types = new Set(['site', 'appli']);
+    for (const realisation of realisations) expect(types.has(realisation.type)).toBe(true);
+  });
+
   it('propose de composer un projet', () => {
     afficher(pages.realisations.path);
     expect(screen.getByRole('link', { name: 'Composer mon site' })).toHaveAttribute('href', pages.composer.path);

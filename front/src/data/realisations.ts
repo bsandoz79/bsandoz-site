@@ -21,10 +21,14 @@ export { cheminRealisation };
 
 export type Capture = { src: string; legende: string };
 
+/** Type de projet, pour le filtre de la page Réalisations. */
+export type TypeRealisation = 'site' | 'appli';
+
 export type Realisation = {
   id: IdRealisation;
   /** Métier ou type de projet. */
   categorie: string;
+  type: TypeRealisation;
   titre: string;
   resume: string;
   annee: string;
@@ -62,12 +66,32 @@ export const pageRealisations = {
   precedent: 'Projet précédent',
   suivant: 'Projet suivant',
   appel: { text: 'Un projet du même genre ?', label: 'Composer mon site', to: '/composer' },
+  filtre: {
+    legende: 'Afficher',
+    nombre: (n: number) => (n > 1 ? `${n} projets` : `${n} projet`),
+    aucun: 'Aucun projet de ce type pour le moment.',
+  },
 };
+
+/** Filtres de la page Réalisations : « tout » d'abord. */
+export const filtresRealisations: { value: 'tout' | TypeRealisation; label: string }[] = [
+  { value: 'tout', label: 'Tout' },
+  { value: 'site', label: 'Sites web' },
+  { value: 'appli', label: 'Applis & plateformes' },
+];
+
+export type FiltreRealisation = (typeof filtresRealisations)[number]['value'];
+
+/** Projets d'un filtre (un filtre inconnu vaut « tout »). */
+export function realisationsFiltrees(filtre: string | null): Realisation[] {
+  return filtre === 'site' || filtre === 'appli' ? realisations.filter((r) => r.type === filtre) : realisations;
+}
 
 export const realisations: Realisation[] = [
   {
     id: 'christophe-poix-moto',
     categorie: 'Réparation moto à domicile',
+    type: 'site',
     titre: 'Christophe Poix Moto',
     resume: 'Un site vitrine clair, rapide sur téléphone, pour présenter les prestations et être contacté en un geste.',
     annee: '2026',
@@ -100,6 +124,7 @@ export const realisations: Realisation[] = [
   {
     id: 'demo-detailing',
     categorie: 'Detailing auto à domicile · démo',
+    type: 'site',
     titre: 'Réservation avec acompte',
     resume: 'Configurateur de prestation, calendrier du mois, frais selon la distance et acompte en ligne.',
     annee: A_COMPLETER,
@@ -116,6 +141,7 @@ export const realisations: Realisation[] = [
   {
     id: 'ordv',
     categorie: 'Plateforme de réservation · projet de Bachelor',
+    type: 'appli',
     titre: "O'RDV",
     resume: 'Des professionnels publient leurs créneaux, les clients trouvent un prestataire et réservent. Espaces client et pro.',
     annee: '2025 – 2026',
