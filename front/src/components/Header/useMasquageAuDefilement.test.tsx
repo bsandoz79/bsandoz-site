@@ -21,13 +21,14 @@ describe('useMasquageAuDefilement', () => {
 
   it('se cache en descendant et revient dès qu’on remonte', () => {
     const { result } = renderHook(() => useMasquageAuDefilement(false));
-    expect(result.current).toEqual({ masque: false, decolle: false });
+    expect(result.current).toEqual({ masque: false, decolle: false, enHaut: true });
 
     defiler(400);
-    expect(result.current).toEqual({ masque: true, decolle: true });
+    expect(result.current).toEqual({ masque: true, decolle: true, enHaut: false });
 
     defiler(350);
-    expect(result.current.masque).toBe(false);
+    // Remonter réaffiche la barre principale, mais pas encore les onglets (pas en haut de page).
+    expect(result.current).toMatchObject({ masque: false, enHaut: false });
 
     defiler(900);
     expect(result.current.masque).toBe(true);
@@ -36,7 +37,7 @@ describe('useMasquageAuDefilement', () => {
   it('reste visible en haut de page', () => {
     const { result } = renderHook(() => useMasquageAuDefilement(false));
     defiler(SEUIL_HAUT - 10);
-    expect(result.current.masque).toBe(false);
+    expect(result.current).toMatchObject({ masque: false, enHaut: true });
   });
 
   it('ignore les tout petits mouvements', () => {

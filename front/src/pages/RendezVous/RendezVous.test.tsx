@@ -189,4 +189,26 @@ describe('Page Rendez-vous', () => {
     expect(await screen.findByText('Ce créneau vient d’être pris : choisissez-en un autre.')).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: '09:00 – 10:00' })).not.toBeChecked();
   });
+  it('centre l’écran sur chaque étape qui s’ouvre', async () => {
+    const user = userEvent.setup();
+    const centrer = vi.fn();
+    Element.prototype.scrollIntoView = centrer;
+    simulerReseau();
+    renderRdv();
+
+    await user.click(screen.getByRole('radio', { name: /En visio/ }));
+    expect(centrer).toHaveBeenCalledTimes(1);
+    expect(centrer.mock.contexts[0]).toBe(screen.getByRole('group', { name: "2. Choisissez un créneau d'une heure" }));
+    expect(centrer).toHaveBeenLastCalledWith(expect.objectContaining({ block: 'center' }));
+
+    await user.click(screen.getByRole('button', { name: /^mardi 17 novembre 2026$/ }));
+    expect(centrer).toHaveBeenCalledTimes(1); // choisir un jour ne suffit pas à ouvrir l'étape 3
+    await user.click(screen.getByRole('radio', { name: '14:00 – 15:00' }));
+    expect(centrer).toHaveBeenCalledTimes(2);
+    expect(centrer.mock.contexts[1]).toBe(screen.getByRole('group', { name: '3. Vos coordonnées' }));
+
+    // Changer de créneau ne refait pas défiler : l'étape 3 était déjà ouverte.
+    await user.click(screen.getByRole('radio', { name: '15:30 – 16:30' }));
+    expect(centrer).toHaveBeenCalledTimes(2);
+  });
 });
