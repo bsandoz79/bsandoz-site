@@ -64,3 +64,4 @@ Types de tests :
 | 33 | [Back-office : prix](33-feature-back-office-prix.md) | `feature/back-office-prix` | 2026-11-06 |
 | 34 | [Back-office : disponibilités](34-feature-back-office-disponibilites.md) | `feature/back-office-disponibilites` | 2026-11-06 |
 | 35 | [Rappels et préférence de notification](35-feature-rappels.md) | `feature/rappels` | 2026-11-06 |
+| 36 | [Préparation de la mise en ligne](36-chore-mise-en-ligne.md) | `chore/mise-en-ligne` | 2026-11-06 |
