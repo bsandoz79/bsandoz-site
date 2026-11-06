@@ -70,7 +70,7 @@ describe('Page Réalisations', () => {
 
   it('propose de composer un projet', () => {
     afficher(pages.realisations.path);
-    expect(screen.getByRole('link', { name: 'Composer mon site' })).toHaveAttribute('href', pages.composer.path);
+    expect(screen.getByRole('link', { name: 'Composer mon site' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
   });
 });
 

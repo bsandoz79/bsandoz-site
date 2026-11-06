@@ -50,7 +50,7 @@ describe('Footer', () => {
   it('propose d’estimer son projet ou de prendre rendez-vous', () => {
     renderFooter();
     expect(screen.getByText('Un projet en tête ?')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute('href', pages.composer.path);
+    expect(screen.getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
     expect(screen.getByRole('link', { name: 'Rendez-vous gratuit' })).toHaveAttribute('href', pages.rendezVous.path);
   });
 
