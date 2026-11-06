@@ -1,3 +1,4 @@
+import { origineDuSite } from './pages';
 import { calculerEstimation, type Configuration } from './calculs';
 import { formatPrix as prix, optionsParMetier, optionsParFormule } from './offres';
 import {
@@ -136,7 +137,18 @@ describe('texteDuPreDevis', () => {
     expect(texte).toContain('Délai : 3 à 6 semaines');
     expect(texte).toContain(`- Acompte en ligne (+ ${prix(150)})`);
     expect(texte).toContain('TVA non applicable');
-    expect(texte).toContain('https://bsandoz.fr/rendez-vous');
+    // Le lien mène au site d'où part la demande (preview ou bsandoz.fr), jamais à une page absente.
+    expect(texte).toContain(`${window.location.origin}/rendez-vous`);
+  });
+
+  it('les liens des mails suivent l’adresse du site ; hors navigateur, l’adresse publique', () => {
+    expect(origineDuSite()).toBe(window.location.origin);
+    vi.stubGlobal('location', { origin: 'null' });
+    try {
+      expect(origineDuSite()).toBe('https://bsandoz.fr');
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 
   it('affiche un prix unique pour une vitrine', () => {
