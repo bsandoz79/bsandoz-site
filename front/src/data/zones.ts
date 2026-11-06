@@ -16,10 +16,10 @@ export const carteTextes = {
   intro: (liste: string) => `Dans un rayon de ${RAYON_KM} km autour de ${liste}. Ailleurs en France : en visio ou par téléphone.`,
   choix: 'Afficher la zone de',
   toutes: 'Toutes',
-  consentement: {
-    texte:
-      'La carte vient d’OpenStreetMap : l’afficher transmet votre adresse IP à ses serveurs, comme toute image chargée depuis un autre site.',
-    bouton: 'Afficher la carte',
+  /** Si le visiteur a refusé les services tiers dans le bandeau. */
+  refusee: {
+    texte: 'Vous avez refusé les services tiers : la carte, qui vient d’OpenStreetMap, n’est pas chargée.',
+    bouton: 'Afficher la carte quand même',
   },
   legendeCarte: (zone: string) => `Carte des zones d’intervention : ${zone}`,
   attribution: '© contributeurs OpenStreetMap',
@@ -29,6 +29,3 @@ export const carteTextes = {
 export function listeVilles(noms: string[]) {
   return noms.length < 2 ? (noms[0] ?? '') : `${noms.slice(0, -1).join(', ')} et ${noms.at(-1)}`;
 }
-
-/** Choix mémorisé : la carte s'affiche d'elle-même aux visites suivantes. */
-export const CLE_CARTE = 'bsandoz.carte';
