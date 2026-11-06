@@ -4,6 +4,9 @@
 ### Corrigé (téléphone)
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
+### Corrigé
+- Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
+
 ### Modifié (design)
 - Compléments réduits à deux cadres pointillés : page supplémentaire et suivi mensuel (avec le tarif horaire). Le référencement Google seul a son propre encart, mis en avant : badge « − 20 % », prix du marché barré, source, bouton « Faire le point sur mon site ».
 - Photo de Baptiste (accueil, À propos) : elle apparaît en ouverture de rideau la première fois qu'on arrive dessus en défilant (composant `Rideau`, animation `anim-rideau`) ; coupée si les animations sont réduites.
