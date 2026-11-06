@@ -1,45 +1,83 @@
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
+import { idsRealisations } from '../../data/realisationsIds';
 
-function renderRealisations() {
+function afficher(chemin: string) {
   return render(
-    <MemoryRouter initialEntries={[pages.realisations.path]}>
+    <MemoryRouter initialEntries={[chemin]}>
       <AppRoutes />
     </MemoryRouter>,
   );
 }
 
 describe('Page Réalisations', () => {
-  it('présente une étude de cas par réalisation', () => {
-    renderRealisations();
+  it('présente une carte par réalisation, sans le détail des études de cas', () => {
+    afficher(pages.realisations.path);
     expect(screen.getByRole('heading', { level: 1, name: pages.realisations.heading })).toBeInTheDocument();
     for (const realisation of realisations) {
-      const cas = screen.getByRole('article', { name: realisation.titre });
-      expect(cas).toHaveAttribute('id', realisation.id);
-      expect(cas).toHaveTextContent(realisation.resume);
-      expect(within(cas).getByText('Le besoin')).toBeInTheDocument();
-      expect(within(cas).getByText('La solution')).toBeInTheDocument();
+      const carte = screen.getByRole('article', { name: realisation.titre });
+      expect(carte).toHaveTextContent(realisation.resume);
+      expect(within(carte).getByRole('link', { name: new RegExp(realisation.lien.label) })).toHaveAttribute('href', `/realisations/${realisation.id}`);
     }
+    expect(screen.queryByText('Le besoin')).not.toBeInTheDocument();
   });
 
-  it('laisse des emplacements à compléter plutôt que d’inventer', () => {
-    renderRealisations();
-    const moto = screen.getByRole('article', { name: 'Christophe Poix Moto' });
-    expect(within(moto).getAllByText('[à compléter]')).toHaveLength(2);
-    expect(moto).toHaveTextContent('[capture du site]');
-  });
-
-  it('chaque lien de carte pointe vers son étude de cas', () => {
-    for (const realisation of realisations) {
-      expect(realisation.lien.to).toBe(`${pages.realisations.path}#${realisation.id}`);
-    }
+  it('les identifiants du plan du site correspondent aux réalisations', () => {
+    expect(realisations.map((r) => r.id)).toEqual([...idsRealisations]);
   });
 
   it('propose de composer un projet', () => {
-    renderRealisations();
+    afficher(pages.realisations.path);
     expect(screen.getByRole('link', { name: 'Composer mon site' })).toHaveAttribute('href', pages.composer.path);
+  });
+});
+
+describe('Page d’une réalisation', () => {
+  it('n’affiche que le projet choisi, depuis sa carte', async () => {
+    const user = userEvent.setup();
+    afficher(pages.realisations.path);
+    const carte = screen.getByRole('article', { name: "O'RDV" });
+    await user.click(within(carte).getByRole('link', { name: /Découvrir le projet/ }));
+
+    expect(screen.getByRole('heading', { level: 1, name: "O'RDV" })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1, name: 'Christophe Poix Moto' })).not.toBeInTheDocument();
+    expect(document.title).toContain("O'RDV");
+  });
+
+  it('présente le contexte, le besoin, la solution, les fonctionnalités, les captures et la démo', () => {
+    afficher('/realisations/ordv');
+    for (const titre of ['Le contexte', 'Le besoin', 'La solution', 'Ce que fait le site', 'Captures']) {
+      expect(screen.getByRole('heading', { level: 2, name: titre })).toBeInTheDocument();
+    }
+    expect(screen.getByText('MySQL')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: "O'RDV : Accueil et recherche de professionnels" })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: "O'RDV : Espace professionnel" })).toBeInTheDocument();
+    const demo = screen.getByRole('link', { name: /Tester la démo en ligne/ });
+    expect(demo).toHaveAttribute('href', 'https://o-rdv.vercel.app');
+    expect(demo).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('laisse « [à compléter] » plutôt que d’inventer, et annonce les captures à venir', () => {
+    afficher('/realisations/demo-detailing');
+    expect(screen.getAllByText('[à compléter]').length).toBeGreaterThanOrEqual(3);
+    expect(screen.getByText('Les captures arrivent bientôt.')).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Ce que fait le site' })).not.toBeInTheDocument();
+  });
+
+  it('mène aux projets précédent et suivant, et revient à la liste', () => {
+    afficher('/realisations/christophe-poix-moto');
+    const voisins = within(screen.getByRole('navigation', { name: 'Autres réalisations' }));
+    expect(voisins.getByRole('link', { name: /Projet précédent/ })).toHaveAttribute('href', '/realisations/ordv');
+    expect(voisins.getByRole('link', { name: /Projet suivant/ })).toHaveAttribute('href', '/realisations/demo-detailing');
+    expect(screen.getByRole('link', { name: '← Toutes les réalisations' })).toHaveAttribute('href', pages.realisations.path);
+  });
+
+  it('affiche la page introuvable pour un projet inconnu', () => {
+    afficher('/realisations/projet-inconnu');
+    expect(screen.getByRole('heading', { level: 1, name: 'Page introuvable' })).toBeInTheDocument();
   });
 });
