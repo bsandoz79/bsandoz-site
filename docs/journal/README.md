@@ -109,3 +109,4 @@ Types de tests :
 | 78 | [Adresse dans la demande de devis](78-feature-adresse-devis.md) | `feature/adresse-devis` | 2026-11-06 |
 | 79 | [Configurateur : reprendre ou recommencer](79-feature-composer-memoire.md) | `feature/composer-memoire` | 2026-11-06 |
 | 80 | [Espace client dans l'en-tête](80-feature-lien-espace-client.md) | `feature/lien-espace-client` | 2026-11-06 |
+| 81 | [Mise en ligne de l'API : ce qui a été vérifié](81-chore-doc-serveur.md) | `chore/doc-serveur` | 2026-11-06 |

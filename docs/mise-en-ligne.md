@@ -1,6 +1,6 @@
 # Mise en ligne de bsandoz.fr
 
-Le pas-à-pas pour Baptiste, faisable en grande partie depuis un téléphone. On commence sur `preview.bsandoz.fr`, et on passe sur `bsandoz.fr` quand tout est bon. Les noms des menus d'o2switch sont à titre indicatif : ils n'ont jamais été vérifiés sur le vrai compte.
+Le pas-à-pas pour Baptiste, faisable en grande partie depuis un téléphone. On commence sur `preview.bsandoz.fr`, et on passe sur `bsandoz.fr` quand tout est bon. Les noms des menus d'o2switch sont à titre indicatif. Ce qui a été vérifié sur le vrai serveur est dans [Ce qui a été vérifié sur o2switch](#ce-qui-a-été-vérifié-sur-o2switch).
 
 Rien ici ne doit être écrit dans le dépôt : les mots de passe vont dans les secrets GitHub ou dans `.env.local` sur le serveur.
 
@@ -83,8 +83,8 @@ Le dernier envoie le lien d'activation : c'est le premier vrai test des mails.
 ## 5. Tâches planifiées (cPanel → Tâches Cron)
 Remplacer `COMPTE`.
 ```sh
-*/5 * * * *  cd /home/COMPTE/api.bsandoz.fr && php bin/console prospect:relever-mails
-0 11 * * *   cd /home/COMPTE/api.bsandoz.fr && php bin/console booking:envoyer-rappels
+*/5 * * * *  cd /home/saba3655/api.bsandoz.fr && /opt/cpanel/ea-php83/root/usr/bin/php bin/console prospect:relever-mails
+0 11 * * *   cd /home/saba3655/api.bsandoz.fr && /opt/cpanel/ea-php83/root/usr/bin/php bin/console booking:envoyer-rappels
 ```
 Le fuseau du serveur peut ne pas être celui de Paris : c'est sans effet sur le choix du lendemain.
 
@@ -115,9 +115,20 @@ Dans `/admin`, onglet **Disponibilités** : les vrais jours, créneaux et congé
 
 ## Mettre à jour plus tard
 1. Actions → Déploiement de l'API → Run workflow.
-2. Dans le terminal : `php bin/console cache:clear`, puis `php bin/console doctrine:migrations:migrate`.
+2. Dans le terminal, depuis `~/api.bsandoz.fr` : `/opt/cpanel/ea-php83/root/usr/bin/php bin/console cache:clear`, puis `/opt/cpanel/ea-php83/root/usr/bin/php bin/console doctrine:migrations:migrate`.
 
 Ne pas changer `APP_SECRET`. Prévoir une sauvegarde automatique de la base : elle contient les comptes et les devis.
 
-## Ce qui n'a jamais été essayé
-Ces deux workflows avec de vrais secrets, l'envoi FTP de l'API, un vrai hébergement, un vrai serveur de mail. Le reste a tourné dans Docker et dans Chrome, sur `localhost` : voir `docs/journal/36-chore-mise-en-ligne.md`.
+## Ce qui a été vérifié sur o2switch
+Constaté le 6 novembre 2026, à la première mise en ligne de l'API :
+- **PHP du terminal** : la commande `php` y est en 8.1, indépendamment du réglage du site. Toutes les commandes passent par `/opt/cpanel/ea-php83/root/usr/bin/php` (extensions `pdo_mysql`, `mbstring`, `intl`, `ctype`, `iconv`, `openssl` présentes).
+- **PHP du site** : il se règle à part dans cPanel. En 8.1, l'API répond 500 avec « Your Composer dependencies require a PHP version >= 8.2.0 ».
+- **Base** : MariaDB 11.4 (`serverVersion=11.4.13-MariaDB`), les 9 migrations passent.
+- **Serveur de mail** : `muguet.o2switch.net`, port 465, certificat valide. `mail.bsandoz.fr` a un certificat à un autre nom : ne pas l'utiliser.
+- **Sous-domaine** : `api.bsandoz.fr`, racine `api.bsandoz.fr/public`. `.env.local` et `.env.dist` répondent 403, `composer.json` 404.
+- **Le déploiement de l'API** ne part pas tout seul : il se lance à la main, dans Actions.
+- **`bin/console` sans aucun message** veut dire qu'une erreur est masquée. Relancer avec `php -d display_errors=1`. Exemple rencontré : un retour à la ligne glissé au collage dans `MAILER_DSN`.
+- **`BACKOFFICE_EMAILS`** donne l'accès selon l'adresse du compte. Changer l'adresse de son compte coupe l'accès au back-office : mettre la nouvelle adresse dans cette liste, puis `cache:clear`.
+
+## Ce qui n'a pas encore été essayé
+La relève des réponses par IMAP (`reponses@bsandoz.fr`) et le parcours complet du point 7. Le reste a d'abord tourné dans Docker et dans Chrome, sur `localhost` : voir `docs/journal/36-chore-mise-en-ligne.md`.
