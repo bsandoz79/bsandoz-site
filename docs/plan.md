@@ -77,5 +77,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
 - [x] `feature/edition-en-page` : crayon sur les prix, visible seulement par un compte du back-office
 - [x] `feature/edition-blocs` : bouton « Modifier » sur chaque bloc de l'accueil et sur les formules : textes, prix, images, module API `Contenu`
+- [x] `feature/agenda-rdv` : ajouter le rendez-vous à Google, Outlook ou Apple, depuis la confirmation et les mails
+- [ ] `feature/planning-admin` : planning des rendez-vous et statistiques dans le back-office
 - [ ] `feature/edition-autres-pages` : mêmes blocs sur les autres pages (métiers, réalisations, À propos…)
 - [ ] `chore/a-completer` : remplir les « [à compléter] » avec les informations fournies
