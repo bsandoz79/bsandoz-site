@@ -14,6 +14,34 @@
 .anim-float { animation: float 5s ease-in-out infinite; }
 @keyframes respire { 50% { transform: scale(1.06); opacity: 1; } }
 .anim-respire { animation: respire 7s ease-in-out infinite; }
+/*
+ * Reflet : une bande lumineuse (effet verre) traverse l'élément de gauche à droite,
+ * en un peu plus d'une demi-seconde, puis attend : un passage toutes les 2 secondes environ.
+ * Décaler plusieurs éléments avec la variable --reflet-delai (ex. 0.3s).
+ */
+@keyframes reflet {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  30%, 100% { transform: translateX(320%) skewX(-20deg); }
+}
+.anim-reflet {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.anim-reflet::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  /* Sous le texte, au-dessus du fond de l'élément (grâce à isolation: isolate). */
+  z-index: -1;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--reflet), transparent);
+  pointer-events: none;
+  transform: translateX(-120%) skewX(-20deg);
+  animation: reflet 2.2s ease-in-out infinite;
+  animation-delay: var(--reflet-delai, 0s);
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  .anim-reflet::after { display: none; }
 }

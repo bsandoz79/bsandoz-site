@@ -12,12 +12,12 @@ Le CSS est découpé ainsi :
 
 Polices : Plus Jakarta Sans (titres) et Inter (texte), chargées depuis Google Fonts dans `index.html`.
 
-Animations partagées : `anim-appear`, `anim-float` (flottement), `anim-pulse` (halo autour du bouton principal), et l'animation `marquee` utilisée par le bloc `Marquee`.
+Animations partagées : `anim-appear`, `anim-float` (flottement), `anim-pulse` (halo autour du bouton principal), `anim-reflet` (bande lumineuse effet verre qui traverse l'élément ; intensité `--reflet`, décalage `--reflet-delai`), et l'animation `marquee` utilisée par le bloc `Marquee`.
 
 Couleurs : bleu marine `--color-navy` et rose `--color-rose` (logo SB).
 
 ## Effets
-- Animations globales (`animations.css`) : `anim-appear`, `anim-float`, `anim-pulse`, `anim-respire`. Toutes coupées si « réduire les animations ».
+- Animations globales (`animations.css`) : `anim-appear`, `anim-float`, `anim-pulse`, `anim-respire`, `anim-reflet`. Toutes coupées si « réduire les animations ».
 - Fonds sombres : `--color-navy` / `--color-navy-deep` avec une lueur `--color-rose-glow` ; lignes et voiles : `--color-line-on-dark`, `--color-veil-on-dark`.
 - Boutons : soulèvement au survol, halo `--shadow-rose` pour le principal.
 

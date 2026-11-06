@@ -28,7 +28,7 @@ export function Hero() {
           </p>
           <p className={styles.text}>{hero.text}</p>
           <div className={styles.actions}>
-            <Link to={hero.primary.to} className={buttonClassName({ size: 'lg', className: 'anim-pulse' })}>
+            <Link to={hero.primary.to} className={buttonClassName({ size: 'lg', className: 'anim-pulse anim-reflet' })}>
               {hero.primary.label}
             </Link>
             <Link to={hero.secondary.to} className={buttonClassName({ variant: 'secondary', size: 'lg' })}>

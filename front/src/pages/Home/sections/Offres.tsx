@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { offres } from '../../../data/accueil';
@@ -27,7 +28,8 @@ export function Offres() {
                   tone={featured ? 'dark' : 'muted'}
                   padding="lg"
                   lift
-                  className={sections.fill}
+                  className={`${sections.fill} anim-reflet`}
+                  style={{ '--reflet-delai': `${i * 0.25}s` } as CSSProperties}
                   aria-labelledby={`offre-${formule.id}`}
                 >
                   {featured && <p className={styles.badge}>{offres.featuredBadge}</p>}
