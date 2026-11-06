@@ -67,7 +67,10 @@ Dans `api/.env.local` sur le serveur (jamais versionné) :
 - `AUTH_EXPEDITEUR`, `AUTH_EXPEDITEUR_NOM`, `MAILER_DSN` (SMTP o2switch) ;
 - `AUTH_COOKIE_SECURISE=1` (de toute façon forcé en production) ;
 - `PROSPECT_EXPEDITEUR`, `PROSPECT_PROFESSIONNEL_EMAIL`, `PROSPECT_URL_SITE=https://bsandoz.fr`, `PROSPECT_SIRET` (après immatriculation) ;
+- `PROSPECT_BOITE_REPONSES`, `PROSPECT_IMAP_HOTE`, `PROSPECT_IMAP_UTILISATEUR`, `PROSPECT_IMAP_MOT_DE_PASSE` : boîte dédiée aux réponses, relevée en IMAP ;
 - puis `php bin/console doctrine:migrations:migrate`.
+
+Tâche planifiée (cPanel → Tâches Cron, toutes les 5 minutes) : `php bin/console prospect:relever-mails`.
 
 Côté site, une fois l'API en ligne : ajouter `VITE_DEVIS_URL=https://api.bsandoz.fr/demandes` au build (variable du workflow de déploiement) pour que les demandes de devis passent par l'API (enregistrement, compte client, suivi). Sans elle, `devis.php` reste utilisé.
 

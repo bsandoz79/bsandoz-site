@@ -28,7 +28,7 @@ Blocs : `npm run livrer -- Button Calendar ChoiceChips Container OptionCard Step
 
 Routes à déclarer : `/mon-espace`, `/mon-espace/connexion`, `/mon-espace/lien`, `/mon-espace/mot-de-passe`, `/mon-espace/email`, `/mon-espace/suppression`. Les mails utilisent ces adresses : ne pas les changer. Les exclure du sitemap, et ajouter `Disallow: /mon-espace` dans `robots.txt`.
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : tout garder, avec `src/Liaisons/` et les 4 migrations. Aucune dépendance à retirer.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : tout garder, avec `src/Liaisons/` et toutes les migrations. Aucune dépendance à retirer.
 
 ## Réglages
 Dans `.env.local`, en plus des variables de [Rendez-vous](rendez-vous.md) et de [Demandes de devis](demandes-de-devis.md) :
@@ -59,6 +59,7 @@ Dans un vrai navigateur, sur le vrai domaine (jamais essayé hors des tests) :
 - [ ] Le lien utilisé une seconde fois : refusé.
 - [ ] Choisir un mot de passe, se déconnecter, se reconnecter ; 6 mauvais essais : blocage.
 - [ ] Mes rendez-vous : le rendez-vous est là, l'annulation marche.
+- [ ] Mes demandes : écrire un message, et l'autre personne reçoit le mail.
 - [ ] Une autre personne connectée ne voit rien de la première.
 - [ ] Télécharger ses données, puis supprimer le compte : rendez-vous et demandes effacés.
 - [ ] [Vérifications communes](commun.md#vérifications-finales).
