@@ -1,15 +1,22 @@
-import { Link } from 'react-router-dom';
-import { Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ChoiceChips, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { RealisationCard } from '../../components/RealisationCard';
 import { pages } from '../../data/pages';
-import { pageRealisations, realisations } from '../../data/realisations';
+import { filtresRealisations, pageRealisations, realisationsFiltrees, type FiltreRealisation } from '../../data/realisations';
 import styles from './Realisations.module.css';
 
 /** Page Réalisations : une carte par projet ; chaque carte ouvre la page de ce seul projet. */
 export function Realisations() {
   const page = pages.realisations;
   const t = pageRealisations;
+  const [parametres, setParametres] = useSearchParams();
+  const filtre = (filtresRealisations.find((f) => f.value === parametres.get('type'))?.value ?? 'tout') as FiltreRealisation;
+  const liste = realisationsFiltrees(filtre);
+
+  function choisir(valeur: FiltreRealisation) {
+    setParametres(valeur === 'tout' ? {} : { type: valeur }, { replace: true });
+  }
 
   return (
     <>
@@ -21,8 +28,22 @@ export function Realisations() {
       </section>
 
       <Container className={styles.liste}>
+        <div className={styles.filtre}>
+          <ChoiceChips<FiltreRealisation>
+            legend={t.filtre.legende}
+            hideLegend
+            name="filtre-realisations"
+            choices={filtresRealisations}
+            value={filtre}
+            onChange={choisir}
+          />
+          <p className={styles.nombre} aria-live="polite">
+            {t.filtre.nombre(liste.length)}
+          </p>
+        </div>
+        {liste.length === 0 && <p className={styles.aucun}>{t.filtre.aucun}</p>}
         <ul className={styles.grille}>
-          {realisations.map((realisation, i) => (
+          {liste.map((realisation, i) => (
             <Reveal as="li" key={realisation.id} delay={i * 80}>
               <RealisationCard realisation={realisation} headingLevel={2} />
             </Reveal>
