@@ -61,18 +61,18 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `style/complements-seo` : deux compléments seulement, référencement seul dans un encart à part
 - [x] `style/complements-pointilles` : compléments en cadres pointillés, prix à droite ; calcul des frais kilométriques affiché en petit
 - [x] `feature/photo-rideau` : apparition en rideau de la photo au premier passage
-- [ ] `feature/devis-chat` : « Décrivez votre projet » mis en avant, sous forme de conversation guidée
+- ~~`feature/devis-chat`~~ : abandonné à la demande de Baptiste (trop « IA »)
 - [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
 - [x] `feature/frais-aller-retour` : frais kilométriques aller-retour, indiqués dans les mails du rendez-vous ; suivi mensuel = maintenance et mises à jour
 - [x] `fix/lien-rendez-vous-mail` : le lien « rendez-vous » du mail de devis mène à une page 404
 - [x] `feature/autre-activite` : champ pour préciser l'activité quand on choisit « Autre activité »
 - [x] `feature/adresse-devis` : le devis demande une adresse, pour estimer les frais kilométriques
-- [ ] `feature/avis-google` : avis Google juste après la bande qui défile
+- [ ] `feature/avis-google` : **en attente** : pas encore de fiche Google, donc pas d'avis (aucun avis n'est inventé)
 - [x] `feature/disponibilites-admin` : jours, heures et congés réglés d'un clic
 - [x] `feature/lien-espace-client` : lien « Espace client » visible dans l'en-tête
 - [x] `feature/composer-memoire` : le configurateur oublie d'une visite à l'autre, avec « Reprendre là où vous en étiez ? »
 - [x] `feature/alterno` : projet Alterno dans les réalisations
-- [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
+- [x] `feature/cibles` (cartes sur l'accueil ; une page quand un projet sera terminé) : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
 - [x] `feature/edition-en-page` : crayon sur les prix, visible seulement par un compte du back-office
