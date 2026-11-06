@@ -5,6 +5,9 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Carte : la position du visiteur est demandée quand la carte apparaît à l'écran.
+  - Si elle est donnée : un point « Vous êtes ici » et la distance à la zone la plus proche. Dans la zone, « je peux venir chez vous » ; hors zone, un message rassurant (frais kilométriques). La position n'est jamais envoyée.
+  - Si elle est refusée : la carte reste normale, et un bouton discret « Me situer sur la carte » permet de réessayer.
 - Bandeau des services tiers : une bande discrète en bas de l'écran, qui ne bloque pas la page. « Accepter » et « Refuser » ont le même poids.
   - Le choix est gardé 6 mois ; la croix ferme le bandeau pour la visite seulement.
   - Le lien « Services tiers » du pied de page rouvre le bandeau.

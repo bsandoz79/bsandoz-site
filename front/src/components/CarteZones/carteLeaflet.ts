@@ -1,6 +1,6 @@
 /**
  * Partie Leaflet de la carte, chargée à la demande (import dynamique) : rien n'est téléchargé
- * tant que le visiteur n'a pas choisi d'afficher la carte.
+ * tant que la carte n'approche pas de l'écran.
  */
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -9,6 +9,8 @@ import { RAYON_KM, carteTextes, type Ville } from '../../data/zones';
 export type Carte = {
   /** Affiche toutes les zones (`null`) ou une seule ville, et zoome dessus. */
   afficher: (id: string | null) => void;
+  /** Place le point « Vous êtes ici » et cadre la carte sur lui et la zone la plus proche. */
+  placerPosition: (lat: number, lng: number, idVille: string) => void;
   detruire: () => void;
 };
 
@@ -65,9 +67,22 @@ export function creerCarte(element: HTMLElement, villes: Ville[]): Carte {
     carte.flyToBounds(toutesLesLimites(ids), { padding: [24, 24], duration: 0.8 });
   }
 
+  let point: L.CircleMarker | null = null;
+  function placerPosition(lat: number, lng: number, idVille: string) {
+    point?.remove();
+    const accent = couleur('--color-accent-texte', 'deeppink');
+    point = L.circleMarker([lat, lng], { radius: 8, color: blanc, weight: 3, fillColor: accent, fillOpacity: 1 })
+      .bindTooltip(carteTextes.position.point, { permanent: true, direction: 'bottom', offset: [0, 10] })
+      .addTo(carte);
+    const limites = L.latLngBounds([[lat, lng]]);
+    const zone = limitesDe.get(idVille);
+    if (zone) limites.extend(zone);
+    carte.flyToBounds(limites, { padding: [32, 32], duration: 0.8 });
+  }
+
   // Premier affichage : toutes les zones, sans animation.
   carte.fitBounds(toutesLesLimites([...cercles.keys()]), { padding: [24, 24] });
   for (const groupe of cercles.values()) groupe.addTo(carte);
 
-  return { afficher, detruire: () => carte.remove() };
+  return { afficher, placerPosition, detruire: () => carte.remove() };
 }
