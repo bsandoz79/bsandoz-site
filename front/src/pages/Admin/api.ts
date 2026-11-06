@@ -51,6 +51,35 @@ export async function enregistrerPrix(prix: Record<string, number>): Promise<boo
   return statut === 200;
 }
 
+export type RendezVousAdmin = {
+  id: string;
+  jour: string;
+  heure: string;
+  fin: string;
+  lieu: string;
+  lieuLibelle: string;
+  adresse: string | null;
+  nom: string;
+  email: string;
+  telephone: string;
+  activite: string;
+  message: string;
+  statut: 'confirme' | 'annule';
+  kmFactures: number | null;
+  frais: string | null;
+};
+
+export async function listerRendezVous(du: string, au: string): Promise<RendezVousAdmin[] | null> {
+  const { statut, corps } = await appelerApi<{ rendezVous?: RendezVousAdmin[] }>(`/backoffice/rendez-vous?du=${du}&au=${au}`);
+  return statut === 200 ? (corps.rendezVous ?? []) : null;
+}
+
+/** Annule un rendez-vous : le client reçoit `message` (vos disponibilités) et `lien` pour reprendre un créneau. */
+export async function annulerRendezVousAdmin(id: string, message: string, lien: string): Promise<RendezVousAdmin | null> {
+  const { statut, corps } = await appelerApi<{ rendezVous?: RendezVousAdmin }>(`/backoffice/rendez-vous/${encodeURIComponent(id)}/annuler`, { corps: { message, lien } });
+  return statut === 200 ? (corps.rendezVous ?? null) : null;
+}
+
 export async function enregistrerContenus(contenus: Record<string, string | null>): Promise<boolean> {
   const { statut } = await appelerApi('/backoffice/contenus', { corps: { contenus } });
   return statut === 200;
