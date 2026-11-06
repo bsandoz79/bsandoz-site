@@ -40,3 +40,9 @@ flowchart TB
 
 ## Fichiers
 `src/data/pages.ts` · `src/data/navigation.ts` · `src/app/routes.tsx` · `src/components/{Layout,Header,Footer,MobileBar,PageMeta}/`
+
+## Défilement
+L'en-tête est collé en haut de l'écran. `components/Header/useMasquageAuDefilement.ts` le cache quand on descend (au-delà de 80 px, mouvements de plus de 8 px) et le réaffiche dès qu'on remonte. Il reste visible quand le menu est ouvert ou que le focus clavier est dedans.
+
+## Pied de page
+Fond bleu marine : bande d'appel à l'action (estimer, rendez-vous), présentation, « Le site », « Contact », puis droits et pages légales (`components/Footer`, textes dans `data/navigation.ts`).

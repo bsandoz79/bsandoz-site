@@ -1,48 +1,185 @@
+/* Pied de page sombre, bleu marine avec une lueur rose : compact, contrastes AA. */
 .footer {
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-border);
-  color: var(--color-text-muted);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60rem 20rem at 85% 0%, var(--color-rose-glow), transparent 60%),
+    linear-gradient(180deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+  color: var(--color-text-on-dark-muted);
   font-size: var(--text-sm);
 }
 
-/* Sur mobile, on laisse de la place sous le contenu pour la barre « Estimer » fixe. */
-.inner {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  padding-block: var(--space-6) calc(var(--space-9) + var(--space-4));
+.footer a {
+  color: var(--color-text-on-dark-muted);
+  text-decoration: none;
+  transition: color var(--duration);
+}
+.footer a:hover {
+  color: var(--color-text-on-dark);
+}
+.footer a:focus-visible {
+  outline-color: var(--color-rose-light);
 }
 
-.column {
+/* Bande d'appel à l'action */
+.appel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--color-line-on-dark);
+}
+
+.appelTitre {
+  color: var(--color-text-on-dark);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.appelActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.boutonRose,
+.boutonClair {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  transition:
+    transform var(--duration),
+    background-color var(--duration);
+}
+.footer .boutonRose {
+  background: var(--color-rose);
+  color: var(--color-text-on-dark);
+}
+.footer .boutonRose:hover {
+  background: var(--color-rose-dark);
+  color: var(--color-text-on-dark);
+  transform: translateY(-2px);
+}
+.footer .boutonClair {
+  border: 1px solid var(--color-border-on-dark);
+  color: var(--color-text-on-dark);
+}
+.footer .boutonClair:hover {
+  background: var(--color-veil-on-dark);
+  transform: translateY(-2px);
+}
+
+/* Colonnes */
+/* Sur téléphone : la présentation sur toute la largeur, puis « Le site » et « Contact » côte à côte. */
+.colonnes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-4);
+  padding-block: var(--space-6);
+}
+
+.marque {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-text-on-dark);
+  color: var(--color-navy);
+  font-weight: 800;
+}
+
+.logoAccent {
+  color: var(--color-rose);
+}
+
+.titre {
+  margin-bottom: var(--space-2);
+  color: var(--color-text-on-dark);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.liste {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.column a {
+.liste a {
   display: inline-block;
-  padding-block: var(--space-1);
-  color: var(--color-text-muted);
-}
-.column a:hover {
-  color: var(--color-rose);
+  padding-block: 0.3rem;
 }
 
-.name {
-  color: var(--color-text);
-  font-size: var(--text-base);
-  font-weight: 700;
+/* Bas de page */
+.bas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--color-line-on-dark);
+  font-size: 0.8125rem;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legal a {
+  display: inline-block;
+  padding-block: var(--space-1);
 }
 
 @media (min-width: 960px) {
-  .inner {
+  .appel {
     flex-direction: row;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
-    gap: var(--space-6);
-    padding-block: var(--space-7);
+  }
+
+  .colonnes {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .marque {
+    grid-column: auto;
+  }
+
+  .bas {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }

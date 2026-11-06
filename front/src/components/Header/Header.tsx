@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
 import { header, informatiquePrefix, metierLinks, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
 import styles from './Header.module.css';
+import { useMasquageAuDefilement } from './useMasquageAuDefilement';
 
 const MENU_ID = 'menu-principal';
 const METIERS_ID = 'menu-metiers';
@@ -37,6 +38,9 @@ export function Header() {
   const [metiersOpenAt, setMetiersOpenAt] = useState<string | null>(null);
   const menuOpen = menuOpenAt === pathname;
   const metiersOpen = metiersOpenAt === pathname;
+  // Le focus clavier dans l'en-tête le garde visible (on ne cache jamais ce qu'on est en train d'utiliser).
+  const [focusDedans, setFocusDedans] = useState(false);
+  const { masque, decolle } = useMasquageAuDefilement(menuOpen || metiersOpen || focusDedans);
 
   const toggleRef = useRef<HTMLButtonElement>(null);
   const metiersRef = useRef<HTMLLIElement>(null);
@@ -67,7 +71,14 @@ export function Header() {
   }
 
   return (
-    <header className={styles.header} onKeyDown={onKeyDown}>
+    <header
+      className={[styles.header, masque ? styles.masque : '', decolle ? styles.decolle : ''].filter(Boolean).join(' ')}
+      onKeyDown={onKeyDown}
+      onFocus={() => setFocusDedans(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusDedans(false);
+      }}
+    >
       <div className={styles.tabsBar}>
         <Container as="nav" aria-label={header.tabsLabel}>
           <ul className={styles.tabs}>

@@ -24,14 +24,14 @@ export function Connexion() {
 
   // Déjà connecté : directement dans l'espace.
   useEffect(() => {
-    let actif = true;
+    const etat = { actif: true };
     compteConnecte()
       .then((compte) => {
-        if (actif && compte) navigate(retour, { replace: true });
+        if (etat.actif && compte) navigate(retour, { replace: true });
       })
       .catch(() => undefined);
     return () => {
-      actif = false;
+      etat.actif = false;
     };
   }, [navigate, retour]);
 

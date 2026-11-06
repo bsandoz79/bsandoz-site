@@ -53,6 +53,21 @@ export const footer = {
   legalLabel: 'Informations légales',
   portfolioLabel: 'Mon portfolio',
   espaceClient: { label: 'Espace client', to: pages.monEspace.path },
+  /** Bande d'appel à l'action en haut du pied de page. */
+  appel: {
+    titre: 'Un projet en tête ?',
+    texte: 'Estimez-le en 2 minutes, ou parlons-en de vive voix.',
+    estimer: { label: 'Estimer mon projet', to: pages.composer.path },
+    rendezVous: { label: 'Rendez-vous gratuit', to: pages.rendezVous.path },
+  },
+  siteLabel: 'Le site',
+  site: [
+    { label: 'Tarifs', to: pages.tarifs.path },
+    { label: 'Réalisations', to: pages.realisations.path },
+    { label: 'Informatique sur place', to: pages.informatique.path },
+    { label: 'Questions fréquentes', to: pages.faq.path },
+  ] satisfies NavLink[],
+  droits: (annee: number) => `© ${annee} Baptiste Sandoz`,
   legal: [
     { label: 'Mentions légales', to: pages.mentionsLegales.path },
     { label: 'CGV', to: pages.cgv.path },
