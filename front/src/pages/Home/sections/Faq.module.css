@@ -1,0 +1,51 @@
+/* L'en-tête collé ne cache pas le titre quand on arrive par le lien #faq. */
+.section {
+  scroll-margin-top: var(--space-8);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* « Voir plus » : discret, centré, en pilule. */
+.voirPlus {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: center;
+  min-height: 2.75rem;
+  padding-inline: var(--space-5);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--duration) ease, color var(--duration) ease;
+}
+
+.voirPlus:hover {
+  border-color: var(--color-rose);
+  color: var(--color-accent-texte);
+}
+
+.voirPlus:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 2px;
+}
+
+.compte {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.chevron {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
