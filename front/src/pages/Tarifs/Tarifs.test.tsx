@@ -170,4 +170,15 @@ describe('Page Tarifs', () => {
     expect(apres).toHaveTextContent("29 € de l'heure, sans engagement");
     expect(apres).toHaveTextContent('29 € par mois');
   });
+
+  it('simulateur : « Autre activité » ouvre un champ pour la préciser', async () => {
+    const user = userEvent.setup();
+    window.localStorage.removeItem(CLE_STOCKAGE);
+    renderTarifs();
+    await user.click(screen.getByRole('radio', { name: /Fonctionnel/ }));
+    await user.click(screen.getByRole('radio', { name: 'Autre activité' }));
+    await user.type(screen.getByRole('textbox', { name: /Précisez votre activité/ }), 'Toiletteur canin');
+    expect(estimation()).toHaveTextContent('toiletteur canin');
+    expect(JSON.parse(window.localStorage.getItem(CLE_STOCKAGE)!).config.metierAutre).toBe('Toiletteur canin');
+  });
 });

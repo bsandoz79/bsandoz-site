@@ -178,4 +178,15 @@ describe('Configurateur /composer', () => {
       );
     });
   });
+
+  it('« Autre activité » ouvre un champ pour la préciser, repris dans l’estimation et gardé', async () => {
+    const user = userEvent.setup();
+    renderComposer();
+    await user.click(screen.getByRole('radio', { name: /^Fonctionnel/ }));
+    expect(screen.queryByRole('textbox', { name: /Précisez votre activité/ })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: 'Autre activité' }));
+    await user.type(screen.getByRole('textbox', { name: /Précisez votre activité/ }), 'Photographe');
+    expect(estimation()).toHaveTextContent('photographe');
+    expect(JSON.parse(window.localStorage.getItem(CLE_STOCKAGE)!).config.metierAutre).toBe('Photographe');
+  });
 });
