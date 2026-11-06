@@ -21,7 +21,11 @@ export function APropos() {
             <SectionTitle id="apropos-titre" level={1} title={page.heading} intro={t.intro} />
             <div className={styles.parcours}>
               <h2 className={styles.sousTitre}>{t.parcours.titre}</h2>
-              <p className={styles.muted}>{t.parcours.texte}</p>
+              {t.parcours.paragraphes.map((paragraphe) => (
+                <p key={paragraphe} className={styles.muted}>
+                  {paragraphe}
+                </p>
+              ))}
               <a href={t.parcours.portfolio.href} className={buttonClassName({ variant: 'secondary', className: styles.portfolio })}>
                 {t.parcours.portfolio.label} <span aria-hidden="true">→</span>
               </a>

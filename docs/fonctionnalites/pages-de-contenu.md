@@ -114,3 +114,6 @@ La page Rendez-vous accepte donc toute adresse trouvée :
 
 ## Autres besoins (cartes de l'accueil)
 Section `pages/Home/sections/Cibles.tsx`, après les tarifs, avec ses données dans `cibles` (`data/accueil.ts`) : photographes, restauration, PME, charcutiers. Le prix vient de la formule liée (`formule`), et suit donc ses changements. Sans formule, la carte affiche « Sur devis » : c'est le cas de ce qui s'éloigne d'un site (CRM, logiciel interne). Une page dédiée sera ajoutée quand un projet de ce type sera terminé. Le bloc se modifie depuis la page. Tests : `Home.test.tsx`.
+
+## Parcours de la page À propos
+Texte dans `aPropos.parcours.paragraphes` (`data/apropos.ts`), un paragraphe par entrée, tiré du portfolio. Ce qui vise un recruteur (recherche d'alternance) n'y figure pas. Tests : `APropos.test.tsx`.
