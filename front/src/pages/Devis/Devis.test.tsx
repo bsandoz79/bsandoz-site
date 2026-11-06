@@ -81,14 +81,62 @@ describe('Parcours de demande de devis', () => {
     expect(screen.getByRole('complementary', { name: 'Votre projet' })).toHaveTextContent('Santé / bien-être');
   });
 
-  it('reprend l’activité et l’estimation du configurateur', () => {
+  it('reprend l’estimation : choix déjà cochés, ouverture sur la première question à remplir', async () => {
+    const user = userEvent.setup();
     window.localStorage.setItem(
       CLE_STOCKAGE,
       JSON.stringify({ config: { formule: 'fonctionnel', metier: 'artisan', options: ['rdv'], precisions: {} } }),
     );
     renderDevis();
-    expect(screen.getByRole('radio', { name: 'Artisan à domicile' })).toBeChecked();
+    expect(screen.getByRole('status')).toHaveTextContent('Repris de votre estimation : Site Fonctionnel · Rendez-vous en ligne');
     expect(screen.getByRole('complementary', { name: 'Votre projet' })).toHaveTextContent(/1\s320\s€ – 1\s530\s€/);
+    expect(etapeEnCours()).toHaveTextContent('Avec vos mots');
+
+    await user.click(screen.getByRole('button', { name: '← Retour' }));
+    expect(screen.getByRole('checkbox', { name: /Prendre des rendez-vous/ })).toBeChecked();
+    await user.click(screen.getByRole('button', { name: '← Retour' }));
+    expect(screen.getByRole('radio', { name: 'Artisan à domicile' })).toBeChecked();
+  });
+
+  it('une autre simulation remplace les anciens choix ; la même estimation reprend là où l’on s’était arrêté', async () => {
+    const user = userEvent.setup();
+    const estimation = (options: string[]) =>
+      window.localStorage.setItem(CLE_STOCKAGE, JSON.stringify({ config: { formule: 'fonctionnel', metier: 'artisan', options, precisions: {} } }));
+    estimation(['rdv']);
+    const { unmount } = renderDevis();
+    await user.type(screen.getByRole('textbox', { name: /Votre projet/ }), 'Je fais du detailing auto à domicile.');
+    await user.click(continuer());
+    expect(etapeEnCours()).toHaveTextContent('Budget et délai');
+    unmount();
+
+    // Même estimation : on revient à la même étape.
+    const second = renderDevis();
+    expect(etapeEnCours()).toHaveTextContent('Budget et délai');
+    second.unmount();
+
+    // Nouvelle simulation (calculateur de prix) : besoins remplacés, le texte écrit est gardé.
+    estimation(['calcul']);
+    renderDevis();
+    expect(screen.getByRole('status')).toHaveTextContent('Calculateur de prix');
+    expect(etapeEnCours()).toHaveTextContent('Budget et délai');
+    await user.click(screen.getByRole('button', { name: '← Retour' }));
+    expect(screen.getByRole('textbox', { name: /Votre projet/ })).toHaveValue('Je fais du detailing auto à domicile.');
+    await user.click(screen.getByRole('button', { name: '← Retour' }));
+    expect(screen.getByRole('checkbox', { name: /Calculer un prix/ })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: /Prendre des rendez-vous/ })).not.toBeChecked();
+  });
+
+  it('« Repartir de zéro » revient à la première question, sans les choix', async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      CLE_STOCKAGE,
+      JSON.stringify({ config: { formule: 'fonctionnel', metier: 'artisan', options: ['rdv'], precisions: {} } }),
+    );
+    renderDevis();
+    await user.click(screen.getByRole('button', { name: 'Repartir de zéro' }));
+    expect(etapeEnCours()).toHaveTextContent('Activité');
+    expect(screen.getByRole('radio', { name: 'Artisan à domicile' })).not.toBeChecked();
+    expect(screen.queryByRole('button', { name: 'Repartir de zéro' })).not.toBeInTheDocument();
   });
 
   it('exige les coordonnées et le consentement, puis envoie la demande', async () => {

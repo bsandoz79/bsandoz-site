@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { complements, marche, options, prixSeoSeul } from '../../data/offres';
 import { pages } from '../../data/pages';
+import { CLE_STOCKAGE } from '../Composer/stockage';
 
 function renderTarifs() {
   return render(
@@ -133,6 +134,22 @@ describe('Page Tarifs', () => {
     expect(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ })).toBeChecked();
     expect(screen.queryByRole('checkbox', { name: /Calculateur de prix/ })).not.toBeInTheDocument();
     expect(within(estimation()).queryByText('Calculateur de prix')).not.toBeInTheDocument();
+  });
+
+  it('enregistre la simulation : le devis détaillé et « Composer mon site » la reprennent', async () => {
+    const user = userEvent.setup();
+    window.localStorage.removeItem(CLE_STOCKAGE);
+    renderTarifs();
+    expect(window.localStorage.getItem(CLE_STOCKAGE)).toBeNull();
+    await user.click(screen.getByRole('radio', { name: /Fonctionnel/ }));
+    await user.click(screen.getByRole('radio', { name: 'Artisan à domicile' }));
+    await user.click(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ }));
+    expect(JSON.parse(window.localStorage.getItem(CLE_STOCKAGE)!).config).toEqual({
+      formule: 'fonctionnel',
+      metier: 'artisan',
+      options: ['rdv'],
+      precisions: {},
+    });
   });
 
   it('mène au devis et au configurateur', () => {
