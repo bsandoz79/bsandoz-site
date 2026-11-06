@@ -72,6 +72,8 @@ Le configurateur (`/composer`) et le simulateur de la page Tarifs enregistrent l
 - **Même estimation** : le brouillon est repris là où il s'était arrêté.
 - **Pas d'estimation** : le parcours habituel.
 
+**L'étape « Besoins » est sautée** quand le devis part d'une estimation (`etapesActives`) : la formule et les options disent déjà ce que le site doit faire. Le parcours a alors 4 étapes : Activité, Avec vos mots, Budget et délai, Coordonnées. Elle revient sans estimation, ou après « Repartir de zéro ». Ce choix est gardé au rechargement grâce à la marque `zero:` dans le brouillon.
+
 Un bandeau « Repris de votre estimation » rappelle la formule, les options et le prix. Son lien « Repartir de zéro » vide les questions du projet, garde les coordonnées et revient à la première étape (`demandeRemiseAZero`).
 
 ```mermaid
