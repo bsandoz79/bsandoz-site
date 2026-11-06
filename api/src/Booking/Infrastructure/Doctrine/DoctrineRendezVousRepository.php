@@ -36,6 +36,17 @@ final class DoctrineRendezVousRepository implements RendezVousRepository
         $this->em->flush();
     }
 
+    public function aRappeler(string $jour): array
+    {
+        /** @var list<RendezVous> */
+        return $this->em->createQueryBuilder()
+            ->select('r')->from(RendezVous::class, 'r')
+            ->where('r.creneau.jour = :jour AND r.statut = :statut AND r.rappelEnvoyeLe IS NULL')
+            ->setParameter('jour', $jour)
+            ->setParameter('statut', StatutRendezVous::Confirme)
+            ->getQuery()->getResult();
+    }
+
     public function parJeton(string $jeton): ?RendezVous
     {
         return $this->em->getRepository(RendezVous::class)->findOneBy(['jeton' => $jeton]);

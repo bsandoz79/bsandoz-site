@@ -12,6 +12,13 @@ interface RendezVousRepository
 
     public function enregistrer(RendezVous $rendezVous): void;
 
+    /**
+     * Rendez-vous confirmés de ce jour, pas encore rappelés.
+     *
+     * @return list<RendezVous>
+     */
+    public function aRappeler(string $jour): array;
+
     public function parJeton(string $jeton): ?RendezVous;
 
     public function parId(string $id): ?RendezVous;

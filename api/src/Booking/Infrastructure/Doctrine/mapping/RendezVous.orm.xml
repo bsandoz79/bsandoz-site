@@ -20,5 +20,6 @@
         <field name="jeton" type="string" length="64"/>
         <field name="statut" type="string" length="20" enum-type="App\Booking\Domain\StatutRendezVous"/>
         <field name="creeLe" column="cree_le" type="datetime_immutable"/>
+        <field name="rappelEnvoyeLe" column="rappel_envoye_le" type="datetime_immutable" nullable="true"/>
     </entity>
 </doctrine-mapping>

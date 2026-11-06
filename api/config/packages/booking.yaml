@@ -24,6 +24,7 @@ services:
     App\Booking\Domain\RendezVousRepository: '@App\Booking\Infrastructure\Doctrine\DoctrineRendezVousRepository'
     App\Booking\Domain\Notifications: '@App\Booking\Infrastructure\Mail\NotificationsParMail'
     App\Booking\Domain\DisponibilitesEnregistrees: '@App\Booking\Infrastructure\Doctrine\DisponibilitesDoctrine'
+    App\Booking\Domain\PreferencesRappel: '@App\Booking\Infrastructure\Systeme\RappelsPourTous'
     App\Booking\Domain\Horloge: '@App\Booking\Infrastructure\Systeme\HorlogeSysteme'
     App\Booking\Domain\Identifiants: '@App\Booking\Infrastructure\Systeme\IdentifiantsAleatoires'
 

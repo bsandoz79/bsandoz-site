@@ -9,6 +9,7 @@ use App\Prospect\Domain\AuteurMessage;
 use App\Prospect\Domain\Devis;
 use App\Prospect\Domain\Message;
 use App\Prospect\Domain\NotificationsProspect;
+use App\Prospect\Domain\PreferencesClient;
 use App\Prospect\Domain\ReferencesFil;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mailer\MailerInterface;
@@ -31,6 +32,7 @@ final class NotificationsProspectParMail implements NotificationsProspect
         #[Autowire('%prospect.url_site%')]
         private readonly string $urlSite,
         private readonly ReferencesFil $references,
+        private readonly PreferencesClient $preferences,
         /** Boîte relevée en IMAP. Vide : les réponses vont directement à l'autre personne, hors du fil. */
         #[Autowire('%prospect.boite_reponses%')]
         private readonly string $boiteReponses = '',
@@ -88,6 +90,9 @@ final class NotificationsProspectParMail implements NotificationsProspect
                 ->text("{$d->nom} ({$d->email}) a écrit à propos de « {$demande->titre} » :\n\n{$message->corps}"));
 
             return;
+        }
+        if (!$this->preferences->accepteLesNotifications($d->email)) {
+            return; // Le message reste visible dans son espace.
         }
         $this->mailer->send($this->duFil($demande, $d->email, "Nouveau message : demande n° {$demande->numero}", $this->professionnelEmail)
             ->text("Bonjour {$d->nom},\n\n{$message->corps}\n\nRépondez simplement à cet e-mail, ou retrouvez tous nos échanges dans votre espace client : {$this->lienEspace()}\n\n{$this->professionnelNom}"));
