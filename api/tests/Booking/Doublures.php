@@ -34,6 +34,11 @@ final class RendezVousEnMemoire implements RendezVousRepository
         $this->tous[$rendezVous->id] = $rendezVous;
     }
 
+    public function aRappeler(string $jour): array
+    {
+        return array_values(array_filter($this->tous, static fn (RendezVous $r) => $r->estConfirme() && $r->creneau->jour === $jour && $r->rappelEnvoyeLe() === null));
+    }
+
     public function parJeton(string $jeton): ?RendezVous
     {
         foreach ($this->tous as $rdv) {
@@ -80,6 +85,11 @@ final class NotificationsEnregistrees implements Notifications
     public function rendezVousAnnule(RendezVous $rendezVous): void
     {
         $this->envoyees[] = "annule:{$rendezVous->id}";
+    }
+
+    public function rappel(RendezVous $rendezVous): void
+    {
+        $this->envoyees[] = "rappel:{$rendezVous->id}";
     }
 }
 
