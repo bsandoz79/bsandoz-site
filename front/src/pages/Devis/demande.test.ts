@@ -13,7 +13,6 @@ import {
   verifierPhotos,
   type Demande,
   besoinsDepuisEstimation,
-  budgetDepuisEstimation,
   demandeRemiseAZero,
   demarrerDevis,
   signatureEstimation,
@@ -155,20 +154,15 @@ describe('reprise depuis la dernière estimation', () => {
   const vitrine = { formule: 'vitrine' as const, metier: null, options: ['galerie' as const], precisions: {} };
   const vide = { demande: demandeVide, etape: 0, depuis: null };
 
-  it('déduit les besoins des options, et le formulaire de contact des vitrines', () => {
+  it('ne coche que les besoins des options réellement choisies', () => {
     expect(besoinsDepuisEstimation(fonctionnel)).toEqual(['rdv', 'prix']);
     expect(besoinsDepuisEstimation(vitrine)).toEqual(['realisations']);
-    expect(besoinsDepuisEstimation({ ...vitrine, options: [] })).toEqual(['contact']);
-    expect(besoinsDepuisEstimation({ ...vitrine, formule: 'vitrinePlus' })).toEqual(['realisations', 'contact']);
+    // Vitrine + rédaction des textes : aucune option ne correspond à un besoin, rien n'est coché d'office.
+    expect(besoinsDepuisEstimation({ ...vitrine, options: ['textes'] })).toEqual([]);
+    expect(besoinsDepuisEstimation({ ...vitrine, formule: 'vitrinePlus', options: [] })).toEqual([]);
   });
 
-  it('choisit la tranche de budget du prix estimé', () => {
-    expect(budgetDepuisEstimation({ ...vitrine, options: [] })).toBe('moins-500'); // 99 €
-    expect(budgetDepuisEstimation({ ...vitrine, formule: 'vitrinePlus', options: ['logo', 'anglais'] })).toBe('500-1000'); // 690 €
-    expect(budgetDepuisEstimation(fonctionnel)).toBe('1000-2000');
-  });
-
-  it('nouvelle estimation : choix repris, textes et coordonnées gardés, ouverture sur la première question à remplir', () => {
+  it('nouvelle estimation : devis neuf, rien des essais précédents sauf les coordonnées', () => {
     const ancien = {
       demande: { ...demandeVide, metier: 'commerce' as const, besoins: ['vente' as const], description: 'Mon texte déjà écrit, assez long.', nom: 'Marie', email: 'marie@exemple.fr', delai: 'mois' },
       etape: 4,
@@ -177,20 +171,19 @@ describe('reprise depuis la dernière estimation', () => {
     const depart = demarrerDevis(ancien, fonctionnel);
     expect(depart.prerempli).toBe(true);
     expect(depart.depuis).toBe(signatureEstimation(fonctionnel));
-    expect(depart.demande).toMatchObject({
+    expect(depart.demande).toEqual({
+      ...demandeVide,
       metier: 'artisan',
       besoins: ['rdv', 'prix'],
-      budget: '1000-2000',
-      delai: null,
-      description: 'Mon texte déjà écrit, assez long.',
       nom: 'Marie',
       email: 'marie@exemple.fr',
     });
-    // Activité, besoins et description sont remplis : on reprend au budget et délai (le délai manque).
-    expect(depart.etape).toBe(3);
-    expect(demarrerDevis(vide, fonctionnel).etape).toBe(2);
-    // Une vitrine ne demande pas l'activité : on commence par elle.
-    expect(demarrerDevis(vide, vitrine).etape).toBe(0);
+    // Activité et besoins viennent de l'estimation : on commence par « Avec vos mots ».
+    expect(depart.etape).toBe(2);
+    // Vitrine + rédaction, après un essai où une activité avait été choisie : rien n'est repris de l'essai.
+    const vitrineTextes = demarrerDevis(ancien, { ...vitrine, options: ['textes'] });
+    expect(vitrineTextes.demande).toMatchObject({ metier: null, besoins: [], budget: null, description: '' });
+    expect(vitrineTextes.etape).toBe(0);
   });
 
   it('même estimation : le brouillon est repris tel quel, là où il s’était arrêté', () => {
