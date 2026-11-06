@@ -83,3 +83,4 @@ Types de tests :
 | 52 | [Carte des zones d'intervention](52-feature-carte-zones.md) | `feature/carte-zones` | 2026-11-06 |
 | 53 | [Bouton « revenir en haut »](53-feature-retour-haut.md) | `feature/retour-haut` | 2026-11-06 |
 | 54 | [Reflet lumineux](54-feature-reflet.md) | `feature/reflet` | 2026-11-06 |
+| 55 | [FAQ sur l'accueil](55-feature-faq-accueil.md) | `feature/faq-accueil` | 2026-11-06 |
