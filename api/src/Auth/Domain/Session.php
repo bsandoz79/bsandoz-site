@@ -8,7 +8,7 @@ namespace App\Auth\Domain;
  * Session ouverte sur un appareil. Expire après 30 jours sans activité ; peut être fermée à distance
  * (« Déconnecter les autres appareils »).
  */
-final class Session
+class Session
 {
     public const DUREE_INACTIVITE = 'P30D';
 

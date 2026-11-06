@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Auth\Domain;
 
 /** Lien à usage unique envoyé par mail (activation, connexion sans mot de passe, changement de mot de passe). */
-final class Lien
+class Lien
 {
     private function __construct(
         public readonly string $id,

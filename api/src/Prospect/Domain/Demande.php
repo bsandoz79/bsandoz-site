@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Prospect\Domain;
 
 /** Demande de devis envoyée depuis le site, suivie de « Reçue » à « Livré ». */
-final class Demande
+class Demande
 {
     private function __construct(
         public readonly string $id,

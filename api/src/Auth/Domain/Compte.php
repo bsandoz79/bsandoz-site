@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Auth\Domain;
 
 /** Compte d'un client. Il naît « en attente » et devient actif quand la personne prouve qu'elle reçoit ses mails. */
-final class Compte
+class Compte
 {
     private function __construct(
         public readonly string $id,
