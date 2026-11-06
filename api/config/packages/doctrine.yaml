@@ -18,6 +18,12 @@ doctrine:
         # Chaque module déclare ici sa correspondance en XML (Infrastructure/Doctrine),
         # pour que le domaine reste indépendant de Doctrine.
         mappings:
+            Contenu:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Contenu/Infrastructure/Doctrine/mapping'
+                prefix: 'App\Contenu\Domain'
+                alias: Contenu
             Catalogue:
                 type: xml
                 is_bundle: false
