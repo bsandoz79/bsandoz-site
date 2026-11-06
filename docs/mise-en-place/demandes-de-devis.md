@@ -2,12 +2,12 @@
 
 Le formulaire de [Devis par mail](devis-par-mail.md), mais reçu par l'API : demande enregistrée et numérotée (« 2026-014 »), accusé de réception, mail au professionnel. Module `Prospect`, essayé seul.
 
-**Ce que cela ne fait pas encore** : il n'y a pas de back-office. Établir un devis ou changer le statut d'une demande n'est possible que par du code. Pour suivre ses demandes et accepter un devis en ligne, il faut en plus l'[espace client](espace-client.md). Pour un client qui veut juste recevoir les demandes, [Devis par mail](devis-par-mail.md) est plus simple.
+**Seul, ce module ne fait que recevoir** : établir un devis, changer un statut ou suivre ses demandes passe par le back-office et l'[espace client](espace-client.md), qui demandent aussi le module Auth. Pour un client qui veut juste recevoir les demandes, [Devis par mail](devis-par-mail.md) est plus simple.
 
 ## Fichiers à copier
 **Site** : comme [Devis par mail](devis-par-mail.md), sans `devis.php`.
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Prospect/`, `src/Shared/`, `config/packages/prospect.yaml`, `migrations/Version20261105203915.php`, `migrations/Version20261106090000.php`. Retirer Booking, Auth et `src/Liaisons/`.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Prospect/`, `src/Shared/`, `config/packages/prospect.yaml`, `migrations/Version20261105203915.php`, `migrations/Version20261106090000.php`. Retirer Booking, Auth, `src/Liaisons/` et `src/BackOffice/`.
 ```sh
 composer remove --no-scripts symfony/password-hasher
 ```
