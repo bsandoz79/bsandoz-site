@@ -65,3 +65,9 @@ En partie : `api/src/BackOffice/` et `pages/Admin/` s'appuient sur Auth, Prospec
 - **prix** : `PrixBackOfficeTest.php`, `CatalogueTest.php`, `prixEnLigne.test.ts`, `PrixAdmin.test.tsx`.
 - **disponibilités** : `DisponibilitesBackOfficeTest.php`, `DisponibilitesAdmin.test.tsx`, `reservation.test.ts`.
 - **unitaires** : `adresseDeRetour` (`MonEspace.test.tsx`) : pas de retour vers un site extérieur après la connexion.
+
+## Écran des disponibilités
+Tout se règle d'un clic (`pages/Admin/DisponibilitesAdmin.tsx`) :
+- **jours travaillés** : sept boutons Lun à Dim ;
+- **heures de rendez-vous** : une grille de 7 h à 20 h, par demi-heure, groupée en matin, après-midi et soir. Une heure déjà enregistrée hors de la grille reste affichée ;
+- **jours fermés** : un clic dans le calendrier ferme le jour, un second le rouvre (bloc `Calendar`, options `isMarked` et `markedLabel`). Les jours fermés sont aussi listés, avec une croix pour les rouvrir.
