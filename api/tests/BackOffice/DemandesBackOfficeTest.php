@@ -238,4 +238,18 @@ final class DemandesBackOfficeTest extends WebTestCase
         self::assertSame(0, $testeur->execute(['email' => 'ADMIN@exemple.fr', 'nom' => 'Baptiste Sandoz']));
         self::assertEmailCount(1);
     }
+
+    public function testLaListeDonneLeMontantDuDevisPourLesStatistiques(): void
+    {
+        $id = $this->demandeEtAdmin();
+        $this->client->request('GET', '/backoffice/demandes');
+        self::assertNull($this->reponse()['demandes'][0]['devis']);
+
+        $this->etablirDevis($id);
+        $this->client->request('GET', '/backoffice/demandes');
+        $devis = $this->reponse()['demandes'][0]['devis'];
+        self::assertSame(1389, $devis['total']);
+        self::assertSame('envoye', $devis['statut']);
+        self::assertNull($devis['accepteLe']);
+    }
 }
