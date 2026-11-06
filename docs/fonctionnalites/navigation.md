@@ -15,6 +15,7 @@ flowchart TB
   layout --> footer["components/Footer"]
   layout --> bar["components/MobileBar<br/>(masquée sur /composer et /devis)"]
   layout --> haut["components/RetourHaut<br/>bouton « revenir en haut »"]
+  layout --> bandeau["components/BandeauCookies<br/>services tiers"]
   nav["src/data/navigation.ts<br/>libellés, liens, contact"] --> header & footer & bar & haut
   main --> meta["components/PageMeta<br/>titre, description, canonique, noindex"]
   routes -- "adresse inconnue" --> nf["pages/NotFound (404, noindex)"]
@@ -36,7 +37,7 @@ flowchart TB
 - `Header`, `Footer`, `MobileBar`, `Layout` : propres à ce site (ils lisent `data/navigation.ts`), mais leur structure se recopie facilement.
 
 ## Tests
-- **fonctionnels** : `src/app/routes.test.tsx` (chaque adresse, 404), `Header.test.tsx` (menu mobile, Échap, clic en dehors, onglet actif), `Layout.test.tsx` (lien d'évitement, ancre), `Footer.test.tsx`, `MobileBar.test.tsx`, `RetourHaut.test.tsx` (caché en haut de page, visible après 600 px, remonte au clic, placé au-dessus de la barre mobile).
+- **fonctionnels** : `src/app/routes.test.tsx` (chaque adresse, 404), `Header.test.tsx` (menu mobile, Échap, clic en dehors, onglet actif), `Layout.test.tsx` (lien d'évitement, ancre), `Footer.test.tsx`, `MobileBar.test.tsx`, `RetourHaut.test.tsx` (caché en haut de page, visible après 600 px, remonte au clic, placé au-dessus de la barre mobile), `BandeauCookies.test.tsx`, `app/consentement.test.ts`.
 - **unitaires** : `PageMeta.test.tsx`.
 
 ## Fichiers
@@ -50,3 +51,26 @@ Fond bleu marine : bande d'appel à l'action (estimer, rendez-vous), présentati
 
 ## Revenir en haut
 `components/RetourHaut` : petit bouton rond et transparent (verre dépoli) avec une flèche, en bas à droite. Il apparaît une fois la page descendue de plus de `retourHaut.seuil` (600 px, `data/navigation.ts`) et ramène en haut au clic : en douceur, ou d'un coup si le visiteur réduit les animations. Caché, il est hors du parcours clavier. Sur mobile, il se pose au-dessus de la barre « Estimer » quand elle est affichée (`barreMobileVisible`, `components/MobileBar`).
+
+## Bandeau des services tiers
+- **Le bandeau** (`components/BandeauCookies`) est une bande en verre dépoli en bas de l'écran. Ce n'est pas une fenêtre : la page reste utilisable et le focus n'est pas capturé. Sur mobile, il se place au-dessus de la barre « Estimer ».
+- **Le choix** est géré par `src/app/consentement.ts` (`useConsentement`, `choisir`, `fermerPourLInstant`, `rouvrirBandeau`) :
+  - « Accepter » ou « Refuser » est gardé 6 mois dans le navigateur (clé `bsandoz.consentement`, avec la date), puis redemandé ;
+  - la croix cache le bandeau pour la visite, et il revient au prochain chargement ;
+  - le bouton « Services tiers » du pied de page rouvre le bandeau.
+- **Ce qui en dépend** : la carte des zones. Elle se charge seule quand on approche (`IntersectionObserver`, 300 px d'avance) ; si le visiteur a refusé, un bouton « Afficher la carte quand même » vaut acceptation.
+- **Pas d'autre service tiers** : les polices sont hébergées avec le site, et il n'y a ni cookie publicitaire ni mesure d'audience.
+- **Textes** : `data/consentement.ts`.
+
+```mermaid
+flowchart LR
+  visite["Chargement de la page"] --> lire["consentement.ts<br/>lit bsandoz.consentement"]
+  lire -- "aucun choix ou plus de 6 mois" --> bandeau["BandeauCookies affiché"]
+  lire -- "choix valable" --> rien["Bandeau caché"]
+  bandeau -- "Accepter / Refuser" --> garde["Choix gardé 6 mois"]
+  bandeau -- "Croix" --> temp["Caché jusqu'au prochain chargement"]
+  pied["Pied de page : Services tiers"] --> bandeau
+  garde --> carte["CarteZones"]
+  carte -- "accepté ou pas encore choisi, et carte proche" --> osm["Leaflet + tuiles OpenStreetMap"]
+  carte -- "refusé" --> bouton["Afficher la carte quand même"]
+```

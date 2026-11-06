@@ -157,9 +157,26 @@
   list-style: none;
 }
 
-.legal a {
+.legal a,
+.lienBouton {
   display: inline-block;
   padding-block: var(--space-1);
+}
+
+/* « Services tiers » : un bouton (il ouvre le bandeau) qui a l'air d'un lien du bas de page. */
+.lienBouton {
+  padding-inline: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.lienBouton:hover {
+  color: var(--color-rose-light);
 }
 
 @media (min-width: 960px) {

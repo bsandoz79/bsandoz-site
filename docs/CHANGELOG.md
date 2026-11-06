@@ -5,6 +5,11 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Bandeau des services tiers : une bande discrète en bas de l'écran, qui ne bloque pas la page. « Accepter » et « Refuser » ont le même poids.
+  - Le choix est gardé 6 mois ; la croix ferme le bandeau pour la visite seulement.
+  - Le lien « Services tiers » du pied de page rouvre le bandeau.
+- La carte s'affiche d'elle-même quand on approche en défilant, sans clic, sauf si le visiteur a refusé.
+- Polices Inter et Plus Jakarta Sans hébergées avec le site (paquets Fontsource) : plus aucun appel à Google Fonts.
 - FAQ déplacée en bas de l'accueil, juste avant la carte : 3 questions, puis 3 de plus à chaque « Voir plus ». Le lien « Questions fréquentes » mène à `/#faq`, l'ancienne adresse `/faq` y redirige ; données structurées FAQPage sur l'accueil.
 - Reflet lumineux (effet verre) qui traverse le bouton « Estimer mon projet » du haut de l'accueil et les trois cartes de tarifs, environ toutes les 2 secondes ; coupé si les animations sont réduites.
 - Bouton « revenir en haut » : rond, transparent, en bas à droite, visible une fois la page descendue ; au-dessus de la barre « Estimer » sur mobile.

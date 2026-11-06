@@ -84,3 +84,4 @@ Types de tests :
 | 53 | [Bouton « revenir en haut »](53-feature-retour-haut.md) | `feature/retour-haut` | 2026-11-06 |
 | 54 | [Reflet lumineux](54-feature-reflet.md) | `feature/reflet` | 2026-11-06 |
 | 55 | [FAQ sur l'accueil](55-feature-faq-accueil.md) | `feature/faq-accueil` | 2026-11-06 |
+| 56 | [Bandeau des services tiers et carte directe](56-feature-bandeau-cookies.md) | `feature/bandeau-cookies` | 2026-11-06 |

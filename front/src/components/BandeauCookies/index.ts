@@ -1,0 +1,1 @@
+export { BandeauCookies } from './BandeauCookies';

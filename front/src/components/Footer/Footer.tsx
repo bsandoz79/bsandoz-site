@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container } from '@bsandoz79/blocs';
+import { rouvrirBandeau } from '../../app/consentement';
+import { bandeau } from '../../data/consentement';
 import { contact, footer } from '../../data/navigation';
 import styles from './Footer.module.css';
 
@@ -83,6 +85,11 @@ export function Footer() {
                   <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
+              <li>
+                <button type="button" className={styles.lienBouton} onClick={rouvrirBandeau}>
+                  {bandeau.gerer}
+                </button>
+              </li>
             </ul>
           </nav>
         </div>

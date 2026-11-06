@@ -27,13 +27,13 @@ describe('Pages légales', () => {
     expect(screen.getByRole('region', { name: 'Délais' })).toHaveTextContent('3 jours pour une Vitrine');
   });
 
-  it('confidentialité : données collectées, stockage local, Google Fonts, droits', () => {
+  it('confidentialité : données collectées, stockage local, polices hébergées sur le site, droits', () => {
     renderAt(pages.confidentialite.path);
     expect(screen.getByRole('region', { name: 'Données collectées' })).toHaveTextContent('demande de devis');
     expect(screen.getByRole('region', { name: 'Données gardées dans votre navigateur' })).toHaveTextContent(
       'restent sur votre appareil',
     );
-    expect(screen.getByRole('region', { name: 'Cookies et services tiers' })).toHaveTextContent('Google Fonts');
+    expect(screen.getByRole('region', { name: 'Cookies et services tiers' })).toHaveTextContent('hébergées avec le site');
     expect(screen.getByRole('region', { name: 'Vos droits' })).toHaveTextContent('contact@bsandoz.fr');
   });
 

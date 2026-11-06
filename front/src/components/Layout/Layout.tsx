@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { skipLink } from '../../data/navigation';
+import { BandeauCookies } from '../BandeauCookies';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { MobileBar } from '../MobileBar';
@@ -9,7 +10,7 @@ import styles from './Layout.module.css';
 
 /**
  * Mise en page commune à toutes les pages : lien d'évitement, en-tête, contenu,
- * pied de page, barre « Estimer » sur mobile et bouton « revenir en haut ».
+ * pied de page, barre « Estimer » sur mobile, bouton « revenir en haut » et bandeau des services tiers.
  */
 export function Layout() {
   const { pathname, hash } = useLocation();
@@ -33,6 +34,7 @@ export function Layout() {
       <Footer />
       <MobileBar />
       <RetourHaut />
+      <BandeauCookies />
     </div>
   );
 }

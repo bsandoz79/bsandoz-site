@@ -149,9 +149,9 @@ export const confidentialite: PageLegale = {
       titre: 'Cookies et services tiers',
       paragraphes: [
         'Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience. Le seul cookie est celui de la session de l’espace client, quand vous vous y connectez.',
-        'Les polices de caractères sont chargées depuis les serveurs de Google (Google Fonts) : votre adresse IP leur est donc transmise à l’affichage des pages.',
+        'Les polices de caractères sont hébergées avec le site : aucun appel n’est fait à Google pour les afficher.',
         'Pour un rendez-vous chez vous, l’adresse saisie est envoyée au service public de géocodage de l’IGN (Géoplateforme) afin de calculer la distance depuis Amiens.',
-        'La carte des zones d’intervention (accueil) vient d’OpenStreetMap. Elle ne s’affiche que si vous cliquez sur « Afficher la carte » : vos images de carte sont alors chargées depuis ses serveurs, qui reçoivent votre adresse IP. Ce choix est gardé dans votre navigateur pour vos prochaines visites.',
+        'La carte des zones d’intervention (accueil) vient d’OpenStreetMap : ses images sont chargées depuis ses serveurs, qui reçoivent votre adresse IP. Un bandeau en bas de l’écran vous laisse accepter ou refuser ; si vous refusez, la carte n’est pas chargée. Votre choix est gardé 6 mois dans votre navigateur (aucun cookie) ; si vous fermez le bandeau sans choisir, il revient à votre prochaine visite. Le lien « Services tiers », en bas de chaque page, permet de changer d’avis à tout moment.',
       ],
     },
     {
