@@ -41,7 +41,9 @@ export function Header() {
   const metiersOpen = metiersOpenAt === pathname;
   // Le focus clavier dans l'en-tête le garde visible (on ne cache jamais ce qu'on est en train d'utiliser).
   const [focusDedans, setFocusDedans] = useState(false);
-  const { masque, decolle } = useMasquageAuDefilement(menuOpen || metiersOpen || focusDedans);
+  const { masque, decolle, enHaut } = useMasquageAuDefilement(menuOpen || metiersOpen || focusDedans);
+  // Hors du haut de page, seule la barre principale revient : les onglets restent cachés.
+  const etat = masque ? styles.masque : enHaut ? '' : styles.compact;
 
   const toggleRef = useRef<HTMLButtonElement>(null);
   const metiersRef = useRef<HTMLLIElement>(null);
@@ -73,7 +75,7 @@ export function Header() {
 
   return (
     <header
-      className={[styles.header, masque ? styles.masque : '', decolle ? styles.decolle : ''].filter(Boolean).join(' ')}
+      className={[styles.header, etat, decolle ? styles.decolle : ''].filter(Boolean).join(' ')}
       onKeyDown={onKeyDown}
       onFocus={() => setFocusDedans(true)}
       onBlur={(event) => {

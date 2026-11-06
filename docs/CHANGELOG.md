@@ -5,6 +5,8 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- En remontant, seule la barre principale de l'en-tête revient : les onglets « Sites & applis / Informatique sur place » ne s'affichent qu'en haut de page.
+- Rendez-vous : la page se centre sur chaque étape qui s'ouvre.
 - Accueil à la première personne avec votre photo (grande à droite sur ordinateur, vignette et nom en haut sur téléphone) et le prix de départ ; photo aussi sur la page À propos.
 - Cartes de projets plus courtes, résumé d'une phrase, et cliquables en entier.
 - Réalisations : filtre Tout / Sites web / Applis & plateformes, gardé dans l'adresse (`?type=`).
