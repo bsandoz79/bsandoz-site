@@ -32,7 +32,7 @@ front/src/
 
 - **À propos** (`pages/APropos`) : textes dans `data/apropos.ts` ; les valeurs reprennent celles de l'accueil.
 
-- **FAQ** (`pages/Faq`) : bloc `Accordion`, questions dans `data/faq.ts` (texte brut, réutilisé plus tard pour les données structurées FAQPage).
+- **FAQ** (section `pages/Home/sections/Faq`, ancre `/#faq` ; `/faq` y redirige) : bloc `Accordion`, 3 questions puis « Voir plus », questions dans `data/faq.ts` (texte brut, réutilisé pour les données structurées FAQPage).
 
 - **Devis** (`pages/Devis`) : `Devis.tsx` (étapes, focus sur le titre à chaque étape, envoi), `Etapes.tsx`, `demande.ts` (validation, brouillon `bsandoz.devis`, récapitulatif, `FormData`). Reprend `bsandoz.composer`. Envoi en `POST` vers `/api/devis.php` (voir `docs/deploiement.md`).
 
@@ -70,5 +70,5 @@ Un bloc ne connaît ni bsandoz.fr ni un métier : il reçoit tout par ses propri
 - `components/Footer` : présentation, contact et liens légaux. Sur mobile, il garde de la place en bas pour la barre « Estimer ».
 - `components/MobileBar` : barre « Estimer » fixe en bas de l'écran sous 960 px ; masquée sur les pages listées dans `mobileBar.hiddenOn`.
 - `components/RealisationCard` : carte d'une réalisation (accueil, page Réalisations).
-- `components/StructuredData` : insère un JSON-LD (accueil : entreprise, FAQ : FAQPage, Tarifs : formules).
+- `components/StructuredData` : insère un JSON-LD (accueil : entreprise et FAQPage, Tarifs : formules).
 - `components/PageMeta` gère aussi l'adresse canonique et, avec `noindex`, la balise robots (pages provisoires, 404). Il met à jour le titre de l'onglet (« Titre – Baptiste Sandoz ») et la meta description déjà présents dans `index.html`, sans les dupliquer.

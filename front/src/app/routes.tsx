@@ -1,12 +1,12 @@
 import type { ReactElement } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/Layout';
+import { ancienneAdresseFaq, lienFaq } from '../data/faq';
 import { pages } from '../data/pages';
 import { Admin } from '../pages/Admin';
 import { APropos } from '../pages/APropos';
 import { Composer } from '../pages/Composer';
 import { Devis } from '../pages/Devis';
-import { Faq } from '../pages/Faq';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
 import { Legal } from '../pages/Legal';
@@ -33,7 +33,6 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   independant: <Metier id="independant" />,
   realisations: <Realisations />,
   aPropos: <APropos />,
-  faq: <Faq />,
   devis: <Devis />,
   rendezVous: <RendezVous />,
   mentionsLegales: <Legal id="mentionsLegales" />,
@@ -61,6 +60,8 @@ export function AppRoutes() {
           />
         ))}
         <Route path={`${pages.realisations.path}/:id`} element={<Realisation />} />
+        {/* La FAQ est maintenant une section de l'accueil : l'ancienne adresse y mène. */}
+        <Route path={ancienneAdresseFaq} element={<Navigate to={lienFaq} replace />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

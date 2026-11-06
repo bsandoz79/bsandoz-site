@@ -1,3 +1,4 @@
+import { lienFaq } from './faq';
 import { pages } from './pages';
 
 /** Lien de navigation : `to` pour une page du site, `href` pour un site externe. */
@@ -70,7 +71,7 @@ export const footer = {
     { label: 'Tarifs', to: pages.tarifs.path },
     { label: 'Réalisations', to: pages.realisations.path },
     { label: 'Informatique sur place', to: pages.informatique.path },
-    { label: 'Questions fréquentes', to: pages.faq.path },
+    { label: 'Questions fréquentes', to: lienFaq },
   ] satisfies NavLink[],
   droits: (annee: number) => `© ${annee} Baptiste Sandoz`,
   legal: [

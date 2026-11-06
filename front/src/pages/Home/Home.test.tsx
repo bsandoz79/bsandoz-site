@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { hero, methode, metiers, pourquoi, problemes } from '../../data/accueil';
+import { faqAccueil, questionsFaq } from '../../data/faq';
 import { formuleParId, prixFormule } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
@@ -35,6 +36,7 @@ describe("Page d'accueil", () => {
       methode.title,
       pourquoi.title,
       'Parlez-moi de votre projet.',
+      faqAccueil.titre,
       'Je me déplace chez vous.',
     ]);
   });
@@ -144,5 +146,55 @@ describe("Page d'accueil", () => {
     for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) {
       expect(within(section(/Des prix clairs/)).getByRole('article', { name: nom })).toHaveClass('anim-reflet');
     }
+  });
+
+  describe('Questions fréquentes', () => {
+    const faq = () => section(faqAccueil.titre);
+    const questions = () => within(faq()).getAllByRole('heading', { level: 3 }).map((h) => h.textContent);
+    const voirPlus = () => within(faq()).queryByRole('button', { name: new RegExp(faqAccueil.voirPlus) });
+
+    it('est en bas de l’accueil, juste avant la carte, avec l’ancre #faq', () => {
+      renderHome();
+      expect(faq()).toHaveAttribute('id', 'faq');
+      expect(faq().nextElementSibling).toBe(section('Je me déplace chez vous.'));
+    });
+
+    it('affiche 3 questions, puis 3 de plus à chaque « Voir plus », jusqu’à la dernière', async () => {
+      const user = userEvent.setup();
+      renderHome();
+      expect(questions()).toEqual(questionsFaq.slice(0, 3).map((q) => q.question));
+      expect(voirPlus()).toHaveTextContent(`(${questionsFaq.length - 3})`);
+      await user.click(voirPlus()!);
+      expect(questions()).toEqual(questionsFaq.slice(0, 6).map((q) => q.question));
+      // Le focus passe à la première nouvelle question.
+      expect(document.activeElement).toBe(document.querySelector(`#${questionsFaq[3].id} > summary`));
+      await user.click(voirPlus()!);
+      expect(questions()).toHaveLength(questionsFaq.length);
+      expect(voirPlus()).not.toBeInTheDocument();
+    });
+
+    it('déplie une réponse au clic, avec les prix et délais des données', async () => {
+      const user = userEvent.setup();
+      renderHome();
+      const delais = document.getElementById('delais') as HTMLDetailsElement;
+      expect(delais.open).toBe(false);
+      await user.click(within(faq()).getByText(questionsFaq[0].question));
+      expect(delais.open).toBe(true);
+      expect(delais).toHaveTextContent(
+        'Comptez 3 jours pour une Vitrine, 1 à 2 semaines pour une Vitrine+ et 3 à 6 semaines pour un site fonctionnel.',
+      );
+    });
+
+    it('l’ancienne adresse /faq mène à la section', () => {
+      const scrollIntoView = vi.fn();
+      Element.prototype.scrollIntoView = scrollIntoView;
+      render(
+        <MemoryRouter initialEntries={['/faq']}>
+          <AppRoutes />
+        </MemoryRouter>,
+      );
+      expect(screen.getByRole('heading', { level: 1, name: pages.accueil.heading })).toBeInTheDocument();
+      expect(scrollIntoView.mock.contexts[0]).toBe(section(faqAccueil.titre));
+    });
   });
 });

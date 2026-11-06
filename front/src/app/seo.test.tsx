@@ -16,11 +16,10 @@ function typesJsonLd(path: string) {
 
 describe('Données structurées et indexation', () => {
   it.each([
-    [pages.accueil.path, 'ProfessionalService'],
-    [pages.faq.path, 'FAQPage'],
-    [pages.tarifs.path, 'OfferCatalog'],
-  ])('%s porte ses données structurées', (path, type) => {
-    expect(typesJsonLd(path)).toEqual([type]);
+    [pages.accueil.path, ['ProfessionalService', 'FAQPage']],
+    [pages.tarifs.path, ['OfferCatalog']],
+  ])('%s porte ses données structurées', (path, types) => {
+    expect(typesJsonLd(path)).toEqual(types);
   });
 
   it('marque « noindex » la page 404', () => {
