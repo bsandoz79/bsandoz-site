@@ -73,3 +73,4 @@ Types de tests :
 | 42 | [Formulaire de contact rapide et champs modernisés](42-feature-formulaires.md) | `feature/formulaires` | 2026-11-06 |
 | 43 | [Un accueil plus dynamique, téléphone façon smartphone récent](43-feature-design-dynamique.md) | `feature/design-dynamique` | 2026-11-06 |
 | 44 | [Prix d'une page supplémentaire sous chaque formule](44-feature-tarif-page-sup.md) | `feature/tarif-page-sup` | 2026-11-06 |
+| 45 | [Thème nuit et thème clair](45-feature-theme-nuit.md) | `feature/theme-nuit` | 2026-11-06 |
