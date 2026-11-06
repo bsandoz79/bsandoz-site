@@ -39,3 +39,19 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
   - [x] `feature/back-office` : demandes et devis
   - [x] `feature/back-office-prix` : prix
   - [x] `feature/back-office-disponibilites` : disponibilités
+
+## V4 – retours du 2026-11-06
+- [x] `feature/carte-zones` : carte des zones d'intervention (Amiens, Abbeville, Arras, Beauvais, 50 km)
+- [x] `feature/retour-haut` : bouton « revenir en haut »
+- [x] `feature/reflet` : reflet lumineux sur « Estimer mon projet » et les cartes de tarifs
+- [ ] `feature/faq-accueil` : FAQ en bas de l'accueil avant la carte, 3 questions puis « Voir plus » (+3), le lien du menu mène à l'ancre
+- [ ] `feature/bandeau-cookies` : bandeau discret en bas, non bloquant ; carte affichée directement au défilement
+- [ ] `feature/carte-position` : demande de position quand la carte apparaît, point sur la carte, message dans la zone / hors zone (frais kilométriques), bouton pour réactiver
+- [ ] `feature/composer-etapes` : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
+- [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
+- [ ] `feature/alterno` : projet Alterno dans les réalisations
+- [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code)
+- [ ] `feature/maintenance-seo` : offres de suivi (abonnement mensuel, à l'heure) et prestation SEO seule
+- [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
+- [ ] `feature/edition-en-page` : back-office « comme le site », crayon sur chaque bloc pour modifier textes et images
+- [ ] `chore/a-completer` : remplir les « [à compléter] » avec les informations fournies

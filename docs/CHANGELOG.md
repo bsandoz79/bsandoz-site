@@ -5,6 +5,7 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Reflet lumineux (effet verre) qui traverse le bouton « Estimer mon projet » du haut de l'accueil et les trois cartes de tarifs, environ toutes les 2 secondes ; coupé si les animations sont réduites.
 - Bouton « revenir en haut » : rond, transparent, en bas à droite, visible une fois la page descendue ; au-dessus de la barre « Estimer » sur mobile.
 - Carte des zones d'intervention en bas de l'accueil : cercles de 50 km autour d'Amiens, Abbeville, Arras et Beauvais, zoom sur la ville choisie ; chargée seulement au clic (OpenStreetMap), mentionnée dans la politique de confidentialité.
 - Accueil, « Pourquoi travailler avec moi » : votre photo remplace l'emplacement « [photo à compléter] ».

@@ -26,6 +26,11 @@ describe('Page Tarifs', () => {
     expect(screen.getByRole('article', { name: 'Fonctionnel' })).toHaveTextContent(/dès 989\s€/);
   });
 
+  it('fait passer un reflet sur les trois formules', () => {
+    renderTarifs();
+    for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) expect(screen.getByRole('article', { name: nom })).toHaveClass('anim-reflet');
+  });
+
   it('indique le prix d’une page supplémentaire sous chacune des trois formules, depuis l’option', () => {
     renderTarifs();
     for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) {

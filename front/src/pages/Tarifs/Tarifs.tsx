@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Card, Container, SectionTitle } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
@@ -26,14 +27,15 @@ export function Tarifs() {
       <section className={styles.formulesSection} aria-label={formulesSection.title}>
         <Container className={styles.stack}>
           <ul className={styles.formules}>
-            {formules.map((formule) => {
+            {formules.map((formule, i) => {
               const featured = formule.id === 'fonctionnel';
               return (
                 <li key={formule.id}>
                   <Card
                     as="article"
                     tone={featured ? 'dark' : 'surface'}
-                    className={featured ? `${styles.formule} ${styles.featured}` : styles.formule}
+                    className={`${featured ? `${styles.formule} ${styles.featured}` : styles.formule} anim-reflet`}
+                    style={{ '--reflet-delai': `${i * 0.25}s` } as CSSProperties}
                     aria-labelledby={`tarif-${formule.id}`}
                   >
                     <h2 id={`tarif-${formule.id}`} className={styles.formuleNom}>

@@ -82,3 +82,4 @@ Types de tests :
 | 51 | [Photo de la section « Pourquoi travailler avec moi »](51-fix-photo-pourquoi.md) | `fix/photo-pourquoi` | 2026-11-06 |
 | 52 | [Carte des zones d'intervention](52-feature-carte-zones.md) | `feature/carte-zones` | 2026-11-06 |
 | 53 | [Bouton « revenir en haut »](53-feature-retour-haut.md) | `feature/retour-haut` | 2026-11-06 |
+| 54 | [Reflet lumineux](54-feature-reflet.md) | `feature/reflet` | 2026-11-06 |

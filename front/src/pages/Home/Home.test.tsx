@@ -137,4 +137,12 @@ describe("Page d'accueil", () => {
     const prix = prixFormule(formuleParId('vitrine')).replace(/\s/g, ' ');
     expect(screen.getByText((texte) => texte.replace(/\s/g, ' ').includes(`à partir de ${prix}`))).toBeInTheDocument();
   });
+
+  it('fait passer un reflet sur le bouton « Estimer mon projet » du haut de page et sur les trois formules', () => {
+    renderHome();
+    expect(within(section(pages.accueil.heading)).getByRole('link', { name: 'Estimer mon projet' })).toHaveClass('anim-reflet');
+    for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) {
+      expect(within(section(/Des prix clairs/)).getByRole('article', { name: nom })).toHaveClass('anim-reflet');
+    }
+  });
 });
