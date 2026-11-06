@@ -94,12 +94,24 @@ final class RendezVousHttpTest extends WebTestCase
         self::assertSame(self::jourReservable(), $reponse['jour']);
         self::assertSame('14:00', $reponse['creneau']);
         self::assertArrayNotHasKey('jeton', $reponse, 'Le jeton ne doit partir que par mail.');
+        self::assertStringStartsWith('https://calendar.google.com/calendar/render?action=TEMPLATE', $reponse['agenda']['google']);
+        self::assertStringStartsWith('https://outlook.live.com/calendar/0/action/compose?', $reponse['agenda']['outlook']);
+        self::assertStringEndsWith("/rendez-vous/{$reponse['id']}/agenda.ics", $reponse['agenda']['ics']);
+        self::assertStringNotContainsString($this->jetonDuDernierRendezVous(), json_encode($reponse['agenda'], \JSON_THROW_ON_ERROR));
 
         // 2 mails du rendez-vous, + 1 lien d'activation : sur bsandoz.fr, le premier rendez-vous ouvre un compte (src/Liaisons).
         self::assertEmailCount(3);
         $jeton = $this->jetonDuDernierRendezVous();
         $depot = static::getContainer()->get(RendezVousRepository::class);
         self::assertNotNull($depot->parJeton($jeton));
+
+        // Le fichier d'agenda se télécharge, sans jeton.
+        $this->client->request('GET', "/rendez-vous/{$reponse['id']}/agenda.ics");
+        self::assertResponseIsSuccessful();
+        self::assertStringStartsWith('text/calendar', (string) $this->client->getResponse()->headers->get('Content-Type'));
+        self::assertStringContainsString('BEGIN:VEVENT', (string) $this->client->getResponse()->getContent());
+        $this->client->request('GET', '/rendez-vous/inconnu/agenda.ics');
+        self::assertResponseStatusCodeSame(404);
     }
 
     public function testRefuseUnCreneauDejaPris(): void

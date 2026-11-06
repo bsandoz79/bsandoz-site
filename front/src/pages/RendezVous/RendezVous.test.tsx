@@ -16,7 +16,9 @@ const geocodage = (lon: number, lat: number, ville: string) => ({
 /** Simule le géocodage (data.geopf.fr) et l'API (/rendez-vous). */
 function simulerReseau({ api = { ok: true, status: 201 }, lieu = geocodage(1.8336, 50.1054, 'Abbeville') } = {}) {
   const fetchMock = vi.fn(async (url: string) =>
-    String(url).includes('geocodage') ? lieu : { ...api, json: async () => ({}) },
+    String(url).includes('geocodage')
+      ? lieu
+      : { ...api, json: async () => ({ agenda: { google: 'https://calendar.google.com/x', outlook: 'https://outlook.live.com/x', ics: 'https://api.exemple.fr/rendez-vous/1/agenda.ics' } }) },
   );
   vi.stubGlobal('fetch', fetchMock);
   return fetchMock;
@@ -167,6 +169,9 @@ describe('Page Rendez-vous', () => {
     await user.click(confirmer());
 
     expect(await screen.findByRole('heading', { level: 1, name: 'Votre rendez-vous est demandé !' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Google Agenda' })).toHaveAttribute('href', 'https://calendar.google.com/x');
+    expect(screen.getByRole('link', { name: 'Outlook' })).toHaveAttribute('href', 'https://outlook.live.com/x');
+    expect(screen.getByRole('link', { name: 'Apple ou autre' })).toHaveAttribute('href', 'https://api.exemple.fr/rendez-vous/1/agenda.ics');
     const [url, options] = fetchMock.mock.calls.at(-1) as unknown as [string, RequestInit];
     expect(url).toBe('https://api.bsandoz.fr/rendez-vous');
     expect(JSON.parse(String(options.body))).toMatchObject({
