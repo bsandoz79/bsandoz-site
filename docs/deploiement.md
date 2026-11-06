@@ -12,7 +12,9 @@ Le FTP est utilisé plutôt que le SSH car l'accès SSH d'o2switch se limite aux
 
 L'envoi (site et API, `deploy-api.yml`) utilise **lftp** en FTPS (canal de commande et canal de données chiffrés, certificat vérifié). L'action `FTP-Deploy-Action` échouait chez o2switch avec « ECONNRESET (data socket) », car le serveur exige la réutilisation de la session TLS sur le canal de données. Le mot de passe passe par la variable `LFTP_PASSWORD`, jamais par la ligne de commande. Aucun fichier n'est supprimé côté serveur : les anciens fichiers `assets/` restent, sans gêner.
 
-Exemple (préversion) : serveur `ftp.saba3655.odns.fr`, compte `deploy-preview@bsandoz.fr` limité au dossier `preview.bsandoz.fr`, `FTP_SERVER_DIR` = `/`.
+**Nom du serveur : `muguet.o2switch.net`**, et non `ftp.saba3655.odns.fr` (proposé par cPanel) : le certificat du serveur FTP est au nom de `muguet.o2switch.net`, l'autre nom est refusé (« hostname mismatch »). Le serveur n'envoie pas ses certificats intermédiaires Let's Encrypt : `.github/scripts/chaine-ftps.sh` les récupère aux adresses officielles écrites dans le certificat, vérifie la chaîne complète avec les seules racines du système, puis la fournit à lftp. La vérification du certificat reste donc entière.
+
+Exemple (préversion) : serveur `muguet.o2switch.net`, compte `deploy-preview@bsandoz.fr` limité au dossier `preview.bsandoz.fr`, `FTP_SERVER_DIR` = `/`.
 
 ## Secrets GitHub à créer
 Dépôt → Settings → Secrets and variables → Actions → New repository secret :
