@@ -104,7 +104,7 @@ Tests : `BlocModifiable.test.tsx` (visiteur sans appel, 403, 401, texte et prix 
 
 ## Planning et statistiques
 L'onglet **Planning**, ouvert par défaut dans `/admin` (`pages/Admin/PlanningAdmin.tsx`), montre :
-- **les chiffres** (`statistiques.ts`) : RDV à venir sur 7 jours, RDV du mois, taux d'occupation de la semaine affichée, annulés du mois, demandes à traiter, devis acceptés. Tous sont calculés sur les vraies données. Sans place offerte, l'occupation affiche « – » ;
+- **les chiffres** (`statistiques.ts`) : RDV à venir sur 7 jours, RDV du mois, taux d'occupation de la semaine affichée, annulés du mois, demandes à traiter, devis acceptés, CA du mois, CA signé et devis en attente (somme des vrais devis, jamais une estimation). Tous sont calculés sur les vraies données. Sans place offerte, l'occupation affiche « – » ;
 - **la semaine** : les rendez-vous placés à leur heure, navigation semaine par semaine, jours fermés grisés. Sur téléphone, une liste remplace la grille ;
 - **le détail** au clic : téléphone et e-mail cliquables, adresse, frais, message ;
 - **l'annulation par le professionnel** : il écrit ses disponibilités, obligatoires. Le client reçoit un mail d'excuses avec ces disponibilités, un lien pour reprendre un créneau et une adresse de réponse. Le créneau redevient libre.

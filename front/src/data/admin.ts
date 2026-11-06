@@ -90,6 +90,12 @@ export const adminTextes = {
       aTraiterDetail: 'reçues, sans réponse',
       acceptes: 'Devis acceptés',
       acceptesDetail: 'depuis le début',
+      caMois: 'CA du mois',
+      caMoisDetail: 'devis acceptés ce mois-ci',
+      caSigne: 'CA signé',
+      caSigneDetail: 'tous les devis acceptés',
+      caEnAttente: 'Devis en attente',
+      caEnAttenteDetail: 'envoyés, pas encore acceptés',
     },
     detail: {
       quand: 'Quand',

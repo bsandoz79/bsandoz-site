@@ -34,6 +34,8 @@ export function calculerStatistiques({
   const dans7Jours = ajouterJours(aujourdhui, 7);
   const mois = aujourdhui.slice(0, 7);
   const duMois = rdvPeriode.filter((r) => r.jour.startsWith(mois));
+  const acceptes = demandes.flatMap((d) => (d.devis?.statut === 'accepte' ? [d.devis] : []));
+  const somme = (liste: { total: number }[]) => liste.reduce((total, devis) => total + devis.total, 0);
   return {
     aVenir: rdvPeriode.filter((r) => confirme(r) && r.jour >= aujourdhui && r.jour <= dans7Jours).length,
     mois: duMois.filter(confirme).length,
@@ -42,5 +44,9 @@ export function calculerStatistiques({
     occupation: places > 0 ? Math.min(100, Math.round((rdvSemaine.filter(confirme).length / places) * 100)) : null,
     aTraiter: demandes.filter((d) => d.statut === 'recue').length,
     acceptes: demandes.filter((d) => ['acceptee', 'en_cours', 'livree'].includes(d.statut)).length,
+    // Chiffre d'affaires : la somme des devis, jamais une estimation.
+    caSigne: somme(acceptes),
+    caMois: somme(acceptes.filter((devis) => devis.accepteLe?.startsWith(mois))),
+    caEnAttente: somme(demandes.flatMap((d) => (d.devis?.statut === 'envoye' ? [d.devis] : []))),
   };
 }

@@ -12,6 +12,8 @@ export type LigneDemande = {
   envoyeeLe: string;
   statut: string;
   statutLibelle: string;
+  /** Montant et état du devis, s'il y en a un. */
+  devis?: { total: number; statut: string; accepteLe: string | null } | null;
 };
 
 export type LigneDevis = { libelle: string; prix: number };

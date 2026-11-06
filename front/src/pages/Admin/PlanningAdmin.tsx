@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties, type ChangeEvent, type ReactNode } from 'react';
 import { Button, TextField, ajouterJours, aujourdhui, debutDuMois, jourDeLaSemaine, libelleLong, type DateIso } from '@bsandoz79/blocs';
 import { adminTextes } from '../../data/admin';
+import { formatPrix } from '../../data/offres';
 import { origineDuSite, pages } from '../../data/pages';
 import { disponibilites } from '../../data/rendezvous';
 import { lireDisponibilites } from '../RendezVous/reservation';
@@ -88,6 +89,9 @@ export function PlanningAdmin({ demandes }: { demandes: LigneDemande[] }) {
     { titre: t.stats.annules, valeur: String(stats.annules), detail: t.stats.annulesDetail },
     { titre: t.stats.aTraiter, valeur: String(stats.aTraiter), detail: t.stats.aTraiterDetail },
     { titre: t.stats.acceptes, valeur: String(stats.acceptes), detail: t.stats.acceptesDetail },
+    { titre: t.stats.caMois, valeur: formatPrix(stats.caMois), detail: t.stats.caMoisDetail },
+    { titre: t.stats.caSigne, valeur: formatPrix(stats.caSigne), detail: t.stats.caSigneDetail },
+    { titre: t.stats.caEnAttente, valeur: formatPrix(stats.caEnAttente), detail: t.stats.caEnAttenteDetail },
   ];
 
   return (
