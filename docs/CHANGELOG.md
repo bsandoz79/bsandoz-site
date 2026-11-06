@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Corrigé (déploiement)
+- Certificat FTPS d'o2switch : nom de serveur `muguet.o2switch.net` (celui du certificat) et certificats intermédiaires Let's Encrypt récupérés puis vérifiés avec les racines du système (`.github/scripts/chaine-ftps.sh`), sans jamais désactiver la vérification.
 - Envoi sur o2switch par lftp en FTPS (session TLS réutilisée sur le canal de données), pour le site et pour l'API : l'action précédente échouait avec « ECONNRESET (data socket) » au premier envoi sur `preview.bsandoz.fr`.
 
 ## [3.0.0] – 2026-11-06

@@ -39,10 +39,13 @@ jobs:
           API_FTP_SERVER_DIR: ${{ secrets.API_FTP_SERVER_DIR }}
         run: |
           sudo apt-get -qq update && sudo apt-get -qq install -y lftp > /dev/null
+          # o2switch n'envoie pas ses certificats intermédiaires : on les récupère et on vérifie la chaîne.
+          bash .github/scripts/chaine-ftps.sh "$API_FTP_SERVER" /tmp/ca-ftps.pem
           lftp --env-password -u "$API_FTP_USERNAME" "ftp://$API_FTP_SERVER" <<EOF
           set ftp:ssl-force true
           set ftp:ssl-protect-data true
           set ssl:verify-certificate true
+          set ssl:ca-file /tmp/ca-ftps.pem
           set ftp:passive-mode true
           set net:timeout 30
           set net:max-retries 3

@@ -19,9 +19,9 @@ Dépôt → Settings → Secrets and variables → Actions.
 
 | Secret | Valeur |
 | --- | --- |
-| `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` | compte FTP du site |
+| `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` | compte FTP du site ; serveur : **`muguet.o2switch.net`** (nom du certificat FTP, pas `ftp.saba3655.odns.fr`) |
 | `FTP_SERVER_DIR` | dossier du site, terminé par `/` (`/` si le compte pointe déjà dessus) |
-| `API_FTP_SERVER`, `API_FTP_USERNAME`, `API_FTP_PASSWORD` | compte FTP de l'API |
+| `API_FTP_SERVER`, `API_FTP_USERNAME`, `API_FTP_PASSWORD` | compte FTP de l'API ; serveur : **`muguet.o2switch.net`** |
 | `API_FTP_SERVER_DIR` | dossier de l'API, terminé par `/` (`/` si le compte pointe déjà dessus) |
 
 **Variables** (onglet Variables → New repository variable) :
