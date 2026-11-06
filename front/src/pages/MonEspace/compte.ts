@@ -53,6 +53,14 @@ export async function confirmerSuppression(jeton: string): Promise<'ok' | 'inval
 }
 
 /** Demande de devis telle que l'espace client la reçoit (liaison Auth + Prospect de l'API). */
+export type MessageDuFil = {
+  id: string;
+  auteur: 'client' | 'professionnel';
+  origine: 'site' | 'mail' | 'note';
+  corps: string;
+  envoyeLe: string;
+};
+
 export type MaDemande = {
   id: string;
   numero: string;
@@ -60,6 +68,7 @@ export type MaDemande = {
   envoyeeLe: string;
   statut: string;
   etapes: { statut: string; libelle: string; atteinte: boolean }[];
+  messages: MessageDuFil[];
   devis: {
     numero: string;
     lignes: { libelle: string; prix: number }[];
@@ -79,6 +88,17 @@ export async function mesDemandes(): Promise<MaDemande[]> {
 export async function accepterDevis(id: string): Promise<MaDemande | null> {
   const { statut, corps } = await appelerApi<{ demande?: MaDemande }>(`/espace/demandes/${encodeURIComponent(id)}/devis/accepter`, { corps: {} });
   return statut === 200 && corps.demande ? corps.demande : null;
+}
+
+/** Ajoute un message au fil de la demande ; renvoie la demande à jour. */
+export async function ecrireMessage(id: string, corps: string): Promise<{ ok: true; demande: MaDemande } | { ok: false; erreur: string }> {
+  const { statut, corps: reponse } = await appelerApi<{ demande?: MaDemande; erreurs?: ErreursChamps }>(
+    `/espace/demandes/${encodeURIComponent(id)}/messages`,
+    { corps: { corps } },
+  );
+  if (statut === 201 && reponse.demande) return { ok: true, demande: reponse.demande };
+  if (statut === 429) return { ok: false, erreur: espaceTextes.tropDEssais };
+  return { ok: false, erreur: reponse.erreurs?.corps ?? espaceTextes.erreurReseau };
 }
 
 export const urlDevisPdf = (id: string) => `${urlApi}/espace/demandes/${encodeURIComponent(id)}/devis.pdf`;

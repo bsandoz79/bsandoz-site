@@ -121,6 +121,7 @@ export const confidentialite: PageLegale = {
     {
       titre: 'Espace client',
       paragraphes: [
+        'Les messages échangés à propos de votre demande (écrits dans votre espace, ou réponses aux mails que je vous envoie) et mes notes d’appel y sont conservés avec elle. Ils figurent dans le téléchargement de vos données et sont effacés avec votre compte.',
         'La connexion à l’espace client repose sur un cookie de session, strictement nécessaire : sans lui, vous ne pourriez pas rester connecté. Il ne sert à rien d’autre et expire après 30 jours sans activité, ou dès que vous vous déconnectez.',
         'Depuis votre espace, vous pouvez à tout moment corriger vos informations, télécharger toutes vos données (fichier JSON) et supprimer votre compte. La suppression efface votre compte, vos rendez-vous et vos échanges ; seules les factures éventuelles sont conservées 10 ans, comme la loi l’impose.',
       ],

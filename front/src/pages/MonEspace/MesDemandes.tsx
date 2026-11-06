@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, buttonClassName } from '@bsandoz79/blocs';
 import { dateLisible, espaceTextes } from '../../data/espace';
 import { formatPrix } from '../../data/offres';
+import { FilDeMessages } from './FilDeMessages';
 import { accepterDevis, mesDemandes, urlDevisPdf, type MaDemande } from './compte';
 import styles from './MonEspace.module.css';
 
@@ -105,6 +106,8 @@ export function MesDemandes() {
               </div>
             </div>
           )}
+
+          <FilDeMessages demande={d} onEnvoye={(misAJour) => setListe((l) => (l ?? []).map((x) => (x.id === misAJour.id ? misAJour : x)))} />
         </article>
       ))}
     </section>
