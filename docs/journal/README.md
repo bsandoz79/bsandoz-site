@@ -88,3 +88,4 @@ Types de tests :
 | 57 | [Position du visiteur sur la carte](57-feature-carte-position.md) | `feature/carte-position` | 2026-11-06 |
 | 58 | [Ordre de la fin de l'accueil](58-feature-ordre-accueil.md) | `feature/ordre-accueil` | 2026-11-06 |
 | 59 | [Compléments et simulateur sur les trois formules](59-feature-tarifs-complements.md) | `feature/tarifs-complements` | 2026-11-06 |
+| 60 | [Coordonnées](60-chore-coordonnees.md) | `chore/coordonnees` | 2026-11-06 |
