@@ -21,6 +21,18 @@ export const serviceTabs = [
 /** Pages rattachées à l'onglet « Informatique sur place » : préfixe d'adresse. */
 export const informatiquePrefix = pages.informatique.path;
 
+/**
+ * « Estimer » ouvre le configurateur sur le bon onglet selon la page d'où l'on vient :
+ * Informatique sur place → onglet informatique ; partout ailleurs → sites et applis.
+ * (Sans cela, le configurateur rouvrait le dernier onglet utilisé.)
+ */
+export function lienEstimer(pathname: string) {
+  return `${pages.composer.path}?onglet=${pathname.startsWith(informatiquePrefix) ? 'informatique' : 'web'}`;
+}
+
+/** Configurateur sur l'onglet des sites et applis. */
+export const lienEstimerSite = `${pages.composer.path}?onglet=web`;
+
 /** Pages métier, regroupées sous « Métiers » dans le menu. */
 export const metierLinks: NavLink[] = [
   { label: 'Artisan', to: pages.artisan.path },
@@ -47,7 +59,7 @@ export const header = {
     { label: 'À propos', to: pages.aPropos.path },
     { label: 'Portfolio', href: contact.portfolio },
   ] satisfies NavLink[],
-  cta: { label: 'Estimer mon projet', to: pages.composer.path },
+  cta: { label: 'Estimer mon projet', to: lienEstimerSite },
 };
 
 export const skipLink = { label: 'Aller au contenu', target: 'contenu' };
@@ -64,7 +76,7 @@ export const footer = {
   appel: {
     titre: 'Un projet en tête ?',
     texte: 'Estimez-le en 2 minutes, ou parlons-en de vive voix.',
-    estimer: { label: 'Estimer mon projet', to: pages.composer.path },
+    estimer: { label: 'Estimer mon projet', to: lienEstimerSite },
     rendezVous: { label: 'Rendez-vous gratuit', to: pages.rendezVous.path },
   },
   siteLabel: 'Le site',
@@ -93,7 +105,7 @@ export const retourHaut = {
 export const mobileBar = {
   label: 'Estimation rapide',
   text: 'Devis gratuit en 2 min',
-  cta: { label: 'Estimer', to: pages.composer.path },
+  cta: { label: 'Estimer', to: lienEstimerSite },
   /** Pages où la barre est masquée : on y est déjà en train d'estimer ou de prendre rendez-vous. */
   hiddenOn: [pages.composer.path, pages.devis.path, pages.rendezVous.path] as string[],
   /** Débuts d'adresse où la barre est masquée : l'espace client. */

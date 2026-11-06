@@ -160,7 +160,7 @@ describe('Page Tarifs', () => {
     );
     expect(within(estimation()).getByRole('link', { name: /Composer mon site en détail/ })).toHaveAttribute(
       'href',
-      pages.composer.path,
+      `${pages.composer.path}?onglet=web`,
     );
   });
 

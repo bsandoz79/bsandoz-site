@@ -46,7 +46,7 @@ export const simulateur = {
   offert: 'Offert',
   economie: 'Offert grâce au pack',
   devis: { label: 'Recevoir mon devis détaillé', to: pages.devis.path },
-  composer: { label: 'Composer mon site en détail', to: pages.composer.path },
+  composer: { label: 'Composer mon site en détail', to: `${pages.composer.path}?onglet=web` },
   footnote: 'Estimation indicative, devis précis après échange. Prix nets, TVA non applicable.',
 };
 

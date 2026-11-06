@@ -65,7 +65,7 @@ export const pageRealisations = {
   capturesAVenir: 'Les captures arrivent bientôt.',
   precedent: 'Projet précédent',
   suivant: 'Projet suivant',
-  appel: { text: 'Un projet du même genre ?', label: 'Composer mon site', to: '/composer' },
+  appel: { text: 'Un projet du même genre ?', label: 'Composer mon site', to: '/composer?onglet=web' },
   filtre: {
     legende: 'Afficher',
     nombre: (n: number) => (n > 1 ? `${n} projets` : `${n} projet`),

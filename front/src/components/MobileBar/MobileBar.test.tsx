@@ -17,7 +17,12 @@ describe('MobileBar', () => {
     expect(screen.getByRole('complementary', { name: 'Estimation rapide' })).toHaveTextContent(
       'Devis gratuit en 2 min',
     );
-    expect(screen.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', pages.composer.path);
+    expect(screen.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+  });
+
+  it('depuis Informatique sur place, « Estimer » ouvre l’onglet informatique', () => {
+    renderAt(pages.informatique.path);
+    expect(screen.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', `${pages.composer.path}?onglet=informatique`);
   });
 
   it.each([pages.composer.path, pages.devis.path, pages.rendezVous.path, pages.monEspace.path, pages.connexion.path])("n'est pas affichée sur %s", (path) => {

@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@bsandoz79/blocs';
 import { rouvrirBandeau } from '../../app/consentement';
 import { bandeau } from '../../data/consentement';
-import { contact, footer } from '../../data/navigation';
+import { contact, footer, lienEstimer } from '../../data/navigation';
 import { pages } from '../../data/pages';
 import styles from './Footer.module.css';
 
@@ -25,7 +25,7 @@ export function Footer() {
               <p className={styles.appelTexte}>{footer.appel.texte}</p>
             </div>
             <div className={styles.appelActions}>
-              <Link to={footer.appel.estimer.to} className={styles.boutonRose}>
+              <Link to={lienEstimer(pathname)} className={styles.boutonRose}>
                 {footer.appel.estimer.label}
               </Link>
               <Link to={footer.appel.rendezVous.to} className={styles.boutonClair}>

@@ -47,7 +47,7 @@ describe("Page d'accueil", () => {
     expect(within(heroSection).getByText(hero.rotatingWords.join(', '))).toBeInTheDocument();
     expect(within(heroSection).getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute(
       'href',
-      pages.composer.path,
+      `${pages.composer.path}?onglet=web`,
     );
     expect(within(heroSection).getByRole('link', { name: 'Voir les réalisations' })).toHaveAttribute(
       'href',

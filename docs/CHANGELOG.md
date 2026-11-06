@@ -5,6 +5,7 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Corrigé
+- « Estimer mon projet » ouvrait parfois le configurateur sur « Informatique sur place » alors qu'on venait de la partie sites. Il ouvre maintenant l'onglet de la page d'où l'on vient. Sur la page Estimer, il n'y a plus qu'une seule barre d'onglets, celle du configurateur.
 - Devis détaillé après une estimation :
   - les choix déjà faits sont pré-cochés : activité, besoins déduits des options, budget déduit du prix ;
   - le devis s'ouvre sur la première question qui reste à remplir ;
