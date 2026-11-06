@@ -80,3 +80,4 @@ Types de tests :
 | 49 | [Votre photo et un accueil à la première personne](49-feature-hero-photo.md) | `feature/hero-photo` | 2026-11-06 |
 | 50 | [Onglets seulement en haut de page, étapes du rendez-vous centrées](50-feature-defilement-nav-rdv.md) | `feature/defilement-nav-rdv` | 2026-11-06 |
 | 51 | [Photo de la section « Pourquoi travailler avec moi »](51-fix-photo-pourquoi.md) | `fix/photo-pourquoi` | 2026-11-06 |
+| 52 | [Carte des zones d'intervention](52-feature-carte-zones.md) | `feature/carte-zones` | 2026-11-06 |
