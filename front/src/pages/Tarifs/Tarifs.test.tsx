@@ -31,17 +31,26 @@ describe('Page Tarifs', () => {
     for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) expect(screen.getByRole('article', { name: nom })).toHaveClass('anim-reflet');
   });
 
-  it('affiche à part les compléments : page en plus, suivi mensuel, heure et référencement seul', () => {
+  it('affiche à part deux compléments : page en plus, suivi mensuel avec le tarif horaire', () => {
     renderTarifs();
     const bloc = screen.getByRole('region', { name: 'Les compléments' });
-    expect(within(bloc).getAllByRole('listitem')).toHaveLength(4);
+    expect(within(bloc).getAllByRole('listitem')).toHaveLength(2);
     const item = (nom: string) => within(bloc).getByText(nom).closest('li')!;
     expect(item('Page supplémentaire')).toHaveTextContent(/\+ 50\s€/);
     expect(item('Suivi mensuel')).toHaveTextContent(/29\s€ \/ mois/);
-    expect(item('Intervention à l’heure')).toHaveTextContent(/29\s€ \/ h/);
-    expect(item('Référencement Google seul')).toHaveTextContent(/400\s€/);
+    expect(item('Suivi mensuel')).toHaveTextContent(/29\s€ de l’heure, à la demande/);
     // La ligne de page n'est plus répétée dans les cartes.
     expect(screen.getByRole('article', { name: 'Vitrine' })).not.toHaveTextContent('Page supplémentaire');
+  });
+
+  it('met en avant à part le référencement seul, avec le prix du marché et sa source', () => {
+    renderTarifs();
+    const seo = screen.getByRole('region', { name: 'Faites-le remonter sur Google.' });
+    expect(seo).toHaveTextContent('− 20 % sur le prix du marché');
+    expect(seo).toHaveTextContent(/400\s€/);
+    expect(seo).toHaveTextContent(`Sur le marché : ${marche.seo.fourchette}`);
+    expect(seo).toHaveTextContent(marche.seo.source);
+    expect(within(seo).getByRole('link', { name: 'Faire le point sur mon site' })).toHaveAttribute('href', pages.devis.path);
   });
 
   it('calcule le référencement seul à 20 % sous le bas du marché, et suit le prix de la page', () => {
