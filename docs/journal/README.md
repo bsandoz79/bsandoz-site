@@ -92,3 +92,4 @@ Types de tests :
 | 61 | [Zones Amiens et Abbeville, frais kilométriques](61-feature-frais-kilometriques.md) | `feature/frais-kilometriques` | 2026-11-06 |
 | 62 | [Compléments en pointillés, calcul des frais visible](62-style-complements-pointilles.md) | `style/complements-pointilles` | 2026-11-06 |
 | 63 | [Photo en ouverture de rideau](63-feature-photo-rideau.md) | `feature/photo-rideau` | 2026-11-06 |
+| 64 | [Page blanche après déploiement](64-fix-deploiement-ordre.md) | `fix/deploiement-ordre` | 2026-11-06 |

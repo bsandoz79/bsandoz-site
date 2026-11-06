@@ -12,6 +12,10 @@ Le FTP est utilisé plutôt que le SSH car l'accès SSH d'o2switch se limite aux
 
 L'envoi (site et API, `deploy-api.yml`) utilise **lftp** en FTPS (canal de commande et canal de données chiffrés, certificat vérifié). L'action `FTP-Deploy-Action` échouait chez o2switch avec « ECONNRESET (data socket) », car le serveur exige la réutilisation de la session TLS sur le canal de données. Le mot de passe passe par la variable `LFTP_PASSWORD`, jamais par la ligne de commande. Aucun fichier n'est supprimé côté serveur : les anciens fichiers `assets/` restent, sans gêner.
 
+**Ordre d'envoi** : d'abord tous les fichiers sauf `index.html`, puis `index.html` en dernier. Ainsi, la page en ligne ne pointe jamais vers un fichier JS ou CSS pas encore envoyé. **Un déploiement n'est jamais annulé en cours** (`cancel-in-progress: false`) : les suivants attendent leur tour.
+
+Le 6 novembre 2026, une page blanche s'est produite pour cette raison. Plusieurs fusions rapprochées ont coupé un envoi : `index.html` pointait vers `assets/index-….js`, absent du serveur, et le serveur renvoyait la page HTML à la place du script.
+
 **Nom du serveur : `muguet.o2switch.net`**, et non `ftp.saba3655.odns.fr` (proposé par cPanel) : le certificat du serveur FTP est au nom de `muguet.o2switch.net`, l'autre nom est refusé (« hostname mismatch »). Le serveur n'envoie pas ses certificats intermédiaires Let's Encrypt : `.github/scripts/chaine-ftps.sh` les récupère aux adresses officielles écrites dans le certificat, vérifie la chaîne complète avec les seules racines du système, puis la fournit à lftp. La vérification du certificat reste donc entière.
 
 Exemple (préversion) : serveur `muguet.o2switch.net`, compte `deploy-preview@bsandoz.fr` limité au dossier `preview.bsandoz.fr`, `FTP_SERVER_DIR` = `/`.
@@ -91,3 +95,12 @@ Dans un fichier de workflow, une valeur sans guillemets ne doit pas contenir « 
 
 ## Routes
 `front/public/.htaccess` renvoie toutes les routes vers `index.html` et force le HTTPS.
+
+## Vérifier un déploiement
+```bash
+# Les fichiers demandés par la page doivent répondre en JS et en CSS, pas en HTML.
+for f in $(curl -s https://preview.bsandoz.fr/ | grep -o 'assets/[^"]*'); do
+  curl -s -o /dev/null -w "$f %{http_code} %{content_type}
+" "https://preview.bsandoz.fr/$f"
+done
+```
