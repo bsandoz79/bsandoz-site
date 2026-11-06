@@ -128,9 +128,3 @@ export const pourquoi = {
   portfolio: { label: 'Voir mon parcours et mes compétences sur mon portfolio', href: contact.portfolio },
 };
 
-export const appelAction = {
-  title: 'Parlez-moi de votre projet.',
-  text: "C'est gratuit, et vous recevez une première estimation tout de suite.",
-  primary: { label: 'Décrire mon projet', to: pages.devis.path },
-  secondary: { label: 'Prendre rendez-vous (gratuit)', to: pages.rendezVous.path },
-};

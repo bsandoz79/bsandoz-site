@@ -110,15 +110,13 @@ describe("Page d'accueil", () => {
     );
   });
 
-  it('mène au parcours de devis depuis l’appel à l’action final', async () => {
+  it('finit par le formulaire de contact rapide, avec le rendez-vous et le devis détaillé à côté', async () => {
     const user = userEvent.setup();
     renderHome();
-    const appel = section('Parlez-moi de votre projet.');
-    expect(within(appel).getByRole('link', { name: 'Prendre rendez-vous (gratuit)' })).toHaveAttribute(
-      'href',
-      pages.rendezVous.path,
-    );
-    await user.click(within(appel).getByRole('link', { name: 'Décrire mon projet' }));
+    const contact = section('Parlez-moi de votre projet.');
+    expect(within(contact).getByRole('form', { name: 'Parlez-moi de votre projet.' })).toBeInTheDocument();
+    expect(within(contact).getByRole('link', { name: /Prendre un rendez-vous gratuit/ })).toHaveAttribute('href', pages.rendezVous.path);
+    await user.click(within(contact).getByRole('link', { name: 'Ou décrivez votre projet en détail' }));
     expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
   });
 });
