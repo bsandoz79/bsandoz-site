@@ -5,6 +5,7 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Corrigé
+- Le devis gardait des réponses d'essais précédents : l'activité, le texte, un besoin « Être contacté » ajouté d'office et un budget déduit du prix. Une nouvelle estimation donne maintenant un devis neuf : seuls l'activité et les besoins réellement choisis sont cochés, et les coordonnées sont gardées.
 - « Estimer mon projet » ouvrait parfois le configurateur sur « Informatique sur place » alors qu'on venait de la partie sites. Il ouvre maintenant l'onglet de la page d'où l'on vient. Sur la page Estimer, il n'y a plus qu'une seule barre d'onglets, celle du configurateur.
 - Devis détaillé après une estimation :
   - les choix déjà faits sont pré-cochés : activité, besoins déduits des options, budget déduit du prix ;

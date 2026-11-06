@@ -65,11 +65,10 @@ En bas de l'accueil, `components/ContactRapide` propose un formulaire court (nom
 
 ## Reprise de la dernière estimation
 Le configurateur (`/composer`) et le simulateur de la page Tarifs enregistrent la dernière estimation dans le navigateur (`bsandoz.composer`). En arrivant sur `/devis`, `demarrerDevis` (`pages/Devis/demande.ts`) compare son empreinte (`signatureEstimation` : formule, activité, options, précisions) à celle dont le brouillon est parti (`depuis`).
-- **Nouvelle estimation**, c'est-à-dire une autre simulation :
-  - les choix sont repris : l'activité, les besoins déduits des options (`besoinsDepuisEstimation`), le budget déduit du prix (`budgetDepuisEstimation`) ;
-  - le délai est redemandé ;
-  - ce que la personne a écrit est gardé : description, lien, coordonnées ;
-  - le devis s'ouvre sur la première question à remplir (`etapeDeReprise`).
+- **Nouvelle estimation**, c'est-à-dire une autre simulation : **devis neuf**, rien des essais précédents.
+  - Seuls sont cochés l'activité choisie dans l'estimation et les besoins des options réellement choisies (`besoinsDepuisEstimation`, rien d'ajouté d'office).
+  - Les coordonnées (nom, entreprise, e-mail, téléphone) sont gardées, pour ne pas les retaper.
+  - Le devis s'ouvre sur la première question à remplir (`etapeDeReprise`).
 - **Même estimation** : le brouillon est repris là où il s'était arrêté.
 - **Pas d'estimation** : le parcours habituel.
 
@@ -81,11 +80,11 @@ flowchart LR
   comp["/composer"] --> st
   st --> dem["demarrerDevis()<br/>signature ≠ brouillon.depuis ?"]
   br["Brouillon<br/>bsandoz.devis (depuis)"] --> dem
-  dem -- "nouvelle estimation" --> pre["Activité, besoins, budget pré-remplis<br/>textes et coordonnées gardés<br/>1re question à remplir"]
+  dem -- "nouvelle estimation" --> pre["Devis neuf : activité et besoins de l'estimation<br/>coordonnées gardées<br/>1re question à remplir"]
   dem -- "même estimation" --> rep["Brouillon repris tel quel"]
 ```
 
 Tests :
-- `demande.test.ts` : besoins, budget, nouvelle ou même estimation, absence d'estimation, empreinte, remise à zéro ;
+- `demande.test.ts` : besoins réellement choisis, nouvelle estimation (devis neuf), même estimation, absence d'estimation, empreinte, remise à zéro ;
 - `Devis.test.tsx` : ouverture sur « Avec vos mots » avec les choix cochés, autre simulation puis retour, « Repartir de zéro » ;
 - `Tarifs.test.tsx` : le simulateur enregistre sa simulation.

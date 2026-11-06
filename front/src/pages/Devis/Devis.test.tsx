@@ -98,7 +98,7 @@ describe('Parcours de demande de devis', () => {
     expect(screen.getByRole('radio', { name: 'Artisan à domicile' })).toBeChecked();
   });
 
-  it('une autre simulation remplace les anciens choix ; la même estimation reprend là où l’on s’était arrêté', async () => {
+  it('une autre simulation repart de zéro (rien des essais précédents) ; la même estimation reprend là où l’on s’était arrêté', async () => {
     const user = userEvent.setup();
     const estimation = (options: string[]) =>
       window.localStorage.setItem(CLE_STOCKAGE, JSON.stringify({ config: { formule: 'fonctionnel', metier: 'artisan', options, precisions: {} } }));
@@ -114,13 +114,12 @@ describe('Parcours de demande de devis', () => {
     expect(etapeEnCours()).toHaveTextContent('Budget et délai');
     second.unmount();
 
-    // Nouvelle simulation (calculateur de prix) : besoins remplacés, le texte écrit est gardé.
+    // Nouvelle simulation (calculateur de prix) : devis neuf, seuls les choix de cette simulation sont cochés.
     estimation(['calcul']);
     renderDevis();
     expect(screen.getByRole('status')).toHaveTextContent('Calculateur de prix');
-    expect(etapeEnCours()).toHaveTextContent('Budget et délai');
-    await user.click(screen.getByRole('button', { name: '← Retour' }));
-    expect(screen.getByRole('textbox', { name: /Votre projet/ })).toHaveValue('Je fais du detailing auto à domicile.');
+    expect(etapeEnCours()).toHaveTextContent('Avec vos mots');
+    expect(screen.getByRole('textbox', { name: /Votre projet/ })).toHaveValue('');
     await user.click(screen.getByRole('button', { name: '← Retour' }));
     expect(screen.getByRole('checkbox', { name: /Calculer un prix/ })).toBeChecked();
     expect(screen.getByRole('checkbox', { name: /Prendre des rendez-vous/ })).not.toBeChecked();

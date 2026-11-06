@@ -153,27 +153,14 @@ const BESOIN_DE_L_OPTION: Partial<Record<OptionId, BesoinId>> = {
   avis: 'google',
 };
 
-/** Besoins déduits de l'estimation : ceux des options, et le formulaire de contact des vitrines. */
+/** Besoins correspondant aux options réellement choisies dans l'estimation (rien d'ajouté d'office). */
 export function besoinsDepuisEstimation(config: Configuration): BesoinId[] {
   const trouves = new Set<BesoinId>();
   for (const id of config.options) {
     const besoin = BESOIN_DE_L_OPTION[id];
     if (besoin) trouves.add(besoin);
   }
-  if (config.formule === 'vitrinePlus') trouves.add('contact');
-  if (trouves.size === 0 && config.formule !== 'fonctionnel') trouves.add('contact');
   return besoins.map((b) => b.id).filter((id) => trouves.has(id));
-}
-
-/** Tranche de budget correspondant au prix estimé (le bas de la fourchette s'il y en a une). */
-export function budgetDepuisEstimation(config: Configuration): string | null {
-  if (!config.formule) return null;
-  const estimation = calculerEstimation(config);
-  const prix = estimation.fourchette?.bas ?? estimation.total;
-  if (prix < 500) return 'moins-500';
-  if (prix < 1000) return '500-1000';
-  if (prix < 2000) return '1000-2000';
-  return 'plus-2000';
 }
 
 /** Première étape encore à remplir (la dernière si tout est rempli). */
@@ -185,8 +172,9 @@ export function etapeDeReprise(d: Demande) {
 /**
  * Point de départ du devis.
  * - Le brouillon vient de la dernière estimation (ou il n'y en a pas) : on le reprend tel quel.
- * - Sinon (nouvelle simulation) : les choix du projet viennent de l'estimation (activité, besoins, budget),
- *   ce que la personne a écrit est gardé (description, lien, coordonnées), et on ouvre la première question à remplir.
+ * - Sinon (nouvelle simulation) : devis neuf, rien des essais précédents. Seuls sont cochés l'activité et
+ *   les besoins réellement choisis dans l'estimation ; les coordonnées sont gardées pour ne pas les retaper.
+ *   On ouvre la première question à remplir.
  */
 export function demarrerDevis(brouillon: Brouillon, config: Configuration | null): Brouillon & { prerempli: boolean } {
   const signature = signatureEstimation(config);
@@ -194,12 +182,9 @@ export function demarrerDevis(brouillon: Brouillon, config: Configuration | null
     return { ...brouillon, prerempli: signature !== null && signature === brouillon.depuis };
   }
   const demande: Demande = {
-    ...brouillon.demande,
-    metier: config.metier ?? brouillon.demande.metier,
+    ...demandeRemiseAZero(brouillon.demande),
+    metier: config.metier,
     besoins: besoinsDepuisEstimation(config),
-    budget: budgetDepuisEstimation(config),
-    delai: null,
-    consentement: false,
   };
   return { demande, etape: etapeDeReprise(demande), depuis: signature, prerempli: true };
 }
