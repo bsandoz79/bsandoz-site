@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { pages } from '../data/pages';
+import { Admin } from '../pages/Admin';
 import { APropos } from '../pages/APropos';
 import { Composer } from '../pages/Composer';
 import { Devis } from '../pages/Devis';
@@ -43,6 +44,7 @@ const builtPages: Partial<Record<PageKey, ReactElement>> = {
   motDePasse: <MotDePasse />,
   confirmerEmail: <ConfirmerEmail />,
   suppression: <ConfirmerSuppression />,
+  admin: <Admin />,
 };
 
 /** Routes du site, toutes sous la mise en page commune. */

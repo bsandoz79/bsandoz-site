@@ -149,6 +149,12 @@ export const pages = {
     description: 'Confirmation de la nouvelle adresse e-mail de votre espace client.',
     heading: 'Nouvelle adresse e-mail',
   },
+  admin: {
+    path: '/admin',
+    title: 'Back-office',
+    description: 'Demandes, devis, prix et disponibilités.',
+    heading: 'Back-office',
+  },
   suppression: {
     path: '/mon-espace/suppression',
     title: 'Supprimer mon compte',

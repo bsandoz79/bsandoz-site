@@ -1,5 +1,6 @@
 import { appelerApi, urlApi } from '../../app/api';
 import { espaceTextes, MOT_DE_PASSE_MIN } from '../../data/espace';
+import { pages } from '../../data/pages';
 
 /** Compte renvoyé par l'API (module Auth). */
 export type Compte = {
@@ -50,6 +51,11 @@ export async function confirmerSuppression(jeton: string): Promise<'ok' | 'inval
   const { statut } = await appelerApi('/auth/suppression/confirmer', { corps: { jeton } });
   if (statut === 204) return 'ok';
   return statut === 410 ? 'invalide' : 'erreur';
+}
+
+/** Où aller après la connexion : une page du site seulement, jamais une adresse extérieure glissée dans le lien. */
+export function adresseDeRetour(valeur: string | null): string {
+  return valeur && /^\/(?![/\\])/.test(valeur) ? valeur : pages.monEspace.path;
 }
 
 /** Demande de devis telle que l'espace client la reçoit (liaison Auth + Prospect de l'API). */
