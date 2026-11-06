@@ -31,3 +31,6 @@ Pour présenter une liste, placer les cartes dans un `fieldset` avec une `legend
 ## Accessibilité
 - Vraie case à cocher dans un `<label>` : clic n'importe où sur la carte, barre d'espace au clavier.
 - Le contour de focus entoure toute la carte.
+
+## État coché
+Bordure neutre plus marquée ; la case cochée (rose) signale le choix. Pas de bordure rose ni de fond teinté.

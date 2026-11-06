@@ -30,3 +30,6 @@ import { ChoiceChips } from '@bsandoz79/blocs';
 - `fieldset` + `legend` : la question est annoncée avec chaque réponse.
 - Navigation au clavier native des boutons radio (Tab pour entrer, flèches pour changer).
 - Contour de focus visible sur la pastille.
+
+## État choisi
+Pastille choisie : fond rose plein, texte clair. Carte choisie (variante `cards`) : bordure neutre plus marquée et petite coche ronde rose en haut à droite. Pas de bordure épaisse ni de fond teinté.
