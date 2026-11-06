@@ -32,5 +32,6 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
   - [x] `feature/espace-rendez-vous` : mes rendez-vous (liste, ajouter à l'agenda, annuler, déplacer)
   - [x] `feature/espace-compte` : mon compte (coordonnées, changement d'e-mail confirmé), confidentialité (préférences, téléchargement des données), zone danger (suppression confirmée par mail)
   - [x] `feature/demandes-devis` : demandes de devis enregistrées par l'API (module Prospect, compte ouvert), suivi du statut, devis à accepter et PDF
+- [x] `docs/mise-en-place-client` : doc d'installation de chaque fonctionnalité copiable sur le site d'un client, client autonome ou « je gère pour lui »
 - [ ] Fil de messages synchronisé avec les mails (IMAP)
 - [ ] Back-office (demandes, devis, prix, disponibilités)
