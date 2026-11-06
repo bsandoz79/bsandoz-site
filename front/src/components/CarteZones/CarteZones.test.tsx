@@ -6,10 +6,12 @@ import {
   aDistance,
   carteTextes,
   deVille,
+  detailCalcul,
   formatFrais,
   fraisKilometriques,
   kmFactures,
   listeVilles,
+  origineCoutKm,
   situer,
   villes,
   zoneSansFrais,
@@ -135,6 +137,8 @@ describe('CarteZones', () => {
     expect(fraisKilometriques(100)).toBe(9.38);
     expect(formatFrais(9.38)).toMatch(/^9,38\s€$/);
     expect(zoneSansFrais()).toBe('d’Amiens et d’Abbeville');
+    expect(detailCalcul(100).replace(/\s/g, ' ')).toBe('50 km × 0,1875 € = 9,38 €');
+    expect(origineCoutKm().replace(/\s/g, ' ')).toBe('2,50 € le litre × 7,5 L aux 100 km');
   });
 
   describe('position du visiteur', () => {
@@ -152,6 +156,7 @@ describe('CarteZones', () => {
 
       repondre(49.9085, 2.5097);
       expect(screen.getByText(/Bonne nouvelle : vous êtes dans ma zone, à \d+ km d’Amiens/)).toBeInTheDocument();
+      expect(screen.queryByText(/^Calcul : /)).not.toBeInTheDocument();
       await waitFor(() => expect(placerPosition).toHaveBeenCalledWith(49.9085, 2.5097, 'amiens'));
       expect(screen.queryByRole('button', { name: carteTextes.position.bouton })).not.toBeInTheDocument();
     });
@@ -164,6 +169,8 @@ describe('CarteZones', () => {
       const texte = screen.getByText(/au-delà de ma zone/);
       expect(texte.textContent!.replace(/\s/g, ' ')).toContain(`${formatFrais(fraisKilometriques(km)).replace(/\s/g, ' ')} d’essence`);
       expect(texte).toHaveTextContent('dus même si le projet ne se fait pas');
+      // Le calcul, en petit, juste dessous.
+      expect(screen.getByText(/^Calcul : /).textContent).toBe(`Calcul : ${detailCalcul(km)} (${origineCoutKm()})`);
     });
 
     it('refusée : la carte reste normale, un bouton discret permet de réessayer', async () => {
