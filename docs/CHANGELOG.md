@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé (téléphone)
+- Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
+
 ### Modifié (design)
 - Réalisations : filtre Tout / Sites web / Applis & plateformes, gardé dans l'adresse (`?type=`).
 - Thème nuit par défaut, inspiré des couchers de soleil néon (bleu nuit, lueurs rose, violet et orangé), et thème clair au choix par un bouton dans l'en-tête ; choix gardé dans le navigateur, appliqué avant l'affichage (pas de flash) ; contrastes AA vérifiés dans les deux thèmes.

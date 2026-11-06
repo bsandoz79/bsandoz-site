@@ -75,3 +75,4 @@ Types de tests :
 | 44 | [Prix d'une page supplémentaire sous chaque formule](44-feature-tarif-page-sup.md) | `feature/tarif-page-sup` | 2026-11-06 |
 | 45 | [Thème nuit et thème clair](45-feature-theme-nuit.md) | `feature/theme-nuit` | 2026-11-06 |
 | 46 | [Filtre des réalisations](46-feature-filtre-realisations.md) | `feature/filtre-realisations` | 2026-11-06 |
+| 47 | [Téléphone : fond de page et marges](47-fix-mobile-fond-marges.md) | `fix/mobile-fond-marges` | 2026-11-06 |

@@ -8,7 +8,9 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background: var(--fond-page);
-  background-attachment: fixed;
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 960px) {
+  body { background-attachment: fixed; }
 }
 h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; margin: 0; }
 p { margin: 0; }
