@@ -2,6 +2,11 @@
 :root {
   --color-navy: #16213e;
   --color-navy-2: #22305a;
+  --color-navy-deep: #0f1830;
+  --color-rose-glow: rgb(201 24 74 / 0.22);
+  --color-line-on-dark: rgb(255 255 255 / 0.12);
+  --color-veil-on-dark: rgb(255 255 255 / 0.08);
+  --color-border-on-dark: rgb(255 255 255 / 0.35);
   --color-rose: #c9184a;
   --color-rose-dark: #9e0f38;
   --color-rose-soft: #fce7ee;
@@ -45,6 +50,7 @@
 
   --shadow-card: 0 18px 40px rgb(22 33 62 / 0.12);
   --shadow-bar: 0 12px 30px rgb(22 33 62 / 0.3);
+  --shadow-header: 0 8px 24px rgb(22 33 62 / 0.08);
   --container: 74rem;
   --container-narrow: 46rem;
   --duration: 0.25s;

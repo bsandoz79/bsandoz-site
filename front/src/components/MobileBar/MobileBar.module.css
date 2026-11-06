@@ -42,6 +42,8 @@
 /* Hauteur de la barre (bouton de 2,75 rem + marges) et son décalage du bas. */
 .espace {
   height: calc(2.75rem + 2 * var(--space-2) + 2 * var(--space-4));
+  /* Même couleur que le bas du pied de page, juste au-dessus : pas de bande claire. */
+  background: var(--color-navy-deep);
 }
 
 @media (min-width: 960px) {

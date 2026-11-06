@@ -1,9 +1,23 @@
 /* Mobile d'abord : le menu est replié derrière le bouton, puis s'affiche en ligne à partir de 960 px. */
+/* Collé en haut : il se cache quand on descend et revient dès qu'on remonte (useMasquageAuDefilement). */
 .header {
-  position: relative;
-  z-index: 10;
-  background: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
   border-bottom: 1px solid var(--color-border);
+  backdrop-filter: saturate(1.4) blur(10px);
+  transition:
+    transform var(--duration) ease,
+    box-shadow var(--duration) ease;
+}
+
+.masque {
+  transform: translateY(-100%);
+}
+
+.decolle {
+  box-shadow: var(--shadow-header);
 }
 
 /* Onglets des catégories de services */
