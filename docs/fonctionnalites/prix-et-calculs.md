@@ -66,11 +66,8 @@ Oui : `calculs.ts` ne dépend d'aucun écran. Pour un autre site, il suffit de r
 ## Modifier
 Un prix, une option, un pack : `src/data/offres.ts`, puis relancer les tests (ils vérifient la cohérence).
 
-## Compléments
-`complements()` (`data/offres.ts`) liste ce qui s'ajoute aux formules. Le composant `components/Complements` les affiche à part, sous les trois formules (accueil et Tarifs) :
-- **page supplémentaire** : prix de l'option `page`, modifiable dans le back-office ;
-- **suivi mensuel** : `abonnementMensuel`, 29 € par mois (hébergement et maintenance) ;
-- **intervention à l'heure** : `tarifHoraire`, 29 € de l'heure ;
-- **référencement Google seul** : `prixSeoSeul()`, soit le bas de la fourchette `marche.seo` moins `REMISE_SEO` (20 %), 400 €. La source est affichée.
-
-La liste est calculée à chaque affichage, donc elle suit les prix du back-office.
+## Compléments et référencement seul
+- **`complements()`** (`data/offres.ts`) : deux compléments, affichés par `components/Complements` en cadres pointillés, prix à droite, sous les formules de l'accueil et de la page Tarifs :
+  - la page supplémentaire (option `page`, modifiable dans le back-office) ;
+  - le suivi mensuel, `abonnementMensuel` à 29 € par mois, avec le tarif horaire `tarifHoraire` (29 €) en détail.
+- **`offreSeo()`** : le référencement Google seul, mis en avant à part par `components/OffreSeo`. C'est un encart sombre avec un halo rose, un badge « − 20 % sur le prix du marché », le prix (`prixSeoSeul()`, soit le bas de `marche.seo` moins `REMISE_SEO`), la fourchette du marché barrée, sa source et un bouton vers le devis.
