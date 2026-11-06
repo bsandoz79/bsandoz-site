@@ -148,4 +148,12 @@ describe('Header', () => {
       expect(metiersButton()).toHaveClass('active');
     });
   });
+
+  it('donne accès à l’espace client depuis la barre, et depuis le menu du téléphone', () => {
+    renderAt(pages.tarifs.path);
+    const liens = within(screen.getByRole('banner')).getAllByRole('link', { name: 'Espace client' });
+    expect(liens).toHaveLength(2);
+    for (const lien of liens) expect(lien).toHaveAttribute('href', pages.monEspace.path);
+    expect(within(mainNav()).getByRole('link', { name: 'Espace client' })).toBeInTheDocument();
+  });
 });
