@@ -46,6 +46,7 @@ sequenceDiagram
 La personne connectée retrouve ses rendez-vous (par son adresse e-mail) dans `/mon-espace` : `front/src/pages/MonEspace/MesRendezVous.tsx` → `GET /espace/rendez-vous`. Elle peut ajouter un rendez-vous à son agenda (`.ics`), le déplacer (nouveau créneau, puis annulation) ou l'annuler (`POST /espace/rendez-vous/{id}/annuler`, même cas d'usage que le lien du mail). Côté API : `api/src/Liaisons/EspaceRendezVousController.php`.
 
 ## Règles
+- Étapes : la date et le créneau n'apparaissent qu'une fois le lieu validé (`etapesRdv()`), les coordonnées et « Confirmer » qu'une fois le créneau choisi.
 - Réservable : de demain à 60 jours, jours travaillés seulement (**à confirmer**, dans `disponibilites`).
 - Créneaux d'une heure espacés de 30 minutes pour le trajet.
 - Distance à vol d'oiseau depuis Amiens ; au-delà de 50 km, visio ou téléphone.

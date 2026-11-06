@@ -72,6 +72,11 @@ export const rdvTextes = {
       "J'accepte que ces informations soient utilisées pour organiser le rendez-vous. Elles ne sont ni revendues ni utilisées à d'autres fins.",
     confidentialite: { label: 'Politique de confidentialité', to: pages.confidentialite.path },
   },
+  /** Annonces pour les lecteurs d'écran quand une étape apparaît. */
+  etapes: {
+    creneau: 'Étape suivante : choisissez une date et un créneau.',
+    coordonnees: 'Étape suivante : indiquez vos coordonnées.',
+  },
   resume: {
     titre: 'Votre rendez-vous',
     badge: 'Gratuit · 1 heure',
@@ -81,6 +86,7 @@ export const rdvTextes = {
     lieu: 'Lieu',
     vide: 'À choisir',
     confirmer: 'Confirmer le rendez-vous',
+    aCompleter: 'Choisissez le lieu, puis la date et le créneau, et enfin vos coordonnées.',
     envoi: 'Confirmation…',
     note: 'Confirmation par mail avec un lien pour déplacer ou annuler. Sans engagement.',
     pendant: {
