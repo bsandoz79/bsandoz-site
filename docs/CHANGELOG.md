@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (design)
+- En-tête collé en haut : il se cache quand on descend et réapparaît dès qu'on remonte (visible en haut de page, menu ouvert ou focus clavier dedans).
+- Pied de page refait : fond bleu marine avec une lueur rose, bande « Un projet en tête ? », colonnes compactes, mentions légales sur une ligne.
+
 ### Modifié (rendez-vous)
 - Page Rendez-vous en étapes : la date et le créneau apparaissent quand le lieu est validé (adresse vérifiée dans les 50 km, bouton « Vérifier l'adresse »), les coordonnées et le bouton « Confirmer » quand le créneau est choisi.
 - Barre mobile « Estimer » masquée sur la page Rendez-vous et dans l'espace client ; place réservée en bas de page pour qu'elle ne cache plus le pied de page.
