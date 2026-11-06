@@ -46,7 +46,14 @@ export function jsonLdEntreprise() {
     url: urlComplete('/'),
     email: contact.email,
     ...(contact.phone ? { telephone: contact.phone } : {}),
-    address: { '@type': 'PostalAddress', addressLocality: 'Amiens', addressRegion: 'Somme', addressCountry: 'FR' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: contact.adresse.rue,
+      postalCode: contact.adresse.codePostal,
+      addressLocality: contact.adresse.ville,
+      addressRegion: 'Somme',
+      addressCountry: 'FR',
+    },
     areaServed: [{ '@type': 'City', name: 'Amiens' }, { '@type': 'Country', name: 'France' }],
     sameAs: [contact.portfolio],
   };

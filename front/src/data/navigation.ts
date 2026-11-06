@@ -4,10 +4,11 @@ import { pages } from './pages';
 /** Lien de navigation : `to` pour une page du site, `href` pour un site externe. */
 export type NavLink = { label: string } & ({ to: string; href?: undefined } | { href: string; to?: undefined });
 
-export const contact: { email: string; phone: string; portfolio: string } = {
+export const contact: { email: string; phone: string; portfolio: string; adresse: { rue: string; codePostal: string; ville: string } } = {
   email: 'contact@bsandoz.fr',
-  /** À compléter : rien n'est affiché tant que le numéro est vide. */
-  phone: '',
+  /** Rien n'est affiché si le numéro est vide. */
+  phone: '07 69 28 78 37',
+  adresse: { rue: '319 rue de Rouen', codePostal: '80000', ville: 'Amiens' },
   portfolio: 'https://portfolio.bsandoz.fr',
 };
 
