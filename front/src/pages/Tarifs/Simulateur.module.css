@@ -91,3 +91,8 @@
     top: var(--space-5);
   }
 }
+
+/* Champ « Précisez votre activité », sous les pastilles d'activité. */
+.metierAutre {
+  max-width: 28rem;
+}

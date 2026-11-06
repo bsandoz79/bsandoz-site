@@ -345,3 +345,9 @@
     font-size: 2.5rem;
   }
 }
+
+/* Champ « Précisez votre activité », sous les pastilles d'activité. */
+.metierAutre {
+  max-width: 28rem;
+  margin-top: var(--space-4);
+}
