@@ -102,6 +102,13 @@
   line-height: 1.5;
 }
 
+/* Le détail du calcul des frais : petit, discret, juste sous le message. */
+.calcul {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
 .succes {
   border-color: var(--color-success);
   background: var(--color-success-soft);
