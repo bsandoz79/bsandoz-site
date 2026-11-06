@@ -1,31 +1,51 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { choisir, reinitialiserConsentement } from '../../app/consentement';
-import { listeVilles, villes } from '../../data/zones';
+import { aDistance, carteTextes, deVille, listeVilles, situer, villes } from '../../data/zones';
 import { CarteZones } from './CarteZones';
 
 // Leaflet ne se dessine pas dans jsdom : on vérifie que la carte est créée et pilotée.
 const afficher = vi.fn();
 const detruire = vi.fn();
-const creerCarte = vi.fn(() => ({ afficher, detruire }));
+const placerPosition = vi.fn();
+const creerCarte = vi.fn(() => ({ afficher, detruire, placerPosition }));
 vi.mock('./carteLeaflet', () => ({ creerCarte: (...args: unknown[]) => creerCarte(...(args as [])) }));
 
-/** Observateur simulé : on décide quand la carte arrive à l'écran. */
-let signaler: ((visible: boolean) => void) | null = null;
+/** Observateurs simulés : on décide quand la carte approche (marge) puis apparaît vraiment (seuil). */
+type Rappel = (entrees: Partial<IntersectionObserverEntry>[]) => void;
+let observateurs: { rappel: Rappel; options?: IntersectionObserverInit }[] = [];
 class FauxObservateur {
-  constructor(rappel: (entrees: Partial<IntersectionObserverEntry>[]) => void) {
-    signaler = (visible) => rappel([{ isIntersecting: visible }]);
+  constructor(rappel: Rappel, options?: IntersectionObserverInit) {
+    observateurs.push({ rappel, options });
   }
   observe() {}
   disconnect() {}
 }
+const approcher = () => observateurs.filter((o) => o.options?.rootMargin).forEach((o) => o.rappel([{ isIntersecting: true }]));
+const apparaitre = () => observateurs.filter((o) => o.options?.threshold).forEach((o) => o.rappel([{ isIntersecting: true }]));
+const signaler = () => {
+  approcher();
+};
+
+/** Géolocalisation simulée : chaque demande attend qu'on y réponde. */
+type Reponse = { succes?: (p: { coords: { latitude: number; longitude: number } }) => void; echec?: (e: { code: number; PERMISSION_DENIED: number }) => void };
+let demandes: Reponse[] = [];
+const geolocalisation = {
+  getCurrentPosition: vi.fn((succes: Reponse['succes'], echec: Reponse['echec']) => {
+    demandes.push({ succes, echec });
+  }),
+};
+const repondre = (lat: number, lng: number) => act(() => demandes.at(-1)!.succes!({ coords: { latitude: lat, longitude: lng } }));
+const refuser = () => act(() => demandes.at(-1)!.echec!({ code: 1, PERMISSION_DENIED: 1 }));
 
 describe('CarteZones', () => {
   beforeEach(() => {
     window.localStorage.clear();
     reinitialiserConsentement();
     vi.clearAllMocks();
-    signaler = null;
+    observateurs = [];
+    demandes = [];
+    Object.defineProperty(navigator, 'geolocation', { value: geolocalisation, configurable: true });
   });
   afterEach(() => vi.unstubAllGlobals());
 
@@ -42,7 +62,7 @@ describe('CarteZones', () => {
     await new Promise((r) => setTimeout(r, 0));
     expect(creerCarte).not.toHaveBeenCalled();
 
-    act(() => signaler!(true));
+    act(() => signaler());
     await waitFor(() => expect(creerCarte).toHaveBeenCalledTimes(1));
     expect(creerCarte.mock.calls[0]).toEqual([expect.any(HTMLElement), villes]);
     unmount();
@@ -79,5 +99,74 @@ describe('CarteZones', () => {
     expect(listeVilles(['Amiens'])).toBe('Amiens');
     expect(listeVilles(['Amiens', 'Arras'])).toBe('Amiens et Arras');
     expect(listeVilles(['Amiens', 'Abbeville', 'Arras'])).toBe('Amiens, Abbeville et Arras');
+  });
+
+  it('dit « d’Amiens » mais « de Beauvais », et trouve la zone la plus proche', () => {
+    expect(deVille('Amiens')).toBe('d’Amiens');
+    expect(deVille('Arras')).toBe('d’Arras');
+    expect(deVille('Beauvais')).toBe('de Beauvais');
+    expect(aDistance(0, 'Amiens')).toBe('à moins d’1 km d’Amiens');
+    // Gare de Corbie, à une quinzaine de kilomètres d'Amiens.
+    expect(situer(49.9085, 2.5097)).toMatchObject({ ville: { id: 'amiens' }, dansZone: true });
+    // Paris : hors zone, Beauvais est la plus proche (environ 70 km).
+    const paris = situer(48.8566, 2.3522);
+    expect(paris).toMatchObject({ ville: { id: 'beauvais' }, dansZone: false });
+    expect(paris.km).toBeGreaterThan(60);
+  });
+
+  describe('position du visiteur', () => {
+    beforeEach(() => vi.stubGlobal('IntersectionObserver', FauxObservateur));
+
+    it('n’est demandée que quand la carte apparaît à l’écran, puis place un point dans la zone', async () => {
+      render(<CarteZones />);
+      act(() => approcher());
+      await waitFor(() => expect(creerCarte).toHaveBeenCalled());
+      expect(geolocalisation.getCurrentPosition).not.toHaveBeenCalled();
+
+      act(() => apparaitre());
+      expect(geolocalisation.getCurrentPosition).toHaveBeenCalledTimes(1);
+      expect(screen.getByText(carteTextes.position.enCours)).toBeInTheDocument();
+
+      repondre(49.9085, 2.5097);
+      expect(screen.getByText(/Bonne nouvelle : vous êtes dans ma zone, à \d+ km d’Amiens/)).toBeInTheDocument();
+      await waitFor(() => expect(placerPosition).toHaveBeenCalledWith(49.9085, 2.5097, 'amiens'));
+      expect(screen.queryByRole('button', { name: carteTextes.position.bouton })).not.toBeInTheDocument();
+    });
+
+    it('hors zone : message rassurant sur les frais kilométriques', () => {
+      render(<CarteZones />);
+      act(() => apparaitre());
+      repondre(48.8566, 2.3522);
+      expect(screen.getByText(/au-delà de ma zone.*frais kilométriques \(essence\)/)).toBeInTheDocument();
+    });
+
+    it('refusée : la carte reste normale, un bouton discret permet de réessayer', async () => {
+      const user = userEvent.setup();
+      render(<CarteZones />);
+      act(() => apparaitre());
+      refuser();
+      expect(placerPosition).not.toHaveBeenCalled();
+      expect(screen.queryByText(carteTextes.position.bloquee)).not.toBeInTheDocument();
+
+      await user.click(screen.getByRole('button', { name: carteTextes.position.bouton }));
+      expect(geolocalisation.getCurrentPosition).toHaveBeenCalledTimes(2);
+      // Toujours refusée : le navigateur la bloque, on explique comment la réautoriser.
+      refuser();
+      expect(screen.getByText(carteTextes.position.bloquee)).toBeInTheDocument();
+
+      await user.click(screen.getByRole('button', { name: carteTextes.position.bouton }));
+      repondre(49.8941, 2.2958);
+      expect(screen.getByText(/vous êtes dans ma zone, à moins d’1 km d’Amiens/)).toBeInTheDocument();
+    });
+
+    it('sans géolocalisation dans le navigateur : pas de bouton inutile', async () => {
+      const user = userEvent.setup();
+      Object.defineProperty(navigator, 'geolocation', { value: undefined, configurable: true });
+      // @ts-expect-error retrait de la propriété pour simuler un navigateur sans géolocalisation
+      delete navigator.geolocation;
+      render(<CarteZones />);
+      await user.click(screen.getByRole('button', { name: carteTextes.position.bouton }));
+      expect(screen.queryByRole('button', { name: carteTextes.position.bouton })).not.toBeInTheDocument();
+    });
   });
 });
