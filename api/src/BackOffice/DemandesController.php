@@ -46,7 +46,7 @@ final class DemandesController
             return $refus;
         }
 
-        return GardeBackOffice::json(['demandes' => array_map(static fn (Demande $d) => [
+        return GardeBackOffice::json(['demandes' => array_map(fn (Demande $d) => [
             'id' => $d->id,
             'numero' => $d->numero,
             'titre' => $d->titre,
@@ -55,7 +55,21 @@ final class DemandesController
             'envoyeeLe' => $d->creeLe->format(\DATE_ATOM),
             'statut' => $d->statut()->value,
             'statutLibelle' => $d->statut()->libelle(),
+            // Pour les statistiques : montant et état du devis.
+            'devis' => $this->resumeDevis($d->id),
         ], $this->demandes->recentes(self::LISTE_MAX))]);
+    }
+
+    /** @return array{total: int, statut: string, accepteLe: ?string}|null */
+    private function resumeDevis(string $demandeId): ?array
+    {
+        $devis = $this->devis->pourDemande($demandeId);
+
+        return $devis === null ? null : [
+            'total' => $devis->total,
+            'statut' => $devis->statut()->value,
+            'accepteLe' => $devis->accepteLe()?->format(\DATE_ATOM),
+        ];
     }
 
     #[Route('/backoffice/demandes/{id}', name: 'backoffice_demande', methods: ['GET'])]
