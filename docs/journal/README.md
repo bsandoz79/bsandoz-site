@@ -95,3 +95,4 @@ Types de tests :
 | 64 | [Page blanche après déploiement](64-fix-deploiement-ordre.md) | `fix/deploiement-ordre` | 2026-11-06 |
 | 65 | [Deux compléments, référencement seul à part](65-style-complements-seo.md) | `style/complements-seo` | 2026-11-06 |
 | 66 | [Message des frais kilométriques](66-style-message-frais.md) | `style/message-frais` | 2026-11-06 |
+| 67 | [Le devis reprend la dernière estimation](67-fix-devis-depuis-estimation.md) | `fix/devis-depuis-estimation` | 2026-11-06 |

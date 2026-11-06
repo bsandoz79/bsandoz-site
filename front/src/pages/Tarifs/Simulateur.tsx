@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ChoiceChips, OptionCard, PriceSummary, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import {
@@ -10,6 +10,7 @@ import {
 } from '../../data/calculs';
 import { formatPrix, formules, metiers, options, prixFormule, prixOption, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
 import { simulateur } from '../../data/tarifs';
+import { chargerEtat, enregistrerEtat } from '../Composer/stockage';
 import styles from './Simulateur.module.css';
 
 /**
@@ -22,6 +23,12 @@ export function Simulateur() {
   const [choix, setChoix] = useState<OptionId[]>([]);
 
   const config: Configuration = { formule, metier, options: choix, precisions: {} };
+
+  // La simulation devient la dernière estimation : le devis détaillé et « Composer mon site » la reprennent.
+  useEffect(() => {
+    if (!formule) return;
+    enregistrerEtat({ ...chargerEtat(), onglet: 'web', config: { formule, metier, options: choix, precisions: {} } });
+  }, [formule, metier, choix]);
   const disponibles = optionsDisponibles(formule, metier);
   const fonctionnel = formule === 'fonctionnel';
   const estimation = calculerEstimation(config);

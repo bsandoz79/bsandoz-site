@@ -12,6 +12,11 @@ import {
   validerEtape,
   verifierPhotos,
   type Demande,
+  besoinsDepuisEstimation,
+  budgetDepuisEstimation,
+  demandeRemiseAZero,
+  demarrerDevis,
+  signatureEstimation,
 } from './demande';
 
 const complete: Demande = {
@@ -64,10 +69,10 @@ describe('brouillon', () => {
   beforeEach(() => window.localStorage.clear());
 
   it('enregistre, recharge et efface le brouillon', () => {
-    enregistrerBrouillon(complete, 3);
-    expect(chargerBrouillon()).toEqual({ demande: complete, etape: 3 });
+    enregistrerBrouillon(complete, 3, 'signature');
+    expect(chargerBrouillon()).toEqual({ demande: complete, etape: 3, depuis: 'signature' });
     effacerBrouillon();
-    expect(chargerBrouillon()).toEqual({ demande: demandeVide, etape: 0 });
+    expect(chargerBrouillon()).toEqual({ demande: demandeVide, etape: 0, depuis: null });
   });
 
   it('ignore les valeurs inattendues', () => {
@@ -78,7 +83,7 @@ describe('brouillon', () => {
     const { demande, etape } = chargerBrouillon();
     expect(etape).toBe(4);
     expect(demande).toMatchObject({ metier: null, besoins: ['rdv'], budget: null, consentement: false });
-    expect(lireBrouillon('texte')).toEqual({ demande: demandeVide, etape: 0 });
+    expect(lireBrouillon('texte')).toEqual({ demande: demandeVide, etape: 0, depuis: null });
   });
 });
 
@@ -142,5 +147,73 @@ describe('titreDemande', () => {
     expect(titreDemande(complete, config)).toBe('Site Fonctionnel · Rendez-vous en ligne');
     expect(titreDemande(complete, null)).toBe('Prendre des rendez-vous, Calculer un prix');
     expect(titreDemande({ ...complete, besoins: ['sais-pas'] }, null)).toBe('Projet de site');
+  });
+});
+
+describe('reprise depuis la dernière estimation', () => {
+  const fonctionnel = { formule: 'fonctionnel' as const, metier: 'artisan' as const, options: ['rdv' as const, 'calcul' as const], precisions: {} };
+  const vitrine = { formule: 'vitrine' as const, metier: null, options: ['galerie' as const], precisions: {} };
+  const vide = { demande: demandeVide, etape: 0, depuis: null };
+
+  it('déduit les besoins des options, et le formulaire de contact des vitrines', () => {
+    expect(besoinsDepuisEstimation(fonctionnel)).toEqual(['rdv', 'prix']);
+    expect(besoinsDepuisEstimation(vitrine)).toEqual(['realisations']);
+    expect(besoinsDepuisEstimation({ ...vitrine, options: [] })).toEqual(['contact']);
+    expect(besoinsDepuisEstimation({ ...vitrine, formule: 'vitrinePlus' })).toEqual(['realisations', 'contact']);
+  });
+
+  it('choisit la tranche de budget du prix estimé', () => {
+    expect(budgetDepuisEstimation({ ...vitrine, options: [] })).toBe('moins-500'); // 99 €
+    expect(budgetDepuisEstimation({ ...vitrine, formule: 'vitrinePlus', options: ['logo', 'anglais'] })).toBe('500-1000'); // 690 €
+    expect(budgetDepuisEstimation(fonctionnel)).toBe('1000-2000');
+  });
+
+  it('nouvelle estimation : choix repris, textes et coordonnées gardés, ouverture sur la première question à remplir', () => {
+    const ancien = {
+      demande: { ...demandeVide, metier: 'commerce' as const, besoins: ['vente' as const], description: 'Mon texte déjà écrit, assez long.', nom: 'Marie', email: 'marie@exemple.fr', delai: 'mois' },
+      etape: 4,
+      depuis: 'une ancienne estimation',
+    };
+    const depart = demarrerDevis(ancien, fonctionnel);
+    expect(depart.prerempli).toBe(true);
+    expect(depart.depuis).toBe(signatureEstimation(fonctionnel));
+    expect(depart.demande).toMatchObject({
+      metier: 'artisan',
+      besoins: ['rdv', 'prix'],
+      budget: '1000-2000',
+      delai: null,
+      description: 'Mon texte déjà écrit, assez long.',
+      nom: 'Marie',
+      email: 'marie@exemple.fr',
+    });
+    // Activité, besoins et description sont remplis : on reprend au budget et délai (le délai manque).
+    expect(depart.etape).toBe(3);
+    expect(demarrerDevis(vide, fonctionnel).etape).toBe(2);
+    // Une vitrine ne demande pas l'activité : on commence par elle.
+    expect(demarrerDevis(vide, vitrine).etape).toBe(0);
+  });
+
+  it('même estimation : le brouillon est repris tel quel, là où il s’était arrêté', () => {
+    const encours = { demande: { ...demandeVide, metier: 'sante' as const }, etape: 1, depuis: signatureEstimation(fonctionnel) };
+    expect(demarrerDevis(encours, fonctionnel)).toEqual({ ...encours, prerempli: true });
+  });
+
+  it('sans estimation : le brouillon est repris tel quel', () => {
+    expect(demarrerDevis(vide, null)).toEqual({ ...vide, prerempli: false });
+  });
+
+  it('l’empreinte ne dépend pas de l’ordre des options', () => {
+    expect(signatureEstimation({ ...fonctionnel, options: ['calcul', 'rdv'] })).toBe(signatureEstimation(fonctionnel));
+    expect(signatureEstimation({ ...fonctionnel, options: ['rdv'] })).not.toBe(signatureEstimation(fonctionnel));
+  });
+
+  it('repartir de zéro garde seulement les coordonnées', () => {
+    expect(demandeRemiseAZero({ ...complete })).toEqual({
+      ...demandeVide,
+      nom: complete.nom,
+      entreprise: complete.entreprise,
+      email: complete.email,
+      telephone: complete.telephone,
+    });
   });
 });

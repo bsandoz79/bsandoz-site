@@ -5,6 +5,12 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Corrigé
+- Devis détaillé après une estimation :
+  - les choix déjà faits sont pré-cochés : activité, besoins déduits des options, budget déduit du prix ;
+  - le devis s'ouvre sur la première question qui reste à remplir ;
+  - après une autre simulation, le devis repart de celle-ci au lieu de rester sur l'ancienne ; les textes et coordonnées saisis sont gardés ;
+  - le simulateur de la page Tarifs est maintenant repris lui aussi ;
+  - un bandeau « Repris de votre estimation » propose « Repartir de zéro ».
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Modifié (design)
