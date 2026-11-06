@@ -34,7 +34,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
   - [x] `feature/demandes-devis` : demandes de devis enregistrées par l'API (module Prospect, compte ouvert), suivi du statut, devis à accepter et PDF
 - [x] `docs/mise-en-place-client` : doc d'installation de chaque fonctionnalité copiable sur le site d'un client, client autonome ou « je gère pour lui »
 - [x] `feature/fil-messages` : fil de messages synchronisé avec les mails (IMAP)
-- [ ] Back-office, en plusieurs branches :
+- [x] Back-office, en plusieurs branches :
   - [x] `feature/back-office` : demandes et devis
   - [x] `feature/back-office-prix` : prix
-  - [ ] `feature/back-office-disponibilites` : disponibilités
+  - [x] `feature/back-office-disponibilites` : disponibilités

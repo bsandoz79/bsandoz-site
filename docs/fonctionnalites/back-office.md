@@ -1,7 +1,7 @@
 # Back-office
 
 ## À quoi ça sert
-L'écran de travail de Baptiste, à l'adresse `/admin` : suivre les demandes, établir et envoyer les devis, répondre aux clients, noter les appels, modifier les prix.
+L'écran de travail de Baptiste, à l'adresse `/admin` : suivre les demandes, établir et envoyer les devis, répondre aux clients, noter les appels, modifier les prix, régler les disponibilités.
 
 ## Schéma
 ```mermaid
@@ -11,6 +11,7 @@ flowchart TD
   B -- "403, adresse non autorisée" --> D["Accès réservé"]
   B -- "200" --> E["Liste des demandes"]
   B -- "200" --> P["Prix : API, puis site au chargement"]
+  B -- "200" --> Q["Disponibilités : API, puis calendrier du site"]
   E --> F["Détail d'une demande"]
   F --> G["Statut"]
   F --> H["Devis : un seul, confirmé avant l'envoi"]
@@ -27,6 +28,7 @@ flowchart TD
 | Droits | `api/src/BackOffice/GardeBackOffice.php` (`BACKOFFICE_EMAILS`) |
 | Points d'entrée | `api/src/BackOffice/DemandesController.php` |
 | Prix | `api/src/BackOffice/PrixController.php`, `api/src/Catalogue/`, `front/src/pages/Admin/PrixAdmin.tsx`, `front/src/data/prixEnLigne.ts` |
+| Disponibilités | `api/src/BackOffice/DisponibilitesController.php`, `api/src/Booking/Domain/Disponibilites.php`, `front/src/pages/Admin/DisponibilitesAdmin.tsx` |
 | Première entrée | `api/src/BackOffice/OuvrirAccesCommand.php` |
 | Règles du statut | `api/src/Prospect/Application/ChangerStatut.php` |
 
@@ -45,17 +47,21 @@ flowchart TD
 | POST | `/backoffice/demandes/{id}/messages` | `{ corps, note }` | 200 · 400 |
 | POST | `/backoffice/prix` | `{ prix: { "formule.vitrine": 120 } }` (remplace tous les prix modifiés) | 200 · 400 |
 | GET | `/prix` | — (public) | 200 `{ prix }` |
+| POST | `/backoffice/disponibilites` | `{ joursTravailles, creneaux, joursFermes }` | 200 · 400 |
+| GET | `/rendez-vous/disponibilites` | — (public) | 200 |
 
 ## Règles
 - **Le statut reste vrai pour le client** : pas de « Devis envoyé » sans devis ; pas d'« Accepté », « En cours » ni « Livré » tant que le client n'a pas accepté depuis son espace ; une acceptation enregistrée ne s'efface pas.
 - **Devis** : un seul par demande, prix en euros entiers, confirmation avant l'envoi. Il ne se modifie plus une fois envoyé.
 - **Prix** : le code reste la référence. Seuls les prix modifiés sont stockés ; remettre le prix d'origine annule la modification. Si l'API est lente ou en panne, le site affiche les prix du code ou les derniers connus, sans attendre plus de 800 ms. Un devis déjà envoyé ne change pas.
+- **Disponibilités** : valeurs de `booking.yaml` tant que rien n'est réglé. L'API a le dernier mot à la réservation. Les rendez-vous déjà pris ne sont pas annulés.
 - **Sécurité** : session de l'espace client + adresse autorisée, vérifiées par l'API à chaque requête. Le front ne décide de rien. Corps JSON obligatoire pour modifier. `/admin` n'est ni indexée ni dans le sitemap.
 
 ## Réutilisable ?
-En partie : `api/src/BackOffice/` et `pages/Admin/` s'appuient sur Auth et Prospect. Voir `docs/mise-en-place/espace-client.md`.
+En partie : `api/src/BackOffice/` et `pages/Admin/` s'appuient sur Auth, Prospect, Booking et Catalogue. Voir `docs/mise-en-place/espace-client.md`.
 
 ## Tests
 - **fonctionnels** : `api/tests/BackOffice/DemandesBackOfficeTest.php` (HTTP + MySQL : refus 401 et 403 sur toutes les adresses, 415, statut, devis jusqu'à la livraison, messages, ouverture d'accès), `front/src/pages/Admin/Admin.test.tsx`.
 - **prix** : `PrixBackOfficeTest.php`, `CatalogueTest.php`, `prixEnLigne.test.ts`, `PrixAdmin.test.tsx`.
+- **disponibilités** : `DisponibilitesBackOfficeTest.php`, `DisponibilitesAdmin.test.tsx`, `reservation.test.ts`.
 - **unitaires** : `adresseDeRetour` (`MonEspace.test.tsx`) : pas de retour vers un site extérieur après la connexion.
