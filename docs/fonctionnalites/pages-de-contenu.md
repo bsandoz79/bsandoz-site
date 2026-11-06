@@ -101,6 +101,7 @@ Ils sont calculés dans `data/zones.ts`, par les mêmes fonctions pour la carte,
 - `kmFactures(km)` : les kilomètres au-delà de 50, comptés depuis la base la plus proche (Amiens ou Abbeville, à vol d'oiseau). Exemple : 100 km de distance donnent 50 km facturés ;
 - `fraisKilometriques(km)` : `kmFactures × COUT_KM`, arrondi au centime ;
 - `COUT_KM` : `PRIX_GAZOLE_LITRE` (2,50 €) × `CONSOMMATION_L_100KM` (7,5) / 100, soit 0,1875 € par km.
+- `detailCalcul(km)` et `origineCoutKm()` : le calcul en clair, affiché en petit sous le message de la carte et de la page Rendez-vous.
 
 Ces frais restent dus même si aucun devis n'est accepté après le déplacement (CGV, section « Déplacements »).
 

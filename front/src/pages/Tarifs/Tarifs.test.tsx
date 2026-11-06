@@ -35,10 +35,11 @@ describe('Page Tarifs', () => {
     renderTarifs();
     const bloc = screen.getByRole('region', { name: 'Les compléments' });
     expect(within(bloc).getAllByRole('listitem')).toHaveLength(4);
-    expect(bloc).toHaveTextContent(/Page supplémentaire\s*\+ 50\s€/);
-    expect(bloc).toHaveTextContent(/Suivi mensuel\s*29\s€ \/ mois/);
-    expect(bloc).toHaveTextContent(/Intervention à l’heure\s*29\s€ \/ h/);
-    expect(bloc).toHaveTextContent(/Référencement Google seul\s*400\s€/);
+    const item = (nom: string) => within(bloc).getByText(nom).closest('li')!;
+    expect(item('Page supplémentaire')).toHaveTextContent(/\+ 50\s€/);
+    expect(item('Suivi mensuel')).toHaveTextContent(/29\s€ \/ mois/);
+    expect(item('Intervention à l’heure')).toHaveTextContent(/29\s€ \/ h/);
+    expect(item('Référencement Google seul')).toHaveTextContent(/400\s€/);
     // La ligne de page n'est plus répétée dans les cartes.
     expect(screen.getByRole('article', { name: 'Vitrine' })).not.toHaveTextContent('Page supplémentaire');
   });

@@ -1,4 +1,4 @@
-/* Bande à part sous les formules : les prix ressortent, le détail reste discret. */
+/* Compléments sous les formules : cadres en pointillés, nom et détail à gauche, prix à droite. */
 .bloc {
   display: flex;
   flex-direction: column;
@@ -20,41 +20,51 @@
 }
 
 .item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'nom prix'
+    'detail detail';
+  align-items: center;
+  gap: var(--space-1) var(--space-4);
   padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-rose);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
 }
 
 .nom {
-  font-weight: 700;
+  grid-area: nom;
+  font-family: var(--font-display);
+  font-weight: 800;
 }
 
 .prix {
+  grid-area: prix;
   color: var(--color-accent-texte);
   font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .detail {
+  grid-area: detail;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
   line-height: 1.5;
 }
 
+/* Sur grand écran : le prix à droite, centré sur la hauteur du cadre. */
 @media (min-width: 640px) {
-  .liste {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .item {
+    grid-template-areas:
+      'nom prix'
+      'detail prix';
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 960px) {
   .liste {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -34,6 +34,7 @@ export const carteTextes = {
     dansZone: (distance: string) => `Bonne nouvelle : vous êtes dans ma zone, ${distance}. Je peux venir chez vous.`,
     horsZone: (distance: string, frais: string) =>
       `Vous êtes ${distance}, un peu au-delà de ma zone. Pas d’inquiétude : je me déplace quand même, seuls les kilomètres en plus sont facturés, environ ${frais} d’essence (dus même si le projet ne se fait pas). La visio et le téléphone restent possibles partout.`,
+    calcul: (detail: string) => `Calcul : ${detail}`,
     bouton: 'Me situer sur la carte',
     bloquee: 'Votre navigateur bloque la position : autorisez-la dans les réglages du site (icône à gauche de l’adresse), puis réessayez.',
     introuvable: 'Votre position est introuvable pour le moment. Vous pouvez réessayer.',
@@ -91,4 +92,19 @@ export function formatFrais(montant: number) {
 export function zoneSansFrais(liste: Ville[] = villes) {
   const noms = liste.map((v) => deVille(v.nom));
   return noms.length < 2 ? (noms[0] ?? '') : `${noms.slice(0, -1).join(', ')} et ${noms.at(-1)}`;
+}
+
+/** « 0,1875 € » : le prix d'un kilomètre, sans arrondi. */
+export function formatCoutKm() {
+  return `${COUT_KM.toLocaleString('fr-FR', { maximumFractionDigits: 4 })} €`;
+}
+
+/** Le calcul en clair : « 48 km × 0,1875 € = 9,00 € ». */
+export function detailCalcul(km: number) {
+  return `${kmFactures(km)} km × ${formatCoutKm()} = ${formatFrais(fraisKilometriques(km))}`;
+}
+
+/** D'où vient le prix du km : « 2,50 € le litre × 7,5 L aux 100 km ». */
+export function origineCoutKm() {
+  return `${formatFrais(PRIX_GAZOLE_LITRE)} le litre × ${CONSOMMATION_L_100KM.toLocaleString('fr-FR')} L aux 100 km`;
 }

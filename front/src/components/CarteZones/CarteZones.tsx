@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button, ChoiceChips, Container } from '@bsandoz79/blocs';
 import { choisir as choisirConsentement, useConsentement } from '../../app/consentement';
-import { aDistance, carteTextes, formatFrais, fraisKilometriques, listeVilles, villes, zoneSansFrais } from '../../data/zones';
+import { aDistance, carteTextes, detailCalcul, formatFrais, fraisKilometriques, listeVilles, origineCoutKm, villes, zoneSansFrais } from '../../data/zones';
 import type { Carte } from './carteLeaflet';
 import styles from './CarteZones.module.css';
 import { usePosition, type EtatPosition } from './usePosition';
@@ -116,12 +116,14 @@ export function CarteZones() {
 function Position({ etat, demander }: { etat: EtatPosition; demander: () => void }) {
   const p = t.position;
   let message: string | null = null;
+  let calcul: string | null = null;
   let ton = styles.info;
   if (etat.statut === 'enCours') message = p.enCours;
   if (etat.statut === 'trouvee') {
     const { ville, km, dansZone } = etat.situation;
     message = dansZone ? p.dansZone(aDistance(km, ville.nom)) : p.horsZone(aDistance(km, ville.nom), formatFrais(fraisKilometriques(km)));
     ton = dansZone ? styles.succes : styles.info;
+    if (!dansZone) calcul = `${p.calcul(detailCalcul(km))} (${origineCoutKm()})`;
   }
   if (etat.statut === 'refusee' && etat.bloquee) message = p.bloquee;
   if (etat.statut === 'introuvable') message = p.introuvable;
@@ -129,9 +131,10 @@ function Position({ etat, demander }: { etat: EtatPosition; demander: () => void
 
   return (
     <div className={styles.position}>
-      <p className={message ? `${styles.message} ${ton}` : styles.vide} aria-live="polite">
-        {message}
-      </p>
+      <div className={message ? `${styles.message} ${ton}` : styles.vide} aria-live="polite">
+        {message && <p>{message}</p>}
+        {calcul && <p className={styles.calcul}>{calcul}</p>}
+      </div>
       {bouton && (
         <button type="button" className={styles.situer} onClick={demander}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">

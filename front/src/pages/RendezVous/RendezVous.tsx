@@ -19,7 +19,7 @@ import {
   type ErreursRdv,
   type ResultatAdresse,
 } from './reservation';
-import { aDistance, formatFrais, kmFactures } from '../../data/zones';
+import { aDistance, detailCalcul, formatFrais, kmFactures, origineCoutKm } from '../../data/zones';
 import styles from './RendezVous.module.css';
 import { useCentrerEtape } from './useCentrerEtape';
 
@@ -200,6 +200,11 @@ export function RendezVous() {
                           <span className={verification.statut === 'ok' ? styles.ok : styles.attention}>
                             {verification.statut === 'ok' ? '✓ ' : ''}
                             {messageAdresse(verification)}
+                            {verification.statut === 'hors-zone' && (
+                              <span className={styles.calcul}>
+                                {t.adresse.calcul(detailCalcul(verification.km), origineCoutKm())}
+                              </span>
+                            )}
                           </span>
                         )}
                   </p>

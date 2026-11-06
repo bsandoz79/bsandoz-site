@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { pages } from '../../data/pages';
-import { formatFrais, fraisKilometriques, kmFactures, situer } from '../../data/zones';
+import { detailCalcul, formatFrais, fraisKilometriques, kmFactures, origineCoutKm, situer } from '../../data/zones';
 
 const geocodage = (lon: number, lat: number, ville: string) => ({
   ok: true,
@@ -80,6 +80,7 @@ describe('Page Rendez-vous', () => {
     expect(texte).toContain(`pour les ${kmFactures(km)} km en plus`);
     expect(texte).toContain(formatFrais(fraisKilometriques(km)).replace(/\s/g, ' '));
     expect(texte).toContain('dus même si le projet ne se fait pas');
+    expect(screen.getByText(/^Calcul : /).textContent).toBe(`Calcul : ${detailCalcul(km)} (${origineCoutKm()}).`);
     expect(screen.getByRole('group', { name: "2. Choisissez un créneau d'une heure" })).toBeInTheDocument();
     expect(resume()).toHaveTextContent('Chez vous, Lille');
   });

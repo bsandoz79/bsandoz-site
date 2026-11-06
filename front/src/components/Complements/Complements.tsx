@@ -1,7 +1,7 @@
 import { complements } from '../../data/offres';
 import styles from './Complements.module.css';
 
-/** Compléments des formules (page en plus, suivi mensuel, heure, référencement seul), à part et bien visibles. */
+/** Compléments des formules (page en plus, suivi mensuel, heure, référencement seul) : cadres en pointillés, prix à droite. */
 export function Complements({ titreId = 'complements-titre' }: { titreId?: string }) {
   return (
     <section className={styles.bloc} aria-labelledby={titreId}>
@@ -12,8 +12,8 @@ export function Complements({ titreId = 'complements-titre' }: { titreId?: strin
         {complements().map((c) => (
           <li key={c.id} className={styles.item}>
             <p className={styles.nom}>{c.nom}</p>
-            <p className={styles.prix}>{c.prix}</p>
             <p className={styles.detail}>{c.detail}</p>
+            <p className={styles.prix}>{c.prix}</p>
           </li>
         ))}
       </ul>
