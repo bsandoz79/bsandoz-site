@@ -59,4 +59,58 @@
   --container: 74rem;
   --container-narrow: 46rem;
   --duration: 0.25s;
+
+  /* Rôles : le rose comme texte d'accent, le rose foncé comme fond au survol (sous un texte blanc). */
+  --color-accent-texte: var(--color-rose);
+  --color-rose-hover: var(--color-rose-dark);
+  /* Fond de la page (thème clair : uni). */
+  --fond-page: var(--color-bg);
+  color-scheme: light;
+}
+
+/*
+ * Thème nuit (par défaut, choisi par le bouton de l'en-tête) : bleu nuit, lueurs de coucher de soleil
+ * rose, violet et orangé. Mêmes noms de variables, d'autres valeurs : les composants n'ont rien à changer.
+ * Contrastes vérifiés (AA) : texte sur fond, texte d'accent sur fond, texte blanc sur le rose.
+ */
+:root[data-theme='nuit'] {
+  --color-bg: #0b0f29;
+  --color-surface: #151b40;
+  --color-border: #2a3158;
+  --color-border-strong: #3c4473;
+  --color-text: #f4f1ff;
+  --color-text-muted: #b9bddb;
+
+  /* Panneaux sombres (pied de page, cartes mises en avant) : plus profonds que le fond, teintés de violet. */
+  --color-navy: #080b20;
+  --color-navy-2: #221a4d;
+  --color-navy-deep: #04061a;
+
+  --color-rose: #d0216b;
+  --color-rose-hover: #a8185a;
+  --color-rose-dark: #ff9ccb;
+  --color-rose-light: #ff8fc4;
+  --color-rose-soft: #2c1543;
+  --color-accent-texte: #ff7eb8;
+  --color-rose-glow: rgb(255 70 150 / 0.28);
+  --color-veil-navy: rgb(150 90 255 / 0.14);
+
+  --color-success: #4fdc9c;
+  --color-success-soft: #0f2f27;
+  --color-danger: #ff7a90;
+
+  --shadow-card: 0 18px 40px rgb(0 0 0 / 0.45);
+  --shadow-bar: 0 12px 30px rgb(0 0 0 / 0.55);
+  --shadow-header: 0 8px 24px rgb(0 0 0 / 0.4);
+  --shadow-phone: 0 40px 80px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.08) inset;
+  --shadow-rose: 0 12px 30px rgb(255 50 140 / 0.4);
+  --color-phone-edge: #5a4a8f;
+
+  /* Ciel de nuit : lueurs orangée, rose et violette en haut de page. */
+  --fond-page:
+    radial-gradient(70rem 32rem at 85% -12%, rgb(255 120 60 / 0.16), transparent 60%),
+    radial-gradient(60rem 30rem at 50% -18%, rgb(255 60 150 / 0.16), transparent 65%),
+    radial-gradient(50rem 34rem at -10% 0%, rgb(140 70 255 / 0.2), transparent 60%),
+    var(--color-bg);
+  color-scheme: dark;
 }

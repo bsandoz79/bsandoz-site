@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Modifié (design)
+- Thème nuit par défaut, inspiré des couchers de soleil néon (bleu nuit, lueurs rose, violet et orangé), et thème clair au choix par un bouton dans l'en-tête ; choix gardé dans le navigateur, appliqué avant l'affichage (pas de flash) ; contrastes AA vérifiés dans les deux thèmes.
 - Tarifs : prix d'une page supplémentaire affiché sous chacune des trois formules (repris de l'option, modifiable dans le back-office).
 - Accueil plus dynamique : téléphone de démonstration façon smartphone récent (îlot, barre d'état, bords fins, halo qui respire), lueurs en fond, bande « En bref » de chiffres clés réels ; boutons qui se soulèvent au survol avec un halo rose.
 - Formulaire de contact rapide en bas de l'accueil (carte : formulaire à gauche, contact et engagements à droite), envoyé comme une demande de devis ; champs de saisie modernisés sur tout le site (fond teinté, halo rose au focus).

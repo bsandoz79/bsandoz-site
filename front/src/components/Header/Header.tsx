@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
 import { header, informatiquePrefix, metierLinks, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
 import styles from './Header.module.css';
+import { ThemeToggle } from '../ThemeToggle';
 import { useMasquageAuDefilement } from './useMasquageAuDefilement';
 
 const MENU_ID = 'menu-principal';
@@ -108,19 +109,23 @@ export function Header() {
           <span className={styles.name}>{header.name}</span>
         </Link>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className={styles.toggle}
-          aria-expanded={menuOpen}
-          aria-controls={MENU_ID}
-          onClick={() => setMenuOpenAt(menuOpen ? null : pathname)}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            {menuOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-          </svg>
-          <span className="sr-only">{menuOpen ? header.closeMenu : header.openMenu}</span>
-        </button>
+        {/* Bouton de thème (toujours visible) et bouton du menu (téléphone). */}
+        <div className={styles.outils}>
+          <ThemeToggle />
+          <button
+            ref={toggleRef}
+            type="button"
+            className={styles.toggle}
+            aria-expanded={menuOpen}
+            aria-controls={MENU_ID}
+            onClick={() => setMenuOpenAt(menuOpen ? null : pathname)}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              {menuOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+            <span className="sr-only">{menuOpen ? header.closeMenu : header.openMenu}</span>
+          </button>
+        </div>
 
         <nav
           id={MENU_ID}
