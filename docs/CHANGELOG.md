@@ -5,6 +5,9 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Zones d'intervention : Amiens et Abbeville seulement, sans frais à 50 km. Au-delà, seuls les kilomètres en plus sont facturés (2,50 € le litre, 7,5 L aux 100 km, soit 0,1875 € par km), et ces frais sont dus même sans devis à la suite.
+  - La page Rendez-vous accepte maintenant les adresses lointaines et annonce les frais ; la carte aussi.
+  - Les CGV ont une nouvelle section « Déplacements ».
 - Coordonnées renseignées :
   - le téléphone (07 69 28 78 37), affiché dans le pied de page et le contact ;
   - l'adresse (319 rue de Rouen, 80000 Amiens), dans les mentions légales et les données structurées ;

@@ -4,7 +4,7 @@ import { pages } from './pages';
 export type LieuId = 'chezvous' | 'visio' | 'telephone';
 
 export const lieux: { id: LieuId; nom: string; description: string }[] = [
-  { id: 'chezvous', nom: 'Chez vous', description: "Votre atelier, boutique ou local, à 50 km max d'Amiens" },
+  { id: 'chezvous', nom: 'Chez vous', description: "Votre atelier, boutique ou local. Sans frais à 50 km d'Amiens ou d'Abbeville" },
   { id: 'visio', nom: 'En visio', description: 'Lien envoyé par mail, partout en France' },
   { id: 'telephone', nom: 'Par téléphone', description: 'Je vous appelle au créneau choisi' },
 ];
@@ -27,8 +27,7 @@ export const disponibilites = {
   joursFermes: [] as string[],
 };
 
-/** Zone de déplacement : 50 km à vol d'oiseau autour d'Amiens. */
-export const zone = { ville: 'Amiens', latitude: 49.8942, longitude: 2.2958, rayonKm: 50 };
+/* Zone de déplacement et frais kilométriques : `data/zones.ts` (50 km sans frais autour d'Amiens et d'Abbeville). */
 
 /** Géocodage des adresses : service public de l'IGN (Géoplateforme), sans clé. */
 export const urlGeocodage = 'https://data.geopf.fr/geocodage/search';
@@ -45,12 +44,12 @@ export const rdvTextes = {
     aide: 'Numéro, rue et ville.',
     verifier: "Vérifier l'adresse",
     verification: 'Vérification…',
-    ok: (ville: string, km: number) => `${ville}, environ ${km} km d'Amiens : je me déplace gratuitement.`,
-    tropLoin: (ville: string, km: number) =>
-      `${ville}, environ ${km} km d'Amiens : c'est au-delà de 50 km. Je vous propose la visio ou le téléphone.`,
+    ok: (ville: string, distance: string) => `${ville}, ${distance} : je me déplace gratuitement.`,
+    horsZone: (ville: string, distance: string, km: number, frais: string) =>
+      `${ville}, ${distance} : au-delà de 50 km, je viens quand même. Frais kilométriques pour les ${km} km en plus : environ ${frais}, dus même si le projet ne se fait pas. La visio et le téléphone restent gratuits.`,
     introuvable: "Je ne trouve pas cette adresse. Vérifiez-la, ou choisissez la visio ou le téléphone.",
     erreur: "L'adresse n'a pas pu être vérifiée pour l'instant. Je la vérifierai moi-même avant de confirmer.",
-    limite: 'Au-delà de 50 km, je vous propose la visio ou le téléphone.',
+    limite: "Gratuit dans les 50 km autour d'Amiens et d'Abbeville ; au-delà, seuls les kilomètres en plus sont facturés (essence).",
   },
   creneau: {
     legende: "2. Choisissez un créneau d'une heure",
@@ -100,7 +99,6 @@ export const rdvTextes = {
   },
   erreurs: {
     adresse: "Indiquez l'adresse du rendez-vous.",
-    adresseHorsZone: "Cette adresse est au-delà de 50 km d'Amiens : choisissez la visio ou le téléphone.",
     jour: 'Choisissez un jour.',
     creneau: 'Choisissez un créneau.',
     nom: 'Indiquez votre nom.',

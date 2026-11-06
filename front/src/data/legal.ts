@@ -1,5 +1,6 @@
 import { formuleParId, mentionsPrix, tarifHoraire } from './offres';
 import { contact } from './navigation';
+import { CONSOMMATION_L_100KM, COUT_KM, PRIX_GAZOLE_LITRE, RAYON_KM, formatFrais, zoneSansFrais } from './zones';
 import { pages } from './pages';
 
 /**
@@ -66,6 +67,14 @@ export const cgv: PageLegale = {
       paragraphes: [
         `Un acompte est versé à la commande (${A_COMPLETER('montant ou pourcentage de l’acompte')}), le solde à la mise en ligne.`,
         `Moyens de paiement : ${A_COMPLETER('moyens de paiement acceptés')}.`,
+      ],
+    },
+    {
+      titre: 'Déplacements',
+      paragraphes: [
+        `Les déplacements sont gratuits dans un rayon de ${RAYON_KM} km autour ${zoneSansFrais()}.`,
+        `Au-delà, seuls les kilomètres en plus sont facturés, au prix de l’essence : ${formatFrais(PRIX_GAZOLE_LITRE)} le litre pour ${CONSOMMATION_L_100KM.toLocaleString('fr-FR')} L aux 100 km, soit ${COUT_KM.toLocaleString('fr-FR', { maximumFractionDigits: 4 })} € le kilomètre (pour 100 km de distance, 50 km sont facturés). Le montant est annoncé avant le rendez-vous.`,
+        'Ces frais sont dus même si aucun devis n’est accepté à la suite du déplacement.',
       ],
     },
     {

@@ -1,6 +1,7 @@
 import { ajouterJours, comparer, jourDeLaSemaine, type DateIso } from '@bsandoz79/blocs';
 import { urlApi } from '../../app/api';
-import { disponibilites, rdvTextes, urlGeocodage, zone, type LieuId } from '../../data/rendezvous';
+import { disponibilites, rdvTextes, urlGeocodage, type LieuId } from '../../data/rendezvous';
+import { fraisKilometriques, situer } from '../../data/zones';
 import { distanceKm } from '../../data/distance';
 
 export type Disponibilites = typeof disponibilites;
@@ -73,7 +74,8 @@ export function creneauxDuJour(jour: DateIso | null, aujourdhui: DateIso): Crene
 export { distanceKm };
 
 export type ResultatAdresse =
-  | { statut: 'ok' | 'trop-loin'; ville: string; km: number; adresse: string }
+  /** `base` : Amiens ou Abbeville, la plus proche ; `frais` : frais kilométriques (0 dans la zone). */
+  | { statut: 'ok' | 'hors-zone'; ville: string; km: number; base: string; frais: number; adresse: string }
   | { statut: 'introuvable' | 'erreur' };
 
 type ReponseGeocodage = {
@@ -90,11 +92,14 @@ export async function verifierAdresse(adresse: string, chercher: typeof fetch = 
     const lieu = donnees.features?.[0];
     if (!lieu || (lieu.properties.score ?? 1) < 0.4) return { statut: 'introuvable' };
     const [longitude, latitude] = lieu.geometry.coordinates;
-    const km = Math.round(distanceKm(zone.latitude, zone.longitude, latitude, longitude));
+    const { ville: base, km } = situer(latitude, longitude);
+    const frais = fraisKilometriques(km);
     return {
-      statut: km <= zone.rayonKm ? 'ok' : 'trop-loin',
+      statut: frais > 0 ? 'hors-zone' : 'ok',
       ville: lieu.properties.city ?? '',
       km,
+      base: base.nom,
+      frais,
       adresse: lieu.properties.label ?? adresse,
     };
   } catch {
@@ -133,24 +138,22 @@ export type ErreursRdv = Partial<Record<keyof DemandeRdv, string>>;
 
 const E = rdvTextes.erreurs;
 
-/** Erreurs du formulaire. `verification` : résultat du contrôle de l'adresse, s'il a eu lieu. */
 /**
  * Étapes affichées : chaque étape apparaît quand la précédente est validée.
- * - Lieu validé : visio ou téléphone ; ou « chez vous » avec une adresse trouvée dans les 50 km
- *   (ou un géocodage indisponible : l'adresse sera alors vérifiée à la main).
+ * - Lieu validé : visio ou téléphone ; ou « chez vous » avec une adresse trouvée, dans la zone ou au-delà
+ *   (frais kilométriques), ou un géocodage indisponible : l'adresse sera alors vérifiée à la main.
  * - Créneau validé : un jour et un créneau choisis.
  */
 export function etapesRdv(d: DemandeRdv, verification: ResultatAdresse | null) {
-  const lieu = d.lieu !== 'chezvous' || verification?.statut === 'ok' || verification?.statut === 'erreur';
+  const lieu = d.lieu !== 'chezvous' || verification?.statut === 'ok' || verification?.statut === 'hors-zone' || verification?.statut === 'erreur';
   const creneau = lieu && d.jour !== null && d.creneau !== null;
   return { creneau: lieu, coordonnees: creneau };
 }
 
-export function validerRdv(d: DemandeRdv, verification: ResultatAdresse | null): ErreursRdv {
+export function validerRdv(d: DemandeRdv): ErreursRdv {
   const erreurs: ErreursRdv = {};
   if (d.lieu === 'chezvous') {
     if (!d.adresse.trim()) erreurs.adresse = E.adresse;
-    else if (verification?.statut === 'trop-loin') erreurs.adresse = E.adresseHorsZone;
   }
   if (!d.jour) erreurs.jour = E.jour;
   else if (!d.creneau) erreurs.creneau = E.creneau;

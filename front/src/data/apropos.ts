@@ -18,7 +18,7 @@ export const aPropos = {
     titre: 'Où j’interviens',
     items: [
       'Basé à Amiens, dans la Somme.',
-      'Je me déplace dans un rayon de 50 km autour d’Amiens pour les rendez-vous et l’informatique sur place.',
+      'Je me déplace sans frais dans un rayon de 50 km autour d’Amiens et d’Abbeville pour les rendez-vous et l’informatique sur place ; plus loin, seuls les kilomètres en plus sont facturés.',
       'Pour les sites, je travaille aussi à distance, partout en France.',
     ],
   },

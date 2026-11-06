@@ -62,7 +62,7 @@ export const publicsInformatique: { id: PublicInformatique; nom: string }[] = [
 export const informatiqueMentions = {
   bientot: 'Bientôt disponible',
   tarif: 'Tarif sur devis',
-  zone: "Je me déplace dans un rayon de 50 km autour d'Amiens.",
+  zone: "Je me déplace sans frais dans un rayon de 50 km autour d'Amiens et d'Abbeville ; plus loin, seuls les kilomètres en plus sont facturés.",
 };
 
 /** Déroulement d'une intervention (page Informatique et configurateur). */
@@ -79,7 +79,7 @@ export const pageInformatique = {
     "Windows 10 n'est plus mis à jour depuis octobre 2025. Avec Linux, un ordinateur de plusieurs années redevient rapide et sûr, et vos fichiers vous suivent. Je viens chez vous pour installer, régler, dépanner et vous montrer.",
   composer: { label: 'Décrire mon besoin', to: '/composer?onglet=informatique' },
   rdv: { label: 'Prendre rendez-vous (gratuit)', to: '/rendez-vous' },
-  reassurance: ['Particuliers et professionnels', "50 km autour d'Amiens", 'Prix annoncé avant toute intervention'],
+  reassurance: ['Particuliers et professionnels', "50 km autour d'Amiens et d'Abbeville", 'Prix annoncé avant toute intervention'],
   services: { eyebrow: 'Prestations', title: 'Ce que je fais chez vous' },
   deroulement: { eyebrow: 'Comment ça se passe', title: 'Trois étapes, sans surprise.' },
   tarif: {

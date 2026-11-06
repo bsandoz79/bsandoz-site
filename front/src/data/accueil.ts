@@ -23,7 +23,7 @@ export const chiffres = {
     { valeur: formuleParId('vitrine').delai, texte: 'pour mettre un site vitrine en ligne' },
     { valeur: '1', texte: 'seul interlocuteur, du devis à la mise en ligne' },
     { valeur: '24 h', texte: 'pour recevoir une réponse à votre demande' },
-    { valeur: '50 km', texte: "autour d'Amiens : je me déplace gratuitement" },
+    { valeur: '50 km', texte: "autour d'Amiens et d'Abbeville : je me déplace gratuitement" },
   ],
 };
 
