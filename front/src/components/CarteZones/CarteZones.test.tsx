@@ -129,15 +129,16 @@ describe('CarteZones', () => {
     expect(paris.km).toBeGreaterThan(100);
   });
 
-  it('frais kilométriques : seuls les km au-delà de 50 sont facturés, à 2,50 €/L et 7,5 L/100 km', () => {
+  it('frais kilométriques : km au-delà de 50, aller-retour, à 2,50 €/L et 7,5 L/100 km', () => {
     expect(COUT_KM).toBe(0.1875);
     expect(kmFactures(40)).toBe(0);
     expect(fraisKilometriques(50)).toBe(0);
-    expect(kmFactures(100)).toBe(50); // l'exemple : 100 km de distance, 50 km facturés
-    expect(fraisKilometriques(100)).toBe(9.38);
+    // Aller-retour : 100 km de distance → 50 km en plus, comptés deux fois → 100 km facturés.
+    expect(kmFactures(100)).toBe(100);
+    expect(fraisKilometriques(100)).toBe(18.75);
     expect(formatFrais(9.38)).toMatch(/^9,38\s€$/);
     expect(zoneSansFrais()).toBe('d’Amiens et d’Abbeville');
-    expect(detailCalcul(100).replace(/\s/g, ' ')).toBe('50 km × 0,1875 € = 9,38 €');
+    expect(detailCalcul(100).replace(/\s/g, ' ')).toBe('100 km aller-retour × 0,1875 € = 18,75 €');
     expect(origineCoutKm().replace(/\s/g, ' ')).toBe('2,50 € le litre × 7,5 L aux 100 km');
   });
 

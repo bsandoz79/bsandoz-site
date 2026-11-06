@@ -13,7 +13,7 @@ Calendrier, créneaux, créneau pris refusé, mails avec fichier `.ics`, annulat
 
 Blocs : `npm run livrer -- Button Calendar ChoiceChips Container TextField --vers <projet>/src/blocs`
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Booking/`, `src/Shared/`, `config/packages/booking.yaml`, `migrations/Version20261105185043.php`, `migrations/Version20261106110000.php`, `migrations/Version20261106120000.php`. Retirer Auth, Prospect, `src/Liaisons/`, `src/BackOffice/` et `src/Catalogue/`.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Booking/`, `src/Shared/`, `config/packages/booking.yaml`, `migrations/Version20261105185043.php`, `migrations/Version20261106110000.php`, `migrations/Version20261106120000.php`, `migrations/Version20261106130000.php` (frais kilométriques). Retirer Auth, Prospect, `src/Liaisons/`, `src/BackOffice/` et `src/Catalogue/`.
 ```sh
 composer remove --no-scripts dompdf/dompdf symfony/password-hasher symfony/rate-limiter
 ```
@@ -28,7 +28,8 @@ BOOKING_URL_PUBLIQUE=https://api.client.fr
 ```
 **Les horaires** :
 - `config/packages/booking.yaml` : jours (lundi = 0), créneaux, durée, délai, horizon, fuseau. Le calendrier du site les lit sur l'API (`GET /rendez-vous/disponibilites`).
-- `data/rendezvous.ts` : les mêmes, en repli si l'API ne répond pas, plus les lieux, la zone de déplacement (`zone`) et les textes (Amiens, 50 km, mon adresse).
+- `data/rendezvous.ts` : les mêmes, en repli si l'API ne répond pas, plus les lieux et les textes.
+- `data/zones.ts` : villes de base, rayon gratuit (`RAYON_KM`), prix du gazole et consommation (`PRIX_GAZOLE_LITRE`, `CONSOMMATION_L_100KM`) pour les frais kilométriques aller-retour, à régler pour le client. Le texte des mails sur la zone gratuite (« 50 km ») est dans `NotificationsParMail.php`.
 
 Une fois installé avec le back-office de l'[espace client](espace-client.md), le client règle jours, créneaux et congés lui-même.
 

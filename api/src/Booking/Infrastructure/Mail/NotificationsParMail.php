@@ -39,11 +39,19 @@ final class NotificationsParMail implements Notifications
         $ou = $this->ou($rendezVous);
         $lien = rtrim($this->urlPublique, '/') . "/rendez-vous/{$rendezVous->jeton}";
 
+        $frais = $rendezVous->fraisLisibles();
+        $fraisClient = $frais === null
+            ? "- Durée : {$this->regle->dureeMinutes} minutes, gratuit et sans engagement.\n\n"
+            : "- Durée : {$this->regle->dureeMinutes} minutes, sans engagement.\n"
+                . "- Frais de déplacement : {$frais} ({$rendezVous->kmFactures} km aller-retour au-delà des 50 km gratuits).\n"
+                . "  Ils restent dus même si aucun devis n'est accepté ensuite.\n\n";
+
         $this->mailer->send($this->email($rendezVous->contact->email, "Votre rendez-vous du {$quand} est confirmé")
             ->text(
                 "Bonjour {$rendezVous->contact->nom},\n\n"
                 . "Votre rendez-vous découverte est confirmé :\n"
-                . "- Quand : {$quand}\n- Où : {$ou}\n- Durée : {$this->regle->dureeMinutes} minutes, gratuit et sans engagement.\n\n"
+                . "- Quand : {$quand}\n- Où : {$ou}\n"
+                . $fraisClient
                 . "Pour l'ajouter à votre agenda, ouvrez le fichier joint.\n"
                 . "Pour le déplacer ou l'annuler : {$lien}\n\n"
                 . "À bientôt,\n{$this->professionnelNom}"
@@ -55,6 +63,7 @@ final class NotificationsParMail implements Notifications
             ->text(
                 "Nouveau rendez-vous découverte\n\n"
                 . "Quand : {$quand}\nOù : {$ou}\n"
+                . ($frais === null ? '' : "Frais de déplacement : {$frais} ({$rendezVous->kmFactures} km aller-retour facturés)\n")
                 . "Nom : {$rendezVous->contact->nom}\nE-mail : {$rendezVous->contact->email}\nTéléphone : {$rendezVous->contact->telephone}\n"
                 . "Activité : {$rendezVous->activite}\n\nMessage :\n{$rendezVous->message}\n"
             )

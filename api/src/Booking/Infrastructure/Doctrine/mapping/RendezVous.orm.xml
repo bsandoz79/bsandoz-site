@@ -21,5 +21,7 @@
         <field name="statut" type="string" length="20" enum-type="App\Booking\Domain\StatutRendezVous"/>
         <field name="creeLe" column="cree_le" type="datetime_immutable"/>
         <field name="rappelEnvoyeLe" column="rappel_envoye_le" type="datetime_immutable" nullable="true"/>
+        <field name="kmFactures" column="km_factures" type="integer" nullable="true"/>
+        <field name="fraisCentimes" column="frais_centimes" type="integer" nullable="true"/>
     </entity>
 </doctrine-mapping>

@@ -265,7 +265,7 @@ export const marche: Record<MarcheId, Marche> = {
 /** Tarif horaire après la mise en ligne. */
 export const tarifHoraire = 29;
 
-/** Abonnement mensuel de suivi : hébergement et maintenance. */
+/** Abonnement mensuel de suivi : maintenance et mises à jour du site. */
 export const abonnementMensuel = 29;
 
 /** Remise du référencement seul sur le bas de la fourchette du marché. */
@@ -289,7 +289,7 @@ export function complements(): Complement[] {
       id: 'abonnement',
       nom: 'Suivi mensuel',
       prix: `${formatPrix(abonnementMensuel)} / mois`,
-      detail: `Hébergement et maintenance. Sans suivi : ${formatPrix(tarifHoraire)} de l’heure, à la demande.`,
+      detail: `Maintenance et mises à jour de votre site. Sans suivi : ${formatPrix(tarifHoraire)} de l’heure, à la demande.`,
     },
   ];
 }

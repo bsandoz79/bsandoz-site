@@ -1,7 +1,7 @@
 import { ajouterJours, comparer, jourDeLaSemaine, type DateIso } from '@bsandoz79/blocs';
 import { urlApi } from '../../app/api';
 import { disponibilites, rdvTextes, urlGeocodage, type LieuId } from '../../data/rendezvous';
-import { fraisKilometriques, situer } from '../../data/zones';
+import { fraisKilometriques, kmFactures, situer } from '../../data/zones';
 import { distanceKm } from '../../data/distance';
 
 export type Disponibilites = typeof disponibilites;
@@ -167,8 +167,12 @@ export function validerRdv(d: DemandeRdv): ErreursRdv {
 /** Adresse de l'API (V2), commune à tout le site : voir `app/api.ts`. */
 export { urlApi } from '../../app/api';
 
-/** Corps envoyé à l'API pour réserver. */
-export function corpsReservation(d: DemandeRdv) {
+/**
+ * Corps envoyé à l'API pour réserver. Chez le client, au-delà de la zone gratuite, les frais kilométriques
+ * estimés (km facturés aller-retour, montant en centimes) partent aussi : ils figurent dans les mails.
+ */
+export function corpsReservation(d: DemandeRdv, verification: ResultatAdresse | null = null) {
+  const frais = d.lieu === 'chezvous' && verification?.statut === 'hors-zone' ? verification : null;
   return {
     lieu: d.lieu,
     adresse: d.lieu === 'chezvous' ? d.adresse.trim() : null,
@@ -179,5 +183,6 @@ export function corpsReservation(d: DemandeRdv) {
     email: d.email.trim(),
     activite: d.activite.trim(),
     message: d.message.trim(),
+    ...(frais ? { kmFactures: kmFactures(frais.km), fraisCentimes: Math.round(frais.frais * 100) } : {}),
   };
 }

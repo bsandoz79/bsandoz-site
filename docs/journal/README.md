@@ -103,3 +103,4 @@ Types de tests :
 | 72 | [Plus de question « Besoins » après une estimation](72-fix-devis-sans-besoins.md) | `fix/devis-sans-besoins` | 2026-11-06 |
 | 73 | [Changement de thème en rideau](73-feature-theme-rideau.md) | `feature/theme-rideau` | 2026-11-06 |
 | 74 | [Réalisation Alterno](74-feature-alterno.md) | `feature/alterno` | 2026-11-06 |
+| 75 | [Frais aller-retour, dans les mails du rendez-vous](75-feature-frais-aller-retour.md) | `feature/frais-aller-retour` | 2026-11-06 |

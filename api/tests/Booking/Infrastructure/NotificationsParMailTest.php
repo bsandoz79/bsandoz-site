@@ -118,4 +118,37 @@ final class NotificationsParMailTest extends TestCase
             self::assertStringContainsString('METHOD:CANCEL', $email->getAttachments()[0]->getBody());
         }
     }
+
+    public function testIndiqueLesFraisDeDeplacementDansLesDeuxMails(): void
+    {
+        $rdv = RendezVous::reserver(
+            'rdv-2',
+            Lieu::ChezLeClient,
+            'Grand-Place, Lille',
+            Creneau::depuis('2026-11-17', '14:00'),
+            Contact::depuis('Marie Dupont', 'marie@exemple.fr', '06 12 34 56 78'),
+            'Detailing',
+            '',
+            str_repeat('c', 64),
+            Regles::maintenant(),
+            96,
+            1800,
+        );
+        $this->notifications->rendezVousConfirme($rdv);
+        [$client, $pro] = $this->mailer->envoyes;
+
+        $texte = (string) $client->getTextBody();
+        self::assertStringContainsString('Frais de déplacement : 18,00 € (96 km aller-retour', $texte);
+        self::assertStringContainsString("restent dus même si aucun devis n'est accepté", $texte);
+        self::assertStringNotContainsString('gratuit et sans engagement', $texte);
+        self::assertStringContainsString('Frais de déplacement : 18,00 € (96 km aller-retour facturés)', (string) $pro->getTextBody());
+    }
+
+    public function testSansFraisLeRendezVousResteAnnonceGratuit(): void
+    {
+        $this->notifications->rendezVousConfirme($this->rendezVous());
+        [$client, $pro] = $this->mailer->envoyes;
+        self::assertStringContainsString('gratuit et sans engagement', (string) $client->getTextBody());
+        self::assertStringNotContainsString('Frais de déplacement', (string) $pro->getTextBody());
+    }
 }

@@ -73,7 +73,7 @@ export const cgv: PageLegale = {
       titre: 'Déplacements',
       paragraphes: [
         `Les déplacements sont gratuits dans un rayon de ${RAYON_KM} km autour ${zoneSansFrais()}.`,
-        `Au-delà, seuls les kilomètres en plus sont facturés, au prix de l’essence : ${formatFrais(PRIX_GAZOLE_LITRE)} le litre pour ${CONSOMMATION_L_100KM.toLocaleString('fr-FR')} L aux 100 km, soit ${COUT_KM.toLocaleString('fr-FR', { maximumFractionDigits: 4 })} € le kilomètre (pour 100 km de distance, 50 km sont facturés). Le montant est annoncé avant le rendez-vous.`,
+        `Au-delà, seuls les kilomètres en plus sont facturés, au prix de l’essence : ${formatFrais(PRIX_GAZOLE_LITRE)} le litre pour ${CONSOMMATION_L_100KM.toLocaleString('fr-FR')} L aux 100 km, soit ${COUT_KM.toLocaleString('fr-FR', { maximumFractionDigits: 4 })} € le kilomètre (aller-retour : pour 100 km de distance, les 50 km en plus sont comptés à l’aller et au retour, soit 100 km facturés). Le montant est annoncé avant le rendez-vous.`,
         'Ces frais sont dus même si aucun devis n’est accepté à la suite du déplacement.',
       ],
     },

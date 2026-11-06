@@ -46,7 +46,7 @@ export const rdvTextes = {
     verification: 'Vérification…',
     ok: (ville: string, distance: string) => `${ville}, ${distance} : je me déplace gratuitement.`,
     horsZone: (ville: string, distance: string, km: number, frais: string) =>
-      `${ville}, ${distance} : au-delà de 50 km, je viens quand même. Frais kilométriques pour les ${km} km en plus : environ ${frais}, dus même si le projet ne se fait pas. La visio et le téléphone restent gratuits.`,
+      `${ville}, ${distance} : au-delà de 50 km, je viens quand même. Frais kilométriques pour ${km} km aller-retour : environ ${frais}, dus même si le projet ne se fait pas. La visio et le téléphone restent gratuits.`,
     calcul: (detail: string, origine: string) => `Calcul : ${detail} (${origine}).`,
     introuvable: "Je ne trouve pas cette adresse. Vérifiez-la, ou choisissez la visio ou le téléphone.",
     erreur: "L'adresse n'a pas pu être vérifiée pour l'instant. Je la vérifierai moi-même avant de confirmer.",

@@ -32,7 +32,8 @@ final class ReserverRendezVous
     }
 
     /**
-     * @param array<string, mixed> $donnees lieu, adresse, jour, creneau, nom, email, telephone, activite, message
+     * @param array<string, mixed> $donnees lieu, adresse, jour, creneau, nom, email, telephone, activite, message,
+     *                                     et pour un rendez-vous chez le client : kmFactures, fraisCentimes (estimation)
      *
      * @throws DonneesInvalides    données manquantes ou mal formées
      * @throws CreneauIndisponible créneau déjà pris ou non réservable
@@ -76,6 +77,8 @@ final class ReserverRendezVous
             $texte('message'),
             $this->identifiants->nouveauJeton(),
             $maintenant,
+            is_int($donnees['kmFactures'] ?? null) ? $donnees['kmFactures'] : null,
+            is_int($donnees['fraisCentimes'] ?? null) ? $donnees['fraisCentimes'] : null,
         );
         $this->rendezVous->enregistrer($rendezVous);
         $this->notifications->rendezVousConfirme($rendezVous);
