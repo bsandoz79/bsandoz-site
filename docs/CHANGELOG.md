@@ -1,6 +1,15 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (mise en place chez un client)
+- `docs/mise-en-place/` : une fiche par fonctionnalité copiable (blocs, prix et référencement, devis par mail, rendez-vous, demandes de devis, espace client) et une page commune : fichiers à copier, réglages, base, mails, domaine, vérifications finales. Deux façons de livrer : client autonome, ou « je gère pour lui » à sa demande.
+
+### Modifié (mise en place chez un client)
+- Règle du projet nuancée : un site livré ne dépend pas de nous, sauf si le client demande que je gère pour lui.
+
+### Corrigé (notices d'installation)
+- Auth : la seconde migration manquait dans la notice (base incomplète). Prospect : étapes manquantes, mentions écrites en dur signalées.
+
 ### Corrigé (API en production)
 - `cache:clear` échouait en production (« Cannot generate lazy ghost ») : les 6 entités du domaine ne sont plus `final`. La CI construit désormais le cache de production.
 - `api/public/.htaccess` ajouté : sans lui, Apache répondait 404 sur toutes les adresses de l'API.
