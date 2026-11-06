@@ -1,4 +1,5 @@
-import { heroDemo } from '../../../data/accueil';
+import portrait from '../../../assets/baptiste/portrait.webp';
+import { hero, heroDemo } from '../../../data/accueil';
 import styles from './HeroDemo.module.css';
 
 /**
@@ -11,6 +12,13 @@ export function HeroDemo() {
   return (
     <div className={styles.scene} aria-hidden="true">
       <div className={`${styles.circle} anim-respire`} />
+      <figure className={styles.portrait}>
+        <img src={portrait} alt="" width="600" height="800" />
+        <figcaption className={styles.portraitNom}>
+          {hero.identite.nom}
+          <span>{hero.identite.role}</span>
+        </figcaption>
+      </figure>
       <div className={`${styles.phone} anim-float`}>
         {/* Cadre façon smartphone récent : boutons latéraux, îlot en haut de l'écran, barre d'état. */}
         <span className={styles.boutonsGauche} />

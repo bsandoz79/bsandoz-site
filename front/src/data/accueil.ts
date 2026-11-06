@@ -1,13 +1,15 @@
-import { formuleParId } from './offres';
+import { formuleParId, prixFormule } from './offres';
 import { contact } from './navigation';
 import { pages } from './pages';
 
 /** Textes de la page d'accueil (maquette `Main` et `Mobile`, cahier des charges section 9). */
 export const hero = {
-  badge: 'Développeur web à Amiens · Somme',
+  badge: 'Création de sites internet sur mesure · Amiens',
   rotatingPrefix: 'Pour avoir',
   rotatingWords: ['plus de clients', "moins d'appels manqués", 'des rendez-vous la nuit', 'des devis en 2 minutes'],
-  text: 'Sites internet, prise de rendez-vous en ligne et applis pour artisans, commerçants et indépendants. Pensés pour votre métier, à un prix clair.',
+  text: `Développeur web à Amiens, je conçois des sites et des outils de réservation pour les artisans, commerçants et indépendants, dans la Somme et partout en France, à partir de ${prixFormule(formuleParId('vitrine'))}.`,
+  /** Qui est derrière le site : photo, nom, métier. */
+  identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
   primary: { label: 'Estimer mon projet', to: pages.composer.path },
   secondary: { label: 'Voir les réalisations', to: pages.realisations.path },
   rdv: { label: "Vous préférez en parler ? Prenez un rendez-vous gratuit d'une heure", to: pages.rendezVous.path },
