@@ -10,7 +10,7 @@
 }
 
 .label span {
-  color: var(--color-rose);
+  color: var(--color-accent-texte, var(--color-rose));
 }
 
 .hint {

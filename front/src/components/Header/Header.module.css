@@ -96,6 +96,12 @@
   font-weight: 700;
 }
 
+.outils {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .toggle {
   display: flex;
   align-items: center;
@@ -105,7 +111,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
-  color: var(--color-navy);
+  color: var(--color-text);
   cursor: pointer;
 }
 
@@ -156,7 +162,7 @@
   cursor: pointer;
 }
 .link:hover {
-  color: var(--color-rose);
+  color: var(--color-accent-texte);
 }
 
 .active {
@@ -202,6 +208,11 @@
 
   .name {
     font-size: var(--text-lg);
+  }
+
+  /* Sur ordinateur, le bouton de thème passe en fin de barre, après la navigation. */
+  .outils {
+    order: 3;
   }
 
   .toggle {

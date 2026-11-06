@@ -64,7 +64,7 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  background: rgb(255 255 255 / 0.08);
+  background: var(--color-veil-on-dark);
   color: var(--color-text-on-dark-muted);
 }
 

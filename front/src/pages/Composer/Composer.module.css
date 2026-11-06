@@ -266,7 +266,7 @@
   height: 0.625rem;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: rgb(255 255 255 / 0.12);
+  background: var(--color-veil-on-dark);
 }
 
 .barreMarche,
@@ -306,7 +306,7 @@
   color: var(--color-text-on-dark);
 }
 .outline:hover {
-  background: rgb(255 255 255 / 0.1);
+  background: var(--color-veil-on-dark);
 }
 
 .estimation .aide {

@@ -69,7 +69,7 @@
 }
 
 .label span {
-  color: var(--color-rose);
+  color: var(--color-accent-texte);
 }
 
 /* Liste déroulante assortie aux champs de texte. */

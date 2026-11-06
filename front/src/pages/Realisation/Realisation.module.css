@@ -153,7 +153,7 @@
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--color-rose);
+  color: var(--color-accent-texte);
   font-weight: 800;
 }
 

@@ -32,7 +32,7 @@
   text-decoration: none;
 }
 .cta:hover {
-  background: var(--color-rose-dark);
+  background: var(--color-rose-hover);
   color: var(--color-text-on-dark);
 }
 .cta:focus-visible {
