@@ -71,3 +71,4 @@ Types de tests :
 | 40 | [Navigation qui se cache au défilement, pied de page sombre](40-feature-nav-pied-de-page.md) | `feature/nav-pied-de-page` | 2026-11-06 |
 | 41 | [Une page par réalisation, avec les vraies captures](41-feature-realisation-detail.md) | `feature/realisation-detail` | 2026-11-06 |
 | 42 | [Formulaire de contact rapide et champs modernisés](42-feature-formulaires.md) | `feature/formulaires` | 2026-11-06 |
+| 43 | [Un accueil plus dynamique, téléphone façon smartphone récent](43-feature-design-dynamique.md) | `feature/design-dynamique` | 2026-11-06 |
