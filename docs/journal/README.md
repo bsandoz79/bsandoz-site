@@ -81,3 +81,4 @@ Types de tests :
 | 50 | [Onglets seulement en haut de page, étapes du rendez-vous centrées](50-feature-defilement-nav-rdv.md) | `feature/defilement-nav-rdv` | 2026-11-06 |
 | 51 | [Photo de la section « Pourquoi travailler avec moi »](51-fix-photo-pourquoi.md) | `fix/photo-pourquoi` | 2026-11-06 |
 | 52 | [Carte des zones d'intervention](52-feature-carte-zones.md) | `feature/carte-zones` | 2026-11-06 |
+| 53 | [Bouton « revenir en haut »](53-feature-retour-haut.md) | `feature/retour-haut` | 2026-11-06 |
