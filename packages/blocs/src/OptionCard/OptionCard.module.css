@@ -4,7 +4,7 @@
   gap: var(--space-2);
   height: 100%;
   padding: var(--space-4);
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   cursor: pointer;
@@ -14,7 +14,7 @@
 @media (hover: hover) {
   .card:hover {
     transform: translateY(-4px);
-    border-color: var(--color-rose-light);
+    border-color: var(--color-text-muted);
   }
 }
 
@@ -23,9 +23,9 @@
   outline-offset: 2px;
 }
 
+/* Option cochée : bordure neutre plus marquée ; la case cochée (rose) suffit à la signaler. */
 .checked {
-  border-color: var(--color-rose);
-  background: var(--color-rose-soft);
+  border-color: var(--color-text);
 }
 
 .disabled {
@@ -81,7 +81,7 @@
 }
 
 .checked .price {
-  color: var(--color-rose-dark);
+  color: var(--color-text);
 }
 
 .badge {
