@@ -1,6 +1,11 @@
 # Journal des modifications
 
 ## [Non publié]
+
+## [3.0.0] – 2026-11-06
+V3 : comptes, espace client, fil de messages, back-office. Étiquette git : `v3.0.0`, branche de maintenance `release/v3`.
+Rien n'est encore en ligne : voir `docs/mise-en-ligne.md`.
+
 ### Ajouté (mise en ligne)
 - `docs/mise-en-ligne.md` : le pas-à-pas complet. Workflow manuel `deploy-api.yml` (API envoyée par FTP, lançable depuis un téléphone). Le site est construit avec les variables `VITE_API_URL` et `VITE_DEVIS_URL` du dépôt.
 

@@ -33,8 +33,9 @@ Chaque version validée est figée par une étiquette git et garde une branche d
 | --- | --- | --- | --- |
 | V1 | `v1.0.0` | `release/v1` | site vitrine et configurateur (front seul) |
 | V2 | `v2.0.0` | `release/v2` | + page Rendez-vous, API Symfony (module Booking), bibliothèque de blocs, pré-devis |
+| V3 | `v3.0.0` | `release/v3` | + comptes, espace client, fil de messages (IMAP), rappels, back-office |
 
-Exemples ci-dessous avec la V1 ; remplacer par `v2.0.0` / `release/v2` pour la V2.
+Exemples ci-dessous avec la V1 ; remplacer par `v2.0.0` / `release/v2` ou `v3.0.0` / `release/v3` pour les suivantes.
 
 **Remettre une version en ligne** (sans toucher à `main`) :
 1. GitHub → onglet **Actions** → **Déploiement o2switch** → **Run workflow**.
