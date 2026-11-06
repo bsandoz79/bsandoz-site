@@ -14,6 +14,7 @@ import { Metier } from '../pages/Metier';
 import { ConfirmerEmail, ConfirmerSuppression, Connexion, Lien, MonEspace, MotDePasse } from '../pages/MonEspace';
 import { NotFound } from '../pages/NotFound';
 import { Placeholder } from '../pages/Placeholder';
+import { Realisation } from '../pages/Realisation';
 import { Realisations } from '../pages/Realisations';
 import { RendezVous } from '../pages/RendezVous';
 import { Tarifs } from '../pages/Tarifs';
@@ -59,6 +60,7 @@ export function AppRoutes() {
             element={builtPages[key] ?? <Placeholder page={pages[key]} />}
           />
         ))}
+        <Route path={`${pages.realisations.path}/:id`} element={<Realisation />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

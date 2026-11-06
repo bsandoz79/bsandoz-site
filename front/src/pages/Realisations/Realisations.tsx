@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
+import { Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
+import { RealisationCard } from '../../components/RealisationCard';
 import { pages } from '../../data/pages';
 import { pageRealisations, realisations } from '../../data/realisations';
 import styles from './Realisations.module.css';
 
-/** Page Réalisations : une étude de cas par projet (besoin, solution, captures). */
+/** Page Réalisations : une carte par projet ; chaque carte ouvre la page de ce seul projet. */
 export function Realisations() {
   const page = pages.realisations;
   const t = pageRealisations;
@@ -20,39 +21,13 @@ export function Realisations() {
       </section>
 
       <Container className={styles.liste}>
-        {realisations.map((realisation) => (
-          <Reveal key={realisation.id}>
-            <Card as="article" padding="lg" className={styles.cas} id={realisation.id} aria-labelledby={`cas-${realisation.id}`}>
-              <div className={styles.entete}>
-                <p className={styles.categorie}>{realisation.categorie}</p>
-                <h2 id={`cas-${realisation.id}`} className={styles.titre}>
-                  {realisation.titre}
-                </h2>
-                <p className={styles.resume}>{realisation.resume}</p>
-              </div>
-              <dl className={styles.etude}>
-                <div>
-                  <dt>{t.besoin}</dt>
-                  <dd>{realisation.besoin}</dd>
-                </div>
-                <div>
-                  <dt>{t.solution}</dt>
-                  <dd>{realisation.solution}</dd>
-                </div>
-              </dl>
-              <div className={styles.captures}>
-                <p className={styles.capturesTitre}>{t.captures}</p>
-                <ul className={styles.emplacements}>
-                  {realisation.emplacements.map((emplacement) => (
-                    <li key={emplacement} className={styles.emplacement}>
-                      {emplacement}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Card>
-          </Reveal>
-        ))}
+        <ul className={styles.grille}>
+          {realisations.map((realisation, i) => (
+            <Reveal as="li" key={realisation.id} delay={i * 80}>
+              <RealisationCard realisation={realisation} headingLevel={2} />
+            </Reveal>
+          ))}
+        </ul>
         <div className={styles.appel}>
           <p className={styles.appelTexte}>{t.appel.text}</p>
           <Link to={t.appel.to} className={buttonClassName({ size: 'lg' })}>

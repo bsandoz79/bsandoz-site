@@ -69,3 +69,4 @@ Types de tests :
 | 38 | [Déploiement FTPS avec lftp](38-fix-deploiement-ftps.md) | `fix/deploiement-ftps` | 2026-11-06 |
 | 39 | [Rendez-vous en étapes et barre mobile](39-feature-rdv-etapes.md) | `feature/rdv-etapes` | 2026-11-06 |
 | 40 | [Navigation qui se cache au défilement, pied de page sombre](40-feature-nav-pied-de-page.md) | `feature/nav-pied-de-page` | 2026-11-06 |
+| 41 | [Une page par réalisation, avec les vraies captures](41-feature-realisation-detail.md) | `feature/realisation-detail` | 2026-11-06 |

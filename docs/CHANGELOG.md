@@ -2,6 +2,7 @@
 
 ## [Non publié]
 ### Modifié (design)
+- Réalisations : une page par projet (`/realisations/<projet>`) qui n'affiche que lui (contexte, besoin, solution, fonctionnalités, captures, démo, projets voisins) ; liste en cartes avec les vraies captures (WebP) ; textes repris du portfolio ; pages de projets dans le plan du site.
 - En-tête collé en haut : il se cache quand on descend et réapparaît dès qu'on remonte (visible en haut de page, menu ouvert ou focus clavier dedans).
 - Pied de page refait : fond bleu marine avec une lueur rose, bande « Un projet en tête ? », colonnes compactes, mentions légales sur une ligne.
 

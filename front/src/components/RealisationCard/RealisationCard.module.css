@@ -11,6 +11,31 @@
   font-size: var(--text-sm);
 }
 
+/* Couverture : vraie capture dans une fenêtre de navigateur, qui s'agrandit légèrement au survol de la carte. */
+.couverture {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 12.5rem;
+  padding: var(--space-3) var(--space-3) 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-2) 100%);
+}
+
+.image {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: top;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.03);
+}
+
 /* Aperçu « site » : fenêtre de navigateur */
 .site {
   flex-direction: column;

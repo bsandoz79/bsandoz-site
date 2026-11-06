@@ -46,3 +46,6 @@ Les pages sont propres au site ; les blocs utilisés (`Card`, `SectionTitle`, `R
 
 ## Tests
 - **fonctionnels** : `Home.test.tsx`, `Metier.test.tsx`, `Realisations.test.tsx`, `APropos.test.tsx`, `Faq.test.tsx`, `Informatique.test.tsx`, `Legal.test.tsx`.
+
+## Réalisations
+`/realisations` liste les projets en cartes (`components/RealisationCard`, couverture = première capture). Chaque carte mène à `/realisations/<projet>` (`pages/Realisation`), qui n'affiche que ce projet. Données : `data/realisations.ts` (captures WebP dans `src/assets/realisations/`), identifiants pour le plan du site : `data/realisationsIds.ts`.

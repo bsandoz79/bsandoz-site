@@ -2,6 +2,7 @@ import type { QuestionFaq } from './faq';
 import { contact } from './navigation';
 import type { Formule } from './offres';
 import { pages, site } from './pages';
+import { cheminRealisation, idsRealisations } from './realisationsIds';
 
 /** Pages exclues du sitemap et marquées « noindex » : pages pas encore construites et espace client (privé). */
 export const pagesNonIndexees: (keyof typeof pages)[] = [
@@ -19,9 +20,11 @@ export const urlComplete = (chemin: string) => `${site.url}${chemin === '/' ? '/
 
 /** Chemins publiés dans le sitemap. */
 export function cheminsIndexables() {
-  return (Object.keys(pages) as (keyof typeof pages)[])
-    .filter((cle) => !pagesNonIndexees.includes(cle))
-    .map((cle) => pages[cle].path);
+  return [
+    ...(Object.keys(pages) as (keyof typeof pages)[]).filter((cle) => !pagesNonIndexees.includes(cle)).map((cle) => pages[cle].path),
+    // Une page par réalisation.
+    ...idsRealisations.map(cheminRealisation),
+  ];
 }
 
 /** Contenu du fichier `sitemap.xml`. */
