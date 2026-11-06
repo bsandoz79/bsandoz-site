@@ -8,20 +8,22 @@ import {
   suggestions,
   type Configuration,
 } from '../../data/calculs';
-import { formatPrix, metiers, options, prixOption, type MetierId, type OptionId } from '../../data/offres';
+import { formatPrix, formules, metiers, options, prixFormule, prixOption, type FormuleId, type MetierId, type OptionId } from '../../data/offres';
 import { simulateur } from '../../data/tarifs';
 import styles from './Simulateur.module.css';
 
 /**
- * Simulateur simplifié d'un site fonctionnel : activité + options, prix en direct.
- * Le configurateur complet (`/composer`) couvre toutes les formules et les précisions.
+ * Simulateur simplifié : formule (Vitrine, Vitrine+ ou Fonctionnel), activité pour le Fonctionnel, options, prix en direct.
+ * Le configurateur complet (`/composer`) ajoute les précisions et l'aperçu.
  */
 export function Simulateur() {
+  const [formule, setFormule] = useState<FormuleId | null>(null);
   const [metier, setMetier] = useState<MetierId | null>(null);
   const [choix, setChoix] = useState<OptionId[]>([]);
 
-  const config: Configuration = { formule: 'fonctionnel', metier, options: choix, precisions: {} };
-  const disponibles = optionsDisponibles('fonctionnel', metier);
+  const config: Configuration = { formule, metier, options: choix, precisions: {} };
+  const disponibles = optionsDisponibles(formule, metier);
+  const fonctionnel = formule === 'fonctionnel';
   const estimation = calculerEstimation(config);
   const offertes = new Set(estimation.packs.map((p) => p.offerte));
   // Seules les suggestions d'option ont du sens ici (la formule est déjà le Fonctionnel).
@@ -29,34 +31,50 @@ export function Simulateur() {
   const optionSuggeree = suggestion?.action.type === 'option' ? suggestion.action.option : null;
   const metierNom = metiers.find((m) => m.id === metier)?.nom;
 
+  function choisirFormule(id: FormuleId) {
+    setFormule(id);
+    setChoix((actuel) => garderOptionsValides(actuel, id, metier));
+  }
+
   function choisirMetier(id: MetierId) {
     setMetier(id);
-    setChoix((actuel) => garderOptionsValides(actuel, 'fonctionnel', id));
+    setChoix((actuel) => garderOptionsValides(actuel, formule, id));
   }
 
   function basculer(id: OptionId, coche: boolean) {
     setChoix((actuel) => (coche ? [...actuel, id] : actuel.filter((x) => x !== id)));
   }
 
-  const total = estimation.fourchette
-    ? `${formatPrix(estimation.fourchette.bas)} – ${formatPrix(estimation.fourchette.haut)}`
-    : formatPrix(estimation.total);
+  const total = !formule
+    ? '—'
+    : estimation.fourchette
+      ? `${formatPrix(estimation.fourchette.bas)} – ${formatPrix(estimation.fourchette.haut)}`
+      : formatPrix(estimation.total);
 
   return (
     <div className={styles.layout}>
       <div className={styles.form}>
         <SectionTitle id="simulateur-titre" eyebrow={simulateur.eyebrow} title={simulateur.title} intro={simulateur.intro} />
         <ChoiceChips
-          legend={simulateur.activiteLegend}
-          name="simulateur-activite"
-          choices={metiers.map((m) => ({ value: m.id, label: m.nom }))}
-          value={metier}
-          onChange={choisirMetier}
+          legend={simulateur.formuleLegend}
+          name="simulateur-formule"
+          choices={formules.map((f) => ({ value: f.id, label: f.nom, meta: prixFormule(f) }))}
+          value={formule}
+          onChange={choisirFormule}
         />
+        {fonctionnel && (
+          <ChoiceChips
+            legend={simulateur.activiteLegend}
+            name="simulateur-activite"
+            choices={metiers.map((m) => ({ value: m.id, label: m.nom }))}
+            value={metier}
+            onChange={choisirMetier}
+          />
+        )}
         <fieldset className={styles.fieldset}>
           <legend className={styles.legend}>{simulateur.optionsLegend}</legend>
           {disponibles.length === 0 ? (
-            <p className={styles.hint}>{simulateur.choisirActivite}</p>
+            <p className={styles.hint}>{formule ? simulateur.choisirActivite : simulateur.choisirFormule}</p>
           ) : (
             <ul className={styles.options}>
               {disponibles.map((id) => (
@@ -81,7 +99,7 @@ export function Simulateur() {
         title={simulateur.resumeTitle}
         eyebrow={metierNom ? `${simulateur.resumeEyebrow} · ${metierNom.toLowerCase()}` : simulateur.resumeEyebrow}
         total={total}
-        caption={`${simulateur.delai} : ${estimation.delai}`}
+        caption={formule ? `${simulateur.delai} : ${estimation.delai}` : simulateur.choisirFormule}
         lines={estimation.lignes.map((ligne) => ({
           label: ligne.libelle,
           amount: formatPrix(ligne.prix),
