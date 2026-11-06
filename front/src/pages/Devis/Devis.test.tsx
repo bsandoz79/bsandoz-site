@@ -18,6 +18,23 @@ const continuer = () => screen.getByRole('button', { name: 'Continuer →' });
 const etapeEnCours = () =>
   within(screen.getByRole('list', { name: 'Étapes de la demande' })).getByRole('listitem', { current: 'step' });
 
+/** Réseau simulé : le géocodage trouve Abbeville (dans la zone), l'envoi du devis répond `envoi`. */
+function reseau(envoi: () => Promise<Response>) {
+  return vi.fn((url: string) =>
+    String(url).includes('geopf')
+      ? Promise.resolve(
+          new Response(
+            JSON.stringify({
+              features: [{ geometry: { coordinates: [1.8336, 50.1054] }, properties: { city: 'Abbeville', label: '12 rue de la Gare 80100 Abbeville', score: 0.9 } }],
+            }),
+          ),
+        )
+      : envoi(),
+  );
+}
+
+const appelsDevis = (fetchMock: ReturnType<typeof vi.fn>) => fetchMock.mock.calls.filter(([url]) => url === '/api/devis.php');
+
 async function remplirJusquAuxCoordonnees(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole('radio', { name: 'Artisan à domicile' }));
   await user.click(continuer());
@@ -145,24 +162,31 @@ describe('Parcours de demande de devis', () => {
 
   it('exige les coordonnées et le consentement, puis envoie la demande', async () => {
     const user = userEvent.setup();
-    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
+    const fetchMock = reseau(() => Promise.resolve(new Response(JSON.stringify({ ok: true }), { status: 200 })));
     vi.stubGlobal('fetch', fetchMock);
     renderDevis();
     await remplirJusquAuxCoordonnees(user);
 
     await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
-    expect(screen.getByRole('alert')).toHaveTextContent('3 champs sont à corriger.');
+    expect(screen.getByRole('alert')).toHaveTextContent('4 champs sont à corriger.');
     expect(fetchMock).not.toHaveBeenCalled();
 
     await user.type(screen.getByRole('textbox', { name: /Nom et prénom/ }), 'Marie Dupont');
     await user.type(screen.getByRole('textbox', { name: /E-mail/ }), 'marie@exemple.fr');
+    await user.type(screen.getByRole('textbox', { name: /Votre adresse/ }), '12 rue de la Gare, Abbeville');
+    await user.tab();
+    // Sous le champ et dans le récapitulatif.
+    expect(await screen.findAllByText(/Gratuit : à moins d’1 km d’Abbeville/)).toHaveLength(2);
     expect(screen.getByText('Je fais du detailing auto à domicile.')).toBeInTheDocument();
     await user.click(screen.getByRole('checkbox', { name: /J'accepte que mes informations/ }));
     await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
     expect(fetchMock).toHaveBeenCalledWith('/api/devis.php', expect.objectContaining({ method: 'POST' }));
-    const envoi = fetchMock.mock.calls[0][1].body as FormData;
+    const envoi = (appelsDevis(fetchMock)[0] as unknown as [string, RequestInit])[1].body as FormData;
     expect(envoi.get('recapitulatif')).toContain('Activité : Artisan à domicile');
+    expect(envoi.get('recapitulatif')).toContain('Adresse : 12 rue de la Gare, Abbeville');
+    expect(envoi.get('recapitulatif')).toContain('Déplacement : Gratuit');
+    expect(envoi.get('predevis')).toContain('Déplacement : Gratuit');
     expect(envoi.get('site_web')).toBe('');
     expect(envoi.get('predevis')).toContain('Formule conseillée : Fonctionnel');
     expect(await screen.findByRole('heading', { level: 1, name: 'Merci, votre demande est envoyée !' })).toBeInTheDocument();
@@ -177,6 +201,7 @@ describe('Parcours de demande de devis', () => {
     await remplirJusquAuxCoordonnees(user);
     await user.type(screen.getByRole('textbox', { name: /Nom et prénom/ }), 'Marie');
     await user.type(screen.getByRole('textbox', { name: /E-mail/ }), 'marie@exemple.fr');
+    await user.type(screen.getByRole('textbox', { name: /Votre adresse/ }), 'Abbeville');
     await user.click(screen.getByRole('checkbox', { name: /J'accepte/ }));
     await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
     expect(await screen.findByText("La demande n'a pas pu être envoyée.")).toBeInTheDocument();
@@ -186,17 +211,18 @@ describe('Parcours de demande de devis', () => {
 
   it('demande de patienter entre deux envois', async () => {
     const user = userEvent.setup();
-    const fetchMock = vi.fn();
+    const fetchMock = reseau(() => Promise.resolve(new Response('{}')));
     vi.stubGlobal('fetch', fetchMock);
     window.localStorage.setItem('bsandoz.devis.dernierEnvoi', String(Date.now()));
     renderDevis();
     await remplirJusquAuxCoordonnees(user);
     await user.type(screen.getByRole('textbox', { name: /Nom et prénom/ }), 'Marie');
     await user.type(screen.getByRole('textbox', { name: /E-mail/ }), 'marie@exemple.fr');
+    await user.type(screen.getByRole('textbox', { name: /Votre adresse/ }), 'Abbeville');
     await user.click(screen.getByRole('checkbox', { name: /J'accepte/ }));
     await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
     expect(screen.getByRole('alert')).toHaveTextContent('Merci de patienter une minute avant un nouvel envoi.');
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(appelsDevis(fetchMock)).toHaveLength(0);
   });
 
   it('« Autre activité » demande de préciser l’activité avant de continuer', async () => {
