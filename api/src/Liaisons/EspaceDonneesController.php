@@ -14,6 +14,8 @@ use App\Prospect\Domain\Demande;
 use App\Prospect\Domain\Demandes;
 use App\Prospect\Domain\DevisEnregistres;
 use App\Prospect\Domain\LigneDevis;
+use App\Prospect\Domain\Message;
+use App\Prospect\Domain\Messages;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +34,7 @@ final class EspaceDonneesController
         private readonly RendezVousRepository $rendezVous,
         private readonly Demandes $demandes,
         private readonly DevisEnregistres $devis,
+        private readonly Messages $messages,
     ) {
     }
 
@@ -72,6 +75,12 @@ final class EspaceDonneesController
                 'demandeur' => ['nom' => $d->demandeur->nom, 'email' => $d->demandeur->email, 'telephone' => $d->demandeur->telephone, 'entreprise' => $d->demandeur->entreprise],
                 'recapitulatif' => $d->recapitulatif,
                 'predevis' => $d->predevis,
+                'messages' => array_map(static fn (Message $m) => [
+                    'auteur' => $m->auteur->value,
+                    'origine' => $m->origine->value,
+                    'corps' => $m->corps,
+                    'envoyeLe' => $m->creeLe->format(\DATE_ATOM),
+                ], $this->messages->pourDemande($d->id)),
                 'devis' => ($devis = $this->devis->pourDemande($d->id)) === null ? null : [
                     'lignes' => array_map(static fn (LigneDevis $l) => $l->enTableau(), $devis->lignes()),
                     'total' => $devis->total,

@@ -19,4 +19,7 @@ interface NotificationsProspect
 
     /** Le client a accepté : prévenir le professionnel et confirmer au client. */
     public function devisAccepte(Demande $demande, Devis $devis): void;
+
+    /** Nouveau message dans le fil : prévenir l'autre personne. */
+    public function messageAjoute(Demande $demande, Message $message): void;
 }
