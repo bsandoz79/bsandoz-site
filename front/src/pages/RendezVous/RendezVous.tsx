@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Calendar, ChoiceChips, Container, TextField, aujourdhui, buttonClassName, debutDuMois, libelleLong } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
@@ -20,6 +20,7 @@ import {
   type ResultatAdresse,
 } from './reservation';
 import styles from './RendezVous.module.css';
+import { useCentrerEtape } from './useCentrerEtape';
 
 const t = rdvTextes;
 type Statut = 'saisie' | 'envoi' | 'confirme' | 'echec' | 'complet';
@@ -40,6 +41,11 @@ export function RendezVous() {
   const [verificationEnCours, setVerificationEnCours] = useState(false);
   const [erreurs, setErreurs] = useState<ErreursRdv>({});
   const [statut, setStatut] = useState<Statut>('saisie');
+  const etapes = etapesRdv(demande, verification);
+  const refCreneau = useRef<HTMLFieldSetElement>(null);
+  const refCoordonnees = useRef<HTMLFieldSetElement>(null);
+  useCentrerEtape(etapes.creneau, refCreneau);
+  useCentrerEtape(etapes.coordonnees, refCoordonnees);
 
   const maj = (champ: Partial<DemandeRdv>) => {
     setDemande((d) => ({ ...d, ...champ }));
@@ -110,7 +116,6 @@ export function RendezVous() {
   }
 
   const creneaux = creneauxDuJour(demande.jour, jourCourant);
-  const etapes = etapesRdv(demande, verification);
   const annonce = etapes.coordonnees ? t.etapes.coordonnees : etapes.creneau ? t.etapes.creneau : '';
   const lieu = lieux.find((l) => l.id === demande.lieu)!;
   const nbErreurs = Object.keys(erreurs).length;
@@ -203,7 +208,7 @@ export function RendezVous() {
             </p>
 
             {etapes.creneau && (
-              <fieldset className={`${styles.bloc} anim-appear`}>
+              <fieldset ref={refCreneau} className={`${styles.bloc} anim-appear`}>
                 <legend className={styles.legende}>{t.creneau.legende}</legend>
                 <div className={styles.creneaux}>
                   <div>
@@ -241,7 +246,7 @@ export function RendezVous() {
             )}
 
             {etapes.coordonnees && (
-              <fieldset className={`${styles.bloc} anim-appear`}>
+              <fieldset ref={refCoordonnees} className={`${styles.bloc} anim-appear`}>
                 <legend className={styles.legende}>{t.coordonnees.legende}</legend>
                 <div className={styles.champs}>
                   <TextField label={t.coordonnees.nom} required autoComplete="name" value={demande.nom} onChange={(e) => maj({ nom: e.target.value })} error={erreurs.nom} />
