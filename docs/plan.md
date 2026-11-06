@@ -63,7 +63,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/photo-rideau` : apparition en rideau de la photo au premier passage
 - [ ] `feature/devis-chat` : « Décrivez votre projet » mis en avant, sous forme de conversation guidée
 - [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
-- [ ] `feature/alterno` : projet Alterno dans les réalisations
+- [x] `feature/alterno` : projet Alterno dans les réalisations
 - [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office

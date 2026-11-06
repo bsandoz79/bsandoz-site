@@ -8,6 +8,12 @@ import poixGalerie from '../assets/realisations/christophe-poix-moto/galerie.web
 import poixHoraires from '../assets/realisations/christophe-poix-moto/horaires.webp';
 import poixServices from '../assets/realisations/christophe-poix-moto/services.webp';
 import poixZone from '../assets/realisations/christophe-poix-moto/zone.webp';
+import alternoAccueil from '../assets/realisations/alterno/accueil.webp';
+import alternoCompteur from '../assets/realisations/alterno/compteur.webp';
+import alternoCover from '../assets/realisations/alterno/cover.webp';
+import alternoEcole from '../assets/realisations/alterno/ecole.webp';
+import alternoSemaine from '../assets/realisations/alterno/semaine.webp';
+import alternoSimulation from '../assets/realisations/alterno/simulation.webp';
 import ordvAccueil from '../assets/realisations/ordv/accueil.webp';
 import ordvConnexion from '../assets/realisations/ordv/connexion.webp';
 import ordvEspacePro from '../assets/realisations/ordv/espace-pro.webp';
@@ -172,6 +178,41 @@ export const realisations: Realisation[] = [
     ],
     technos: ['React', 'React Router', 'Tailwind CSS', 'Node.js', 'MySQL', 'JWT'],
     demo: { label: 'Tester la démo en ligne', url: 'https://o-rdv.vercel.app' },
+  },
+  {
+    id: 'alterno',
+    categorie: 'Application mobile · projet personnel',
+    type: 'appli',
+    titre: 'Alterno',
+    resume: 'Application Android qui planifie les horaires variables d’un alternant.',
+    annee: '2026',
+    lien: { label: 'Découvrir le projet', to: cheminRealisation('alterno') },
+    apercu: 'telephones',
+    emplacements: ['[heure de départ du jour]'],
+    captures: [
+      { src: alternoCover, legende: 'Présentation' },
+      { src: alternoAccueil, legende: 'Aujourd’hui : heure de départ prévue' },
+      { src: alternoSimulation, legende: 'Simulation de semaines' },
+      { src: alternoSemaine, legende: 'Planning de la semaine' },
+      { src: alternoCompteur, legende: 'Compteur d’heures' },
+      { src: alternoEcole, legende: 'Semaines d’école' },
+    ],
+    contexte:
+      'En alternance avec des horaires variables, je devais calculer moi-même chaque jour mon heure de départ pour tenir mon objectif d’heures, gagner une journée de récupération ou rattraper un compteur négatif, tout en tenant compte des semaines d’école.',
+    besoin:
+      'Proposer un plan d’horaires réaliste sur une ou plusieurs semaines, le recalculer dès qu’on s’en écarte et suivre le solde d’heures, le tout sur le téléphone, sans compte ni pisteur.',
+    solution:
+      'Une application Android (et web) qui fait ces calculs à ma place : elle donne l’heure de départ du jour, recalcule le plan au moindre changement et garde les données sur le téléphone. Le moteur de calcul est séparé de l’application et entièrement testé.',
+    fonctionnalites: [
+      'Heure de départ prévue et temps restant, à la minute près',
+      'Simulation sur 1 à 4 semaines : objectif d’heures ou journée de récupération',
+      'Recalcul automatique : arrivée plus tard, départ plus tôt, pause plus longue',
+      'Planning façon emploi du temps (semaine et mois), semaines d’école exclues',
+      'Compteur d’heures, historique mensuel et rappels de départ',
+      'Page « Mes données » : export et effacement complet',
+    ],
+    technos: ['React Native', 'Expo', 'TypeScript', 'SQLite', 'Vitest', 'GitHub Actions'],
+    demo: { label: 'Voir le code sur GitHub', url: 'https://github.com/bsandoz79/Alterno' },
   },
 ];
 
