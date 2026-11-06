@@ -1,8 +1,8 @@
+import { ContactRapide } from '../../components/ContactRapide';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { pages } from '../../data/pages';
 import { jsonLdEntreprise } from '../../data/seo';
-import { AppelAction } from './sections/AppelAction';
 import { Hero } from './sections/Hero';
 import { Metiers } from './sections/Metiers';
 import { Methode } from './sections/Methode';
@@ -24,7 +24,7 @@ export function Home() {
       <Realisations />
       <Methode />
       <Pourquoi />
-      <AppelAction />
+      <ContactRapide />
     </>
   );
 }

@@ -59,3 +59,6 @@ Champ piège invisible · 1 envoi par minute dans le navigateur · côté serveu
 - **unitaires** : `demande.test.ts` (validation de chaque étape, photos, brouillon, récapitulatif, `FormData` avec le pré-devis), `data/predevis.test.ts`.
 - **fonctionnels** : `Devis.test.tsx` (progression, erreurs expliquées, retour sans perte, brouillon repris, configuration reprise, envoi réussi, échec, patienter entre deux envois).
 - **manuel** : script vérifié dans un conteneur PHP 8.3 avec un faux `sendmail` (avec et sans pré-devis, pré-devis trop long tronqué, retours chariot retirés) ; l'envoi réel de mail se teste sur o2switch.
+
+## Contact rapide
+En bas de l'accueil, `components/ContactRapide` propose un formulaire court (nom, téléphone, e-mail, besoin, projet). Il envoie le même formulaire que la demande de devis, à la même adresse (`urlEnvoiDevis`) : même accusé de réception, même suivi dans l'espace client une fois l'API en ligne.
