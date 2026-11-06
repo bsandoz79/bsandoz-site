@@ -97,3 +97,4 @@ Types de tests :
 | 66 | [Message des frais kilométriques](66-style-message-frais.md) | `style/message-frais` | 2026-11-06 |
 | 67 | [Le devis reprend la dernière estimation](67-fix-devis-depuis-estimation.md) | `fix/devis-depuis-estimation` | 2026-11-06 |
 | 68 | [« Estimer » ouvre le bon onglet](68-fix-estimer-bon-onglet.md) | `fix/estimer-bon-onglet` | 2026-11-06 |
+| 69 | [Le devis ne garde plus les essais précédents](69-fix-devis-sans-anciens-essais.md) | `fix/devis-sans-anciens-essais` | 2026-11-06 |
