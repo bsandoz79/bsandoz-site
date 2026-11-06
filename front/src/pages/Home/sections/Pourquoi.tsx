@@ -1,6 +1,7 @@
 import { Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { pourquoi } from '../../../data/accueil';
 import styles from './Pourquoi.module.css';
+import portrait from '../../../assets/baptiste/portrait.webp';
 
 /** Pourquoi travailler avec Baptiste : photo, quatre arguments et lien vers le portfolio. */
 export function Pourquoi() {
@@ -9,7 +10,7 @@ export function Pourquoi() {
       <Container className={styles.inner}>
         <Reveal className={styles.photoWrap}>
           <figure className={styles.photo}>
-            <span className={styles.placeholder}>{pourquoi.photo}</span>
+            <img src={portrait} alt={pourquoi.photo} width="600" height="800" loading="lazy" decoding="async" className={styles.image} />
             <figcaption className={styles.caption}>{pourquoi.photoCaption}</figcaption>
           </figure>
         </Reveal>

@@ -131,7 +131,7 @@ export const methode = {
 export const pourquoi = {
   eyebrow: 'Pourquoi travailler avec moi',
   title: 'Des outils simples, pour ceux qui ont un vrai métier à côté.',
-  photo: '[photo à compléter]',
+  photo: 'Baptiste Sandoz, développeur web à Amiens',
   photoCaption: 'Baptiste · développeur à Amiens',
   items: [
     { title: 'Un seul interlocuteur', text: 'Local, qui vous répond.' },
