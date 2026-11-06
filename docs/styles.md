@@ -32,3 +32,6 @@ Couleurs : bleu marine `--color-navy` et rose `--color-rose` (logo SB).
 - **Effets gardés** : le reflet `anim-reflet` sur le seul bouton « Estimer mon projet » du haut de l'accueil, et le rideau `anim-rideau` sur la photo.
 - **Effets retirés de l'interface** : `anim-pulse`, `anim-float` et `anim-respire` restent définies, mais plus aucune page ne les utilise.
 - **Titres** : pas de petit titre en majuscules au-dessus des sections ; un titre simple suffit.
+
+## Changement de thème en rideau
+`changerTheme` (`src/app/theme.ts`) passe par la transition de vue du navigateur (`document.startViewTransition`). L'animation `rideau-theme` (`animations.css`) découvre la nouvelle page de gauche à droite en 0,7 s (`clip-path`). Si le navigateur ne connaît pas cette fonction (Firefox ancien…) ou si l'utilisateur réduit les animations, le changement est immédiat.
