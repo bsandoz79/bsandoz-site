@@ -35,6 +35,8 @@ Variables d'environnement (`.env.local` sur le serveur) : `BOOKING_EXPEDITEUR`, 
 Les adaptateurs lisent leurs réglages par l'attribut `#[Autowire('%booking.…%')]` : le `services.yaml` de l'application n'a rien à déclarer pour eux.
 
 ## Installer le module dans l'API d'un client
+Marche à suivre complète, site compris : [`docs/mise-en-place/rendez-vous.md`](../../../docs/mise-en-place/rendez-vous.md).
+
 1. Copier `src/Booking/` et `config/packages/booking.yaml`, puis adapter les réglages.
 2. `config/services.yaml` : exclure les domaines des services (`exclude: ['../src/*/Domain/', '../src/Kernel.php']`).
 3. `config/packages/doctrine.yaml` : déclarer la correspondance sous `doctrine.orm.mappings` :

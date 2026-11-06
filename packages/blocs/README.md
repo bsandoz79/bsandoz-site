@@ -7,6 +7,8 @@ Chaque bloc reçoit **tout** par ses propriétés (textes, données, actions) : 
 C'est la **boîte à outils** de Baptiste : on y prend les fonctionnalités dont un client a besoin, on les personnalise et on les livre dans **son** site.
 
 ## Livrer des blocs à un client (cas normal)
+Marche à suivre complète et les deux façons de livrer : [`docs/mise-en-place/`](../../docs/mise-en-place/README.md).
+
 Un site livré appartient au client : il ne doit dépendre ni de cette bibliothèque ni d'un accès privé. On **copie** donc les sources des blocs dans son projet.
 
 ```sh

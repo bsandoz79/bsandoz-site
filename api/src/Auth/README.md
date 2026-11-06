@@ -47,13 +47,16 @@ Liens des mails : `{AUTH_URL_SITE}/mon-espace/lien?jeton=…` (activation, conne
 `config/packages/auth.yaml` (paramètres, limites d'essais, ports) et variables d'environnement : `AUTH_URL_SITE`, `AUTH_EXPEDITEUR`, `AUTH_EXPEDITEUR_NOM`, `AUTH_COOKIE_SECURISE` (forcé à vrai en production), plus `MAILER_DSN` et `CORS_ALLOW_ORIGIN`.
 
 ## Installer le module dans l'API d'un client
-1. Copier `src/Auth/` et `config/packages/auth.yaml`.
+Marche à suivre complète, site compris : [`docs/mise-en-place/espace-client.md`](../../../docs/mise-en-place/espace-client.md).
+
+1. Copier `src/Auth/` et `config/packages/auth.yaml` ; y changer `auth.cookie_nom`.
 2. `config/services.yaml` : exclure les domaines des services (`exclude: ['../src/*/Domain/', '../src/Kernel.php']`).
 3. `config/packages/doctrine.yaml` : déclarer la correspondance `Auth` (`dir: src/Auth/Infrastructure/Doctrine/mapping`, `prefix: App\Auth\Domain`).
 4. `config/packages/nelmio_cors.yaml` : `allow_credentials: true`.
 5. Dépendances : `symfony/mailer`, `symfony/uid`, `symfony/password-hasher`, `symfony/rate-limiter`, `doctrine/orm`, `nelmio/cors-bundle`.
-6. Migration `migrations/Version20261105195537.php`, puis `doctrine:migrations:migrate`.
-7. Ouvrir les comptes là où c'est utile : appeler `OuvrirCompte` (voir `src/Liaisons/CompteApresRendezVous.php`).
+6. Migrations `migrations/Version20261105195537.php` **et** `Version20261105202211.php`, puis `doctrine:migrations:migrate`.
+7. Ouvrir les comptes là où c'est utile : appeler `OuvrirCompte` (voir `src/Liaisons/CompteApresRendezVous.php`). Sans cela, aucun compte ne peut être créé.
+8. Le site et l'API doivent être sur le même domaine (`client.fr`, `api.client.fr`) : le cookie est en `SameSite=Lax`.
 
 ## Tests
 - `tests/Auth/Domain`, `tests/Auth/Application` : règles et cas d'usage avec des doublures (horloge réglable, mails enregistrés).
