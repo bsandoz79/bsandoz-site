@@ -40,17 +40,13 @@
   margin-top: auto;
 }
 
-/* Prix d'une page supplémentaire, en bas de chaque formule. */
-.pageSup {
-  margin-top: auto;
-  padding-top: var(--space-3);
-  border-top: 1px dashed var(--color-border-strong);
-  color: var(--color-text-muted);
+/* « à partir de » en petit, au-dessus du montant. */
+.aPartir {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 600;
-}
-
-.pageSupDark {
-  border-top-color: var(--color-line-on-dark);
-  color: var(--color-text-on-dark-muted);
+  letter-spacing: 0.02em;
+  opacity: 0.8;
 }
