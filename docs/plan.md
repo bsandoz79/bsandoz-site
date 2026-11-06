@@ -64,7 +64,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [ ] `feature/devis-chat` : « Décrivez votre projet » mis en avant, sous forme de conversation guidée
 - [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
 - [x] `feature/frais-aller-retour` : frais kilométriques aller-retour, indiqués dans les mails du rendez-vous ; suivi mensuel = maintenance et mises à jour
-- [ ] `fix/lien-rendez-vous-mail` : le lien « rendez-vous » du mail de devis mène à une page 404
+- [x] `fix/lien-rendez-vous-mail` : le lien « rendez-vous » du mail de devis mène à une page 404
 - [ ] `feature/autre-activite` : champ pour préciser l'activité quand on choisit « Autre activité »
 - [ ] `feature/avis-google` : avis Google juste après la bande qui défile
 - [ ] `feature/composer-memoire` : le configurateur oublie d'une visite à l'autre, avec « Reprendre là où vous en étiez ? »

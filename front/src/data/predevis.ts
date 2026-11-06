@@ -23,7 +23,7 @@ import {
   type MetierId,
   type OptionId,
 } from './offres';
-import { pages, site } from './pages';
+import { origineDuSite, pages } from './pages';
 
 /** Nombre maximal d'options suggérées (cahier des charges : 2 à 4). */
 export const MAX_SUGGESTIONS = 3;
@@ -164,6 +164,6 @@ export function texteDuPreDevis(p: PreDevis): string {
     }
   }
 
-  lignes.push('', mentionsPrix.tva, t.avertissement, '', t.rendezVous, `${site.url}${pages.rendezVous.path}`);
+  lignes.push('', mentionsPrix.tva, t.avertissement, '', t.rendezVous, `${origineDuSite()}${pages.rendezVous.path}`);
   return lignes.join('\n');
 }
