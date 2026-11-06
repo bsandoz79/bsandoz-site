@@ -197,9 +197,10 @@
   border-radius: var(--radius-sm);
   background: var(--color-navy);
   color: var(--color-text-on-dark);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-align: center;
+  white-space: nowrap;
 }
 
 .toast {
@@ -264,8 +265,72 @@
     height: 26rem;
   }
 
-  .phone {
-    width: 16.5rem;
-    height: 34rem;
+  /* La photo à gauche, le téléphone devant elle à droite, les notifications autour. */
+  .scene {
+    justify-content: flex-end;
+    height: 36rem;
   }
+
+  .phone {
+    z-index: 1;
+    width: 13.5rem;
+    height: 27.5rem;
+    margin-top: 6rem;
+  }
+
+  .toastTop {
+    top: 0;
+    right: -1rem;
+    left: auto;
+    z-index: 2;
+  }
+
+  .toastBottom {
+    right: auto;
+    bottom: 1rem;
+    left: 9rem;
+    z-index: 2;
+  }
+}
+
+/* Photo de Baptiste : cadre en arche avec un liseré dégradé, le téléphone passe devant, en bas à droite. */
+.portrait {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  width: 19rem;
+  margin: 0;
+  padding: 4px;
+  border-radius: 10rem 10rem var(--radius-lg) var(--radius-lg);
+  background: linear-gradient(160deg, var(--color-rose-light), var(--color-rose) 45%, var(--color-navy-2));
+  box-shadow: var(--shadow-card);
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(10rem - 4px) calc(10rem - 4px) calc(var(--radius-lg) - 4px) calc(var(--radius-lg) - 4px);
+}
+
+.portraitNom {
+  position: absolute;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.portraitNom span {
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
 }
