@@ -50,6 +50,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [ ] `feature/composer-etapes` : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
 - [x] `feature/ordre-accueil` : fin de l'accueil Questions → Carte → Contact ; pas d'appel du pied de page sur l'accueil
 - [x] `feature/frais-kilometriques` : zones Amiens et Abbeville, frais au-delà de 50 km (2,50 €/L, 7,5 L/100), dus même sans devis
+- [x] `fix/estimer-bon-onglet` : « Estimer » ouvre le bon onglet ; une seule barre d'onglets sur la page Estimer
 - [x] `fix/devis-depuis-estimation` : le devis reprend la dernière estimation (choix pré-cochés, première question à remplir), une nouvelle simulation remplace l'ancienne
 - [x] `style/message-frais` : message de position sans trait rose (cadre arrondi, icône) ; frais du rendez-vous en couleur normale
 - [x] `style/complements-seo` : deux compléments seulement, référencement seul dans un encart à part

@@ -76,3 +76,8 @@ flowchart LR
 ```
 
 La position du visiteur sur la carte est décrite dans [pages-de-contenu.md](pages-de-contenu.md#carte-des-zones-et-position).
+
+## Boutons « Estimer »
+`lienEstimer(pathname)` (`data/navigation.ts`) donne l'adresse du configurateur avec le bon onglet : `?onglet=informatique` depuis Informatique sur place, `?onglet=web` partout ailleurs. Il sert au bouton de l'en-tête, à la barre mobile et au pied de page. Les liens « Estimer / Composer mon site » des pages sites (accueil, Tarifs, réalisations) mènent à `?onglet=web`. Sans cela, le configurateur rouvrait le dernier onglet utilisé, même en venant de la partie sites.
+
+Sur la page Estimer (`/composer`), l'en-tête n'affiche pas sa barre d'onglets « Sites & applis / Informatique sur place » (classe `sansOnglets`) : il ne reste que celle du configurateur.

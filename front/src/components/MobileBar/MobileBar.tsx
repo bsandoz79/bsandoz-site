@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { mobileBar } from '../../data/navigation';
+import { lienEstimer, mobileBar } from '../../data/navigation';
 import styles from './MobileBar.module.css';
 import { barreMobileVisible } from './visibilite';
 
@@ -17,7 +17,7 @@ export function MobileBar() {
       <div className={styles.espace} aria-hidden="true" />
       <aside className={styles.bar} aria-label={mobileBar.label}>
         <p className={styles.text}>{mobileBar.text}</p>
-        <Link to={mobileBar.cta.to} className={styles.cta}>
+        <Link to={lienEstimer(pathname)} className={styles.cta}>
           {mobileBar.cta.label}
         </Link>
       </aside>

@@ -10,7 +10,7 @@ export const hero = {
   text: `Développeur web à Amiens, je conçois des sites et des outils de réservation pour les artisans, commerçants et indépendants, dans la Somme et partout en France, ${prixFormule(formuleParId('vitrine'))}.`,
   /** Qui est derrière le site : photo, nom, métier. */
   identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
-  primary: { label: 'Estimer mon projet', to: pages.composer.path },
+  primary: { label: 'Estimer mon projet', to: `${pages.composer.path}?onglet=web` },
   secondary: { label: 'Voir les réalisations', to: pages.realisations.path },
   rdv: { label: "Vous préférez en parler ? Prenez un rendez-vous gratuit d'une heure", to: pages.rendezVous.path },
   reassurance: ['Basé à Amiens', 'Réponse sous 24 h', 'Votre site vous appartient'],
@@ -96,7 +96,7 @@ export const problemes = {
 export const offres = {
   eyebrow: 'Offres',
   title: 'Des prix clairs, selon ce dont vous avez vraiment besoin.',
-  link: { label: 'Composer mon site', to: pages.composer.path },
+  link: { label: 'Composer mon site', to: `${pages.composer.path}?onglet=web` },
   featuredBadge: 'Le plus complet',
   /** Libellé du bouton de chaque formule. */
   cta: {
