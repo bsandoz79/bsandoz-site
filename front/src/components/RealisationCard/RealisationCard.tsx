@@ -9,9 +9,21 @@ type RealisationCardProps = {
   headingLevel?: 2 | 3;
 };
 
-/** Illustration provisoire, en attendant les vraies captures. */
+/** Couverture : la première capture dans un cadre de navigateur ; sinon, une illustration provisoire. */
 function Apercu({ realisation }: { realisation: Realisation }) {
-  const { apercu, emplacements } = realisation;
+  const { apercu, emplacements, captures } = realisation;
+  if (captures.length > 0) {
+    return (
+      <div className={styles.couverture} aria-hidden="true">
+        <span className={styles.dots}>
+          <span />
+          <span />
+          <span />
+        </span>
+        <img src={captures[0].src} alt="" loading="lazy" decoding="async" className={styles.image} />
+      </div>
+    );
+  }
   return (
     <div className={`${styles.apercu} ${styles[apercu]}`} aria-hidden="true">
       {apercu === 'site' && (
