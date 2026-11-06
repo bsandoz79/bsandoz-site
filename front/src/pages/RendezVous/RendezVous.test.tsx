@@ -100,7 +100,7 @@ describe('Page Rendez-vous', () => {
     renderRdv();
     await user.click(confirmer());
     expect(screen.getByRole('alert')).toHaveTextContent('6 champs sont à corriger.');
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect((fetchMock.mock.calls as unknown as [string, RequestInit?][]).filter(([, options]) => options?.method === 'POST')).toEqual([]);
   });
 
   it('confirme un rendez-vous en visio et l’envoie à l’API', async () => {

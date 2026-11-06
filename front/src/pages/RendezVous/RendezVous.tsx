@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Calendar, ChoiceChips, Container, TextField, aujourdhui, buttonClassName, debutDuMois, libelleLong } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
@@ -7,6 +7,7 @@ import { lieux, rdvTextes, type LieuId } from '../../data/rendezvous';
 import {
   bornes,
   corpsReservation,
+  actualiserDisponibilites,
   creneauxDuJour,
   demandeRdvVide,
   jourDisponible,
@@ -56,6 +57,16 @@ export function RendezVous() {
     setVerificationEnCours(false);
     return resultat;
   }
+
+  // Le calendrier se redessine quand les vraies disponibilités arrivent.
+  const [, setDisponibilitesChargees] = useState(false);
+  useEffect(() => {
+    let actif = true;
+    void actualiserDisponibilites().then((ok) => actif && ok && setDisponibilitesChargees(true));
+    return () => {
+      actif = false;
+    };
+  }, []);
 
   async function confirmer(event: FormEvent) {
     event.preventDefault();
