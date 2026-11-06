@@ -5,6 +5,7 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Corrigé
+- Le déploiement du site échouait dès que `VITE_DEVIS_URL` était réglée : deux tests attendaient l'adresse `/api/devis.php` écrite en dur. Ils lisent maintenant l'adresse réglée.
 - Le lien « Prendre rendez-vous » du mail de pré-devis menait à `https://bsandoz.fr/rendez-vous`, encore absent, d'où une page 404. Il mène maintenant au site d'où part la demande (preview.bsandoz.fr aujourd'hui, bsandoz.fr ensuite).
 - Devis parti d'une estimation : l'étape « Besoins » (la liste rendez-vous, devis, appli, boutique…) n'est plus posée, puisque l'estimation dit déjà ce que le site doit faire. Le parcours passe à 4 étapes. Elle revient sans estimation ou après « Repartir de zéro ».
 - Le devis gardait des réponses d'essais précédents : l'activité, le texte, un besoin « Être contacté » ajouté d'office et un budget déduit du prix. Une nouvelle estimation donne maintenant un devis neuf : seuls l'activité et les besoins réellement choisis sont cochés, et les coordonnées sont gardées.
