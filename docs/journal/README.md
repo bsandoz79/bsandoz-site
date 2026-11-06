@@ -107,3 +107,4 @@ Types de tests :
 | 76 | [Lien « rendez-vous » du mail de devis](76-fix-lien-rendez-vous-mail.md) | `fix/lien-rendez-vous-mail` | 2026-11-06 |
 | 77 | [Préciser « Autre activité »](77-feature-autre-activite.md) | `feature/autre-activite` | 2026-11-06 |
 | 78 | [Adresse dans la demande de devis](78-feature-adresse-devis.md) | `feature/adresse-devis` | 2026-11-06 |
+| 79 | [Configurateur : reprendre ou recommencer](79-feature-composer-memoire.md) | `feature/composer-memoire` | 2026-11-06 |
