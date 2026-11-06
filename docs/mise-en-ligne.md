@@ -120,6 +120,7 @@ Dans `/admin`, onglet **Disponibilités** : les vrais jours, créneaux et congé
 Ne pas changer `APP_SECRET`. Prévoir une sauvegarde automatique de la base : elle contient les comptes et les devis.
 
 ## Ce qui a été vérifié sur o2switch
+- **Images envoyées depuis le site** : dans `~/api.bsandoz.fr/public/medias/`. Elles ne sont pas dans le dépôt : à inclure dans les sauvegardes.
 Constaté le 6 novembre 2026, à la première mise en ligne de l'API :
 - **PHP du terminal** : la commande `php` y est en 8.1, indépendamment du réglage du site. Toutes les commandes passent par `/opt/cpanel/ea-php83/root/usr/bin/php` (extensions `pdo_mysql`, `mbstring`, `intl`, `ctype`, `iconv`, `openssl` présentes).
 - **PHP du site** : il se règle à part dans cPanel. En 8.1, l'API répond 500 avec « Your Composer dependencies require a PHP version >= 8.2.0 ».

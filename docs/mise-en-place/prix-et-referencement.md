@@ -30,3 +30,10 @@ Aucun, sauf pour modifier les prix depuis le back-office : table `catalogue_prix
 ## Selon la façon de livrer
 - **Autonome** : sans back-office, les prix sont dans le code et un changement demande de reconstruire le site : le lui expliquer, ou prévoir une intervention.
 - **Je gère** : ces changements passent par moi.
+
+## Modifier textes et images sur les pages
+Pour offrir aussi l'édition par bloc chez un client :
+- **API** : copier `src/Contenu/`, `src/BackOffice/ContenusController.php`, `config/packages/contenu.yaml`, déclarer la correspondance `Contenu` dans `doctrine.yaml`, et ajouter la migration `Version20261106140000.php` ;
+- **site** : copier `app/edition.ts`, `app/image.ts`, `data/blocs.ts` (à refaire selon les blocs du client), `data/contenusEnLigne.ts`, `data/medias.ts` et `components/BlocModifiable/` ;
+- **vérifier** : un compte autorisé voit le bouton « Modifier », un visiteur non, et une image envoyée s'affiche ;
+- **sauvegardes** : les images sont dans `public/medias/` de l'API, à sauvegarder avec la base.

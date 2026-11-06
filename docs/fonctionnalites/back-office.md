@@ -72,24 +72,32 @@ Tout se règle d'un clic (`pages/Admin/DisponibilitesAdmin.tsx`) :
 - **heures de rendez-vous** : une grille de 7 h à 20 h, par demi-heure, groupée en matin, après-midi et soir. Une heure déjà enregistrée hors de la grille reste affichée ;
 - **jours fermés** : un clic dans le calendrier ferme le jour, un second le rouvre (bloc `Calendar`, options `isMarked` et `markedLabel`). Les jours fermés sont aussi listés, avec une croix pour les rouvrir.
 
-## Édition directe sur les pages (crayon)
-Un compte du back-office modifie les prix directement sur le site, sans passer par `/admin`.
+## Édition directe sur les pages (blocs)
+Un compte du back-office modifie le site directement sur les pages, bloc par bloc, sans passer par `/admin`. Tous les blocs de l'accueil et les formules de la page Tarifs sont concernés.
 
-- **Qui voit les crayons** (`app/edition.ts`, `useEdition`) : une connexion est notée dans le navigateur (`bsandoz.session`, par `compteConnecte` et `seDeconnecter`). Si elle existe, le site appelle `/backoffice/demandes` : 200 affiche les crayons, 403 non, 401 efface la note. Un visiteur sans session ne déclenche aucun appel. La note ne donne aucun droit : c'est l'API qui refuse tout enregistrement à un compte non autorisé.
-- **Le composant** (`components/PrixModifiable`) : `<PrixModifiable cle="formule.vitrine" nom="Vitrine" montant={() => formule.prix}>{() => <p>…</p>}</PrixModifiable>`. Crayon, champ, Entrée ou « Enregistrer », Échap ou « Annuler ».
-- **L'enregistrement** : `POST /backoffice/prix` avec tous les prix qui diffèrent du code (`prixModifiesActuels`), puis `changerPrix` met à jour la page et le cache du navigateur.
-- **Où** : les trois formules (accueil et Tarifs) et la page supplémentaire.
-- **Limites actuelles** : les textes calculés une fois au chargement (hero, FAQ, CGV) suivent au rechargement suivant. Les prix écrits dans le code (heure, suivi mensuel, SEO seul) et les options du simulateur n'ont pas de crayon. Textes et images ne sont pas encore modifiables : il faudra les stocker dans l'API.
+- **Qui voit les boutons** (`app/edition.ts`, `useEdition`) : une connexion est notée dans le navigateur (`bsandoz.session`, par `compteConnecte` et `seDeconnecter`). Si elle existe, le site appelle `/backoffice/demandes` : 200 affiche les boutons, 403 non, 401 efface la note. Un visiteur sans session ne déclenche aucun appel. La note ne donne aucun droit : c'est l'API qui refuse tout enregistrement à un compte non autorisé.
+- **Le registre** (`data/blocs.ts`) : pour chaque bloc, tout ce qu'il contient (`texte`, `long`, `image`, `prix`). Chaque champ pointe vers la donnée que la page affiche. Ajouter un champ ou un bloc se fait ici.
+- **Sur la page** (`components/BlocModifiable`) : `<BlocModifiable id="accueil.hero"><Hero /></BlocModifiable>`. Pour un visiteur, aucun élément n'est ajouté à la page. Pour un compte autorisé, un bouton « Modifier » ouvre le panneau (`PanneauBloc`, chargé seulement à ce moment-là).
+- **Enregistrer** : `POST /backoffice/contenus` envoie seulement ce qui a changé (`null` si on revient au texte du code) et `POST /backoffice/prix` les prix. La page et le cache du navigateur sont mis à jour sur place.
+- **Images** (`app/image.ts`) : réduites à 1 600 px et converties en WebP dans le navigateur, envoyées en JSON à `POST /backoffice/images`, écrites dans `public/medias/` de l'API. Le serveur lit le vrai type du fichier et tire le nom au hasard.
+- **Au chargement** (`main.tsx`) : `chargerContenus` (`data/contenusEnLigne.ts`) demande `/contenus`, avec un cache de 5 minutes et 800 ms d'attente au plus, puis `appliquerContenus` remplace les textes. Si l'API ne répond pas, le site affiche les textes de son code.
+- **Du texte brut** : React l'affiche sans jamais l'interpréter comme du HTML.
+- **Limites actuelles** : les autres pages (métiers, réalisations, À propos…) n'ont pas encore de blocs. Un texte qui contient un prix (« à partir de 99 € » en haut de page) reste figé une fois modifié à la main. L'heure, le suivi mensuel et le SEO seul restent écrits dans le code. Les images remplacées restent sur le serveur.
 
 ```mermaid
 flowchart LR
   co["Connexion<br/>compteConnecte()"] --> note["localStorage<br/>bsandoz.session"]
   note --> verif["useEdition()<br/>GET /backoffice/demandes"]
-  verif -- "200" --> crayon["Crayon sur chaque prix"]
-  verif -- "403 ou 401" --> rien["Prix seul"]
-  crayon --> champ["Champ sur place"]
-  champ --> post["POST /backoffice/prix"]
-  post --> page["changerPrix()<br/>page et cache à jour"]
+  verif -- "200" --> bouton["Bouton Modifier<br/>sur chaque bloc"]
+  verif -- "403 ou 401" --> rien["Page normale"]
+  bouton --> panneau["PanneauBloc<br/>champs de data/blocs.ts"]
+  panneau --> img["POST /backoffice/images"]
+  panneau --> txt["POST /backoffice/contenus"]
+  panneau --> prix["POST /backoffice/prix"]
+  txt --> page["Page et cache à jour"]
+  prix --> page
+  charge["Chargement du site"] --> get["GET /contenus"]
+  get --> appl["appliquerContenus()"]
 ```
 
-Tests : `PrixModifiable.test.tsx` (visiteur sans appel, 403, 401, enregistrement, retour au prix du code, annulation, montant invalide, échec de l'API).
+Tests : `BlocModifiable.test.tsx` (visiteur sans appel, 403, 401, texte et prix enregistrés d'un coup, retour au texte du code, image, annulation, prix invalide, échec de l'API, registre lisible) ; côté API, `tests/Contenu/ContenuTest.php` et `tests/BackOffice/ContenusBackOfficeTest.php`.

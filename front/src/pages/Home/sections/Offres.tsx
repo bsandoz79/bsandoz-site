@@ -3,7 +3,7 @@ import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz
 import { offres } from '../../../data/accueil';
 import { Complements } from '../../../components/Complements';
 import { OffreSeo } from '../../../components/OffreSeo';
-import { PrixModifiable } from '../../../components/PrixModifiable';
+import { BlocModifiable } from '../../../components/BlocModifiable';
 import { A_PARTIR_DE, formatPrix, formules, mentionsPrix } from '../../../data/offres';
 import { pages } from '../../../data/pages';
 import sections from './Sections.module.css';
@@ -25,6 +25,7 @@ export function Offres() {
             const featured = formule.id === 'fonctionnel';
             return (
               <Reveal as="li" key={formule.id} delay={i * 80}>
+                <BlocModifiable id={`offre.${formule.id}`} plein>
                 <Card
                   as="article"
                   tone={featured ? 'dark' : 'muted'}
@@ -38,14 +39,10 @@ export function Offres() {
                     {formule.nom}
                   </h3>
                   <p className={featured ? styles.taglineDark : styles.tagline}>{formule.accroche}</p>
-                  <PrixModifiable cle={`formule.${formule.id}`} nom={formule.nom} montant={() => formule.prix}>
-                    {() => (
-                      <p className={styles.price}>
-                        {formule.prixMinimum && <span className={styles.aPartir}>{A_PARTIR_DE} </span>}
-                        {formatPrix(formule.prix)}
-                      </p>
-                    )}
-                  </PrixModifiable>
+                  <p className={styles.price}>
+                    {formule.prixMinimum && <span className={styles.aPartir}>{A_PARTIR_DE} </span>}
+                    {formatPrix(formule.prix)}
+                  </p>
                   <ul className={styles.features}>
                     {formule.pointsForts.map((point) => (
                       <li key={point}>{point}</li>
@@ -62,6 +59,7 @@ export function Offres() {
                     {offres.cta[formule.id]}
                   </Link>
                 </Card>
+                </BlocModifiable>
               </Reveal>
             );
           })}

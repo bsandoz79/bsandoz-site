@@ -3,7 +3,7 @@ import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { Complements } from '../../components/Complements';
 import { OffreSeo } from '../../components/OffreSeo';
-import { PrixModifiable } from '../../components/PrixModifiable';
+import { BlocModifiable } from '../../components/BlocModifiable';
 import { A_PARTIR_DE, formatPrix, formules, mentionsPrix } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { jsonLdOffres } from '../../data/seo';
@@ -33,6 +33,7 @@ export function Tarifs() {
               const featured = formule.id === 'fonctionnel';
               return (
                 <li key={formule.id}>
+                  <BlocModifiable id={`offre.${formule.id}`} plein>
                   <Card
                     as="article"
                     tone={featured ? 'dark' : 'surface'}
@@ -42,14 +43,10 @@ export function Tarifs() {
                     <h2 id={`tarif-${formule.id}`} className={styles.formuleNom}>
                       {formule.nom}
                     </h2>
-                    <PrixModifiable cle={`formule.${formule.id}`} nom={formule.nom} montant={() => formule.prix}>
-                      {() => (
-                        <p className={styles.formulePrix}>
-                          {formule.prixMinimum && <span className={styles.aPartir}>{A_PARTIR_DE} </span>}
-                          {formatPrix(formule.prix)}
-                        </p>
-                      )}
-                    </PrixModifiable>
+                    <p className={styles.formulePrix}>
+                      {formule.prixMinimum && <span className={styles.aPartir}>{A_PARTIR_DE} </span>}
+                      {formatPrix(formule.prix)}
+                    </p>
                     <p className={featured ? styles.formuleContenuDark : styles.formuleContenu}>
                       {contenuFormules[formule.id].join(' · ')}
                     </p>
@@ -57,6 +54,7 @@ export function Tarifs() {
                       {formulesSection.delaiLabel} : {formule.delai}
                     </p>
                   </Card>
+                  </BlocModifiable>
                 </li>
               );
             })}

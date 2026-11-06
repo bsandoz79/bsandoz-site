@@ -51,6 +51,17 @@ export async function enregistrerPrix(prix: Record<string, number>): Promise<boo
   return statut === 200;
 }
 
+export async function enregistrerContenus(contenus: Record<string, string | null>): Promise<boolean> {
+  const { statut } = await appelerApi('/backoffice/contenus', { corps: { contenus } });
+  return statut === 200;
+}
+
+/** Envoie une image (base64) ; renvoie son adresse. */
+export async function envoyerImage(image: string): Promise<string | null> {
+  const { statut, corps } = await appelerApi<{ url?: string }>('/backoffice/images', { corps: { image } });
+  return statut === 200 ? (corps.url ?? null) : null;
+}
+
 export type ReglesDisponibilites = { joursTravailles: number[]; creneaux: string[]; joursFermes: string[] };
 
 export async function enregistrerDisponibilites(regles: ReglesDisponibilites): Promise<{ ok: true; regles: ReglesDisponibilites } | { ok: false; erreur: string }> {

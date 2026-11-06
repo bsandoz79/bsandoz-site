@@ -1,7 +1,7 @@
 import { Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { pourquoi } from '../../../data/accueil';
 import styles from './Pourquoi.module.css';
-import portrait from '../../../assets/baptiste/portrait.webp';
+import { medias } from '../../../data/medias';
 import { Rideau } from '../../../components/Rideau';
 
 /** Pourquoi travailler avec Baptiste : photo, quatre arguments et lien vers le portfolio. */
@@ -12,7 +12,7 @@ export function Pourquoi() {
         <Reveal className={styles.photoWrap}>
           <figure className={styles.photo}>
             <Rideau>
-              <img src={portrait} alt={pourquoi.photo} width="600" height="800" loading="lazy" decoding="async" className={styles.image} />
+              <img src={medias.portrait} alt={pourquoi.photo} width="600" height="800" loading="lazy" decoding="async" className={styles.image} />
             </Rideau>
             <figcaption className={styles.caption}>{pourquoi.photoCaption}</figcaption>
           </figure>
