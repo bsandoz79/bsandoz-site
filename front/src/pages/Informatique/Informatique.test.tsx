@@ -37,7 +37,7 @@ describe('Page Informatique sur place', () => {
     expect(screen.getByRole('complementary', { name: 'Tarif sur devis' })).toHaveTextContent(
       "Je me déplace sans frais dans un rayon de 50 km autour d'Amiens et d'Abbeville ; plus loin, seuls les kilomètres en plus sont facturés.",
     );
-    expect(within(screen.getByRole('region', { name: 'Trois étapes, sans surprise.' })).getAllByRole('listitem')).toHaveLength(3);
+    expect(within(screen.getByRole('region', { name: 'Comment ça se passe' })).getAllByRole('listitem')).toHaveLength(3);
   });
 
   it('ouvre le configurateur directement sur l’onglet informatique', async () => {

@@ -31,8 +31,8 @@ describe("Page d'accueil", () => {
     const titles = screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent);
     expect(titles).toEqual([
       problemes.title,
-      'Des prix clairs, selon ce dont vous avez vraiment besoin.',
-      'Des projets concrets, à tester vous-même.',
+      'Mes tarifs',
+      'Mes réalisations',
       methode.title,
       pourquoi.title,
       faqAccueil.titre,
@@ -41,10 +41,9 @@ describe("Page d'accueil", () => {
     ]);
   });
 
-  it('hero : mots qui tournent, appels à l’action et réassurance', () => {
+  it('hero : appels à l’action et réassurance, sans mots qui tournent', () => {
     renderHome();
     const heroSection = section(pages.accueil.heading);
-    expect(within(heroSection).getByText(hero.rotatingWords.join(', '))).toBeInTheDocument();
     expect(within(heroSection).getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute(
       'href',
       `${pages.composer.path}?onglet=web`,
@@ -76,7 +75,7 @@ describe("Page d'accueil", () => {
 
   it('affiche les trois formules avec leur prix et un lien vers le configurateur', () => {
     renderHome();
-    const offres = section(/Des prix clairs/);
+    const offres = section('Mes tarifs');
     const vitrine = within(offres).getByRole('article', { name: 'Vitrine' });
     expect(vitrine).toHaveTextContent(/99\s€/);
     expect(within(vitrine).getByRole('link', { name: 'Choisir Vitrine' })).toHaveAttribute(
@@ -92,7 +91,7 @@ describe("Page d'accueil", () => {
 
   it('affiche les réalisations', () => {
     renderHome();
-    const realisationsSection = section(/Des projets concrets/);
+    const realisationsSection = section('Mes réalisations');
     for (const realisation of realisations) {
       expect(within(realisationsSection).getByRole('article', { name: realisation.titre })).toBeInTheDocument();
     }
@@ -140,12 +139,18 @@ describe("Page d'accueil", () => {
     expect(screen.getByText((texte) => texte.replace(/\s/g, ' ').includes(prix))).toBeInTheDocument();
   });
 
-  it('fait passer un reflet sur le bouton « Estimer mon projet » du haut de page et sur les trois formules', () => {
+  it('garde le reflet seulement sur le bouton principal, sans effets sur les cartes de prix', () => {
     renderHome();
     expect(within(section(pages.accueil.heading)).getByRole('link', { name: 'Estimer mon projet' })).toHaveClass('anim-reflet');
     for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) {
-      expect(within(section(/Des prix clairs/)).getByRole('article', { name: nom })).toHaveClass('anim-reflet');
+      expect(within(section('Mes tarifs')).getByRole('article', { name: nom })).not.toHaveClass('anim-reflet');
     }
+    expect(document.querySelector('.anim-pulse, .anim-float, .anim-respire')).toBeNull();
+  });
+
+  it('n’affiche pas de petits titres en majuscules au-dessus des sections', () => {
+    const { container } = renderHome();
+    expect(container.querySelector('[class*="eyebrow"]')).toBeNull();
   });
 
   describe('Questions fréquentes', () => {
