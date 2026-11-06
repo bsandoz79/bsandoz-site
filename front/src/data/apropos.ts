@@ -10,7 +10,11 @@ export const aPropos = {
   photoLegende: 'Baptiste · développeur à Amiens',
   parcours: {
     titre: 'Mon parcours',
-    texte: '[parcours à compléter]',
+    paragraphes: [
+      'Formé au développement à Amiens, j’ai obtenu un BTS SIO option SLAM en 2025, puis un Bachelor informatique et le titre de Concepteur Développeur d’Applications (Bac+3) à l’école iT. Je poursuis aujourd’hui avec un Mastère Expert DevOps à l’EPSI d’Arras.',
+      'En entreprise, j’ai conçu un site e-commerce de A à Z chez Devisse Informatique à Abbeville, du cahier des charges à la mise en ligne, avec le paiement et le référencement. J’ai aussi créé une interface web pour piloter les serveurs de l’UFR des Sciences d’Amiens, puis travaillé en alternance comme développeur full stack (React, Symfony) chez La Brosse & Dupont.',
+      'Pendant mes études, j’ai aussi tenu le snack et le bar d’un camping le temps d’un été : le service, les stocks et les clients, je sais ce que c’est.',
+    ],
     portfolio: { label: 'Voir mon parcours et mes compétences sur mon portfolio', href: contact.portfolio },
   },
   valeurs: { titre: 'Ce qui compte pour moi', items: pourquoi.items },

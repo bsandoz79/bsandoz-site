@@ -19,6 +19,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Ajouté
+- Page À propos : le parcours est rempli depuis le portfolio (formation et expériences).
 - Accueil : section « D'autres besoins, d'autres métiers », avec les cartes photographes, restauration, PME et charcutiers. Prix de départ d'une formule, ou « Sur devis » pour le CRM et le logiciel interne.
 - Back-office : onglet **Planning**, ouvert par défaut, avec la semaine et ses rendez-vous placés à leur heure, le détail au clic (téléphone, adresse, frais), l'annulation avec vos disponibilités envoyées au client par mail et six chiffres clés calculés sur les vraies données.
 - Rendez-vous : boutons « Google Agenda », « Outlook » et « Apple ou autre » sur la page de confirmation, et les mêmes liens dans les mails au client et au professionnel.

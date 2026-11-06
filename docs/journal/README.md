@@ -117,3 +117,4 @@ Types de tests :
 | 86 | [Ajouter le rendez-vous à son agenda](86-feature-agenda-rdv.md) | `feature/agenda-rdv` | 2026-11-06 |
 | 87 | [Planning et statistiques du back-office](87-feature-planning-admin.md) | `feature/planning-admin` | 2026-11-06 |
 | 88 | [Cartes des autres besoins](88-feature-cibles.md) | `feature/cibles` | 2026-11-06 |
+| 89 | [Parcours de la page À propos](89-chore-apropos-parcours.md) | `chore/apropos-parcours` | 2026-11-06 |
