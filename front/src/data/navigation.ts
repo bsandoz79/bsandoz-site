@@ -81,6 +81,13 @@ export const footer = {
 };
 
 /** Barre « Estimer » fixe en bas de l'écran sur mobile. */
+/** Bouton « revenir en haut », en bas à droite, une fois la page un peu descendue. */
+export const retourHaut = {
+  label: 'Revenir en haut de la page',
+  /** Défilement (en pixels) à partir duquel le bouton apparaît. */
+  seuil: 600,
+};
+
 export const mobileBar = {
   label: 'Estimation rapide',
   text: 'Devis gratuit en 2 min',

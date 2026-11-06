@@ -5,6 +5,7 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Bouton « revenir en haut » : rond, transparent, en bas à droite, visible une fois la page descendue ; au-dessus de la barre « Estimer » sur mobile.
 - Carte des zones d'intervention en bas de l'accueil : cercles de 50 km autour d'Amiens, Abbeville, Arras et Beauvais, zoom sur la ville choisie ; chargée seulement au clic (OpenStreetMap), mentionnée dans la politique de confidentialité.
 - Accueil, « Pourquoi travailler avec moi » : votre photo remplace l'emplacement « [photo à compléter] ».
 - En remontant, seule la barre principale de l'en-tête revient : les onglets « Sites & applis / Informatique sur place » ne s'affichent qu'en haut de page.

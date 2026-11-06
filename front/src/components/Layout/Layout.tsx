@@ -4,11 +4,12 @@ import { skipLink } from '../../data/navigation';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { MobileBar } from '../MobileBar';
+import { RetourHaut } from '../RetourHaut';
 import styles from './Layout.module.css';
 
 /**
  * Mise en page commune à toutes les pages : lien d'évitement, en-tête, contenu,
- * pied de page et barre « Estimer » sur mobile.
+ * pied de page, barre « Estimer » sur mobile et bouton « revenir en haut ».
  */
 export function Layout() {
   const { pathname, hash } = useLocation();
@@ -31,6 +32,7 @@ export function Layout() {
       </main>
       <Footer />
       <MobileBar />
+      <RetourHaut />
     </div>
   );
 }

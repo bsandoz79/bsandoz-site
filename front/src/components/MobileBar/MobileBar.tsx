@@ -6,9 +6,14 @@ import styles from './MobileBar.module.css';
  * Barre « Estimer » fixée en bas de l'écran sur mobile (masquée sur ordinateur par le CSS).
  * Elle n'est pas affichée sur les pages où l'on est déjà en train d'estimer.
  */
+/** La barre est-elle affichée sur cette page ? (sur mobile ; le CSS la masque sur ordinateur) */
+export function barreMobileVisible(pathname: string) {
+  return !mobileBar.hiddenOn.includes(pathname) && !mobileBar.hiddenUnder.some((debut) => pathname.startsWith(debut));
+}
+
 export function MobileBar() {
   const { pathname } = useLocation();
-  if (mobileBar.hiddenOn.includes(pathname) || mobileBar.hiddenUnder.some((debut) => pathname.startsWith(debut))) return null;
+  if (!barreMobileVisible(pathname)) return null;
 
   return (
     <>

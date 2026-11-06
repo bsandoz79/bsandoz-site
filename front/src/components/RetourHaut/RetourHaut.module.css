@@ -1,0 +1,60 @@
+/* Bouton rond, verre dépoli : on voit la page au travers. */
+.bouton {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 19;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--color-text) 25%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-surface) 35%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--color-text);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.bouton:hover {
+  border-color: var(--color-rose);
+  background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+  color: var(--color-accent-texte);
+}
+
+.bouton:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 2px;
+}
+
+/* Sur mobile, la barre « Estimer » occupe le bas : le bouton se pose juste au-dessus. */
+.auDessusBarre {
+  bottom: calc(var(--space-4) + 2.75rem + 2 * var(--space-2) + var(--space-3));
+}
+
+@media (min-width: 960px) {
+  .bouton {
+    right: var(--space-5);
+    bottom: var(--space-5);
+  }
+
+  .auDessusBarre {
+    bottom: var(--space-5);
+  }
+}
