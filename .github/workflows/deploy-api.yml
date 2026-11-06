@@ -29,22 +29,31 @@ jobs:
         run: |
           echo "Secrets API_FTP_* non configurés : rien n'est envoyé (voir docs/mise-en-ligne.md)."
           exit 1
-      - name: Envoi sur le serveur
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.API_FTP_SERVER }}
-          username: ${{ secrets.API_FTP_USERNAME }}
-          password: ${{ secrets.API_FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: api/
-          server-dir: ${{ secrets.API_FTP_SERVER_DIR }}
-          # Jamais envoyés : ce qui ne sert qu'au développement. .env.local et var/ restent intacts sur le serveur.
-          exclude: |
-            **/.git*
-            **/.git*/**
-            var/**
-            tests/**
-            compose*.yaml
-            phpunit.dist.xml
-            .env.local
-            .env.dev
+      # FTPS avec lftp (session TLS réutilisée sur le canal de données, exigée par o2switch ; voir deploy.yml).
+      # Jamais envoyés : ce qui ne sert qu'au développement. Rien n'est supprimé sur le serveur :
+      # .env.local et var/ y restent intacts.
+      - name: Envoi sur le serveur (FTPS)
+        env:
+          API_FTP_USERNAME: ${{ secrets.API_FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.API_FTP_PASSWORD }}
+          API_FTP_SERVER_DIR: ${{ secrets.API_FTP_SERVER_DIR }}
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y lftp > /dev/null
+          lftp --env-password -u "$API_FTP_USERNAME" "ftp://$API_FTP_SERVER" <<EOF
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate true
+          set ftp:passive-mode true
+          set net:timeout 30
+          set net:max-retries 3
+          set net:reconnect-interval-base 5
+          mirror --reverse --parallel=4 \
+            --exclude '(^|/)\.git' \
+            --exclude '^var/' \
+            --exclude '^tests/' \
+            --exclude '^compose[^/]*\.yaml$' \
+            --exclude '^phpunit\.dist\.xml$' \
+            --exclude '^\.env\.(local|dev)$' \
+            api/ "${API_FTP_SERVER_DIR:-/}"
+          bye
+          EOF

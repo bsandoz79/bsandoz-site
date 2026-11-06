@@ -1,6 +1,8 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé (déploiement)
+- Envoi sur o2switch par lftp en FTPS (session TLS réutilisée sur le canal de données), pour le site et pour l'API : l'action précédente échouait avec « ECONNRESET (data socket) » au premier envoi sur `preview.bsandoz.fr`.
 
 ## [3.0.0] – 2026-11-06
 V3 : comptes, espace client, fil de messages, back-office. Étiquette git : `v3.0.0`, branche de maintenance `release/v3`.

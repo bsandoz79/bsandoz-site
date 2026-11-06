@@ -10,6 +10,10 @@
 À chaque push sur `main` : tests, build, puis envoi du dossier `front/dist/` sur o2switch en FTPS.
 Le FTP est utilisé plutôt que le SSH car l'accès SSH d'o2switch se limite aux adresses IP autorisées, alors que celles de GitHub Actions changent.
 
+L'envoi (site et API, `deploy-api.yml`) utilise **lftp** en FTPS (canal de commande et canal de données chiffrés, certificat vérifié). L'action `FTP-Deploy-Action` échouait chez o2switch avec « ECONNRESET (data socket) », car le serveur exige la réutilisation de la session TLS sur le canal de données. Le mot de passe passe par la variable `LFTP_PASSWORD`, jamais par la ligne de commande. Aucun fichier n'est supprimé côté serveur : les anciens fichiers `assets/` restent, sans gêner.
+
+Exemple (préversion) : serveur `ftp.saba3655.odns.fr`, compte `deploy-preview@bsandoz.fr` limité au dossier `preview.bsandoz.fr`, `FTP_SERVER_DIR` = `/`.
+
 ## Secrets GitHub à créer
 Dépôt → Settings → Secrets and variables → Actions → New repository secret :
 
