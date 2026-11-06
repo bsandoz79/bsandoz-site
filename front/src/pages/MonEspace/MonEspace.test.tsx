@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { pages } from '../../data/pages';
 import { Connexion, Lien, MonEspace, MotDePasse } from '.';
-import { erreurMotDePasse } from './compte';
+import { adresseDeRetour, erreurMotDePasse } from './compte';
 
 const compte = {
   id: 'c1',
@@ -300,5 +300,15 @@ describe('Mon espace', () => {
 
     expect(await screen.findByRole('heading', { level: 1, name: 'Connexion à votre espace' })).toBeInTheDocument();
     expect(appels.find((a) => a.chemin === '/auth/deconnexion')?.methode).toBe('POST');
+  });
+});
+
+describe('Adresse de retour après la connexion', () => {
+  it('garde une page du site', () => {
+    expect(adresseDeRetour('/admin')).toBe('/admin');
+  });
+
+  it.each([null, '', 'https://pirate.example', '//pirate.example', '/\\pirate.example', 'admin'])('refuse %s', (valeur) => {
+    expect(adresseDeRetour(valeur)).toBe('/mon-espace');
   });
 });

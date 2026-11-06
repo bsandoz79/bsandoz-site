@@ -1,7 +1,7 @@
 import { questionsFaq } from './faq';
 import { formules } from './offres';
 import { pages } from './pages';
-import { cheminsIndexables, genererSitemap, jsonLdEntreprise, jsonLdFaq, jsonLdOffres, robotsTxt, urlComplete } from './seo';
+import { cheminsIndexables, pagesNonIndexees, genererSitemap, jsonLdEntreprise, jsonLdFaq, jsonLdOffres, robotsTxt, urlComplete } from './seo';
 
 describe('SEO', () => {
   it('construit les adresses complètes', () => {
@@ -15,11 +15,12 @@ describe('SEO', () => {
     expect(chemins).toContain(pages.mentionsLegales.path);
     expect(chemins).toContain(pages.rendezVous.path);
     expect(chemins.filter((c) => c.startsWith('/mon-espace'))).toEqual([]);
-    expect(chemins).toHaveLength(Object.keys(pages).length - 6);
+    expect(chemins).toHaveLength(Object.keys(pages).length - pagesNonIndexees.length);
   });
 
   it('demande aux robots de ne pas visiter l’espace client', () => {
     expect(robotsTxt()).toContain('Disallow: /mon-espace');
+    expect(robotsTxt()).toContain('Disallow: /admin');
   });
 
   it('génère un sitemap valide', () => {
