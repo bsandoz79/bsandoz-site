@@ -139,11 +139,12 @@ export const preDevisTextes = {
   besoins: "D'après les besoins que vous avez cochés.",
   avertissement:
     'Cette estimation est calculée automatiquement : je la confirme ou l’ajuste après avoir lu votre demande, avant tout engagement.',
+  deplacement: 'Déplacement',
   rendezVous: 'Pour en parler de vive voix, un rendez-vous découverte gratuit :',
 };
 
 /** Pré-devis mis en forme pour un e-mail texte. */
-export function texteDuPreDevis(p: PreDevis): string {
+export function texteDuPreDevis(p: PreDevis, deplacement = ''): string {
   const t = preDevisTextes;
   const lignes = [t.titre, '-'.repeat(t.titre.length)];
 
@@ -164,6 +165,7 @@ export function texteDuPreDevis(p: PreDevis): string {
     }
   }
 
+  if (deplacement) lignes.push('', `${t.deplacement} : ${deplacement}`);
   lignes.push('', mentionsPrix.tva, t.avertissement, '', t.rendezVous, `${origineDuSite()}${pages.rendezVous.path}`);
   return lignes.join('\n');
 }

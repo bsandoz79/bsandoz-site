@@ -66,7 +66,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/frais-aller-retour` : frais kilométriques aller-retour, indiqués dans les mails du rendez-vous ; suivi mensuel = maintenance et mises à jour
 - [x] `fix/lien-rendez-vous-mail` : le lien « rendez-vous » du mail de devis mène à une page 404
 - [x] `feature/autre-activite` : champ pour préciser l'activité quand on choisit « Autre activité »
-- [ ] `feature/adresse-devis` : le devis demande une adresse, pour estimer les frais kilométriques
+- [x] `feature/adresse-devis` : le devis demande une adresse, pour estimer les frais kilométriques
 - [ ] `feature/avis-google` : avis Google juste après la bande qui défile
 - [ ] `feature/composer-memoire` : le configurateur oublie d'une visite à l'autre, avec « Reprendre là où vous en étiez ? »
 - [x] `feature/alterno` : projet Alterno dans les réalisations

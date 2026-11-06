@@ -1,7 +1,7 @@
 import { ajouterJours, comparer, jourDeLaSemaine, type DateIso } from '@bsandoz79/blocs';
 import { urlApi } from '../../app/api';
-import { disponibilites, rdvTextes, urlGeocodage, type LieuId } from '../../data/rendezvous';
-import { fraisKilometriques, kmFactures, situer } from '../../data/zones';
+import { disponibilites, rdvTextes, type LieuId } from '../../data/rendezvous';
+import { kmFactures } from '../../data/zones';
 import { distanceKm } from '../../data/distance';
 
 export type Disponibilites = typeof disponibilites;
@@ -73,39 +73,8 @@ export function creneauxDuJour(jour: DateIso | null, aujourdhui: DateIso): Crene
 
 export { distanceKm };
 
-export type ResultatAdresse =
-  /** `base` : Amiens ou Abbeville, la plus proche ; `frais` : frais kilométriques (0 dans la zone). */
-  | { statut: 'ok' | 'hors-zone'; ville: string; km: number; base: string; frais: number; adresse: string }
-  | { statut: 'introuvable' | 'erreur' };
-
-type ReponseGeocodage = {
-  features?: { geometry: { coordinates: [number, number] }; properties: { city?: string; label?: string; score?: number } }[];
-};
-
-/** Vérifie l'adresse avec le service public de géocodage et calcule la distance à Amiens. */
-export async function verifierAdresse(adresse: string, chercher: typeof fetch = fetch): Promise<ResultatAdresse> {
-  try {
-    const url = `${urlGeocodage}?${new URLSearchParams({ q: adresse, limit: '1', index: 'address' })}`;
-    const reponse = await chercher(url);
-    if (!reponse.ok) return { statut: 'erreur' };
-    const donnees = (await reponse.json()) as ReponseGeocodage;
-    const lieu = donnees.features?.[0];
-    if (!lieu || (lieu.properties.score ?? 1) < 0.4) return { statut: 'introuvable' };
-    const [longitude, latitude] = lieu.geometry.coordinates;
-    const { ville: base, km } = situer(latitude, longitude);
-    const frais = fraisKilometriques(km);
-    return {
-      statut: frais > 0 ? 'hors-zone' : 'ok',
-      ville: lieu.properties.city ?? '',
-      km,
-      base: base.nom,
-      frais,
-      adresse: lieu.properties.label ?? adresse,
-    };
-  } catch {
-    return { statut: 'erreur' };
-  }
-}
+export { verifierAdresse, type ResultatAdresse } from '../../app/adresse';
+import type { ResultatAdresse } from '../../app/adresse';
 
 /** Ce que la personne saisit pour réserver. */
 export type DemandeRdv = {

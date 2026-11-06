@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Stepper, TextField, buttonClassName } from '@bsandoz79/blocs';
+import { verifierAdresse, type ResultatAdresse } from '../../app/adresse';
 import { PageMeta } from '../../components/PageMeta';
 import { besoins, devisTextes, etapesDevis, urlEnvoiDevis } from '../../data/devis';
 import { nomActivite } from '../../data/offres';
@@ -18,6 +19,7 @@ import {
   signatureEstimation,
   enregistrerBrouillon,
   lignesRecapitulatif,
+  texteDeplacement,
   resumeConfiguration,
   validerEtape,
   type Demande,
@@ -56,6 +58,18 @@ export function Devis() {
   const [erreurs, setErreurs] = useState<Erreurs>({});
   const [statut, setStatut] = useState<Statut>('saisie');
   const [piege, setPiege] = useState('');
+  const [verification, setVerification] = useState<ResultatAdresse | null>(null);
+  const [verificationEnCours, setVerificationEnCours] = useState(false);
+
+  /** Vérifie l'adresse saisie : base la plus proche, distance et frais kilométriques. */
+  async function verifier(): Promise<ResultatAdresse | null> {
+    if (demande.adresse.trim().length < 3) return null;
+    setVerificationEnCours(true);
+    const resultat = await verifierAdresse(demande.adresse);
+    setVerificationEnCours(false);
+    setVerification(resultat);
+    return resultat;
+  }
   const titreRef = useRef<HTMLHeadingElement>(null);
   const premierRendu = useRef(true);
 
@@ -99,7 +113,9 @@ export function Devis() {
     }
     setStatut('envoi');
     try {
-      const reponse = await fetch(urlEnvoiDevis, { method: 'POST', body: construireEnvoi(demande, config, photos, piege) });
+      // Adresse pas encore vérifiée : on la vérifie pour joindre l'estimation du déplacement.
+      const controle = verification ?? (await verifier());
+      const reponse = await fetch(urlEnvoiDevis, { method: 'POST', body: construireEnvoi(demande, config, photos, piege, controle) });
       if (reponse.status === 429) {
         setStatut('tropRapide');
         return;
@@ -227,6 +243,24 @@ export function Devis() {
                   onChange={(e) => maj({ telephone: e.target.value })}
                   error={erreurs.telephone}
                 />
+                <div className={styles.adresse}>
+                  <TextField
+                    label={t.coordonnees.adresse}
+                    hint={t.coordonnees.adresseAide}
+                    required
+                    autoComplete="street-address"
+                    value={demande.adresse}
+                    onChange={(e) => {
+                      maj({ adresse: e.target.value });
+                      setVerification(null);
+                    }}
+                    onBlur={() => void verifier()}
+                    error={erreurs.adresse}
+                  />
+                  <p className={styles.deplacement} role="status">
+                    {verificationEnCours ? t.coordonnees.verification : texteDeplacement(verification)}
+                  </p>
+                </div>
                 {/* Champ piège : invisible pour les personnes, rempli par les robots. */}
                 <div className={styles.piege} aria-hidden="true">
                   <label htmlFor="devis-site-web">{t.coordonnees.piege}</label>
@@ -242,7 +276,7 @@ export function Devis() {
                 <div className={styles.recap}>
                   <h3 className={styles.recapTitre}>{t.coordonnees.recapitulatif}</h3>
                   <dl className={styles.recapListe}>
-                    {lignesRecapitulatif(demande, config)
+                    {lignesRecapitulatif(demande, config, verification)
                       .filter(([cle]) => !['Nom', 'Entreprise', 'E-mail', 'Téléphone'].includes(cle))
                       .map(([cle, valeur]) => (
                         <div key={cle}>

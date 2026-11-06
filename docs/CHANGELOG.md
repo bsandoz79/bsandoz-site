@@ -18,6 +18,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Ajouté
+- Demande de devis : à l'étape « Coordonnées », l'adresse (ou au moins la ville) est demandée. Elle est vérifiée comme pour un rendez-vous, et le déplacement est annoncé sous le champ (« Gratuit : à 12 km d'Amiens » ou les frais kilométriques aller-retour). Il est aussi repris dans le récapitulatif, le mail et le pré-devis.
 - « Autre activité » : un champ « Précisez votre activité » apparaît dans le configurateur, le simulateur des Tarifs et le devis (obligatoire dans le devis). L'activité précisée passe de l'estimation au devis et figure dans le récapitulatif et le mail.
 - Réalisation **Alterno** : application Android qui planifie les horaires variables d'un alternant. 6 captures, contexte, besoin, solution, fonctionnalités, technos et lien vers le code sur GitHub, repris du portfolio. Filtre « Applis & plateformes », plan du site.
 
