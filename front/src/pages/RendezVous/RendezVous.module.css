@@ -120,6 +120,11 @@ a.option:hover {
   color: var(--color-danger);
 }
 
+/* Au-delà de 50 km : le déplacement est accepté, ce n'est pas une erreur. */
+.neutre {
+  color: var(--color-text);
+}
+
 .creneaux {
   display: grid;
   gap: var(--space-5);

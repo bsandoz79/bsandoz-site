@@ -118,11 +118,13 @@ function Position({ etat, demander }: { etat: EtatPosition; demander: () => void
   let message: string | null = null;
   let calcul: string | null = null;
   let ton = styles.info;
+  let icone: 'zone' | 'route' | null = null;
   if (etat.statut === 'enCours') message = p.enCours;
   if (etat.statut === 'trouvee') {
     const { ville, km, dansZone } = etat.situation;
     message = dansZone ? p.dansZone(aDistance(km, ville.nom)) : p.horsZone(aDistance(km, ville.nom), formatFrais(fraisKilometriques(km)));
     ton = dansZone ? styles.succes : styles.info;
+    icone = dansZone ? 'zone' : 'route';
     if (!dansZone) calcul = `${p.calcul(detailCalcul(km))} (${origineCoutKm()})`;
   }
   if (etat.statut === 'refusee' && etat.bloquee) message = p.bloquee;
@@ -132,8 +134,32 @@ function Position({ etat, demander }: { etat: EtatPosition; demander: () => void
   return (
     <div className={styles.position}>
       <div className={message ? `${styles.message} ${ton}` : styles.vide} aria-live="polite">
-        {message && <p>{message}</p>}
-        {calcul && <p className={styles.calcul}>{calcul}</p>}
+        {icone && (
+          <span className={styles.icone} aria-hidden="true">
+            {icone === 'zone' ? (
+              <svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
+                <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
+                <path
+                  d="M4 16v-3.5L6 8h12l2 4.5V16M4 16h16M4 16v2M20 16v2M7.5 13h.01M16.5 13h.01"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </span>
+        )}
+        {message && (
+          <div className={styles.messageTexte}>
+            <p>{message}</p>
+            {calcul && <p className={styles.calcul}>{calcul}</p>}
+          </div>
+        )}
       </div>
       {bouton && (
         <button type="button" className={styles.situer} onClick={demander}>

@@ -94,3 +94,4 @@ Types de tests :
 | 63 | [Photo en ouverture de rideau](63-feature-photo-rideau.md) | `feature/photo-rideau` | 2026-11-06 |
 | 64 | [Page blanche après déploiement](64-fix-deploiement-ordre.md) | `fix/deploiement-ordre` | 2026-11-06 |
 | 65 | [Deux compléments, référencement seul à part](65-style-complements-seo.md) | `style/complements-seo` | 2026-11-06 |
+| 66 | [Message des frais kilométriques](66-style-message-frais.md) | `style/message-frais` | 2026-11-06 |

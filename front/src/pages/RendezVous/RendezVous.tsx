@@ -197,7 +197,11 @@ export function RendezVous() {
                     {verificationEnCours
                       ? t.adresse.verification
                       : verification && (
-                          <span className={verification.statut === 'ok' ? styles.ok : styles.attention}>
+                          <span
+                            className={
+                              verification.statut === 'ok' ? styles.ok : verification.statut === 'hors-zone' ? styles.neutre : styles.attention
+                            }
+                          >
                             {verification.statut === 'ok' ? '✓ ' : ''}
                             {messageAdresse(verification)}
                             {verification.statut === 'hors-zone' && (

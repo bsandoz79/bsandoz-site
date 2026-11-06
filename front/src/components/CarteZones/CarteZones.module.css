@@ -93,13 +93,33 @@
   display: none;
 }
 
+/* Message de position : cadre arrondi discret, petite icône ronde devant le texte. */
 .message {
+  display: flex;
   flex: 1 1 18rem;
+  align-items: flex-start;
+  gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  border-left: 3px solid;
-  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
   font-size: var(--text-sm);
   line-height: 1.5;
+}
+
+.messageTexte {
+  min-width: 0;
+}
+
+.icone {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
 }
 
 /* Le détail du calcul des frais : petit, discret, juste sous le message. */
@@ -109,16 +129,14 @@
   font-size: 0.8125rem;
 }
 
-.succes {
-  border-color: var(--color-success);
+.succes .icone {
   background: var(--color-success-soft);
-  color: var(--color-text);
+  color: var(--color-success);
 }
 
-.info {
-  border-color: var(--color-rose);
+.info .icone {
   background: var(--color-veil-navy);
-  color: var(--color-text);
+  color: var(--color-accent-texte);
 }
 
 .situer {
