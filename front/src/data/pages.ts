@@ -6,6 +6,16 @@ export const site = {
   defaultTitle: 'Baptiste Sandoz – Création de sites web à Amiens',
 } as const;
 
+/**
+ * Adresse du site d'où part une demande (preview.bsandoz.fr, bsandoz.fr…), pour les liens des mails :
+ * ils mènent toujours à un site qui existe. Hors navigateur, l'adresse publique.
+ * (Le plan du site et les adresses canoniques gardent l'adresse publique `site.url`.)
+ */
+export function origineDuSite(): string {
+  const origine = typeof window === 'undefined' ? '' : window.location.origin;
+  return /^https?:\/\//.test(origine) ? origine : site.url;
+}
+
 /** Métadonnées d'une page : utilisées pour la route, le titre, la description et le titre principal. */
 export type PageInfo = {
   path: string;
