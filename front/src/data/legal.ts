@@ -20,9 +20,9 @@ export const mentionsLegales: PageLegale = {
       titre: 'Éditeur du site',
       paragraphes: [
         'Baptiste Sandoz, création de sites web et informatique sur place.',
-        `Statut : ${A_COMPLETER('statut juridique')}. SIRET : ${A_COMPLETER('numéro SIRET')} (après immatriculation).`,
-        `Adresse : ${A_COMPLETER('adresse')}, Amiens (Somme).`,
-        `E-mail : ${contact.email}.`,
+        `Statut : ${A_COMPLETER('statut juridique')}. SIRET : en cours d’immatriculation.`,
+        `Adresse : ${contact.adresse.rue}, ${contact.adresse.codePostal} ${contact.adresse.ville}.`,
+        `E-mail : ${contact.email}. Téléphone : ${contact.phone}.`,
         'Directeur de la publication : Baptiste Sandoz.',
       ],
     },

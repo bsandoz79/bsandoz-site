@@ -30,7 +30,7 @@ flowchart TB
 ## Comment l'appeler
 - Ajouter une page : une entrée dans `src/data/pages.ts`, un dossier dans `src/pages/`, une ligne dans `builtPages`.
 - Ajouter un lien de menu : `header.links` dans `src/data/navigation.ts`.
-- Afficher le téléphone : renseigner `contact.phone` dans `src/data/navigation.ts`.
+- Téléphone et adresse : `contact.phone` et `contact.adresse` dans `src/data/navigation.ts` (repris par le pied de page, le contact, les mentions légales et les données structurées).
 
 ## Réutilisable ?
 - Les blocs `Button` et `Container` : oui, tels quels.

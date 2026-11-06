@@ -5,6 +5,10 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Coordonnées renseignées :
+  - le téléphone (07 69 28 78 37), affiché dans le pied de page et le contact ;
+  - l'adresse (319 rue de Rouen, 80000 Amiens), dans les mentions légales et les données structurées ;
+  - la mention « SIRET en cours d'immatriculation ».
 - Tarifs :
   - intervention à **29 € de l'heure** ;
   - **suivi mensuel à 29 € par mois** (hébergement et maintenance) ;

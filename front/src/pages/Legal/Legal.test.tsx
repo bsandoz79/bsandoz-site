@@ -12,10 +12,12 @@ function renderAt(path: string) {
 }
 
 describe('Pages légales', () => {
-  it('mentions légales : éditeur, hébergeur, SIRET à compléter', () => {
+  it('mentions légales : éditeur avec adresse et téléphone, SIRET en cours, hébergeur', () => {
     renderAt(pages.mentionsLegales.path);
     expect(screen.getByRole('heading', { level: 1, name: pages.mentionsLegales.heading })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Éditeur du site' })).toHaveTextContent('[numéro SIRET à compléter]');
+    expect(screen.getByRole('region', { name: 'Éditeur du site' })).toHaveTextContent('SIRET : en cours d’immatriculation');
+    expect(screen.getByRole('region', { name: 'Éditeur du site' })).toHaveTextContent('319 rue de Rouen, 80000 Amiens');
+    expect(screen.getByRole('region', { name: 'Éditeur du site' })).toHaveTextContent('07 69 28 78 37');
     expect(screen.getByRole('region', { name: 'Hébergeur' })).toHaveTextContent('o2switch');
   });
 

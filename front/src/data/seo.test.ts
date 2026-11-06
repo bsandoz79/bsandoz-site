@@ -36,17 +36,18 @@ describe('SEO', () => {
     expect(robotsTxt()).toContain('Sitemap: https://bsandoz.fr/sitemap.xml');
   });
 
-  it('décrit l’entreprise sans inventer d’adresse ni de note', () => {
+  it('décrit l’entreprise avec son adresse et son téléphone, sans inventer de note', () => {
     const entreprise = jsonLdEntreprise();
-    expect(entreprise).toMatchObject({ '@type': 'ProfessionalService', email: 'contact@bsandoz.fr' });
+    expect(entreprise).toMatchObject({ '@type': 'ProfessionalService', email: 'contact@bsandoz.fr', telephone: '07 69 28 78 37' });
     expect(entreprise.address).toEqual({
       '@type': 'PostalAddress',
+      streetAddress: '319 rue de Rouen',
+      postalCode: '80000',
       addressLocality: 'Amiens',
       addressRegion: 'Somme',
       addressCountry: 'FR',
     });
     expect(entreprise).not.toHaveProperty('aggregateRating');
-    expect(entreprise).not.toHaveProperty('telephone');
   });
 
   it('reprend chaque question de la FAQ', () => {

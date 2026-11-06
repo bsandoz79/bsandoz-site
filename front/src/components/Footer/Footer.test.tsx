@@ -15,8 +15,9 @@ function renderFooter(chemin: string = pages.tarifs.path) {
 }
 
 describe('Footer', () => {
+  const telephone = contact.phone;
   afterEach(() => {
-    contact.phone = '';
+    contact.phone = telephone;
   });
 
   it('présente Baptiste Sandoz et sa zone', () => {
@@ -35,15 +36,15 @@ describe('Footer', () => {
     expect(nav.getByRole('link', { name: 'Mon portfolio' })).toHaveAttribute('href', 'https://portfolio.bsandoz.fr');
   });
 
-  it("n'affiche pas de téléphone tant qu'il n'est pas renseigné", () => {
+  it("n'affiche pas de téléphone s'il n'est pas renseigné", () => {
+    contact.phone = '';
     renderFooter();
     expect(screen.queryByRole('link', { name: /^0/ })).not.toBeInTheDocument();
   });
 
-  it('affiche le téléphone une fois renseigné', () => {
-    contact.phone = '06 00 00 00 00';
+  it('affiche le téléphone, cliquable', () => {
     renderFooter();
-    expect(screen.getByRole('link', { name: '06 00 00 00 00' })).toHaveAttribute('href', 'tel:0600000000');
+    expect(screen.getByRole('link', { name: '07 69 28 78 37' })).toHaveAttribute('href', 'tel:0769287837');
   });
 
   it('propose d’estimer son projet ou de prendre rendez-vous', () => {
