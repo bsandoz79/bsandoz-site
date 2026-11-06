@@ -1,6 +1,7 @@
 /* Mobile d'abord : le menu est replié derrière le bouton, puis s'affiche en ligne à partir de 960 px. */
 /* Collé en haut : il se cache quand on descend et revient dès qu'on remonte (useMasquageAuDefilement). */
 .header {
+  --hauteur-onglets: 2.75rem;
   position: sticky;
   top: 0;
   z-index: 30;
@@ -14,6 +15,11 @@
 
 .masque {
   transform: translateY(-100%);
+}
+
+/* En remontant hors du haut de page : seule la barre principale ; la barre d'onglets reste au-dessus de l'écran. */
+.compact {
+  transform: translateY(calc(-1 * var(--hauteur-onglets)));
 }
 
 .decolle {

@@ -8,11 +8,12 @@ export const TOLERANCE = 8;
 /**
  * Masque l'en-tête quand on descend, le réaffiche dès qu'on remonte.
  * `bloque` (menu ouvert, focus clavier dans l'en-tête) le garde visible.
- * Renvoie aussi `decolle` : la page a défilé (pour ajouter une ombre).
+ * Renvoie aussi `decolle` (la page a défilé : ombre) et `enHaut` (sous le seuil : la barre d'onglets s'affiche).
  */
 export function useMasquageAuDefilement(bloque: boolean) {
   const [masque, setMasque] = useState(false);
   const [decolle, setDecolle] = useState(false);
+  const [enHaut, setEnHaut] = useState(true);
 
   useEffect(() => {
     let dernier = window.scrollY;
@@ -22,6 +23,7 @@ export function useMasquageAuDefilement(bloque: boolean) {
       enAttente = false;
       const y = window.scrollY;
       setDecolle(y > 0);
+      setEnHaut(y < SEUIL_HAUT);
       if (y < SEUIL_HAUT) {
         setMasque(false);
       } else if (y - dernier > TOLERANCE) {
@@ -44,5 +46,5 @@ export function useMasquageAuDefilement(bloque: boolean) {
     return () => window.removeEventListener('scroll', surDefilement);
   }, []);
 
-  return { masque: masque && !bloque, decolle };
+  return { masque: masque && !bloque, decolle, enHaut };
 }
