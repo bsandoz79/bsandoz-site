@@ -1,3 +1,4 @@
+import { BlocModifiable } from '../../components/BlocModifiable';
 import { CarteZones } from '../../components/CarteZones';
 import { ContactRapide } from '../../components/ContactRapide';
 import { PageMeta } from '../../components/PageMeta';
@@ -22,17 +23,39 @@ export function Home() {
       <PageMeta title={pages.accueil.title} description={pages.accueil.description} />
       <StructuredData data={jsonLdEntreprise()} />
       <StructuredData data={jsonLdFaq(questionsFaq)} />
-      <Hero />
-      <Chiffres />
-      <Metiers />
-      <Problemes />
-      <Offres />
-      <Realisations />
-      <Methode />
-      <Pourquoi />
-      <Faq />
-      <CarteZones />
-      <ContactRapide />
+      <BlocModifiable id="accueil.hero">
+        <Hero />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.chiffres">
+        <Chiffres />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.metiers">
+        <Metiers />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.problemes">
+        <Problemes />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.offres">
+        <Offres />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.realisations">
+        <Realisations />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.methode">
+        <Methode />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.pourquoi">
+        <Pourquoi />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.faq">
+        <Faq />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.carte">
+        <CarteZones />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.contact">
+        <ContactRapide />
+      </BlocModifiable>
     </>
   );
 }

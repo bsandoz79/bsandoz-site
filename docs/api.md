@@ -93,3 +93,6 @@ Tests sur MySQL en local : le port 3306 peut être déjà pris par un autre MySQ
 - `.env.dist` : valeurs de développement.
 - `.env.test` : `KERNEL_CLASS` pour PHPUnit et une `APP_SECRET` factice propre aux tests. Sans lui, les tests HTTP échouent (« You must set the KERNEL_CLASS environment variable »).
 Les secrets réels restent dans `.env` / `.env.local`, jamais versionnés.
+
+## Module Contenu
+Textes et images modifiés depuis les pages du site : voir `api/src/Contenu/README.md` et `docs/fonctionnalites/back-office.md`.

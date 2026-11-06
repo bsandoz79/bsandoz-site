@@ -1,1 +1,0 @@
-export { PrixModifiable } from './PrixModifiable';

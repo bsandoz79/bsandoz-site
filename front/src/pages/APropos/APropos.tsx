@@ -4,7 +4,7 @@ import { PageMeta } from '../../components/PageMeta';
 import { aPropos } from '../../data/apropos';
 import { pages } from '../../data/pages';
 import styles from './APropos.module.css';
-import portrait from '../../assets/baptiste/portrait.webp';
+import { medias } from '../../data/medias';
 import { Rideau } from '../../components/Rideau';
 
 /** Page À propos : photo, parcours, valeurs, zone d'intervention. */
@@ -29,7 +29,7 @@ export function APropos() {
           </div>
           <figure className={styles.photo}>
             <Rideau>
-              <img src={portrait} alt={t.photo} width="600" height="800" className={styles.image} />
+              <img src={medias.portrait} alt={t.photo} width="600" height="800" className={styles.image} />
             </Rideau>
             <figcaption className={styles.legende}>{t.photoLegende}</figcaption>
           </figure>

@@ -1,0 +1,210 @@
+import { hero, chiffres, metiers, methode, offres as offresAccueil, pourquoi, problemes, realisationsSection } from './accueil';
+import { contactRapide } from './contact';
+import { faqAccueil, questionsFaq } from './faq';
+import { medias } from './medias';
+import { formules, options, type FormuleId } from './offres';
+import { pages } from './pages';
+import { contenuFormules } from './tarifs';
+import { carteTextes } from './zones';
+
+/**
+ * Registre des blocs modifiables : pour chaque bloc, tout ce qu'il contient.
+ * Les pages lisent leurs données à l'affichage : changer une valeur ici change la page.
+ */
+export type TypeChamp = 'texte' | 'long' | 'image' | 'prix';
+
+export type Champ = {
+  /** `accueil.hero.badge`, ou `formule.vitrine` pour un prix. */
+  cle: string;
+  libelle: string;
+  type: TypeChamp;
+  /** Valeur écrite dans le code : y revenir efface la modification. */
+  base: string;
+  lire: () => string;
+  ecrire: (valeur: string) => void;
+};
+
+export type Bloc = { titre: string; champs: Champ[] };
+
+type Conteneur = Record<string | number, unknown>;
+
+function champ(cle: string, libelle: string, objet: object, prop: string | number, type: TypeChamp = 'texte'): Champ {
+  const cible = objet as Conteneur;
+  return {
+    cle,
+    libelle,
+    type,
+    base: String(cible[prop]),
+    lire: () => String(cible[prop]),
+    ecrire: (valeur) => {
+      cible[prop] = valeur;
+    },
+  };
+}
+
+function prix(cle: string, libelle: string, objet: { prix: number }): Champ {
+  return {
+    cle,
+    libelle,
+    type: 'prix',
+    base: String(objet.prix),
+    lire: () => String(objet.prix),
+    ecrire: (valeur) => {
+      objet.prix = Number(valeur);
+    },
+  };
+}
+
+/** Une liste de textes : un champ par élément. */
+const liste = (cle: string, libelle: string, valeurs: string[], type: TypeChamp = 'texte') =>
+  valeurs.map((_, i) => champ(`${cle}.${i}`, `${libelle} ${i + 1}`, valeurs, i, type));
+
+/** Bloc d'une formule : le même sur l'accueil et sur la page Tarifs. */
+function blocFormule(id: FormuleId): Bloc {
+  const f = formules.find((x) => x.id === id)!;
+  return {
+    titre: `Formule ${f.nom}`,
+    champs: [
+      champ(`offre.${id}.nom`, 'Nom', f, 'nom'),
+      champ(`offre.${id}.accroche`, 'Accroche', f, 'accroche'),
+      prix(`formule.${id}`, 'Prix de départ (€)', f),
+      champ(`offre.${id}.delai`, 'Délai', f, 'delai'),
+      ...liste(`offre.${id}.point`, 'Point fort (accueil)', f.pointsForts),
+      ...liste(`offre.${id}.contenu`, 'Contenu (page Tarifs)', contenuFormules[id]),
+      champ(`offre.${id}.bouton`, 'Bouton (accueil)', offresAccueil.cta, id),
+    ],
+  };
+}
+
+export const blocs: Record<string, Bloc> = {
+  'accueil.hero': {
+    titre: 'Haut de page',
+    champs: [
+      champ('accueil.hero.badge', 'Petite étiquette', hero, 'badge'),
+      champ('accueil.hero.titre', 'Grand titre', pages.accueil, 'heading', 'long'),
+      champ('accueil.hero.texte', 'Texte', hero, 'text', 'long'),
+      champ('accueil.hero.nom', 'Votre nom', hero.identite, 'nom'),
+      champ('accueil.hero.role', 'Votre métier', hero.identite, 'role'),
+      champ('media.portrait', 'Grande photo', medias, 'portrait', 'image'),
+      champ('media.vignette', 'Petite photo', medias, 'vignette', 'image'),
+      champ('accueil.hero.bouton', 'Bouton principal', hero.primary, 'label'),
+      champ('accueil.hero.bouton2', 'Second bouton', hero.secondary, 'label'),
+      champ('accueil.hero.rdv', 'Lien rendez-vous', hero.rdv, 'label'),
+      ...liste('accueil.hero.garantie', 'Garantie', hero.reassurance),
+    ],
+  },
+  'accueil.chiffres': {
+    titre: 'Chiffres clés',
+    champs: chiffres.liste.flatMap((c, i) => [
+      champ(`accueil.chiffres.${i}.valeur`, `Chiffre ${i + 1}`, c, 'valeur'),
+      champ(`accueil.chiffres.${i}.texte`, `Texte du chiffre ${i + 1}`, c, 'texte'),
+    ]),
+  },
+  'accueil.metiers': {
+    titre: 'Bande des métiers',
+    champs: liste('accueil.metiers', 'Métier', metiers.items),
+  },
+  'accueil.problemes': {
+    titre: 'Ce qui fait perdre des clients',
+    champs: [
+      champ('accueil.problemes.titre', 'Titre', problemes, 'title'),
+      ...problemes.items.flatMap((p, i) => [
+        champ(`accueil.problemes.${i}.probleme`, `Problème ${i + 1}`, p, 'probleme', 'long'),
+        champ(`accueil.problemes.${i}.solution`, `Solution ${i + 1}`, p, 'solution', 'long'),
+      ]),
+    ],
+  },
+  'accueil.offres': {
+    titre: 'Titre des tarifs',
+    champs: [
+      champ('accueil.offres.titre', 'Titre', offresAccueil, 'title'),
+      champ('accueil.offres.lien', 'Lien', offresAccueil.link, 'label'),
+      champ('accueil.offres.badge', 'Badge de la formule complète', offresAccueil, 'featuredBadge'),
+    ],
+  },
+  'offre.vitrine': blocFormule('vitrine'),
+  'offre.vitrinePlus': blocFormule('vitrinePlus'),
+  'offre.fonctionnel': blocFormule('fonctionnel'),
+  complements: {
+    titre: 'Compléments',
+    champs: [prix('option.page', 'Page supplémentaire (€)', options.page)],
+  },
+  'accueil.realisations': {
+    titre: 'Titre des réalisations',
+    champs: [champ('accueil.realisations.titre', 'Titre', realisationsSection, 'title')],
+  },
+  'accueil.methode': {
+    titre: 'Comment ça se passe',
+    champs: [
+      champ('accueil.methode.titre', 'Titre', methode, 'title'),
+      ...methode.steps.flatMap((s, i) => [
+        champ(`accueil.methode.${i}.titre`, `Étape ${i + 1}`, s, 'title'),
+        champ(`accueil.methode.${i}.texte`, `Texte de l’étape ${i + 1}`, s, 'text', 'long'),
+      ]),
+    ],
+  },
+  'accueil.pourquoi': {
+    titre: 'Pourquoi travailler avec moi',
+    champs: [
+      champ('accueil.pourquoi.titre', 'Titre', pourquoi, 'title'),
+      champ('media.portrait', 'Photo', medias, 'portrait', 'image'),
+      champ('accueil.pourquoi.legende', 'Légende de la photo', pourquoi, 'photoCaption'),
+      ...pourquoi.items.flatMap((p, i) => [
+        champ(`accueil.pourquoi.${i}.titre`, `Argument ${i + 1}`, p, 'title'),
+        champ(`accueil.pourquoi.${i}.texte`, `Texte de l’argument ${i + 1}`, p, 'text', 'long'),
+      ]),
+    ],
+  },
+  'accueil.faq': {
+    titre: 'Questions fréquentes',
+    champs: [
+      champ('accueil.faq.titre', 'Titre', faqAccueil, 'titre'),
+      champ('accueil.faq.intro', 'Introduction', faqAccueil, 'intro', 'long'),
+      ...questionsFaq.flatMap((q) => [
+        champ(`faq.${q.id}.question`, 'Question', q, 'question'),
+        ...q.reponse.map((_, i) => champ(`faq.${q.id}.reponse.${i}`, 'Réponse', q.reponse, i, 'long')),
+      ]),
+    ],
+  },
+  'accueil.carte': {
+    titre: 'Carte des déplacements',
+    champs: [champ('accueil.carte.titre', 'Titre', carteTextes, 'titre')],
+  },
+  'accueil.contact': {
+    titre: 'Formulaire de contact',
+    champs: [
+      champ('accueil.contact.titre', 'Titre', contactRapide, 'titre'),
+      champ('accueil.contact.intro', 'Introduction', contactRapide, 'intro', 'long'),
+    ],
+  },
+};
+
+/** Tous les champs de textes et d'images, par clé (une même image peut être dans plusieurs blocs). */
+function champsParCle() {
+  const parCle = new Map<string, Champ[]>();
+  for (const bloc of Object.values(blocs)) {
+    for (const c of bloc.champs) {
+      if (c.type !== 'prix') parCle.set(c.cle, [...(parCle.get(c.cle) ?? []), c]);
+    }
+  }
+  return parCle;
+}
+
+/** Applique des contenus enregistrés ; une clé inconnue est ignorée, jamais affichée. */
+export function appliquerContenus(contenus: Record<string, string>) {
+  const parCle = champsParCle();
+  for (const [cle, valeur] of Object.entries(contenus)) {
+    if (typeof valeur !== 'string') continue;
+    parCle.get(cle)?.forEach((c) => c.ecrire(valeur));
+  }
+}
+
+/** Contenus actuellement modifiés : ce qui diffère du code. */
+export function contenusActuels(): Record<string, string> {
+  const actuels: Record<string, string> = {};
+  for (const [cle, champs] of champsParCle()) {
+    const c = champs[0];
+    if (c.lire() !== c.base) actuels[cle] = c.lire();
+  }
+  return actuels;
+}

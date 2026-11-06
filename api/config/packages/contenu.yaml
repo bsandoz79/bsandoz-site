@@ -1,0 +1,7 @@
+# Module Contenu : textes et images modifiés depuis les pages du site.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Contenu\Domain\ContenusEnregistres: '@App\Contenu\Infrastructure\Doctrine\ContenusDoctrine'

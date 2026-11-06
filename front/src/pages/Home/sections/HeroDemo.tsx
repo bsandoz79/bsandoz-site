@@ -1,4 +1,4 @@
-import portrait from '../../../assets/baptiste/portrait.webp';
+import { medias } from '../../../data/medias';
 import { hero, heroDemo } from '../../../data/accueil';
 import styles from './HeroDemo.module.css';
 
@@ -12,7 +12,7 @@ export function HeroDemo() {
   return (
     <div className={styles.scene} aria-hidden="true">
       <figure className={styles.portrait}>
-        <img src={portrait} alt="" width="600" height="800" />
+        <img src={medias.portrait} alt="" width="600" height="800" />
         <figcaption className={styles.portraitNom}>
           {hero.identite.nom}
           <span>{hero.identite.role}</span>

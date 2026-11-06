@@ -76,5 +76,6 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
 - [x] `feature/edition-en-page` : crayon sur les prix, visible seulement par un compte du back-office
-- [ ] `feature/edition-textes` : crayon sur les textes et les images (à stocker dans l'API)
+- [x] `feature/edition-blocs` : bouton « Modifier » sur chaque bloc de l'accueil et sur les formules : textes, prix, images, module API `Contenu`
+- [ ] `feature/edition-autres-pages` : mêmes blocs sur les autres pages (métiers, réalisations, À propos…)
 - [ ] `chore/a-completer` : remplir les « [à compléter] » avec les informations fournies

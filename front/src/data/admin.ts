@@ -1,12 +1,17 @@
 /** Textes du back-office (`/admin`). */
-/** Crayon d'édition, sur les pages du site. */
+/** Crayon d'édition, sur les blocs des pages du site. */
 export const editionTextes = {
-  modifierPrix: (nom: string) => `Modifier le prix : ${nom}`,
-  nouveauPrix: (nom: string) => `Nouveau prix, en euros : ${nom}`,
+  modifierBloc: (titre: string) => `Modifier ce bloc : ${titre}`,
+  modifier: 'Modifier',
+  panneau: (titre: string) => `Modifier : ${titre}`,
   enregistrer: 'Enregistrer',
+  envoi: 'Enregistrement…',
   annuler: 'Annuler',
-  invalide: 'Un montant en euros entiers.',
+  changerImage: 'Changer l’image',
+  envoiImage: 'Envoi de l’image…',
+  prixInvalide: (libelle: string) => `${libelle} : un montant en euros entiers.`,
   echec: 'L’enregistrement n’a pas abouti. Réessayez.',
+  echecImage: 'L’image n’a pas pu être envoyée. Formats acceptés : JPEG, PNG, WebP.',
 };
 
 export const adminTextes = {
