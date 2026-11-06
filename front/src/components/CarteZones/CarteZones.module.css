@@ -31,6 +31,14 @@
   color: var(--color-text-muted);
 }
 
+/* Carte, puis le message de position et le bouton « Me situer » juste dessous. */
+.colonneCarte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
 /* Cadre de la carte : arrondi, ombre, liseré dégradé. */
 .cadre {
   overflow: hidden;
@@ -70,6 +78,68 @@
 
 .consentement p {
   max-width: 26rem;
+}
+
+/* Position du visiteur : message discret et bouton peu encombrant. */
+.position {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.vide:empty {
+  display: none;
+}
+
+.message {
+  flex: 1 1 18rem;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.succes {
+  border-color: var(--color-success);
+  background: var(--color-success-soft);
+  color: var(--color-text);
+}
+
+.info {
+  border-color: var(--color-rose);
+  background: var(--color-veil-navy);
+  color: var(--color-text);
+}
+
+.situer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.5rem;
+  margin-left: auto;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--duration) ease, color var(--duration) ease;
+}
+
+.situer:hover {
+  border-color: var(--color-rose);
+  color: var(--color-accent-texte);
+}
+
+.situer:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 2px;
 }
 
 @media (min-width: 640px) {
