@@ -6,6 +6,7 @@ import {
   creneauxDuJour,
   demandeRdvVide,
   distanceKm,
+  etapesRdv,
   jourDisponible,
   validerRdv,
   verifierAdresse,
@@ -13,6 +14,31 @@ import {
 } from './reservation';
 
 const AUJOURDHUI = '2026-11-05'; // jeudi
+
+describe('etapesRdv', () => {
+  const abbeville = { statut: 'ok' as const, ville: 'Abbeville', km: 41, adresse: '12 rue de la Gare, Abbeville' };
+
+  it('en visio ou par téléphone, le créneau s’ouvre tout de suite', () => {
+    expect(etapesRdv({ ...demandeRdvVide, lieu: 'visio' }, null)).toEqual({ creneau: true, coordonnees: false });
+    expect(etapesRdv({ ...demandeRdvVide, lieu: 'telephone' }, null)).toEqual({ creneau: true, coordonnees: false });
+  });
+
+  it('chez vous, il faut une adresse dans les 50 km (ou un géocodage indisponible)', () => {
+    const chezVous = { ...demandeRdvVide, lieu: 'chezvous' as const };
+    expect(etapesRdv(chezVous, null).creneau).toBe(false);
+    expect(etapesRdv(chezVous, { ...abbeville, statut: 'trop-loin', ville: 'Lille', km: 110 }).creneau).toBe(false);
+    expect(etapesRdv(chezVous, { statut: 'introuvable' }).creneau).toBe(false);
+    expect(etapesRdv(chezVous, abbeville).creneau).toBe(true);
+    expect(etapesRdv(chezVous, { statut: 'erreur' }).creneau).toBe(true);
+  });
+
+  it('les coordonnées s’ouvrent avec un jour et un créneau, et jamais avant le lieu', () => {
+    const choisi = { ...demandeRdvVide, lieu: 'visio' as const, jour: '2026-11-17', creneau: '14:00' };
+    expect(etapesRdv({ ...choisi, creneau: null }, null).coordonnees).toBe(false);
+    expect(etapesRdv(choisi, null).coordonnees).toBe(true);
+    expect(etapesRdv({ ...choisi, lieu: 'chezvous' }, null).coordonnees).toBe(false);
+  });
+});
 
 describe('disponibilités', () => {
   it('va de demain à 60 jours', () => {

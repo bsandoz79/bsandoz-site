@@ -139,6 +139,18 @@ export type ErreursRdv = Partial<Record<keyof DemandeRdv, string>>;
 const E = rdvTextes.erreurs;
 
 /** Erreurs du formulaire. `verification` : résultat du contrôle de l'adresse, s'il a eu lieu. */
+/**
+ * Étapes affichées : chaque étape apparaît quand la précédente est validée.
+ * - Lieu validé : visio ou téléphone ; ou « chez vous » avec une adresse trouvée dans les 50 km
+ *   (ou un géocodage indisponible : l'adresse sera alors vérifiée à la main).
+ * - Créneau validé : un jour et un créneau choisis.
+ */
+export function etapesRdv(d: DemandeRdv, verification: ResultatAdresse | null) {
+  const lieu = d.lieu !== 'chezvous' || verification?.statut === 'ok' || verification?.statut === 'erreur';
+  const creneau = lieu && d.jour !== null && d.creneau !== null;
+  return { creneau: lieu, coordonnees: creneau };
+}
+
 export function validerRdv(d: DemandeRdv, verification: ResultatAdresse | null): ErreursRdv {
   const erreurs: ErreursRdv = {};
   if (d.lieu === 'chezvous') {

@@ -67,3 +67,4 @@ Types de tests :
 | 36 | [Préparation de la mise en ligne](36-chore-mise-en-ligne.md) | `chore/mise-en-ligne` | 2026-11-06 |
 | 37 | [Version 3.0.0](37-chore-version-3.0.0.md) | `chore/version-3.0.0` | 2026-11-06 |
 | 38 | [Déploiement FTPS avec lftp](38-fix-deploiement-ftps.md) | `fix/deploiement-ftps` | 2026-11-06 |
+| 39 | [Rendez-vous en étapes et barre mobile](39-feature-rdv-etapes.md) | `feature/rdv-etapes` | 2026-11-06 |

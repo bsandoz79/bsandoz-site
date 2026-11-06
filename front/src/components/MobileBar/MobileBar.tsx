@@ -8,14 +8,18 @@ import styles from './MobileBar.module.css';
  */
 export function MobileBar() {
   const { pathname } = useLocation();
-  if (mobileBar.hiddenOn.includes(pathname)) return null;
+  if (mobileBar.hiddenOn.includes(pathname) || mobileBar.hiddenUnder.some((debut) => pathname.startsWith(debut))) return null;
 
   return (
-    <aside className={styles.bar} aria-label={mobileBar.label}>
-      <p className={styles.text}>{mobileBar.text}</p>
-      <Link to={mobileBar.cta.to} className={styles.cta}>
-        {mobileBar.cta.label}
-      </Link>
-    </aside>
+    <>
+      {/* Réserve la place de la barre en bas de page : le pied de page n'est jamais caché derrière. */}
+      <div className={styles.espace} aria-hidden="true" />
+      <aside className={styles.bar} aria-label={mobileBar.label}>
+        <p className={styles.text}>{mobileBar.text}</p>
+        <Link to={mobileBar.cta.to} className={styles.cta}>
+          {mobileBar.cta.label}
+        </Link>
+      </aside>
+    </>
   );
 }

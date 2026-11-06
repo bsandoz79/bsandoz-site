@@ -10,6 +10,7 @@ import {
   actualiserDisponibilites,
   creneauxDuJour,
   demandeRdvVide,
+  etapesRdv,
   jourDisponible,
   urlApi,
   validerRdv,
@@ -109,6 +110,8 @@ export function RendezVous() {
   }
 
   const creneaux = creneauxDuJour(demande.jour, jourCourant);
+  const etapes = etapesRdv(demande, verification);
+  const annonce = etapes.coordonnees ? t.etapes.coordonnees : etapes.creneau ? t.etapes.creneau : '';
   const lieu = lieux.find((l) => l.id === demande.lieu)!;
   const nbErreurs = Object.keys(erreurs).length;
   const lieuResume =
@@ -170,6 +173,16 @@ export function RendezVous() {
                     onBlur={() => void verifier()}
                     error={erreurs.adresse}
                   />
+                  {!verification && (
+                    <Button
+                      variant="secondary"
+                      className={styles.verifier}
+                      disabled={verificationEnCours || !demande.adresse.trim()}
+                      onClick={() => void verifier()}
+                    >
+                      {t.adresse.verifier}
+                    </Button>
+                  )}
                   <p className={styles.statutAdresse} role="status">
                     {verificationEnCours
                       ? t.adresse.verification
@@ -185,77 +198,85 @@ export function RendezVous() {
               )}
             </div>
 
-            <fieldset className={styles.bloc}>
-              <legend className={styles.legende}>{t.creneau.legende}</legend>
-              <div className={styles.creneaux}>
-                <div>
-                  <Calendar
-                    label={t.creneau.calendrier}
-                    month={mois}
-                    onMonthChange={setMois}
-                    value={demande.jour}
-                    onChange={(jour) => maj({ jour, creneau: null })}
-                    isDisabled={(jour) => !jourDisponible(jour, jourCourant)}
-                    min={min}
-                    max={max}
-                    today={jourCourant}
-                  />
-                  <p className={styles.aide}>{t.creneau.legendeJours}</p>
-                  {erreurs.jour && <p className={styles.erreur}>{erreurs.jour}</p>}
-                </div>
-                <div>
-                  {demande.jour ? (
-                    <ChoiceChips
-                      legend={t.creneau.creneauxDu(libelleLong(demande.jour))}
-                      name="rdv-creneau"
-                      choices={creneaux.map((c) => ({ value: c.debut, label: c.libelle }))}
-                      value={demande.creneau}
-                      onChange={(creneau) => maj({ creneau })}
-                    />
-                  ) : (
-                    <p className={styles.aide}>{t.creneau.choisirJour}</p>
-                  )}
-                  {erreurs.creneau && <p className={styles.erreur}>{erreurs.creneau}</p>}
-                  <p className={styles.aide}>{t.creneau.trajet}</p>
-                </div>
-              </div>
-            </fieldset>
+            <p className="sr-only" aria-live="polite">
+              {annonce}
+            </p>
 
-            <fieldset className={styles.bloc}>
-              <legend className={styles.legende}>{t.coordonnees.legende}</legend>
-              <div className={styles.champs}>
-                <TextField label={t.coordonnees.nom} required autoComplete="name" value={demande.nom} onChange={(e) => maj({ nom: e.target.value })} error={erreurs.nom} />
-                <TextField label={t.coordonnees.telephone} type="tel" required autoComplete="tel" value={demande.telephone} onChange={(e) => maj({ telephone: e.target.value })} error={erreurs.telephone} />
-                <TextField label={t.coordonnees.email} type="email" required autoComplete="email" value={demande.email} onChange={(e) => maj({ email: e.target.value })} error={erreurs.email} />
-                <TextField label={t.coordonnees.activite} autoComplete="organization-title" value={demande.activite} onChange={(e) => maj({ activite: e.target.value })} />
-              </div>
-              <TextField
-                label={t.coordonnees.message}
-                hint={t.coordonnees.messageAide}
-                multiline
-                rows={3}
-                value={demande.message}
-                onChange={(e) => maj({ message: e.target.value })}
-              />
-              <div className={styles.consentement}>
-                <input
-                  id="rdv-consentement"
-                  type="checkbox"
-                  checked={demande.consentement}
-                  onChange={(e) => maj({ consentement: e.target.checked })}
-                  aria-invalid={erreurs.consentement ? true : undefined}
-                  aria-describedby={erreurs.consentement ? 'rdv-erreur-consentement' : undefined}
+            {etapes.creneau && (
+              <fieldset className={`${styles.bloc} anim-appear`}>
+                <legend className={styles.legende}>{t.creneau.legende}</legend>
+                <div className={styles.creneaux}>
+                  <div>
+                    <Calendar
+                      label={t.creneau.calendrier}
+                      month={mois}
+                      onMonthChange={setMois}
+                      value={demande.jour}
+                      onChange={(jour) => maj({ jour, creneau: null })}
+                      isDisabled={(jour) => !jourDisponible(jour, jourCourant)}
+                      min={min}
+                      max={max}
+                      today={jourCourant}
+                    />
+                    <p className={styles.aide}>{t.creneau.legendeJours}</p>
+                    {erreurs.jour && <p className={styles.erreur}>{erreurs.jour}</p>}
+                  </div>
+                  <div>
+                    {demande.jour ? (
+                      <ChoiceChips
+                        legend={t.creneau.creneauxDu(libelleLong(demande.jour))}
+                        name="rdv-creneau"
+                        choices={creneaux.map((c) => ({ value: c.debut, label: c.libelle }))}
+                        value={demande.creneau}
+                        onChange={(creneau) => maj({ creneau })}
+                      />
+                    ) : (
+                      <p className={styles.aide}>{t.creneau.choisirJour}</p>
+                    )}
+                    {erreurs.creneau && <p className={styles.erreur}>{erreurs.creneau}</p>}
+                    <p className={styles.aide}>{t.creneau.trajet}</p>
+                  </div>
+                </div>
+              </fieldset>
+            )}
+
+            {etapes.coordonnees && (
+              <fieldset className={`${styles.bloc} anim-appear`}>
+                <legend className={styles.legende}>{t.coordonnees.legende}</legend>
+                <div className={styles.champs}>
+                  <TextField label={t.coordonnees.nom} required autoComplete="name" value={demande.nom} onChange={(e) => maj({ nom: e.target.value })} error={erreurs.nom} />
+                  <TextField label={t.coordonnees.telephone} type="tel" required autoComplete="tel" value={demande.telephone} onChange={(e) => maj({ telephone: e.target.value })} error={erreurs.telephone} />
+                  <TextField label={t.coordonnees.email} type="email" required autoComplete="email" value={demande.email} onChange={(e) => maj({ email: e.target.value })} error={erreurs.email} />
+                  <TextField label={t.coordonnees.activite} autoComplete="organization-title" value={demande.activite} onChange={(e) => maj({ activite: e.target.value })} />
+                </div>
+                <TextField
+                  label={t.coordonnees.message}
+                  hint={t.coordonnees.messageAide}
+                  multiline
+                  rows={3}
+                  value={demande.message}
+                  onChange={(e) => maj({ message: e.target.value })}
                 />
-                <label htmlFor="rdv-consentement">
-                  {t.coordonnees.consentement} <Link to={t.coordonnees.confidentialite.to}>{t.coordonnees.confidentialite.label}</Link>
-                </label>
-              </div>
-              {erreurs.consentement && (
-                <p id="rdv-erreur-consentement" className={styles.erreur}>
-                  {erreurs.consentement}
-                </p>
-              )}
-            </fieldset>
+                <div className={styles.consentement}>
+                  <input
+                    id="rdv-consentement"
+                    type="checkbox"
+                    checked={demande.consentement}
+                    onChange={(e) => maj({ consentement: e.target.checked })}
+                    aria-invalid={erreurs.consentement ? true : undefined}
+                    aria-describedby={erreurs.consentement ? 'rdv-erreur-consentement' : undefined}
+                  />
+                  <label htmlFor="rdv-consentement">
+                    {t.coordonnees.consentement} <Link to={t.coordonnees.confidentialite.to}>{t.coordonnees.confidentialite.label}</Link>
+                  </label>
+                </div>
+                {erreurs.consentement && (
+                  <p id="rdv-erreur-consentement" className={styles.erreur}>
+                    {erreurs.consentement}
+                  </p>
+                )}
+              </fieldset>
+            )}
 
             {(statut === 'echec' || statut === 'complet') && (
               <div className={styles.alerte} role="alert">
@@ -283,9 +304,13 @@ export function RendezVous() {
                   <dd>{lieuResume}</dd>
                 </div>
               </dl>
-              <Button type="submit" form="rdv-formulaire" size="lg" block disabled={statut === 'envoi'}>
-                {statut === 'envoi' ? t.resume.envoi : t.resume.confirmer}
-              </Button>
+              {etapes.coordonnees ? (
+                <Button type="submit" form="rdv-formulaire" size="lg" block disabled={statut === 'envoi'}>
+                  {statut === 'envoi' ? t.resume.envoi : t.resume.confirmer}
+                </Button>
+              ) : (
+                <p className={styles.note}>{t.resume.aCompleter}</p>
+              )}
               <p className={styles.note}>{t.resume.note}</p>
             </div>
             <div className={styles.pendant}>

@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (rendez-vous)
+- Page Rendez-vous en étapes : la date et le créneau apparaissent quand le lieu est validé (adresse vérifiée dans les 50 km, bouton « Vérifier l'adresse »), les coordonnées et le bouton « Confirmer » quand le créneau est choisi.
+- Barre mobile « Estimer » masquée sur la page Rendez-vous et dans l'espace client ; place réservée en bas de page pour qu'elle ne cache plus le pied de page.
+
 ### Corrigé (déploiement)
 - Certificat FTPS d'o2switch : nom de serveur `muguet.o2switch.net` (celui du certificat) et certificats intermédiaires Let's Encrypt récupérés puis vérifiés avec les racines du système (`.github/scripts/chaine-ftps.sh`), sans jamais désactiver la vérification.
 - Envoi sur o2switch par lftp en FTPS (session TLS réutilisée sur le canal de données), pour le site et pour l'API : l'action précédente échouait avec « ECONNRESET (data socket) » au premier envoi sur `preview.bsandoz.fr`.

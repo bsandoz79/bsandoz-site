@@ -65,6 +65,8 @@ export const mobileBar = {
   label: 'Estimation rapide',
   text: 'Devis gratuit en 2 min',
   cta: { label: 'Estimer', to: pages.composer.path },
-  /** Pages où la barre est masquée : on y est déjà en train d'estimer. */
-  hiddenOn: [pages.composer.path, pages.devis.path] as string[],
+  /** Pages où la barre est masquée : on y est déjà en train d'estimer ou de prendre rendez-vous. */
+  hiddenOn: [pages.composer.path, pages.devis.path, pages.rendezVous.path] as string[],
+  /** Débuts d'adresse où la barre est masquée : l'espace client. */
+  hiddenUnder: [pages.monEspace.path] as string[],
 };
