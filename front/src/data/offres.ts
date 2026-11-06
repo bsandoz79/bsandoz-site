@@ -258,6 +258,11 @@ export const marche: Record<MarcheId, Marche> = {
 /** Tarif horaire après la mise en ligne. */
 export const tarifHoraire = 50;
 
+/** Ligne affichée sous chaque formule : prix d'une page en plus (option « page »). */
+export function lignePageSupplementaire() {
+  return `${options.page.nom} : ${prixOption(options.page)}`;
+}
+
 export const mentionsPrix = {
   tva: 'Prix nets, TVA non applicable (art. 293 B du CGI).',
   apresMiseEnLigne: `Après la mise en ligne : ${tarifHoraire} € de l'heure, sans engagement.`,

@@ -110,3 +110,18 @@
     gap: var(--space-5);
   }
 }
+
+/* Prix d'une page supplémentaire, en bas de chaque formule. */
+.pageSup {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.pageSupDark {
+  border-top-color: var(--color-line-on-dark);
+  color: var(--color-text-on-dark-muted);
+}
