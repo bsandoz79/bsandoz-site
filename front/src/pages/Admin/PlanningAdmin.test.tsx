@@ -55,7 +55,7 @@ describe('calcul des statistiques', () => {
       aujourdhui: '2026-11-05',
       places: 4,
     });
-    expect(stats).toEqual({ aVenir: 2, mois: 4, annules: 1, occupation: 25, aTraiter: 2, acceptes: 2 });
+    expect(stats).toEqual({ aVenir: 2, mois: 4, annules: 1, occupation: 25, aTraiter: 2, acceptes: 2, caSigne: 0, caMois: 0, caEnAttente: 0 });
     expect(calculerStatistiques({ rdvPeriode: [], rdvSemaine: [], demandes: [], aujourdhui: '2026-11-05', places: 0 }).occupation).toBeNull();
   });
 });
@@ -170,6 +170,17 @@ describe('Planning du back-office', () => {
     await user.click(screen.getByRole('button', { name: 'Annuler et envoyer l’e-mail' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('n’a pas abouti');
     expect(screen.getByRole('textbox', { name: /Vos disponibilités à proposer/ })).toHaveValue('Mardi');
+  });
+
+  it('affiche le chiffre d’affaires depuis les vrais devis', async () => {
+    api([]);
+    const avecDevis = (statut: string, total: number, accepteLe: string | null) => ({ ...demande('acceptee'), devis: { total, statut, accepteLe } });
+    render(<PlanningAdmin demandes={[avecDevis('accepte', 1000, '2026-11-03T10:00:00+01:00'), avecDevis('accepte', 390, '2026-10-20T10:00:00+02:00'), avecDevis('envoye', 500, null), demande('recue')]} />);
+    const stats = within(screen.getByRole('region', { name: 'Statistiques' }));
+    expect(stats.getByText('CA du mois').parentElement).toHaveTextContent(/1\s000\s€/);
+    expect(stats.getByText('CA signé').parentElement).toHaveTextContent(/1\s390\s€/);
+    expect(stats.getByText('Devis en attente').parentElement).toHaveTextContent(/500\s€/);
+    await screen.findByText('Aucun rendez-vous cette semaine.');
   });
 
   it('dit quand les rendez-vous sont illisibles', async () => {
