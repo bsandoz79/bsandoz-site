@@ -23,3 +23,6 @@ Toutes les autres propriétés natives (`type`, `value`, `onChange`, `required`,
 ## Accessibilité
 - Libellé relié au champ ; aide et erreur reliées par `aria-describedby`, donc lues avec le champ.
 - Erreur signalée par la couleur, une icône et le texte (pas par la couleur seule).
+
+## Apparence
+Fond teinté (`--color-bg`) qui passe en blanc au survol et au focus, coins `--radius-md`, halo `--color-rose-soft` au focus en plus du contour global, astérisque des champs obligatoires en `--color-rose`.
