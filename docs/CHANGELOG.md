@@ -5,6 +5,7 @@
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
 ### Modifié (design)
+- Cartes de projets plus courtes, résumé d'une phrase, et cliquables en entier.
 - Réalisations : filtre Tout / Sites web / Applis & plateformes, gardé dans l'adresse (`?type=`).
 - Thème nuit par défaut, inspiré des couchers de soleil néon (bleu nuit, lueurs rose, violet et orangé), et thème clair au choix par un bouton dans l'en-tête ; choix gardé dans le navigateur, appliqué avant l'affichage (pas de flash) ; contrastes AA vérifiés dans les deux thèmes.
 - Tarifs : prix d'une page supplémentaire affiché sous chacune des trois formules (repris de l'option, modifiable dans le back-office).

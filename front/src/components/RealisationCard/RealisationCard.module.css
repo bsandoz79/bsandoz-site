@@ -1,12 +1,20 @@
+/* Toute la carte est cliquable : le lien « Voir le projet » s'étend sur elle (un seul lien pour le clavier). */
 .card {
+  position: relative;
   height: 100%;
   gap: 0;
+  cursor: pointer;
+}
+
+.card:focus-within {
+  outline: 3px solid var(--color-accent-texte);
+  outline-offset: 3px;
 }
 
 .apercu {
   display: flex;
   gap: var(--space-3);
-  height: 12.5rem;
+  height: 10rem;
   padding: var(--space-5);
   font-size: var(--text-sm);
 }
@@ -16,7 +24,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  height: 12.5rem;
+  height: 10rem;
   padding: var(--space-3) var(--space-3) 0;
   overflow: hidden;
   background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-2) 100%);
@@ -127,8 +135,8 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-5);
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
 }
 
 .categorie {
@@ -138,15 +146,39 @@
 }
 
 .titre {
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   font-weight: 700;
 }
 
+/* Une phrase, deux lignes au plus. */
 .resume {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   color: var(--color-text-muted);
+  font-size: var(--text-sm);
 }
 
 .lien {
   margin-top: auto;
   font-weight: 600;
+}
+
+.lien::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Le contour est porté par la carte entière. */
+.lien:focus-visible {
+  outline: none;
+}
+
+.card:hover .lien {
+  color: var(--color-accent-texte);
 }
