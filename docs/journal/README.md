@@ -79,3 +79,4 @@ Types de tests :
 | 48 | [Cartes de projets compactes et cliquables](48-feature-cartes-projets.md) | `feature/cartes-complements` | 2026-11-06 |
 | 49 | [Votre photo et un accueil à la première personne](49-feature-hero-photo.md) | `feature/hero-photo` | 2026-11-06 |
 | 50 | [Onglets seulement en haut de page, étapes du rendez-vous centrées](50-feature-defilement-nav-rdv.md) | `feature/defilement-nav-rdv` | 2026-11-06 |
+| 51 | [Photo de la section « Pourquoi travailler avec moi »](51-fix-photo-pourquoi.md) | `fix/photo-pourquoi` | 2026-11-06 |
