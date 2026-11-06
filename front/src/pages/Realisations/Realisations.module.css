@@ -5,80 +5,16 @@
 .liste {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-7);
   padding-bottom: var(--space-8);
 }
 
-.cas {
+.grille {
   display: grid;
   gap: var(--space-5);
-  scroll-margin-top: var(--space-5);
-}
-
-.entete {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.categorie {
-  color: var(--color-rose-dark);
-  font-size: var(--text-sm);
-  font-weight: 600;
-}
-
-.titre {
-  font-size: var(--text-2xl);
-  font-weight: 800;
-}
-
-.resume {
-  color: var(--color-text-muted);
-  font-size: var(--text-lg);
-}
-
-.etude {
-  display: grid;
-  gap: var(--space-4);
-  margin: 0;
-}
-
-.etude dt {
-  font-weight: 700;
-}
-
-.etude dd {
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
-.captures {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.capturesTitre {
-  font-weight: 700;
-}
-
-.emplacements {
-  display: grid;
-  gap: var(--space-3);
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.emplacement {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 9rem;
-  border: 2px dashed var(--color-border-strong);
-  border-radius: var(--radius-md);
-  background: var(--color-bg);
-  color: var(--color-text-muted);
 }
 
 .appel {
@@ -99,18 +35,13 @@
 }
 
 @media (min-width: 640px) {
-  .etude,
-  .emplacements {
-    grid-template-columns: repeat(2, 1fr);
+  .grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 960px) {
-  .intro {
-    padding-block: var(--space-8) var(--space-7);
-  }
-
-  .liste {
-    padding-bottom: var(--space-9);
+  .grille {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
