@@ -10,6 +10,8 @@ import {
   DELAI_ENVOI_MS,
   chargerBrouillon,
   construireEnvoi,
+  demandeRemiseAZero,
+  demarrerDevis,
   effacerBrouillon,
   enregistrerBrouillon,
   lignesRecapitulatif,
@@ -37,15 +39,12 @@ function dernierEnvoi() {
 
 /** Parcours de demande de devis en 5 étapes, brouillon gardé dans le navigateur, envoi par e-mail. */
 export function Devis() {
-  // La configuration faite dans « Composer mon site » est reprise si elle existe.
+  // La dernière estimation (configurateur ou simulateur des Tarifs) pré-remplit le devis : voir `demarrerDevis`.
   const config = useMemo(() => chargerEtat().config, []);
-  const [{ demande: depart, etape: etapeDepart }] = useState(() => {
-    const brouillon = chargerBrouillon();
-    if (!brouillon.demande.metier && config.metier) brouillon.demande = { ...brouillon.demande, metier: config.metier };
-    return brouillon;
-  });
-  const [demande, setDemande] = useState<Demande>(depart);
-  const [etape, setEtape] = useState(etapeDepart);
+  const [depart] = useState(() => demarrerDevis(chargerBrouillon(), config));
+  const [demande, setDemande] = useState<Demande>(depart.demande);
+  const [etape, setEtape] = useState(depart.etape);
+  const [prerempli, setPrerempli] = useState(depart.prerempli);
   const [photos, setPhotos] = useState<File[]>([]);
   const [erreurs, setErreurs] = useState<Erreurs>({});
   const [statut, setStatut] = useState<Statut>('saisie');
@@ -54,8 +53,15 @@ export function Devis() {
   const premierRendu = useRef(true);
 
   useEffect(() => {
-    if (statut !== 'envoye') enregistrerBrouillon(demande, etape);
-  }, [demande, etape, statut]);
+    if (statut !== 'envoye') enregistrerBrouillon(demande, etape, depart.depuis);
+  }, [demande, etape, statut, depart.depuis]);
+
+  function repartirDeZero() {
+    setDemande(demandeRemiseAZero(demande));
+    setErreurs({});
+    setPrerempli(false);
+    setEtape(0);
+  }
 
   // À chaque changement d'étape, le focus va sur le titre de l'étape (sauf au premier affichage).
   useEffect(() => {
@@ -148,6 +154,17 @@ export function Devis() {
       <Container className={styles.page}>
         <h1 className="sr-only">{pages.devis.heading}</h1>
         <Stepper label={t.progression} steps={etapesDevis} current={etape} />
+        {prerempli && resume && (
+          <div className={styles.reprise} role="status">
+            <p>
+              <strong>{t.reprise.titre}</strong> {resume.formule}
+              {resume.options.length > 0 && ` · ${resume.options.join(', ')}`} ({resume.estimation}). {t.reprise.texte}
+            </p>
+            <button type="button" className={styles.zero} onClick={repartirDeZero}>
+              {t.reprise.zero}
+            </button>
+          </div>
+        )}
 
         <div className={styles.colonnes}>
           <form className={styles.formulaire} onSubmit={suivant} noValidate aria-labelledby="devis-etape-titre">

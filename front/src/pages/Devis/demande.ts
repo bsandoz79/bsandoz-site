@@ -1,6 +1,6 @@
 import { calculerEstimation, type Configuration } from '../../data/calculs';
 import { besoins, budgets, delais, devisTextes, limitesPhotos, type BesoinId } from '../../data/devis';
-import { formatPrix, formuleParId, metiers, options, type MetierId } from '../../data/offres';
+import { formatPrix, formuleParId, metiers, options, type MetierId, type OptionId } from '../../data/offres';
 import { preDevis, texteDuPreDevis } from '../../data/predevis';
 
 /** Réponses du parcours de devis (sans les photos, qui ne sont pas enregistrées). */
@@ -73,9 +73,12 @@ export function validerEtape(etape: number, d: Demande, photos: File[] = []): Er
 /** Clé du brouillon dans le navigateur. */
 export const CLE_BROUILLON = 'bsandoz.devis';
 
-/** Brouillon : réponses et étape atteinte. Toute valeur inattendue est ignorée. */
-export function lireBrouillon(brut: unknown): { demande: Demande; etape: number } {
-  const vide = { demande: demandeVide, etape: 0 };
+/** Brouillon : réponses, étape atteinte et estimation dont il est parti (`depuis`). */
+export type Brouillon = { demande: Demande; etape: number; depuis: string | null };
+
+/** Brouillon : toute valeur inattendue est ignorée. */
+export function lireBrouillon(brut: unknown): Brouillon {
+  const vide = { demande: demandeVide, etape: 0, depuis: null };
   if (!brut || typeof brut !== 'object') return vide;
   const o = brut as Record<string, unknown>;
   const d = (o.demande ?? {}) as Record<string, unknown>;
@@ -83,6 +86,7 @@ export function lireBrouillon(brut: unknown): { demande: Demande; etape: number 
   const dans = (v: unknown, liste: { value: string }[]) => (liste.some((x) => x.value === v) ? (v as string) : null);
   return {
     etape: Number.isInteger(o.etape) ? Math.min(Math.max(o.etape as number, 0), 4) : 0,
+    depuis: typeof o.depuis === 'string' ? o.depuis : null,
     demande: {
       metier: metiers.some((m) => m.id === d.metier) ? (d.metier as MetierId) : null,
       besoins: Array.isArray(d.besoins) ? (d.besoins.filter((b) => besoins.some((x) => x.id === b)) as BesoinId[]) : [],
@@ -108,9 +112,9 @@ export function chargerBrouillon() {
   }
 }
 
-export function enregistrerBrouillon(demande: Demande, etape: number) {
+export function enregistrerBrouillon(demande: Demande, etape: number, depuis: string | null = null) {
   try {
-    window.localStorage.setItem(CLE_BROUILLON, JSON.stringify({ demande, etape }));
+    window.localStorage.setItem(CLE_BROUILLON, JSON.stringify({ demande, etape, depuis }));
   } catch {
     // Stockage bloqué : le brouillon reste en mémoire.
   }
@@ -122,6 +126,87 @@ export function effacerBrouillon() {
   } catch {
     // Rien à faire.
   }
+}
+
+/**
+ * Empreinte d'une estimation (formule, activité, options, précisions). Le brouillon la garde :
+ * une estimation différente veut dire une nouvelle simulation, donc un devis repris depuis celle-ci.
+ */
+export function signatureEstimation(config: Configuration | null): string | null {
+  if (!config?.formule) return null;
+  const precisionsTriees = Object.entries(config.precisions).sort(([a], [b]) => a.localeCompare(b));
+  return JSON.stringify([config.formule, config.metier, [...config.options].sort(), precisionsTriees]);
+}
+
+/** Besoin du devis correspondant à chaque option de l'estimation. */
+const BESOIN_DE_L_OPTION: Partial<Record<OptionId, BesoinId>> = {
+  rdv: 'rdv',
+  acompte: 'rdv',
+  table: 'rdv',
+  galerie: 'realisations',
+  avantapres: 'realisations',
+  calcul: 'prix',
+  pwa: 'appli',
+  boutique: 'vente',
+  clickcollect: 'vente',
+  seo: 'google',
+  avis: 'google',
+};
+
+/** Besoins déduits de l'estimation : ceux des options, et le formulaire de contact des vitrines. */
+export function besoinsDepuisEstimation(config: Configuration): BesoinId[] {
+  const trouves = new Set<BesoinId>();
+  for (const id of config.options) {
+    const besoin = BESOIN_DE_L_OPTION[id];
+    if (besoin) trouves.add(besoin);
+  }
+  if (config.formule === 'vitrinePlus') trouves.add('contact');
+  if (trouves.size === 0 && config.formule !== 'fonctionnel') trouves.add('contact');
+  return besoins.map((b) => b.id).filter((id) => trouves.has(id));
+}
+
+/** Tranche de budget correspondant au prix estimé (le bas de la fourchette s'il y en a une). */
+export function budgetDepuisEstimation(config: Configuration): string | null {
+  if (!config.formule) return null;
+  const estimation = calculerEstimation(config);
+  const prix = estimation.fourchette?.bas ?? estimation.total;
+  if (prix < 500) return 'moins-500';
+  if (prix < 1000) return '500-1000';
+  if (prix < 2000) return '1000-2000';
+  return 'plus-2000';
+}
+
+/** Première étape encore à remplir (la dernière si tout est rempli). */
+export function etapeDeReprise(d: Demande) {
+  for (let etape = 0; etape < 4; etape++) if (Object.keys(validerEtape(etape, d)).length > 0) return etape;
+  return 4;
+}
+
+/**
+ * Point de départ du devis.
+ * - Le brouillon vient de la dernière estimation (ou il n'y en a pas) : on le reprend tel quel.
+ * - Sinon (nouvelle simulation) : les choix du projet viennent de l'estimation (activité, besoins, budget),
+ *   ce que la personne a écrit est gardé (description, lien, coordonnées), et on ouvre la première question à remplir.
+ */
+export function demarrerDevis(brouillon: Brouillon, config: Configuration | null): Brouillon & { prerempli: boolean } {
+  const signature = signatureEstimation(config);
+  if (!config || !signature || signature === brouillon.depuis) {
+    return { ...brouillon, prerempli: signature !== null && signature === brouillon.depuis };
+  }
+  const demande: Demande = {
+    ...brouillon.demande,
+    metier: config.metier ?? brouillon.demande.metier,
+    besoins: besoinsDepuisEstimation(config),
+    budget: budgetDepuisEstimation(config),
+    delai: null,
+    consentement: false,
+  };
+  return { demande, etape: etapeDeReprise(demande), depuis: signature, prerempli: true };
+}
+
+/** Repartir de zéro : questions du projet vidées, coordonnées gardées. */
+export function demandeRemiseAZero(d: Demande): Demande {
+  return { ...demandeVide, nom: d.nom, entreprise: d.entreprise, email: d.email, telephone: d.telephone };
 }
 
 /** Résumé de la configuration faite dans « Composer mon site », s'il y en a une. */

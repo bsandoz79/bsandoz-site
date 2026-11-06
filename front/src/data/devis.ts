@@ -107,9 +107,15 @@ export const devisTextes = {
     consentement: 'Cochez la case pour que je puisse vous répondre.',
     resume: (n: number) => (n > 1 ? `${n} champs sont à corriger.` : 'Un champ est à corriger.'),
   },
+  /** Bandeau quand le devis est pré-rempli depuis la dernière estimation. */
+  reprise: {
+    titre: 'Repris de votre estimation :',
+    texte: 'Vos choix sont déjà cochés ; vérifiez-les au besoin et complétez le reste.',
+    zero: 'Repartir de zéro',
+  },
   apercu: {
     titre: 'Votre projet',
-    configuration: 'Depuis « Composer mon site »',
+    configuration: 'Depuis votre estimation',
     estimation: 'Première estimation',
     conseil: '« Pas besoin de termes techniques : racontez-moi simplement comment vous travaillez. »',
     signature: 'Baptiste',
