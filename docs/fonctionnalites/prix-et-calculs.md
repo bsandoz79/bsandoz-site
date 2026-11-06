@@ -47,6 +47,9 @@ texteDuPreDevis(p); // bloc de texte brut pour l'e-mail
 ```
 Affichage : `formatPrix(1200)` → « 1 200 € », `prixFormule(f)` → « dès 989 € », `prixOption(o)` → « + 60 € / page ».
 
+## Modifier un prix
+Depuis le back-office (`/admin`, onglet « Prix ») : le site applique les prix modifiés à son chargement (`data/prixEnLigne.ts`). Les valeurs de `offres.ts` restent la référence. Voir [Back-office](back-office.md).
+
 ## Réutilisable ?
 Oui : `calculs.ts` ne dépend d'aucun écran. Pour un autre site, il suffit de remplacer les données de `offres.ts`.
 
