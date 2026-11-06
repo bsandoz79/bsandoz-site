@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { offres } from '../../../data/accueil';
 import { Complements } from '../../../components/Complements';
+import { OffreSeo } from '../../../components/OffreSeo';
 import { A_PARTIR_DE, formatPrix, formules, mentionsPrix } from '../../../data/offres';
 import { pages } from '../../../data/pages';
 import sections from './Sections.module.css';
@@ -63,6 +64,7 @@ export function Offres() {
           })}
         </ul>
         <Complements titreId="complements-accueil" />
+        <OffreSeo titreId="offre-seo-accueil" />
         <p className={sections.note}>
           {mentionsPrix.tva} {mentionsPrix.apresMiseEnLigne}
         </p>
