@@ -30,9 +30,9 @@ export function Home() {
       <Realisations />
       <Methode />
       <Pourquoi />
-      <ContactRapide />
       <Faq />
       <CarteZones />
+      <ContactRapide />
     </>
   );
 }

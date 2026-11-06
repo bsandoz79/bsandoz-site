@@ -48,6 +48,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/bandeau-cookies` : bandeau discret en bas, non bloquant ; carte affichée directement au défilement
 - [x] `feature/carte-position` : demande de position quand la carte apparaît, point sur la carte, message dans la zone / hors zone (frais kilométriques), bouton pour réactiver
 - [ ] `feature/composer-etapes` : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
+- [x] `feature/ordre-accueil` : fin de l'accueil Questions → Carte → Contact ; pas d'appel du pied de page sur l'accueil
 - [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
 - [ ] `feature/alterno` : projet Alterno dans les réalisations
 - [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code)
