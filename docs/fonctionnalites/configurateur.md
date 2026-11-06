@@ -47,3 +47,12 @@ La page est propre au site. Ce qui se réutilise : les blocs (`ChoiceChips`, `Op
 ## Tests
 - **unitaires** : `stockage.test.ts` (valeurs inconnues ignorées, stockage bloqué, adresse).
 - **fonctionnels** : `Composer.test.tsx` (étapes successives, précisions et supplément, pack offert par suggestion, marché, préremplissage, mémorisation, « Recommencer », onglets au clavier, informatique, aperçu).
+
+## Reprendre ou recommencer
+- **Ce qui est gardé** : les choix restent enregistrés dans le navigateur (`bsandoz.composer`), car le devis les reprend.
+- **Repérer la visite** : `bsandoz.composer.visite`, dans le stockage de session, oublié à la fermeture de l'onglet.
+- **Nouvelle visite** (`estNouvelleVisite`) : si une estimation est enregistrée (`aDesChoix`), la fenêtre `Reprise` s'ouvre avec un résumé (`resumeEtat`, par exemple « Site Vitrine · 1 option »).
+  - « Oui, reprendre » (ou Échap) garde l'estimation.
+  - « Non, recommencer » repart de zéro (`repartirDeZero`), en appliquant l'adresse suivie (`?onglet=`, `?formule=`, `?metier=`).
+- **Accessibilité de la fenêtre** : vraie fenêtre (`role="dialog"`, `aria-modal`), focus sur « Oui » à l'ouverture, Tab qui tourne entre les deux boutons.
+- **Simulateur des Tarifs** : il marque aussi la visite. Une simulation suivie du configurateur ne pose donc pas la question.

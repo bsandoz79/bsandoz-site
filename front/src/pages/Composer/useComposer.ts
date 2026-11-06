@@ -7,6 +7,10 @@ import {
   enregistrerEtat,
   etatVide,
   etatDepuisAdresse,
+  aDesChoix,
+  estNouvelleVisite,
+  marquerVisite,
+  ongletDepuisAdresse,
   type EtatComposer,
   type Onglet,
 } from './stockage';
@@ -17,8 +21,13 @@ const basculer = <T>(liste: T[], valeur: T) =>
 /** État du configurateur, enregistré dans le navigateur à chaque changement. */
 export function useComposer(recherche: string) {
   const [etat, setEtat] = useState<EtatComposer>(() => etatDepuisAdresse(chargerEtat(), recherche));
+  // Nouvelle visite avec une estimation enregistrée : on demande s'il faut la reprendre.
+  const [aReprendre, setAReprendre] = useState(() => estNouvelleVisite() && aDesChoix(chargerEtat()));
 
   useEffect(() => enregistrerEtat(etat), [etat]);
+  useEffect(() => {
+    if (!aReprendre) marquerVisite();
+  }, [aReprendre]);
 
   const majConfig = (maj: (config: EtatComposer['config']) => EtatComposer['config']) =>
     setEtat((e) => ({ ...e, config: maj(e.config) }));
@@ -45,5 +54,13 @@ export function useComposer(recherche: string) {
     basculerService: (service: ServiceInformatiqueId) =>
       setEtat((e) => ({ ...e, informatique: { ...e.informatique, services: basculer(e.informatique.services, service) } })),
     recommencer: () => setEtat((e) => ({ ...etatVide, onglet: e.onglet })),
+    /** Question de reprise : la visite précédente avait une estimation. */
+    aReprendre,
+    reprendre: () => setAReprendre(false),
+    /** Repart de zéro, en gardant ce que demande l'adresse (onglet, formule, métier). */
+    repartirDeZero: () => {
+      setEtat(etatDepuisAdresse({ ...etatVide, onglet: ongletDepuisAdresse(recherche) ?? 'web' }, recherche));
+      setAReprendre(false);
+    },
   };
 }

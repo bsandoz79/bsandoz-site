@@ -68,7 +68,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/autre-activite` : champ pour préciser l'activité quand on choisit « Autre activité »
 - [x] `feature/adresse-devis` : le devis demande une adresse, pour estimer les frais kilométriques
 - [ ] `feature/avis-google` : avis Google juste après la bande qui défile
-- [ ] `feature/composer-memoire` : le configurateur oublie d'une visite à l'autre, avec « Reprendre là où vous en étiez ? »
+- [x] `feature/composer-memoire` : le configurateur oublie d'une visite à l'autre, avec « Reprendre là où vous en étiez ? »
 - [x] `feature/alterno` : projet Alterno dans les réalisations
 - [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules

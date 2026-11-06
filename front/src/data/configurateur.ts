@@ -19,6 +19,14 @@ export const titres = {
   },
 };
 
+/** Question posée à une nouvelle visite, quand une estimation précédente est enregistrée. */
+export const reprise = {
+  titre: 'Voulez-vous reprendre là où vous en étiez ?',
+  texte: 'Votre dernière estimation :',
+  oui: 'Oui, reprendre',
+  non: 'Non, recommencer',
+};
+
 export const etapes = {
   type: '1. Quel type de site ?',
   metier: '2. Quelle est votre activité ?',

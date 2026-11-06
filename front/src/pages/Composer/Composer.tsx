@@ -7,7 +7,8 @@ import { pages } from '../../data/pages';
 import { Apercu } from './Apercu';
 import { ConfigurateurInformatique } from './ConfigurateurInformatique';
 import { ConfigurateurWeb } from './ConfigurateurWeb';
-import type { Onglet } from './stockage';
+import { Reprise } from './Reprise';
+import { chargerEtat, resumeEtat, type Onglet } from './stockage';
 import { useComposer } from './useComposer';
 import styles from './Composer.module.css';
 
@@ -43,6 +44,9 @@ export function Composer() {
   return (
     <>
       <PageMeta title={pages.composer.title} description={pages.composer.description} />
+      {composer.aReprendre && (
+        <Reprise resume={resumeEtat(chargerEtat())} onReprendre={composer.reprendre} onRecommencer={composer.repartirDeZero} />
+      )}
       <Container className={styles.page}>
         <div className={styles.entete}>
           <div className={styles.onglets} role="tablist" aria-label={onglets.label} onKeyDown={onKeyDown}>
