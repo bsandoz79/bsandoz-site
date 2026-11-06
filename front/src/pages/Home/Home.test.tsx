@@ -104,7 +104,8 @@ describe("Page d'accueil", () => {
   it('renvoie vers le portfolio, sans inventer de photo', () => {
     renderHome();
     const pourquoiSection = section(pourquoi.title);
-    expect(within(pourquoiSection).getByText('[photo à compléter]')).toBeInTheDocument();
+    expect(within(pourquoiSection).getByRole('img', { name: 'Baptiste Sandoz, développeur web à Amiens' })).toBeInTheDocument();
+    expect(within(pourquoiSection).queryByText('[photo à compléter]')).not.toBeInTheDocument();
     expect(within(pourquoiSection).getByRole('link', { name: /portfolio/ })).toHaveAttribute(
       'href',
       'https://portfolio.bsandoz.fr',
