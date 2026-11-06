@@ -108,3 +108,6 @@ Ces frais restent dus même si aucun devis n'est accepté après le déplacement
 La page Rendez-vous accepte donc toute adresse trouvée :
 - dans la zone, elle annonce « je me déplace gratuitement » ;
 - au-delà, elle annonce les km facturés et le montant.
+
+## Photo en rideau
+`components/Rideau` entoure la photo de Baptiste (section « Pourquoi moi » de l'accueil, page À propos). La première fois que la photo est visible à 35 %, il ajoute `anim-rideau--ouvert` : deux panneaux aux couleurs du site s'écartent vers les côtés en 1 s, et la photo se pose avec un léger zoom. L'effet n'a lieu qu'une fois. Si l'animation est réduite, il n'y a pas de panneaux ; sans IntersectionObserver, la photo est visible tout de suite. Tests : `Rideau.test.tsx`.
