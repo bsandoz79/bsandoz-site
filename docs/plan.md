@@ -52,7 +52,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
 - [ ] `feature/alterno` : projet Alterno dans les réalisations
 - [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code)
-- [ ] `feature/maintenance-seo` : offres de suivi (abonnement mensuel, à l'heure) et prestation SEO seule
+- [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
 - [ ] `feature/edition-en-page` : back-office « comme le site », crayon sur chaque bloc pour modifier textes et images
 - [ ] `chore/a-completer` : remplir les « [à compléter] » avec les informations fournies

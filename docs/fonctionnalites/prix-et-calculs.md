@@ -45,7 +45,7 @@ const p = preDevis({ metier: 'artisan', besoins: ['rdv'] }, configurationDuConfi
 // { source: 'besoins', formule: 'fonctionnel', options: ['rdv'], fourchette: { bas: 1320, haut: 1530 }, delai, suggestions: ['acompte', …] }
 texteDuPreDevis(p); // bloc de texte brut pour l'e-mail
 ```
-Affichage : `formatPrix(1200)` → « 1 200 € », `prixFormule(f)` → « dès 989 € », `prixOption(o)` → « + 60 € / page ».
+Affichage : `formatPrix(1200)` → « 1 200 € », `prixFormule(f)` → « à partir de 99 € » (les trois formules sont des prix de départ), `prixOption(o)` → « + 60 € / page ».
 
 ## Modifier un prix
 Depuis le back-office (`/admin`, onglet « Prix ») : le site applique les prix modifiés à son chargement (`data/prixEnLigne.ts`). Les valeurs de `offres.ts` restent la référence. Voir [Back-office](back-office.md).
@@ -65,3 +65,12 @@ Oui : `calculs.ts` ne dépend d'aucun écran. Pour un autre site, il suffit de r
 
 ## Modifier
 Un prix, une option, un pack : `src/data/offres.ts`, puis relancer les tests (ils vérifient la cohérence).
+
+## Compléments
+`complements()` (`data/offres.ts`) liste ce qui s'ajoute aux formules. Le composant `components/Complements` les affiche à part, sous les trois formules (accueil et Tarifs) :
+- **page supplémentaire** : prix de l'option `page`, modifiable dans le back-office ;
+- **suivi mensuel** : `abonnementMensuel`, 29 € par mois (hébergement et maintenance) ;
+- **intervention à l'heure** : `tarifHoraire`, 29 € de l'heure ;
+- **référencement Google seul** : `prixSeoSeul()`, soit le bas de la fourchette `marche.seo` moins `REMISE_SEO` (20 %), 400 €. La source est affichée.
+
+La liste est calculée à chaque affichage, donc elle suit les prix du back-office.
