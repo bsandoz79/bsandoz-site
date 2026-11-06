@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé (API en production)
+- `cache:clear` échouait en production (« Cannot generate lazy ghost ») : les 6 entités du domaine ne sont plus `final`. La CI construit désormais le cache de production.
+- `api/public/.htaccess` ajouté : sans lui, Apache répondait 404 sur toutes les adresses de l'API.
+
 ### Ajouté (demandes et devis)
 - Site : section « Mes demandes » de l'espace client (avancement de Reçue à Livré, devis détaillé, acceptation en deux temps, PDF), comme la maquette ; la demande envoie aussi téléphone, entreprise et un titre lisible ; adresse d'envoi réglable au build (`VITE_DEVIS_URL`, `devis.php` par défaut).
 - API : `POST /demandes` (même contrat que `devis.php` : piège anti-robots, 3 par heure par adresse IP, photos vérifiées et jointes au mail), accusé de réception avec le pré-devis, compte client ouvert à la première demande (liaison `CompteApresDemande`) ; « Mes demandes » (`GET /espace/demandes`, acceptation du devis, devis en PDF avec dompdf). Suppression du compte : demandes et devis effacés ; export : demandes et devis inclus. Tables `prospect_demande`, `prospect_devis`.

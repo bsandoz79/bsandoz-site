@@ -1,0 +1,15 @@
+# Apache (o2switch et la plupart des hébergements mutualisés) : toutes les adresses passent par index.php.
+# Le dossier public du domaine de l'API doit être api/public, jamais la racine du projet.
+DirectoryIndex index.php
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Un fichier qui existe vraiment est servi tel quel ; tout le reste va à l'application.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+    RewriteRule ^ index.php [L]
+</IfModule>

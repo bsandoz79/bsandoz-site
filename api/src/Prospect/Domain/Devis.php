@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Prospect\Domain;
 
 /** Devis envoyé pour une demande ; le client l'accepte depuis son espace. Même numéro que la demande. */
-final class Devis
+class Devis
 {
     /** @param list<array{libelle: string, prix: int}> $lignes */
     private function __construct(

@@ -46,6 +46,12 @@ jobs:
       - run: php bin/console doctrine:migrations:migrate --no-interaction
       - run: php bin/console doctrine:schema:validate
       - run: php bin/phpunit
+      # Comme à la mise en ligne : le cache de production se construit (les correspondances Doctrine y sont préparées).
+      - name: Cache de production
+        run: php bin/console cache:clear
+        env:
+          APP_ENV: prod
+          APP_SECRET: pas-un-secret-seulement-pour-la-ci
 
   blocs:
     name: Bibliothèque de blocs – lint, tests, build

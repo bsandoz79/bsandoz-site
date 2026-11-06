@@ -4,7 +4,7 @@
 À chaque push, sur toutes les branches :
 - **blocs** : lint, tests, build de la bibliothèque `@bsandoz79/blocs` ;
 - **front** : lint, tests, build du site ;
-- **api** : PHP 8.3, `composer install`, vérification du conteneur et de la configuration YAML, connexion à une base MySQL 8.0 de test, validation Doctrine, tests PHPUnit.
+- **api** : PHP 8.3, `composer install`, vérification du conteneur et de la configuration YAML, connexion à une base MySQL 8.0 de test, validation Doctrine, tests PHPUnit, construction du cache de production.
 
 ## Déploiement continu (`.github/workflows/deploy.yml`)
 À chaque push sur `main` : tests, build, puis envoi du dossier `front/dist/` sur o2switch en FTPS.
@@ -58,6 +58,8 @@ Le script est copié avec le site (`dist/api/devis.php`) et utilise la fonction 
 
 ## API et espace client (à la mise en ligne de `api.bsandoz.fr`)
 Le site appelle l'API à l'adresse `VITE_API_URL` (par défaut `https://api.bsandoz.fr`), avec le cookie de session. `bsandoz.fr` et `api.bsandoz.fr` sont le même site : le cookie `SameSite=Lax` circule.
+
+Le dossier public du domaine de l'API doit être `api/public` : son `.htaccess` envoie toutes les adresses à `index.php` (sans lui, Apache répond 404 partout). Après chaque envoi : `php bin/console cache:clear`.
 
 Dans `api/.env.local` sur le serveur (jamais versionné) :
 - `CORS_ALLOW_ORIGIN='^https://bsandoz\.fr$'` : seul le site peut appeler l'API avec le cookie ;

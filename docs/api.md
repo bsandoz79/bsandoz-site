@@ -28,7 +28,7 @@ docker compose up -d database
 
 `DATABASE_URL` (dans `.env.dist`) pointe sur cette base. Sur o2switch, la vraie valeur va dans `api/.env.local` ; ajuster `serverVersion` à la version réelle du serveur (MySQL ou MariaDB).
 
-Doctrine : pas d'entités Doctrine dans le domaine. Chaque module déclare sa correspondance en XML dans `Infrastructure/Doctrine`, ajoutée sous `doctrine.orm.mappings` (`config/packages/doctrine.yaml`).
+Doctrine : pas d'entités Doctrine dans le domaine. Ses classes persistées ne sont pas `final` : Doctrine doit pouvoir en préparer des versions en production (`cache:clear` échoue sinon ; la CI le vérifie). Chaque module déclare sa correspondance en XML dans `Infrastructure/Doctrine`, ajoutée sous `doctrine.orm.mappings` (`config/packages/doctrine.yaml`).
 
 Sous Windows avec Docker, placer le cache hors du dossier partagé : `-e APP_CACHE_DIR=/tmp/cache`.
 

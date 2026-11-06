@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Booking\Domain;
 
 /** Un rendez-vous découverte réservé en ligne. */
-final class RendezVous
+class RendezVous
 {
     private StatutRendezVous $statut = StatutRendezVous::Confirme;
 
