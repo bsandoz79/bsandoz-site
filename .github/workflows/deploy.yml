@@ -5,9 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Un envoi n'est jamais coupé en cours de route (sinon le serveur peut garder un index.html qui pointe
+# vers des fichiers pas encore envoyés : page blanche). Les déploiements suivants attendent leur tour.
 concurrency:
   group: deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -56,6 +58,9 @@ jobs:
           set net:timeout 30
           set net:max-retries 3
           set net:reconnect-interval-base 5
-          mirror --reverse --verbose --parallel=2 front/dist/ "${FTP_SERVER_DIR:-/}"
+          # 1. Tout sauf index.html : les nouveaux fichiers (JS, CSS, images) arrivent d'abord.
+          mirror --reverse --verbose --parallel=2 --exclude-glob index.html front/dist/ "${FTP_SERVER_DIR:-/}"
+          # 2. index.html en dernier : il ne pointe que vers des fichiers déjà présents.
+          put -O "${FTP_SERVER_DIR:-/}" front/dist/index.html
           bye
           EOF

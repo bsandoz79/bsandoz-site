@@ -4,6 +4,9 @@
 ### Corrigé (téléphone)
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 
+### Corrigé
+- Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
+
 ### Modifié (design)
 - Photo de Baptiste (accueil, À propos) : elle apparaît en ouverture de rideau la première fois qu'on arrive dessus en défilant (composant `Rideau`, animation `anim-rideau`) ; coupée si les animations sont réduites.
 - Compléments présentés en cadres pointillés, nom et détail à gauche, prix à droite (deux colonnes sur ordinateur). Le calcul des frais kilométriques est affiché en petit sous le message de la carte et de la page Rendez-vous (« Calcul : 48 km × 0,1875 € = 9,00 € (2,50 € le litre × 7,5 L aux 100 km) »).
