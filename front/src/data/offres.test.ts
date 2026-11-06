@@ -17,16 +17,17 @@ describe('offres', () => {
     expect(formatPrix(30.5)).toBe('30,5 €');
   });
 
-  it('affiche « dès » pour un prix minimum', () => {
+  it('affiche « à partir de » pour un prix de départ', () => {
     const [vitrine, , fonctionnel] = formules;
-    expect(prixFormule(vitrine)).toBe('99 €');
-    expect(prixFormule(fonctionnel)).toBe('dès 989 €');
+    expect(prixFormule(vitrine)).toBe('à partir de 99 €');
+    expect(prixFormule({ ...vitrine, prixMinimum: false })).toBe('99 €');
+    expect(prixFormule(fonctionnel)).toBe('à partir de 989 €');
   });
 
   it('reprend les prix du cahier des charges', () => {
     expect(formules.map((f) => [f.id, f.prix, f.prixMinimum])).toEqual([
-      ['vitrine', 99, false],
-      ['vitrinePlus', 390, false],
+      ['vitrine', 99, true],
+      ['vitrinePlus', 390, true],
       ['fonctionnel', 989, true],
     ]);
   });

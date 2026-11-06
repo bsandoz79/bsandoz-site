@@ -2,7 +2,8 @@ import type { CSSProperties } from 'react';
 import { Card, Container, SectionTitle } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
-import { formules, mentionsPrix, prixFormule, lignePageSupplementaire } from '../../data/offres';
+import { Complements } from '../../components/Complements';
+import { A_PARTIR_DE, formatPrix, formules, mentionsPrix } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { jsonLdOffres } from '../../data/seo';
 import { apresMiseEnLigne, contenuFormules, formulesSection, intro, pourquoiFonctionnel } from '../../data/tarifs';
@@ -41,19 +42,22 @@ export function Tarifs() {
                     <h2 id={`tarif-${formule.id}`} className={styles.formuleNom}>
                       {formule.nom}
                     </h2>
-                    <p className={styles.formulePrix}>{prixFormule(formule)}</p>
+                    <p className={styles.formulePrix}>
+                      {formule.prixMinimum && <span className={styles.aPartir}>{A_PARTIR_DE} </span>}
+                      {formatPrix(formule.prix)}
+                    </p>
                     <p className={featured ? styles.formuleContenuDark : styles.formuleContenu}>
                       {contenuFormules[formule.id].join(' · ')}
                     </p>
                     <p className={featured ? styles.formuleContenuDark : styles.formuleContenu}>
                       {formulesSection.delaiLabel} : {formule.delai}
                     </p>
-                    <p className={featured ? `${styles.pageSup} ${styles.pageSupDark}` : styles.pageSup}>{lignePageSupplementaire()}</p>
                   </Card>
                 </li>
               );
             })}
           </ul>
+          <Complements titreId="complements-tarifs" />
           <aside className={styles.pourquoi} aria-labelledby="pourquoi-fonctionnel">
             <span className={styles.pourquoiIcone} aria-hidden="true">
               ?

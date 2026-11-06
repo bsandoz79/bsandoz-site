@@ -26,7 +26,7 @@ describe('Pages métier', () => {
     expect(within(screen.getByRole('main')).getByText(publicVise)).toBeInTheDocument();
     const fonctions = screen.getByRole('region', { name: 'Les fonctions utiles à votre métier' });
     expect(within(fonctions).getAllByRole('heading', { level: 3 })).toHaveLength(nbFonctions);
-    expect(fonctions).toHaveTextContent(/Site fonctionnel dès 989\s€/);
+    expect(fonctions).toHaveTextContent(/Site fonctionnel à partir de 989\s€/);
     expect(screen.getByRole('complementary', { name: 'Aperçu de votre futur site' })).toHaveTextContent(exemple);
     expect(screen.getByText(/Entreprise fictive, pour l’exemple/)).toBeInTheDocument();
   });

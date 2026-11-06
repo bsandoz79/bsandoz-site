@@ -1,4 +1,4 @@
-import { tarifHoraire, type FormuleId } from './offres';
+import { abonnementMensuel, tarifHoraire, type FormuleId } from './offres';
 import { pages } from './pages';
 
 /** Textes de la page Tarifs (maquette `Tarifs`, cahier des charges section 4). */
@@ -31,10 +31,12 @@ export const pourquoiFonctionnel = {
 
 export const simulateur = {
   eyebrow: 'Simulateur',
-  title: 'Simulez un site fonctionnel',
-  intro: 'Choisissez votre activité et ce que votre site doit faire : le prix se met à jour en direct.',
-  activiteLegend: '1. Votre activité',
-  optionsLegend: '2. Ce que votre site doit faire',
+  title: 'Simulez votre site',
+  intro: 'Choisissez une formule, puis ce que votre site doit faire : le prix se met à jour en direct.',
+  formuleLegend: '1. Votre formule',
+  activiteLegend: '2. Votre activité',
+  optionsLegend: 'Ce que votre site doit faire',
+  choisirFormule: 'Choisissez une formule pour voir les options proposées.',
   choisirActivite: 'Choisissez votre activité pour voir les options proposées.',
   resumeTitle: 'Votre estimation',
   resumeEyebrow: 'Votre estimation',
@@ -53,6 +55,6 @@ export const apresMiseEnLigne = {
   items: [
     { title: 'Un changement ?', text: `${tarifHoraire} € de l'heure, sans engagement. Demi-heure entamée due.` },
     { title: 'Vous gérez vous-même', text: 'Prix, horaires, photos : modifiables depuis votre espace.' },
-    { title: 'Vous préférez déléguer ?', text: 'Demandez-moi la formule hébergement + maintenance.' },
+    { title: 'Vous préférez déléguer ?', text: `Le suivi mensuel : hébergement et maintenance pour ${abonnementMensuel} € par mois.` },
   ],
 };

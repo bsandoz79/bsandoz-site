@@ -7,7 +7,7 @@ export type Formule = {
   accroche: string;
   /** Prix en euros. */
   prix: number;
-  /** Vrai si le prix est un minimum (« dès … »). */
+  /** Vrai si le prix est un point de départ (« à partir de … ») : les options s'y ajoutent. */
   prixMinimum: boolean;
   delai: string;
   /** Points forts affichés sur les cartes d'offre. */
@@ -22,7 +22,7 @@ export const formules: Formule[] = [
     nom: 'Vitrine',
     accroche: 'Être visible, vite.',
     prix: 99,
-    prixMinimum: false,
+    prixMinimum: true,
     delai: '3 jours',
     description: '1 page pour être visible vite.',
     pointsForts: [
@@ -37,7 +37,7 @@ export const formules: Formule[] = [
     nom: 'Vitrine+',
     accroche: 'Une vitrine qui ramène des contacts.',
     prix: 390,
-    prixMinimum: false,
+    prixMinimum: true,
     delai: '1 à 2 semaines',
     description: "Jusqu'à 5 pages, formulaire, référencement local.",
     pointsForts: [
@@ -221,7 +221,7 @@ export const packs: Pack[] = [
 ];
 
 /** Prix du marché, avec leur source (à toujours afficher). */
-export type MarcheId = 'vitrine' | 'vitrinePlus' | 'boutique' | 'surMesure';
+export type MarcheId = 'vitrine' | 'vitrinePlus' | 'boutique' | 'surMesure' | 'seo';
 export type Marche = { fourchette: string; bas: number; haut: number; description: string; source: string };
 
 export const marche: Record<MarcheId, Marche> = {
@@ -253,14 +253,57 @@ export const marche: Record<MarcheId, Marche> = {
     description: 'site sur mesure / applicatif en agence (médiane 18 000 €)',
     source: 'La Fabrique du Net, 2026',
   },
+  seo: {
+    fourchette: '500 – 1 200 €',
+    bas: 500,
+    haut: 1200,
+    description: 'audit et optimisation SEO d’un site vitrine par un freelance',
+    source: 'Freelance Solution, 2026',
+  },
 };
 
 /** Tarif horaire après la mise en ligne. */
-export const tarifHoraire = 50;
+export const tarifHoraire = 29;
 
-/** Ligne affichée sous chaque formule : prix d'une page en plus (option « page »). */
-export function lignePageSupplementaire() {
-  return `${options.page.nom} : ${prixOption(options.page)}`;
+/** Abonnement mensuel de suivi : hébergement et maintenance. */
+export const abonnementMensuel = 29;
+
+/** Remise du référencement seul sur le bas de la fourchette du marché. */
+export const REMISE_SEO = 0.2;
+
+/** Prix du référencement seul (site existant) : 20 % sous le bas du marché. */
+export function prixSeoSeul() {
+  return Math.round(marche.seo.bas * (1 - REMISE_SEO));
+}
+
+export type Complement = { id: string; nom: string; prix: string; detail: string };
+
+/**
+ * Compléments affichés à part, sous les trois formules : page en plus, suivi après la mise en ligne,
+ * référencement seul. Calculés à l'appel : ils suivent les prix modifiés dans le back-office.
+ */
+export function complements(): Complement[] {
+  return [
+    { id: 'page', nom: options.page.nom, prix: prixOption(options.page), detail: 'Sur n’importe quelle formule.' },
+    {
+      id: 'abonnement',
+      nom: 'Suivi mensuel',
+      prix: `${formatPrix(abonnementMensuel)} / mois`,
+      detail: 'Hébergement et maintenance de votre site.',
+    },
+    {
+      id: 'heure',
+      nom: 'Intervention à l’heure',
+      prix: `${formatPrix(tarifHoraire)} / h`,
+      detail: 'Une modification après la mise en ligne, sans engagement. Demi-heure entamée due.',
+    },
+    {
+      id: 'seo',
+      nom: 'Référencement Google seul',
+      prix: formatPrix(prixSeoSeul()),
+      detail: `Pour un site existant. ${Math.round(REMISE_SEO * 100)} % sous le prix de départ du marché (${marche.seo.fourchette} ; ${marche.seo.source}).`,
+    },
+  ];
 }
 
 export const mentionsPrix = {
@@ -279,7 +322,10 @@ export function prixOption(option: Option) {
   return `${option.prixMinimum ? 'dès ' : ''}+ ${formatPrix(option.prix)}${option.unite ?? ''}`;
 }
 
-/** Prix affiché d'une formule : « 99 € » ou « dès 989 € ». */
+/** Mention placée devant un prix de départ. */
+export const A_PARTIR_DE = 'à partir de';
+
+/** Prix affiché d'une formule : « à partir de 99 € », ou « 99 € » pour un prix fixe. */
 export function prixFormule(formule: Formule) {
-  return formule.prixMinimum ? `dès ${formatPrix(formule.prix)}` : formatPrix(formule.prix);
+  return formule.prixMinimum ? `${A_PARTIR_DE} ${formatPrix(formule.prix)}` : formatPrix(formule.prix);
 }

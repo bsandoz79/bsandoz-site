@@ -1,13 +1,14 @@
 # Simulateur de la page Tarifs
 
 ## À quoi ça sert
-Sur `/tarifs`, simuler rapidement un site **fonctionnel** : activité + fonctions → prix en direct, packs offerts et une suggestion. Le configurateur complet reste `/composer`.
+Sur `/tarifs`, simuler rapidement un site : **formule** (Vitrine, Vitrine+ ou Fonctionnel, aucune choisie à l'avance), puis l'activité (seulement pour le Fonctionnel) et les fonctions → prix en direct, packs offerts et une suggestion. Le configurateur complet reste `/composer`.
 
 ## Schéma
 ```mermaid
 flowchart LR
-  a["ChoiceChips<br/>activité"] --> st["état local<br/>metier, choix"]
-  o["OptionCard × n<br/>optionsDisponibles('fonctionnel', metier)"] --> st
+  f["ChoiceChips<br/>formule"] --> st["état local<br/>formule, metier, choix"]
+  a["ChoiceChips<br/>activité (Fonctionnel)"] --> st
+  o["OptionCard × n<br/>optionsDisponibles(formule, metier)"] --> st
   st --> e["calculerEstimation()"]
   st --> s["suggestions() → 1re suggestion d'option"]
   e --> r["PriceSummary<br/>fourchette, délai, lignes, offert"]
@@ -26,4 +27,4 @@ Page `/tarifs`. Le composant `Simulateur` n'a pas de paramètre.
 Non (propre à la page), mais il n'assemble que des blocs réutilisables et les calculs communs.
 
 ## Tests
-- **fonctionnels** : `pages/Tarifs/Tarifs.test.tsx` (activité demandée d'abord, prix en direct, pack proposé puis offert, options gardées au changement d'activité, liens).
+- **fonctionnels** : `pages/Tarifs/Tarifs.test.tsx` (aucune formule à l'avance, Vitrine+ sans activité, activité demandée pour le Fonctionnel, prix en direct, pack proposé puis offert, options gardées au changement d'activité, liens).

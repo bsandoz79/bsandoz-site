@@ -2,7 +2,8 @@ import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { offres } from '../../../data/accueil';
-import { formules, mentionsPrix, prixFormule, lignePageSupplementaire } from '../../../data/offres';
+import { Complements } from '../../../components/Complements';
+import { A_PARTIR_DE, formatPrix, formules, mentionsPrix } from '../../../data/offres';
 import { pages } from '../../../data/pages';
 import sections from './Sections.module.css';
 import styles from './Offres.module.css';
@@ -37,13 +38,15 @@ export function Offres() {
                     {formule.nom}
                   </h3>
                   <p className={featured ? styles.taglineDark : styles.tagline}>{formule.accroche}</p>
-                  <p className={styles.price}>{prixFormule(formule)}</p>
+                  <p className={styles.price}>
+                    {formule.prixMinimum && <span className={styles.aPartir}>{A_PARTIR_DE} </span>}
+                    {formatPrix(formule.prix)}
+                  </p>
                   <ul className={styles.features}>
                     {formule.pointsForts.map((point) => (
                       <li key={point}>{point}</li>
                     ))}
                   </ul>
-                  <p className={featured ? `${styles.pageSup} ${styles.pageSupDark}` : styles.pageSup}>{lignePageSupplementaire()}</p>
                   <Link
                     to={`${pages.composer.path}?formule=${formule.id}`}
                     className={buttonClassName({
@@ -59,6 +62,7 @@ export function Offres() {
             );
           })}
         </ul>
+        <Complements titreId="complements-accueil" />
         <p className={sections.note}>
           {mentionsPrix.tva} {mentionsPrix.apresMiseEnLigne}
         </p>

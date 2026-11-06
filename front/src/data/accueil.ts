@@ -7,7 +7,7 @@ export const hero = {
   badge: 'Création de sites internet sur mesure · Amiens',
   rotatingPrefix: 'Pour avoir',
   rotatingWords: ['plus de clients', "moins d'appels manqués", 'des rendez-vous la nuit', 'des devis en 2 minutes'],
-  text: `Développeur web à Amiens, je conçois des sites et des outils de réservation pour les artisans, commerçants et indépendants, dans la Somme et partout en France, à partir de ${prixFormule(formuleParId('vitrine'))}.`,
+  text: `Développeur web à Amiens, je conçois des sites et des outils de réservation pour les artisans, commerçants et indépendants, dans la Somme et partout en France, ${prixFormule(formuleParId('vitrine'))}.`,
   /** Qui est derrière le site : photo, nom, métier. */
   identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
   primary: { label: 'Estimer mon projet', to: pages.composer.path },
