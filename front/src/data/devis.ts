@@ -93,6 +93,7 @@ export const devisTextes = {
   },
   erreurs: {
     activite: 'Choisissez votre activité.',
+    metierAutre: 'Précisez votre activité en quelques mots.',
     besoins: 'Cochez au moins un besoin.',
     description: 'Décrivez votre projet en quelques mots (20 caractères au moins).',
     lien: "L'adresse du site doit commencer par http:// ou https://.",

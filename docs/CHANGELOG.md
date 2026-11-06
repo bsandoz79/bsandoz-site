@@ -18,6 +18,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Ajouté
+- « Autre activité » : un champ « Précisez votre activité » apparaît dans le configurateur, le simulateur des Tarifs et le devis (obligatoire dans le devis). L'activité précisée passe de l'estimation au devis et figure dans le récapitulatif et le mail.
 - Réalisation **Alterno** : application Android qui planifie les horaires variables d'un alternant. 6 captures, contexte, besoin, solution, fonctionnalités, technos et lien vers le code sur GitHub, repris du portfolio. Filtre « Applis & plateformes », plan du site.
 
 ### Modifié (design)

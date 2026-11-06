@@ -1,6 +1,6 @@
 import { ChoiceChips, OptionCard, TextField } from '@bsandoz79/blocs';
 import { besoins, budgets, delais, devisTextes, limitesPhotos } from '../../data/devis';
-import { metiers } from '../../data/offres';
+import { metierAutreTextes, metiers } from '../../data/offres';
 import type { Demande, Erreurs } from './demande';
 import styles from './Devis.module.css';
 
@@ -32,6 +32,18 @@ export function EtapeActivite({ demande, erreurs, maj }: EtapeProps) {
         onChange={(metier) => maj({ metier })}
       />
       <Erreur id="erreur-metier" message={erreurs.metier} />
+      {demande.metier === 'autre' && (
+        <TextField
+          className={styles.metierAutre}
+          label={metierAutreTextes.label}
+          placeholder={metierAutreTextes.placeholder}
+          required
+          maxLength={metierAutreTextes.max}
+          value={demande.metierAutre}
+          error={erreurs.metierAutre}
+          onChange={(e) => maj({ metierAutre: e.target.value })}
+        />
+      )}
     </>
   );
 }

@@ -25,6 +25,8 @@ export type Configuration = {
   options: OptionId[];
   /** Réponse choisie pour chaque sous-question (identifiant du choix). */
   precisions: Partial<Record<OptionId, string>>;
+  /** Activité précisée quand `metier` vaut « autre ». */
+  metierAutre?: string;
 };
 
 export const configurationVide: Configuration = { formule: null, metier: null, options: [], precisions: {} };

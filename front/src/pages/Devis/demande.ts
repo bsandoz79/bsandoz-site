@@ -1,11 +1,13 @@
 import { calculerEstimation, type Configuration } from '../../data/calculs';
 import { besoins, budgets, delais, devisTextes, limitesPhotos, type BesoinId } from '../../data/devis';
-import { formatPrix, formuleParId, metiers, options, type MetierId, type OptionId } from '../../data/offres';
+import { formatPrix, formuleParId, metierAutreTextes, metiers, nomActivite, options, type MetierId, type OptionId } from '../../data/offres';
 import { preDevis, texteDuPreDevis } from '../../data/predevis';
 
 /** Réponses du parcours de devis (sans les photos, qui ne sont pas enregistrées). */
 export type Demande = {
   metier: MetierId | null;
+  /** Activité précisée quand `metier` vaut « autre ». */
+  metierAutre: string;
   besoins: BesoinId[];
   description: string;
   lien: string;
@@ -20,6 +22,7 @@ export type Demande = {
 
 export const demandeVide: Demande = {
   metier: null,
+  metierAutre: '',
   besoins: [],
   description: '',
   lien: '',
@@ -50,6 +53,7 @@ export function verifierPhotos(photos: File[]): string | undefined {
 export function validerEtape(etape: number, d: Demande, photos: File[] = []): Erreurs {
   const erreurs: Erreurs = {};
   if (etape === 0 && !d.metier) erreurs.metier = E.activite;
+  if (etape === 0 && d.metier === 'autre' && d.metierAutre.trim().length < 2) erreurs.metierAutre = E.metierAutre;
   if (etape === 1 && d.besoins.length === 0) erreurs.besoins = E.besoins;
   if (etape === 2) {
     if (d.description.trim().length < 20) erreurs.description = E.description;
@@ -89,6 +93,7 @@ export function lireBrouillon(brut: unknown): Brouillon {
     depuis: typeof o.depuis === 'string' ? o.depuis : null,
     demande: {
       metier: metiers.some((m) => m.id === d.metier) ? (d.metier as MetierId) : null,
+      metierAutre: texte(d.metierAutre).slice(0, metierAutreTextes.max),
       besoins: Array.isArray(d.besoins) ? (d.besoins.filter((b) => besoins.some((x) => x.id === b)) as BesoinId[]) : [],
       description: texte(d.description),
       lien: texte(d.lien),
@@ -135,7 +140,7 @@ export function effacerBrouillon() {
 export function signatureEstimation(config: Configuration | null): string | null {
   if (!config?.formule) return null;
   const precisionsTriees = Object.entries(config.precisions).sort(([a], [b]) => a.localeCompare(b));
-  return JSON.stringify([config.formule, config.metier, [...config.options].sort(), precisionsTriees]);
+  return JSON.stringify([config.formule, config.metier, config.metierAutre ?? '', [...config.options].sort(), precisionsTriees]);
 }
 
 /** Besoin du devis correspondant à chaque option de l'estimation. */
@@ -201,6 +206,7 @@ export function demarrerDevis(brouillon: Brouillon, config: Configuration | null
   const demande: Demande = {
     ...demandeRemiseAZero(brouillon.demande),
     metier: config.metier,
+    metierAutre: config.metier === 'autre' ? (config.metierAutre ?? '') : '',
     besoins: besoinsDepuisEstimation(config),
   };
   return { demande, etape: etapeDeReprise(demande, etapesActives(true)), depuis: signature, prerempli: true };
@@ -232,7 +238,7 @@ const libelle = (liste: { value: string; label: string }[], valeur: string | nul
 export function lignesRecapitulatif(d: Demande, config: Configuration | null): [string, string][] {
   const resume = resumeConfiguration(config);
   const lignes: [string, string][] = [
-    ['Activité', metiers.find((m) => m.id === d.metier)?.nom ?? ''],
+    ['Activité', nomActivite(d.metier, d.metierAutre)],
   ];
   // Sans besoins cochés (devis parti d'une estimation), c'est la configuration qui les décrit.
   if (d.besoins.length) lignes.push(['Besoins', d.besoins.map((b) => besoins.find((x) => x.id === b)?.nom).join(', ')]);

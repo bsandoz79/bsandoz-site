@@ -80,6 +80,20 @@ export const metiers: { id: MetierId; nom: string }[] = [
   { id: 'autre', nom: 'Autre activité' },
 ];
 
+/** Champ affiché quand on choisit « Autre activité ». */
+export const metierAutreTextes = {
+  label: 'Précisez votre activité',
+  placeholder: 'Ex. : toiletteur canin, photographe…',
+  /** Longueur maximale gardée. */
+  max: 80,
+};
+
+/** Nom de l'activité à afficher : celle précisée pour « Autre activité », sinon le nom de la liste. */
+export function nomActivite(metier: MetierId | null, metierAutre = ''): string {
+  if (metier === 'autre' && metierAutre.trim()) return metierAutre.trim();
+  return metiers.find((m) => m.id === metier)?.nom ?? '';
+}
+
 /** Options (cahier des charges, section 4). */
 export type OptionId =
   | 'page'

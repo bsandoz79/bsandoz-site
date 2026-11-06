@@ -93,3 +93,10 @@ Tests :
 
 ## Liens des mails
 Le pré-devis envoyé par mail (`texteDuPreDevis`, `data/predevis.ts`) termine par un lien vers la prise de rendez-vous. Ce lien utilise `origineDuSite()` (`data/pages.ts`), c'est-à-dire l'adresse du site d'où part la demande : une demande faite sur preview.bsandoz.fr mène à preview, une demande faite sur bsandoz.fr mène à bsandoz.fr. Le plan du site et les adresses canoniques gardent l'adresse publique `site.url`. Les liens des mails envoyés par l'API viennent, eux, des réglages du serveur : `AUTH_URL_SITE`, `BOOKING_URL_PUBLIQUE`, `PROSPECT_URL_SITE`.
+
+## Autre activité
+Choisir « Autre activité » ouvre le champ « Précisez votre activité » (`metierAutreTextes`, `data/offres.ts`) :
+- **configurateur et simulateur** : champ facultatif ;
+- **devis** : champ obligatoire, 2 caractères au moins.
+
+L'activité précisée est gardée dans `Configuration.metierAutre` (configurateur et simulateur) et `Demande.metierAutre` (devis). Elle passe de l'estimation au devis. `nomActivite()` l'affiche à la place de « Autre activité » : estimation, aperçu, récapitulatif, mail.
