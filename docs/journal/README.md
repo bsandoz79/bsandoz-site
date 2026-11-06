@@ -100,3 +100,4 @@ Types de tests :
 | 69 | [Le devis ne garde plus les essais précédents](69-fix-devis-sans-anciens-essais.md) | `fix/devis-sans-anciens-essais` | 2026-11-06 |
 | 70 | [État « choisi » et bouton de confirmation](70-style-sans-liseres.md) | `style/sans-liseres` | 2026-11-06 |
 | 71 | [Un site plus sobre (« moins IA »)](71-style-moins-ia.md) | `style/moins-ia` | 2026-11-06 |
+| 72 | [Plus de question « Besoins » après une estimation](72-fix-devis-sans-besoins.md) | `fix/devis-sans-besoins` | 2026-11-06 |
