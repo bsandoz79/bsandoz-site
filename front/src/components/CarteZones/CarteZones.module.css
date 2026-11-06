@@ -1,0 +1,91 @@
+.section {
+  padding-block: var(--space-7);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.texte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.eyebrow {
+  color: var(--color-accent-texte);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.titre {
+  font-size: var(--text-section, var(--text-2xl));
+  font-weight: 800;
+}
+
+.intro {
+  color: var(--color-text-muted);
+}
+
+/* Cadre de la carte : arrondi, ombre, liseré dégradé. */
+.cadre {
+  overflow: hidden;
+  padding: 3px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(140deg, var(--color-rose-light), var(--color-rose) 45%, var(--color-navy-2));
+  box-shadow: var(--shadow-card);
+}
+
+.carte,
+.consentement {
+  height: 22rem;
+  border-radius: calc(var(--radius-lg) - 3px);
+}
+
+/* Les contrôles de Leaflet restent sous l'en-tête collé. */
+.carte {
+  position: relative;
+  z-index: 0;
+  background: var(--color-surface);
+}
+
+.consentement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background:
+    radial-gradient(18rem 12rem at 50% 40%, var(--color-rose-glow), transparent 70%),
+    var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.consentement p {
+  max-width: 26rem;
+}
+
+@media (min-width: 640px) {
+  .section {
+    padding-block: var(--space-8);
+  }
+
+  .carte,
+  .consentement {
+    height: 28rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: var(--space-7);
+  }
+}
