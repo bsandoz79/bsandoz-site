@@ -14,7 +14,8 @@ flowchart TB
   layout --> main["main#contenu<br/>la page"]
   layout --> footer["components/Footer"]
   layout --> bar["components/MobileBar<br/>(masquée sur /composer et /devis)"]
-  nav["src/data/navigation.ts<br/>libellés, liens, contact"] --> header & footer & bar
+  layout --> haut["components/RetourHaut<br/>bouton « revenir en haut »"]
+  nav["src/data/navigation.ts<br/>libellés, liens, contact"] --> header & footer & bar & haut
   main --> meta["components/PageMeta<br/>titre, description, canonique, noindex"]
   routes -- "adresse inconnue" --> nf["pages/NotFound (404, noindex)"]
 ```
@@ -35,14 +36,17 @@ flowchart TB
 - `Header`, `Footer`, `MobileBar`, `Layout` : propres à ce site (ils lisent `data/navigation.ts`), mais leur structure se recopie facilement.
 
 ## Tests
-- **fonctionnels** : `src/app/routes.test.tsx` (chaque adresse, 404), `Header.test.tsx` (menu mobile, Échap, clic en dehors, onglet actif), `Layout.test.tsx` (lien d'évitement, ancre), `Footer.test.tsx`, `MobileBar.test.tsx`.
+- **fonctionnels** : `src/app/routes.test.tsx` (chaque adresse, 404), `Header.test.tsx` (menu mobile, Échap, clic en dehors, onglet actif), `Layout.test.tsx` (lien d'évitement, ancre), `Footer.test.tsx`, `MobileBar.test.tsx`, `RetourHaut.test.tsx` (caché en haut de page, visible après 600 px, remonte au clic, placé au-dessus de la barre mobile).
 - **unitaires** : `PageMeta.test.tsx`.
 
 ## Fichiers
-`src/data/pages.ts` · `src/data/navigation.ts` · `src/app/routes.tsx` · `src/components/{Layout,Header,Footer,MobileBar,PageMeta}/`
+`src/data/pages.ts` · `src/data/navigation.ts` · `src/app/routes.tsx` · `src/components/{Layout,Header,Footer,MobileBar,RetourHaut,PageMeta}/`
 
 ## Défilement
 L'en-tête est collé en haut de l'écran. `components/Header/useMasquageAuDefilement.ts` le cache quand on descend (au-delà de 80 px, mouvements de plus de 8 px) et le réaffiche dès qu'on remonte. Il reste visible quand le menu est ouvert ou que le focus clavier est dedans.
 
 ## Pied de page
 Fond bleu marine : bande d'appel à l'action (estimer, rendez-vous), présentation, « Le site », « Contact », puis droits et pages légales (`components/Footer`, textes dans `data/navigation.ts`).
+
+## Revenir en haut
+`components/RetourHaut` : petit bouton rond et transparent (verre dépoli) avec une flèche, en bas à droite. Il apparaît une fois la page descendue de plus de `retourHaut.seuil` (600 px, `data/navigation.ts`) et ramène en haut au clic : en douceur, ou d'un coup si le visiteur réduit les animations. Caché, il est hors du parcours clavier. Sur mobile, il se pose au-dessus de la barre « Estimer » quand elle est affichée (`barreMobileVisible`, `components/MobileBar`).
