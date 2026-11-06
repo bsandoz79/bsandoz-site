@@ -290,3 +290,11 @@ a.option:hover {
   font-size: 0.8125rem;
   font-weight: 400;
 }
+
+/* Bouton « Confirmer le rendez-vous » : en bas du formulaire, après la dernière réponse. */
+.envoi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 28rem;
+}

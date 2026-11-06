@@ -297,6 +297,16 @@ export function RendezVous() {
               </fieldset>
             )}
 
+            {/* Le bouton est en bas du formulaire, juste après la dernière réponse. */}
+            {etapes.coordonnees && (
+              <div className={styles.envoi}>
+                <Button type="submit" size="lg" block disabled={statut === 'envoi'}>
+                  {statut === 'envoi' ? t.resume.envoi : t.resume.confirmer}
+                </Button>
+                <p className={styles.note}>{t.resume.note}</p>
+              </div>
+            )}
+
             {(statut === 'echec' || statut === 'complet') && (
               <div className={styles.alerte} role="alert">
                 <p className={styles.alerteTitre}>{t.echec.titre}</p>
@@ -323,14 +333,7 @@ export function RendezVous() {
                   <dd>{lieuResume}</dd>
                 </div>
               </dl>
-              {etapes.coordonnees ? (
-                <Button type="submit" form="rdv-formulaire" size="lg" block disabled={statut === 'envoi'}>
-                  {statut === 'envoi' ? t.resume.envoi : t.resume.confirmer}
-                </Button>
-              ) : (
-                <p className={styles.note}>{t.resume.aCompleter}</p>
-              )}
-              <p className={styles.note}>{t.resume.note}</p>
+              {!etapes.coordonnees && <p className={styles.note}>{t.resume.aCompleter}</p>}
             </div>
             <div className={styles.pendant}>
               <p className={styles.pendantTitre}>{t.resume.pendant.titre}</p>
