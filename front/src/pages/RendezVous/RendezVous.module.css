@@ -298,3 +298,21 @@ a.option:hover {
   gap: var(--space-2);
   max-width: 28rem;
 }
+
+/* Après la confirmation : ajouter le rendez-vous à son agenda. */
+.agenda {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block: var(--space-4);
+}
+
+.agendaTitre {
+  font-weight: 700;
+}
+
+.agendaLiens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
