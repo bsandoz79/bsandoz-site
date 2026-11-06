@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (mise en ligne)
+- `docs/mise-en-ligne.md` : le pas-à-pas complet. Workflow manuel `deploy-api.yml` (API envoyée par FTP, lançable depuis un téléphone). Le site est construit avec les variables `VITE_API_URL` et `VITE_DEVIS_URL` du dépôt.
+
 ### Ajouté (rappels)
 - API : rappel par mail la veille d'un rendez-vous (`booking:envoyer-rappels`).
 

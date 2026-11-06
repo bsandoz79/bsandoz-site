@@ -41,7 +41,7 @@ Exemples ci-dessous avec la V1 ; remplacer par `v2.0.0` / `release/v2` pour la V
 2. Dans « Use workflow from », choisir **Tags → v1.0.0** (ou la branche `release/v1` si un correctif y a été ajouté).
 3. Lancer : le site de cette version est reconstruit et renvoyé sur o2switch.
 
-Ce workflow ne déploie que le site (`front/dist/`) ; l'API n'est pas encore mise en ligne automatiquement.
+Ce workflow ne déploie que le site (`front/dist/`). L'API a son propre workflow, lancé à la main : **Déploiement de l'API**. Pas-à-pas complet : `docs/mise-en-ligne.md`.
 
 **Corriger une version** : partir de sa branche (`git switch release/v1`, puis `git switch -c fix/<nom>`), fusionner le correctif dans `release/v1`, étiqueter `v1.0.1`, puis redéployer comme ci-dessus.
 
@@ -75,7 +75,7 @@ Tâches planifiées (cPanel → Tâches Cron) :
 - toutes les 5 minutes : `php bin/console prospect:relever-mails` ;
 - une fois par jour : `php bin/console booking:envoyer-rappels`.
 
-Côté site, une fois l'API en ligne : ajouter `VITE_DEVIS_URL=https://api.bsandoz.fr/demandes` au build (variable du workflow de déploiement) pour que les demandes de devis passent par l'API (enregistrement, compte client, suivi). Sans elle, `devis.php` reste utilisé.
+Côté site, une fois l'API en ligne : ajouter `VITE_DEVIS_URL=https://api.bsandoz.fr/demandes` au build (variable `VITE_DEVIS_URL` du dépôt GitHub, lue par le workflow de déploiement) pour que les demandes de devis passent par l'API (enregistrement, compte client, suivi). Sans elle, `devis.php` reste utilisé.
 
 En développement : API sur `http://localhost:8000`, site sur `http://localhost:5173` avec `VITE_API_URL=http://localhost:8000`, `AUTH_COOKIE_SECURISE=0` (valeurs de `api/.env.dist`).
 

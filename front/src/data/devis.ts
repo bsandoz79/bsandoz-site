@@ -135,4 +135,4 @@ export const devisTextes = {
  * la demande est alors enregistrée, suivie dans l'espace client, et le compte client est ouvert.
  * Les deux adresses acceptent exactement le même formulaire.
  */
-export const urlEnvoiDevis = (import.meta.env.VITE_DEVIS_URL as string | undefined) ?? '/api/devis.php';
+export const urlEnvoiDevis = (import.meta.env.VITE_DEVIS_URL as string | undefined) || '/api/devis.php';

@@ -1,5 +1,5 @@
 /** Adresse de l'API. Réglable par `VITE_API_URL` au build (ex. `http://localhost:8000` en développement). */
-export const urlApi = (import.meta.env.VITE_API_URL as string | undefined) ?? 'https://api.bsandoz.fr';
+export const urlApi = (import.meta.env.VITE_API_URL as string | undefined) || 'https://api.bsandoz.fr';
 
 /** Réponse de l'API : code HTTP et corps JSON (vide si la réponse n'en a pas). */
 export type ReponseApi<T = Record<string, unknown>> = { statut: number; corps: T };

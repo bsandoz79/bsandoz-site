@@ -1,0 +1,50 @@
+name: Déploiement de l'API
+
+# Lancé à la main : onglet Actions → Déploiement de l'API → Run workflow. Faisable depuis un téléphone.
+# Après l'envoi, sur le serveur : php bin/console cache:clear, puis doctrine:migrations:migrate (voir docs/mise-en-ligne.md).
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-api
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Dépendances de production et envoi FTP
+    runs-on: ubuntu-latest
+    env:
+      API_FTP_SERVER: ${{ secrets.API_FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+      - name: Dépendances de production
+        working-directory: api
+        run: composer install --no-dev --optimize-autoloader --no-scripts --no-interaction --no-progress
+      - name: Secrets absents
+        if: env.API_FTP_SERVER == ''
+        run: |
+          echo "Secrets API_FTP_* non configurés : rien n'est envoyé (voir docs/mise-en-ligne.md)."
+          exit 1
+      - name: Envoi sur le serveur
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.API_FTP_SERVER }}
+          username: ${{ secrets.API_FTP_USERNAME }}
+          password: ${{ secrets.API_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: api/
+          server-dir: ${{ secrets.API_FTP_SERVER_DIR }}
+          # Jamais envoyés : ce qui ne sert qu'au développement. .env.local et var/ restent intacts sur le serveur.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            var/**
+            tests/**
+            compose*.yaml
+            phpunit.dist.xml
+            .env.local
+            .env.dev

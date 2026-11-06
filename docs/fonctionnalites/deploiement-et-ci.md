@@ -22,7 +22,9 @@ flowchart LR
 - Remettre la V1 : GitHub → Actions → **Déploiement o2switch** → **Run workflow** → **Tags → v1.0.0**.
 - Secrets à créer : `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_SERVER_DIR`.
 
-## Fichiers
+Mise en ligne pas à pas, API comprise : `docs/mise-en-ligne.md`. L'API s'envoie par le workflow manuel `deploy-api.yml`.
+
+## Réutilisable
 `.github/workflows/ci.yml` · `.github/workflows/deploy.yml` · `front/public/.htaccess` · détails dans `docs/deploiement.md`.
 
 ## Pièges connus
