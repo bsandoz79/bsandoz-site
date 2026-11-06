@@ -41,7 +41,40 @@
   animation: reflet 2.2s ease-in-out infinite;
   animation-delay: var(--reflet-delai, 0s);
 }
+/*
+ * Rideau : deux panneaux (dégradé du site) couvrent la photo, puis s'écartent vers les côtés
+ * la première fois qu'elle arrive à l'écran (classe ajoutée par le composant Rideau) ; la photo se pose en douceur.
+ */
+@keyframes rideau-gauche { to { transform: translateX(-101%); } }
+@keyframes rideau-droite { to { transform: translateX(101%); } }
+@keyframes rideau-photo { from { transform: scale(1.08); } to { transform: none; } }
+.anim-rideau {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  isolation: isolate;
+}
+.anim-rideau::before,
+.anim-rideau::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 50.5%;
+  background: linear-gradient(160deg, var(--color-navy-2), var(--color-navy) 55%, var(--color-rose-dark));
+  pointer-events: none;
+}
+.anim-rideau::before { left: 0; box-shadow: inset -2px 0 0 var(--color-rose-light); }
+.anim-rideau::after { right: 0; box-shadow: inset 2px 0 0 var(--color-rose-light); }
+.anim-rideau--ouvert::before { animation: rideau-gauche 1s cubic-bezier(0.7, 0, 0.2, 1) 0.15s forwards; }
+.anim-rideau--ouvert::after { animation: rideau-droite 1s cubic-bezier(0.7, 0, 0.2, 1) 0.15s forwards; }
+.anim-rideau--ouvert > img { animation: rideau-photo 1.4s ease-out both; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .anim-reflet::after { display: none; }
+  .anim-rideau::before, .anim-rideau::after { display: none; }
 }
