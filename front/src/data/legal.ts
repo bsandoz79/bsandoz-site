@@ -141,6 +141,7 @@ export const confidentialite: PageLegale = {
       titre: 'Données gardées dans votre navigateur',
       paragraphes: [
         'Vos choix dans « Composer mon site » et le brouillon de votre demande de devis sont gardés dans votre navigateur (stockage local), pour que vous ne perdiez rien. Ils restent sur votre appareil et ne me sont pas envoyés tant que vous n’envoyez pas votre demande.',
+        'Votre choix de thème (nuit ou clair) y est aussi gardé, pour l’appliquer à votre prochaine visite.',
         'Vous pouvez les effacer à tout moment en supprimant les données de ce site dans votre navigateur.',
       ],
     },

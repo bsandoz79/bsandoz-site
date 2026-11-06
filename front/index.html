@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0f29" />
+    <!-- Thème avant l'affichage (nuit par défaut, ou le choix gardé dans le navigateur) : pas de flash de l'autre thème. -->
+    <script>
+      (function () {
+        var theme = 'nuit';
+        try {
+          if (localStorage.getItem('bsandoz.theme') === 'clair') theme = 'clair';
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'clair') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f6fa');
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

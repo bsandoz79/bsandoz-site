@@ -27,6 +27,11 @@ export const metierLinks: NavLink[] = [
   { label: 'Santé et bien-être', to: pages.independant.path },
 ];
 
+/** Bouton de thème de l'en-tête : libellé selon le thème vers lequel il bascule. */
+export const themeTextes = {
+  vers: { clair: 'Passer en thème clair', nuit: 'Passer en thème nuit' },
+};
+
 export const header = {
   name: 'Baptiste Sandoz',
   navLabel: 'Navigation principale',

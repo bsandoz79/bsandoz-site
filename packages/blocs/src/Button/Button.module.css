@@ -40,15 +40,15 @@
   color: var(--color-text-on-dark);
 }
 .primary:hover:not(:disabled) {
-  background: var(--color-rose-dark);
+  background: var(--color-rose-hover, var(--color-rose-dark));
   box-shadow: var(--shadow-rose);
   color: var(--color-text-on-dark);
 }
 
 .secondary {
   background: var(--color-surface);
-  border-color: var(--color-navy);
-  color: var(--color-navy);
+  border-color: var(--color-text);
+  color: var(--color-text);
 }
 .secondary:hover:not(:disabled) {
   background: var(--color-navy);
