@@ -29,3 +29,22 @@ export function appliquerTheme(theme: Theme) {
     // Stockage indisponible (navigation privée stricte) : le thème vaut pour cette visite.
   }
 }
+
+/**
+ * Change de thème avec un effet de rideau : la nouvelle couleur se déploie de gauche à droite
+ * (transition de vue du navigateur, animation `rideau-theme` dans `styles/animations.css`).
+ * Sans cette fonction du navigateur, ou si l'utilisateur réduit les animations : changement immédiat.
+ * `maj` met l'interface à jour (icône du bouton) au même moment que le thème.
+ */
+export function changerTheme(theme: Theme, maj: () => void = () => {}) {
+  const reduit = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+  const appliquer = () => {
+    appliquerTheme(theme);
+    maj();
+  };
+  if (reduit || typeof document.startViewTransition !== 'function') {
+    appliquer();
+    return;
+  }
+  document.startViewTransition(appliquer);
+}

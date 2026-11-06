@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { appliquerTheme, themeEnregistre, type Theme } from '../../app/theme';
+import { flushSync } from 'react-dom';
+import { changerTheme, themeEnregistre, type Theme } from '../../app/theme';
 import { themeTextes } from '../../data/navigation';
 import styles from './ThemeToggle.module.css';
 
@@ -8,9 +9,9 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => themeEnregistre());
   const suivant: Theme = theme === 'nuit' ? 'clair' : 'nuit';
 
+  // Rideau de gauche à droite ; l'icône change dans la même image (flushSync).
   function basculer() {
-    appliquerTheme(suivant);
-    setTheme(suivant);
+    changerTheme(suivant, () => flushSync(() => setTheme(suivant)));
   }
 
   return (
