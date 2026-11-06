@@ -10,4 +10,7 @@ interface Notifications
     public function rendezVousConfirme(RendezVous $rendezVous): void;
 
     public function rendezVousAnnule(RendezVous $rendezVous): void;
+
+    /** Rappel la veille du rendez-vous, à la personne. */
+    public function rappel(RendezVous $rendezVous): void;
 }

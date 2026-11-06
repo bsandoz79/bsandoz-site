@@ -39,5 +39,6 @@ services:
     App\Prospect\Domain\ReferencesFil: '@App\Prospect\Infrastructure\Systeme\ReferencesSignees'
     App\Prospect\Domain\BoiteDeReception: '@App\Prospect\Infrastructure\Imap\BoiteImap'
     App\Prospect\Domain\ContactProfessionnel: '@App\Prospect\Infrastructure\Systeme\ContactDepuisLesReglages'
+    App\Prospect\Domain\PreferencesClient: '@App\Prospect\Infrastructure\Systeme\NotificationsPourTous'
     App\Prospect\Domain\Horloge: '@App\Prospect\Infrastructure\Systeme\HorlogeSysteme'
     App\Prospect\Domain\Identifiants: '@App\Prospect\Infrastructure\Systeme\IdentifiantsUuid'

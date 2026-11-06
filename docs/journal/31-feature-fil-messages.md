@@ -33,4 +33,4 @@ Lancer : voir `docs/api.md`.
 ## Reste ouvert
 - Jamais essayé sur la vraie boîte d'o2switch ni avec de vrais logiciels de mail (Gmail, Outlook) : le retrait des citations couvre les formats courants, un format inconnu laisserait la citation dans le message.
 - Les pièces jointes d'une réponse restent dans la boîte, pas dans le fil.
-- Le réglage « notifications par mail » du compte est enregistré, mais aucun mail n'en tient compte, ni ceux-ci ni les autres.
+- Corrigé depuis : le réglage « notifications par mail » du compte agit (voir la fiche 35).

@@ -1,6 +1,12 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (rappels)
+- API : rappel par mail la veille d'un rendez-vous (`booking:envoyer-rappels`).
+
+### Corrigé (notifications)
+- La case « Rappels et notifications par mail » de l'espace client n'agissait sur rien : décochée, plus de rappel ni de mail « nouveau message ».
+
 ### Ajouté (back-office : disponibilités)
 - Site : onglet « Disponibilités » de `/admin` (jours, créneaux, jours fermés) ; le calendrier de `/rendez-vous` les suit, avec repli sur `data/rendezvous.ts`.
 - API, module Booking : disponibilités en base (`booking_disponibilites`), valeurs de `booking.yaml` tant que rien n'est réglé, jour fermé refusé ; `GET /rendez-vous/disponibilites`, `POST /backoffice/disponibilites`.

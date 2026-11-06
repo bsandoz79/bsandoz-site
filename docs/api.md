@@ -75,7 +75,7 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | GET | `/prix` | prix modifiés depuis le back-office (module Catalogue) |
 | GET, POST | `/backoffice/demandes…`, `/backoffice/prix`, `/backoffice/disponibilites` | back-office, réservé à `BACKOFFICE_EMAILS` (voir `docs/fonctionnalites/back-office.md`) |
 
-Commande à planifier : `php bin/console prospect:relever-mails` (réponses reçues par mail, toutes les 5 minutes).
+Commandes à planifier : `php bin/console prospect:relever-mails` (réponses reçues par mail, toutes les 5 minutes), `php bin/console booking:envoyer-rappels` (rappels de la veille, une fois par jour).
 
 Détails, réglages et installation chez un client : `api/src/Booking/README.md`, `api/src/Auth/README.md`, `api/src/Prospect/README.md`.
 

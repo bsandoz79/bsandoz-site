@@ -13,7 +13,7 @@ Calendrier, créneaux, créneau pris refusé, mails avec fichier `.ics`, annulat
 
 Blocs : `npm run livrer -- Button Calendar ChoiceChips Container TextField --vers <projet>/src/blocs`
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Booking/`, `src/Shared/`, `config/packages/booking.yaml`, `migrations/Version20261105185043.php`, `migrations/Version20261106110000.php`. Retirer Auth, Prospect, `src/Liaisons/`, `src/BackOffice/` et `src/Catalogue/`.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : garder `src/Booking/`, `src/Shared/`, `config/packages/booking.yaml`, `migrations/Version20261105185043.php`, `migrations/Version20261106110000.php`, `migrations/Version20261106120000.php`. Retirer Auth, Prospect, `src/Liaisons/`, `src/BackOffice/` et `src/Catalogue/`.
 ```sh
 composer remove --no-scripts dompdf/dompdf symfony/password-hasher symfony/rate-limiter
 ```
@@ -40,12 +40,15 @@ Deux tables, `booking_rendez_vous` et `booking_disponibilites`, créées par les
 ## Mails
 À chaque réservation et annulation : un mail à la personne, un au professionnel. Voir [Les mails](commun.md#les-mails).
 
+Rappel la veille : une tâche planifiée par jour, `php bin/console booking:envoyer-rappels`.
+
 ## Domaine
 `api.client.fr` : voir [Le domaine](commun.md#le-domaine). Le lien d'annulation du mail mène à l'API (`BOOKING_URL_PUBLIQUE`).
 
 ## Vérifications finales
 - [ ] Une réservation : deux mails reçus, avec un `.ics` qui s'ouvre dans un agenda, aux bonnes heures.
 - [ ] Le même créneau une seconde fois : refusé.
+- [ ] Un rendez-vous pour demain, `booking:envoyer-rappels` : le rappel arrive, une seule fois.
 - [ ] Ouvrir le lien du mail n'annule rien ; le bouton annule, et le créneau redevient libre.
 - [ ] [Vérifications communes](commun.md#vérifications-finales).
 

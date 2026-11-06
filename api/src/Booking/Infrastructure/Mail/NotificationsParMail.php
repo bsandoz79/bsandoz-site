@@ -75,6 +75,21 @@ final class NotificationsParMail implements Notifications
             ->attach($annulation, 'annulation.ics', 'text/calendar; charset=utf-8; method=CANCEL'));
     }
 
+    public function rappel(RendezVous $rendezVous): void
+    {
+        $quand = $this->quand($rendezVous);
+        $lien = rtrim($this->urlPublique, '/') . "/rendez-vous/{$rendezVous->jeton}";
+
+        $this->mailer->send($this->email($rendezVous->contact->email, "Rappel : votre rendez-vous de demain, {$rendezVous->creneau->heure}")
+            ->text(
+                "Bonjour {$rendezVous->contact->nom},\n\n"
+                . "Un petit rappel pour notre rendez-vous :\n"
+                . "- Quand : {$quand}\n- Où : {$this->ou($rendezVous)}\n\n"
+                . "Un empêchement ? Vous pouvez l'annuler ici : {$lien}\n\n"
+                . "À demain,\n{$this->professionnelNom}"
+            ));
+    }
+
     private function email(string $a, string $sujet): Email
     {
         return (new Email())->from(new Address($this->expediteur, $this->professionnelNom))->to($a)->subject($sujet);

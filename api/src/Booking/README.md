@@ -49,11 +49,14 @@ Marche à suivre complète, site compris : [`docs/mise-en-place/rendez-vous.md`]
        alias: Booking
    ```
 4. Dépendances : `symfony/mailer`, `symfony/uid`, `doctrine/orm`, `nelmio/cors-bundle` (si le site est sur un autre domaine).
-5. Copier les migrations `migrations/Version20261105185043.php` et `Version20261106110000.php`, puis `doctrine:migrations:migrate`.
+5. Copier les migrations `migrations/Version20261105185043.php` , `Version20261106110000.php` et `Version20261106120000.php`, puis `doctrine:migrations:migrate`.
 6. Renseigner les variables d'environnement ci-dessus.
 
 ## Disponibilités
 Les jours et créneaux de `booking.yaml` sont les valeurs de départ. Une fois réglées (`ModifierDisponibilites`, depuis le back-office), celles de la table `booking_disponibilites` comptent, avec les jours fermés. `GET /rendez-vous/disponibilites` les rend publiques pour le calendrier.
+
+## Rappels
+`php bin/console booking:envoyer-rappels`, une fois par jour : un mail la veille de chaque rendez-vous, une seule fois. Le port `PreferencesRappel` permet de respecter un refus (liaison `RappelsSelonLeCompte` avec l'espace client) ; installé seul, le module rappelle tout le monde.
 
 ## Événement
 Après une réservation réussie, le contrôleur publie `Infrastructure/Evenement/RendezVousReserve` (avec le rendez-vous). Une installation peut l'écouter, par exemple pour ouvrir un compte client, ou l'ignorer : le module n'en dépend pas.

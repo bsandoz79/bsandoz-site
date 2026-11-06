@@ -54,11 +54,12 @@ flowchart TD
 
 ## Ce qui a été essayé, et ce qui ne l'a pas été
 Essayé le 2026-11-06, dans des conteneurs Docker :
-- chaque module seul (Booking, Auth, Prospect), migrations comprises, sur MariaDB 10.11. Les tests qui attendent une liaison échouent, comme prévu, et les autres passent ;
-- l'API complète sur MySQL 8.0 et sur MariaDB 10.11 (185 tests) ;
+- chaque module seul (Booking, Auth, Prospect, Catalogue), migrations et cache de production compris, sur MariaDB 10.11. Les tests qui attendent une liaison échouent, comme prévu, et les autres passent ;
+- l'API complète sur MySQL 8.0 (toutes les versions) et sur MariaDB 10.11 (avant le fil de messages et le back-office) ;
 - Booking seul, puis l'API complète, sous Apache en mode production, avec l'origine d'un autre domaine ;
-- un site vierge construit avec les seuls fichiers listés dans les fiches (build et types).
+- un site vierge construit avec les seuls fichiers listés dans les fiches (build et types) ;
+- le parcours complet de bsandoz.fr dans Chrome, API en production : demande, mails, activation, cookie, fil, back-office, devis, réponse par mail relevée en IMAP, PDF, prix, disponibilités. Sur `localhost`, avec un faux serveur de mail.
 
-**Jamais essayé** : un vrai hébergement, un vrai domaine, l'envoi réel des mails, la connexion à l'espace client dans un navigateur sur un autre domaine, le mode « je gère pour lui ». Le premier client servira de test : prévoir du temps.
+**Jamais essayé** : un vrai hébergement, un vrai domaine, un vrai serveur de mail, la connexion à l'espace client sur `client.fr` et `api.client.fr`, le mode « je gère pour lui ». Le premier client servira de test : prévoir du temps.
 
 Les tests de l'API ne se copient pas chez le client : plusieurs supposent les liaisons de bsandoz.fr. Ils restent ici ; chez lui, ce sont les vérifications finales qui comptent.

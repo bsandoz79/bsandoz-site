@@ -7,7 +7,7 @@ Compte ouvert automatiquement, connexion par lien ou mot de passe, appareils con
 | --- | --- |
 | **Auth + Booking + Prospect + Liaisons** | **à utiliser** : c'est l'API de bsandoz.fr, entièrement testée |
 | Auth seul | essayé, mais sans liaison **rien n'ouvre les comptes** : il faut appeler `OuvrirCompte` soi-même. Migrations `Version20261105195537.php` et `Version20261105202211.php`, et `composer remove --no-scripts dompdf/dompdf` |
-| Auth + Booking, ou Auth + Prospect | **pas prêt, jamais essayé** : `DonneesApresSuppression` et `EspaceDonneesController` utilisent les trois modules, et la page importe `MesDemandes` et `MesRendezVous` |
+| Auth + Booking, ou Auth + Prospect | **pas prêt, jamais essayé** : `DonneesApresSuppression`, `EspaceDonneesController` et `src/BackOffice/` utilisent tous les modules, et les pages importent `MesDemandes`, `MesRendezVous` et les onglets du back-office |
 
 Pour une combinaison à deux modules, il faudra retirer le module absent de ces fichiers et de la page. **Ne pas supprimer `DonneesApresSuppression`** : supprimer un compte n'effacerait plus ses rendez-vous ni ses demandes.
 
@@ -19,7 +19,7 @@ Pour une combinaison à deux modules, il faudra retirer le module absent de ces 
 | Élément | Fichiers de `front/src/` |
 | --- | --- |
 | Pages | `pages/MonEspace/`, `pages/Admin/` |
-| Données | `data/admin.ts`, `data/espace.ts`, `data/pages.ts`, `data/navigation.ts`, `data/seo.ts`, `data/faq.ts`, `data/offres.ts` |
+| Données | `data/admin.ts`, `data/prixEnLigne.ts`, `data/espace.ts`, `data/pages.ts`, `data/navigation.ts`, `data/seo.ts`, `data/faq.ts`, `data/offres.ts` |
 | Autres | `app/api.ts`, `components/PageMeta/` |
 
 Plus les fichiers du site de [Rendez-vous](rendez-vous.md) et de [Demandes de devis](demandes-de-devis.md).
@@ -28,7 +28,7 @@ Blocs : `npm run livrer -- Button Calendar ChoiceChips Container OptionCard Step
 
 Routes à déclarer : `/mon-espace`, `/mon-espace/connexion`, `/mon-espace/lien`, `/mon-espace/mot-de-passe`, `/mon-espace/email`, `/mon-espace/suppression`, `/admin`. Les mails utilisent ces adresses : ne pas les changer. Les exclure du sitemap, et ajouter `Disallow: /mon-espace` et `Disallow: /admin` dans `robots.txt`.
 
-**API** (marche à suivre : [L'API](commun.md#lapi)) : tout garder, avec `src/Liaisons/`, `src/BackOffice/`, `src/Catalogue/` et toutes les migrations. Aucune dépendance à retirer.
+**API** (marche à suivre : [L'API](commun.md#lapi)) : tout garder (Auth, Booking, Prospect, Catalogue), avec `src/Liaisons/`, `src/BackOffice/`, `src/Catalogue/` et toutes les migrations. Aucune dépendance à retirer.
 
 ## Réglages
 Dans `.env.local`, en plus des variables de [Rendez-vous](rendez-vous.md) et de [Demandes de devis](demandes-de-devis.md) :
@@ -54,7 +54,7 @@ Activation, connexion, mot de passe, changement d'adresse, suppression. Ils cont
 **Le site et l'API doivent être sur le même domaine** (`client.fr` et `api.client.fr`), en HTTPS, y compris si je gère pour lui : voir [Le domaine](commun.md#le-domaine). `AUTH_URL_SITE` est l'adresse du site, pas celle de l'API.
 
 ## Vérifications finales
-Dans un vrai navigateur, sur le vrai domaine (jamais essayé hors des tests) :
+Dans un vrai navigateur, sur le vrai domaine (essayé sur `localhost` seulement) :
 - [ ] Prendre un rendez-vous avec une nouvelle adresse : le mail d'activation arrive, le lien connecte.
 - [ ] Actualiser la page : la personne reste connectée. **C'est le test du cookie.**
 - [ ] Le cookie est `Secure`, `HttpOnly`, `SameSite=Lax`, et porte le nom choisi (outils du navigateur).

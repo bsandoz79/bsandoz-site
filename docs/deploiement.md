@@ -71,7 +71,9 @@ Dans `api/.env.local` sur le serveur (jamais versionné) :
 - `BACKOFFICE_EMAILS=contact@bsandoz.fr` : adresses autorisées dans le back-office, puis une fois `php bin/console backoffice:ouvrir-acces contact@bsandoz.fr "Baptiste Sandoz"` ;
 - puis `php bin/console doctrine:migrations:migrate`.
 
-Tâche planifiée (cPanel → Tâches Cron, toutes les 5 minutes) : `php bin/console prospect:relever-mails`.
+Tâches planifiées (cPanel → Tâches Cron) :
+- toutes les 5 minutes : `php bin/console prospect:relever-mails` ;
+- une fois par jour : `php bin/console booking:envoyer-rappels`.
 
 Côté site, une fois l'API en ligne : ajouter `VITE_DEVIS_URL=https://api.bsandoz.fr/demandes` au build (variable du workflow de déploiement) pour que les demandes de devis passent par l'API (enregistrement, compte client, suivi). Sans elle, `devis.php` reste utilisé.
 

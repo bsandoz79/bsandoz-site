@@ -8,6 +8,7 @@ namespace App\Booking\Domain;
 class RendezVous
 {
     private StatutRendezVous $statut = StatutRendezVous::Confirme;
+    private ?\DateTimeImmutable $rappelEnvoyeLe = null;
 
     private function __construct(
         public readonly string $id,
@@ -60,6 +61,16 @@ class RendezVous
     public function estConfirme(): bool
     {
         return $this->statut === StatutRendezVous::Confirme;
+    }
+
+    public function rappelEnvoyeLe(): ?\DateTimeImmutable
+    {
+        return $this->rappelEnvoyeLe;
+    }
+
+    public function marquerRappele(\DateTimeImmutable $maintenant): void
+    {
+        $this->rappelEnvoyeLe = $maintenant;
     }
 
     /** Annule le rendez-vous ; sans effet s'il l'est déjà. Renvoie vrai si l'état a changé. */
