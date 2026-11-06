@@ -51,6 +51,9 @@ La personne connectée retrouve ses rendez-vous (par son adresse e-mail) dans `/
 - Distance à vol d'oiseau depuis Amiens ; au-delà de 50 km, visio ou téléphone.
 - Si le géocodage ne répond pas, la réservation reste possible (vérification manuelle).
 
+## Rappel la veille
+`php bin/console booking:envoyer-rappels`, en tâche planifiée une fois par jour. Un mail par rendez-vous, avec le lien pour annuler, sauf si la personne a décoché « Rappels et notifications par mail » dans son espace.
+
 ## Disponibilités
 Réglées depuis le back-office (`/admin`, onglet « Disponibilités ») : le calendrier les lit à l'ouverture de la page (`GET /rendez-vous/disponibilites`). `data/rendezvous.ts` sert de repli si l'API ne répond pas. L'API refuse de toute façon un créneau hors règle. Voir [Back-office](back-office.md).
 

@@ -49,7 +49,7 @@ sequenceDiagram
 
 ## Mon compte, confidentialité, zone danger
 - **Mon compte** (`MonCompteSection.tsx` → `POST /auth/compte`) : nom, entreprise, téléphone, adresse. **Changer d'e-mail** (`POST /auth/email`) envoie un lien à la nouvelle adresse ; la page `/mon-espace/email` le confirme (`POST /auth/email/confirmer`) et l'ancienne adresse est prévenue.
-- **Confidentialité** (`Confidentialite.tsx`) : état de la localisation dans ce navigateur (rien n'est stocké côté serveur) et aide pour la réactiver ; notifications par mail (enregistrées avec le compte) ; **Télécharger mes données** (`GET /espace/donnees`, JSON sans aucun secret).
+- **Confidentialité** (`Confidentialite.tsx`) : état de la localisation dans ce navigateur (rien n'est stocké côté serveur) et aide pour la réactiver ; notifications par mail (décochées : plus de rappel la veille ni de mail « nouveau message », les mails importants partent toujours) ; **Télécharger mes données** (`GET /espace/donnees`, JSON sans aucun secret).
 - **Zone danger** (`ZoneDanger.tsx`) : confirmation en deux temps, puis lien par mail vers `/mon-espace/suppression`, où un clic explicite supprime le compte (`POST /auth/suppression/confirmer`). L'événement `CompteSupprime` efface aussi les rendez-vous (liaison `DonneesApresSuppression`, les rendez-vous à venir sont d'abord annulés).
 
 ## Sécurité, en bref
