@@ -38,4 +38,36 @@ describe('ThemeToggle', () => {
     window.localStorage.setItem(CLE_THEME, 'violet');
     expect(themeEnregistre()).toBe('nuit');
   });
+
+  describe('rideau au changement de thème', () => {
+    const installer = (transition: unknown) =>
+      Object.defineProperty(document, 'startViewTransition', { value: transition, configurable: true });
+    afterEach(() => {
+      Reflect.deleteProperty(document, 'startViewTransition');
+      vi.unstubAllGlobals();
+    });
+
+    it('passe par la transition de vue du navigateur quand elle existe', async () => {
+      const user = userEvent.setup();
+      const transition = vi.fn((maj: () => void) => maj());
+      installer(transition);
+      render(<ThemeToggle />);
+      await user.click(screen.getByRole('button', { name: 'Passer en thème clair' }));
+      expect(transition).toHaveBeenCalledTimes(1);
+      expect(document.documentElement.dataset.theme).toBe('clair');
+      // L'icône change dans la même mise à jour.
+      expect(screen.getByRole('button', { name: 'Passer en thème nuit' })).toBeInTheDocument();
+    });
+
+    it('change tout de suite si l’utilisateur réduit les animations', async () => {
+      const user = userEvent.setup();
+      const transition = vi.fn((maj: () => void) => maj());
+      installer(transition);
+      vi.stubGlobal('matchMedia', (requete: string) => ({ matches: requete.includes('reduce') }));
+      render(<ThemeToggle />);
+      await user.click(screen.getByRole('button', { name: 'Passer en thème clair' }));
+      expect(transition).not.toHaveBeenCalled();
+      expect(document.documentElement.dataset.theme).toBe('clair');
+    });
+  });
 });
