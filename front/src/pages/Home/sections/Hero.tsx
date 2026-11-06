@@ -4,6 +4,7 @@ import { hero } from '../../../data/accueil';
 import { pages } from '../../../data/pages';
 import { HeroDemo } from './HeroDemo';
 import styles from './Hero.module.css';
+import vignette from '../../../assets/baptiste/vignette.webp';
 
 /** Haut de l'accueil : promesse, mots qui tournent, appels à l'action et écran de démonstration. */
 export function Hero() {
@@ -11,6 +12,13 @@ export function Hero() {
     <section className={styles.hero} aria-labelledby="accueil-titre">
       <Container className={styles.inner}>
         <div className={styles.content}>
+          <p className={styles.identite}>
+            <img src={vignette} alt="" width="56" height="56" className={styles.vignette} />
+            <span>
+              <strong>{hero.identite.nom}</strong>
+              <span className={styles.role}>{hero.identite.role}</span>
+            </span>
+          </p>
           <p className={styles.badge}>{hero.badge}</p>
           <h1 id="accueil-titre" className={styles.title}>
             {pages.accueil.heading}

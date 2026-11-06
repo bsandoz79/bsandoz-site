@@ -4,6 +4,7 @@ import { PageMeta } from '../../components/PageMeta';
 import { aPropos } from '../../data/apropos';
 import { pages } from '../../data/pages';
 import styles from './APropos.module.css';
+import portrait from '../../assets/baptiste/portrait.webp';
 
 /** Page À propos : photo, parcours, valeurs, zone d'intervention. */
 export function APropos() {
@@ -26,7 +27,7 @@ export function APropos() {
             </div>
           </div>
           <figure className={styles.photo}>
-            <span className={styles.muted}>{t.photo}</span>
+            <img src={portrait} alt={t.photo} width="600" height="800" className={styles.image} />
             <figcaption className={styles.legende}>{t.photoLegende}</figcaption>
           </figure>
         </Container>

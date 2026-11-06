@@ -24,7 +24,7 @@ export const pages = {
     title: 'Création de sites web à Amiens',
     description:
       "Sites internet, prise de rendez-vous en ligne et applis pour artisans, commerçants et indépendants autour d'Amiens.",
-    heading: 'Un site qui travaille pour vous, même quand vous êtes sur le terrain.',
+    heading: 'Je crée le site qui travaille pour vous, même quand vous êtes sur le terrain.',
   },
   tarifs: {
     path: '/tarifs',

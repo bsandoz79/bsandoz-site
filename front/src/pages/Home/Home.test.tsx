@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { hero, methode, metiers, pourquoi, problemes } from '../../data/accueil';
-import { formuleParId } from '../../data/offres';
+import { formuleParId, prixFormule } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
 
@@ -126,5 +126,13 @@ describe("Page d'accueil", () => {
     expect(within(bande).getByText(formuleParId('vitrine').delai)).toBeInTheDocument();
     expect(within(bande).getByText('24 h')).toBeInTheDocument();
     expect(within(bande).getByText('50 km')).toBeInTheDocument();
+  });
+  it('montre tout de suite qui est derrière le site : photo, nom et métier, prix de départ', () => {
+    renderHome();
+    expect(screen.getAllByText('Baptiste Sandoz').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Développeur web à Amiens').length).toBeGreaterThan(0);
+    // Le prix de départ vient des formules ; on compare sans tenir compte des espaces insécables.
+    const prix = prixFormule(formuleParId('vitrine')).replace(/\s/g, ' ');
+    expect(screen.getByText((texte) => texte.replace(/\s/g, ' ').includes(`à partir de ${prix}`))).toBeInTheDocument();
   });
 });

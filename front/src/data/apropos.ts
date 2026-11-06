@@ -6,7 +6,7 @@ import { pages } from './pages';
 export const aPropos = {
   intro:
     'Je suis Baptiste Sandoz, développeur web à Amiens. Je crée des sites et des outils simples pour les artisans, commerçants et indépendants qui ont un vrai métier à côté.',
-  photo: '[photo à compléter]',
+  photo: 'Baptiste Sandoz, développeur web à Amiens',
   photoLegende: 'Baptiste · développeur à Amiens',
   parcours: {
     titre: 'Mon parcours',

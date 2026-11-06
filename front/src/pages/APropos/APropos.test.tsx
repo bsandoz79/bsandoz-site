@@ -12,10 +12,10 @@ function renderAPropos() {
 }
 
 describe('Page À propos', () => {
-  it('présente Baptiste, avec photo et parcours à compléter et le lien du portfolio', () => {
+  it('présente Baptiste, avec sa photo, le parcours à compléter et le lien du portfolio', () => {
     renderAPropos();
     expect(screen.getByRole('heading', { level: 1, name: pages.aPropos.heading })).toBeInTheDocument();
-    expect(screen.getByText('[photo à compléter]')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Baptiste Sandoz, développeur web à Amiens' })).toBeInTheDocument();
     expect(screen.getByText('[parcours à compléter]')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /mes compétences sur mon portfolio/ })).toHaveAttribute(
       'href',
