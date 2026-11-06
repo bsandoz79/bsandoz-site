@@ -12,6 +12,7 @@ parameters:
     booking.professionnel_email: '%env(BOOKING_PROFESSIONNEL_EMAIL)%'
     booking.url_publique: '%env(BOOKING_URL_PUBLIQUE)%'
 
+# jours_travailles et creneaux sont les valeurs de départ : une fois réglés depuis le back-office, c'est la base qui compte.
 # Les adaptateurs (contrôleur, mails…) sont enregistrés par config/services.yaml, chargé APRÈS ce fichier :
 # ils lisent leurs réglages par l'attribut #[Autowire('%booking.…%')], sans être redéclarés ici.
 services:
@@ -22,18 +23,10 @@ services:
     # Ports du domaine → adaptateurs (remplacer ici pour changer de base, d'envoi de mail…).
     App\Booking\Domain\RendezVousRepository: '@App\Booking\Infrastructure\Doctrine\DoctrineRendezVousRepository'
     App\Booking\Domain\Notifications: '@App\Booking\Infrastructure\Mail\NotificationsParMail'
+    App\Booking\Domain\DisponibilitesEnregistrees: '@App\Booking\Infrastructure\Doctrine\DisponibilitesDoctrine'
     App\Booking\Domain\Horloge: '@App\Booking\Infrastructure\Systeme\HorlogeSysteme'
     App\Booking\Domain\Identifiants: '@App\Booking\Infrastructure\Systeme\IdentifiantsAleatoires'
 
-    booking.fuseau:
-        class: DateTimeZone
-        arguments: ['%booking.fuseau%']
-
+    # La règle en vigueur : la base si elle a été réglée, sinon les valeurs ci-dessus.
     App\Booking\Domain\RegleDisponibilite:
-        arguments:
-            $joursTravailles: '%booking.jours_travailles%'
-            $creneaux: '%booking.creneaux%'
-            $dureeMinutes: '%booking.duree_minutes%'
-            $delaiMinJours: '%booking.delai_min_jours%'
-            $horizonJours: '%booking.horizon_jours%'
-            $fuseau: '@booking.fuseau'
+        factory: ['@App\Booking\Infrastructure\Systeme\FabriqueRegle', 'creer']
