@@ -74,3 +74,5 @@ flowchart LR
   carte -- "accepté ou pas encore choisi, et carte proche" --> osm["Leaflet + tuiles OpenStreetMap"]
   carte -- "refusé" --> bouton["Afficher la carte quand même"]
 ```
+
+La position du visiteur sur la carte est décrite dans [pages-de-contenu.md](pages-de-contenu.md#carte-des-zones-et-position).
