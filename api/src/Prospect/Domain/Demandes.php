@@ -14,6 +14,9 @@ interface Demandes
     /** @return list<Demande> demandes d'une adresse e-mail, la plus récente d'abord */
     public function parEmail(string $email): array;
 
+    /** @return list<Demande> les plus récentes, toutes adresses confondues */
+    public function recentes(int $maximum): array;
+
     /** Nombre de demandes déjà reçues cette année (pour numéroter la suivante). */
     public function nombreRecuesEn(int $annee): int;
 
