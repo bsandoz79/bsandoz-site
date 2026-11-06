@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { pages } from '../../data/pages';
 import { construireEnvoiContact, messageVide, validerContact } from './contact';
 import { ContactRapide } from './ContactRapide';
+import { urlEnvoiDevis } from '../../data/devis';
 
 const complet = {
   nom: 'Marie Dupont',
@@ -91,7 +92,7 @@ describe('ContactRapide', () => {
     await user.click(screen.getByRole('button', { name: 'Envoyer' }));
 
     expect(await screen.findByRole('status')).toHaveTextContent('Merci, c’est bien reçu !');
-    expect(fetchMock).toHaveBeenCalledWith('/api/devis.php', expect.objectContaining({ method: 'POST' }));
+    expect(fetchMock).toHaveBeenCalledWith(urlEnvoiDevis, expect.objectContaining({ method: 'POST' }));
     expect((fetchMock.mock.calls[0][1].body as FormData).get('titre')).toBe('Un site avec rendez-vous, devis ou boutique');
   });
 

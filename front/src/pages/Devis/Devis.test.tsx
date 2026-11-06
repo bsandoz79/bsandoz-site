@@ -5,6 +5,7 @@ import { AppRoutes } from '../../app/routes';
 import { pages } from '../../data/pages';
 import { CLE_STOCKAGE } from '../Composer/stockage';
 import { CLE_BROUILLON } from './demande';
+import { urlEnvoiDevis } from '../../data/devis';
 
 function renderDevis() {
   return render(
@@ -33,7 +34,7 @@ function reseau(envoi: () => Promise<Response>) {
   );
 }
 
-const appelsDevis = (fetchMock: ReturnType<typeof vi.fn>) => fetchMock.mock.calls.filter(([url]) => url === '/api/devis.php');
+const appelsDevis = (fetchMock: ReturnType<typeof vi.fn>) => fetchMock.mock.calls.filter(([url]) => url === urlEnvoiDevis);
 
 async function remplirJusquAuxCoordonnees(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole('radio', { name: 'Artisan à domicile' }));
@@ -181,7 +182,7 @@ describe('Parcours de demande de devis', () => {
     await user.click(screen.getByRole('checkbox', { name: /J'accepte que mes informations/ }));
     await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
-    expect(fetchMock).toHaveBeenCalledWith('/api/devis.php', expect.objectContaining({ method: 'POST' }));
+    expect(fetchMock).toHaveBeenCalledWith(urlEnvoiDevis, expect.objectContaining({ method: 'POST' }));
     const envoi = (appelsDevis(fetchMock)[0] as unknown as [string, RequestInit])[1].body as FormData;
     expect(envoi.get('recapitulatif')).toContain('Activité : Artisan à domicile');
     expect(envoi.get('recapitulatif')).toContain('Adresse : 12 rue de la Gare, Abbeville');
