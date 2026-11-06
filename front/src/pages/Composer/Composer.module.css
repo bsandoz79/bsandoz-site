@@ -351,3 +351,49 @@
   max-width: 28rem;
   margin-top: var(--space-4);
 }
+
+/* Fenêtre « Voulez-vous reprendre là où vous en étiez ? » : centrée, fond assombri. */
+.repriseFond {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-navy-deep) 70%, transparent);
+}
+
+.reprise {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: min(100%, 28rem);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+}
+
+.repriseTitre {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.repriseTexte {
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.repriseTexte strong {
+  color: var(--color-text);
+}
+
+.repriseActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
