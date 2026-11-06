@@ -93,3 +93,4 @@ Types de tests :
 | 62 | [Compléments en pointillés, calcul des frais visible](62-style-complements-pointilles.md) | `style/complements-pointilles` | 2026-11-06 |
 | 63 | [Photo en ouverture de rideau](63-feature-photo-rideau.md) | `feature/photo-rideau` | 2026-11-06 |
 | 64 | [Page blanche après déploiement](64-fix-deploiement-ordre.md) | `fix/deploiement-ordre` | 2026-11-06 |
+| 65 | [Deux compléments, référencement seul à part](65-style-complements-seo.md) | `style/complements-seo` | 2026-11-06 |

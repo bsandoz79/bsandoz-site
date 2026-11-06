@@ -8,6 +8,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Modifié (design)
+- Compléments réduits à deux cadres pointillés : page supplémentaire et suivi mensuel (avec le tarif horaire). Le référencement Google seul a son propre encart, mis en avant : badge « − 20 % », prix du marché barré, source, bouton « Faire le point sur mon site ».
 - Photo de Baptiste (accueil, À propos) : elle apparaît en ouverture de rideau la première fois qu'on arrive dessus en défilant (composant `Rideau`, animation `anim-rideau`) ; coupée si les animations sont réduites.
 - Compléments présentés en cadres pointillés, nom et détail à gauche, prix à droite (deux colonnes sur ordinateur). Le calcul des frais kilométriques est affiché en petit sous le message de la carte et de la page Rendez-vous (« Calcul : 48 km × 0,1875 € = 9,00 € (2,50 € le litre × 7,5 L aux 100 km) »).
 - Zones d'intervention : Amiens et Abbeville seulement, sans frais à 50 km. Au-delà, seuls les kilomètres en plus sont facturés (2,50 € le litre, 7,5 L aux 100 km, soit 0,1875 € par km), et ces frais sont dus même sans devis à la suite.

@@ -3,6 +3,7 @@ import { Card, Container, SectionTitle } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { Complements } from '../../components/Complements';
+import { OffreSeo } from '../../components/OffreSeo';
 import { A_PARTIR_DE, formatPrix, formules, mentionsPrix } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { jsonLdOffres } from '../../data/seo';
@@ -58,6 +59,7 @@ export function Tarifs() {
             })}
           </ul>
           <Complements titreId="complements-tarifs" />
+          <OffreSeo titreId="offre-seo-tarifs" />
           <aside className={styles.pourquoi} aria-labelledby="pourquoi-fonctionnel">
             <span className={styles.pourquoiIcone} aria-hidden="true">
               ?

@@ -279,8 +279,8 @@ export function prixSeoSeul() {
 export type Complement = { id: string; nom: string; prix: string; detail: string };
 
 /**
- * Compléments affichés à part, sous les trois formules : page en plus, suivi après la mise en ligne,
- * référencement seul. Calculés à l'appel : ils suivent les prix modifiés dans le back-office.
+ * Compléments affichés à part, sous les trois formules : page en plus et suivi après la mise en ligne
+ * (avec le tarif horaire). Calculés à l'appel : ils suivent les prix modifiés dans le back-office.
  */
 export function complements(): Complement[] {
   return [
@@ -289,21 +289,25 @@ export function complements(): Complement[] {
       id: 'abonnement',
       nom: 'Suivi mensuel',
       prix: `${formatPrix(abonnementMensuel)} / mois`,
-      detail: 'Hébergement et maintenance de votre site.',
-    },
-    {
-      id: 'heure',
-      nom: 'Intervention à l’heure',
-      prix: `${formatPrix(tarifHoraire)} / h`,
-      detail: 'Une modification après la mise en ligne, sans engagement. Demi-heure entamée due.',
-    },
-    {
-      id: 'seo',
-      nom: 'Référencement Google seul',
-      prix: formatPrix(prixSeoSeul()),
-      detail: `Pour un site existant. ${Math.round(REMISE_SEO * 100)} % sous le prix de départ du marché (${marche.seo.fourchette} ; ${marche.seo.source}).`,
+      detail: `Hébergement et maintenance. Sans suivi : ${formatPrix(tarifHoraire)} de l’heure, à la demande.`,
     },
   ];
+}
+
+/**
+ * Référencement Google seul, mis en avant à part : une offre pour ceux qui ont déjà un site.
+ * Prix : 20 % sous le bas de la fourchette du marché (source affichée).
+ */
+export function offreSeo() {
+  return {
+    badge: `− ${Math.round(REMISE_SEO * 100)} % sur le prix du marché`,
+    eyebrow: 'Vous avez déjà un site ?',
+    titre: 'Faites-le remonter sur Google.',
+    texte: 'Audit et optimisation du référencement de votre site existant, sans le refaire.',
+    prix: formatPrix(prixSeoSeul()),
+    marche: `Sur le marché : ${marche.seo.fourchette}`,
+    source: `${marche.seo.description} (${marche.seo.source})`,
+  };
 }
 
 export const mentionsPrix = {

@@ -1,0 +1,1 @@
+export { OffreSeo } from './OffreSeo';
