@@ -115,3 +115,4 @@ Types de tests :
 | 84 | [Déploiement bloqué par des tests](84-fix-tests-url-devis.md) | `fix/tests-url-devis` | 2026-11-06 |
 | 85 | [Édition par bloc : textes, prix, images](85-feature-edition-blocs.md) | `feature/edition-blocs` | 2026-11-06 |
 | 86 | [Ajouter le rendez-vous à son agenda](86-feature-agenda-rdv.md) | `feature/agenda-rdv` | 2026-11-06 |
+| 87 | [Planning et statistiques du back-office](87-feature-planning-admin.md) | `feature/planning-admin` | 2026-11-06 |
