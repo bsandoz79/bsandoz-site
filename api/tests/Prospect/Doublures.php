@@ -48,6 +48,11 @@ final class DemandesEnMemoire implements Demandes
         return $trouvees;
     }
 
+    public function recentes(int $maximum): array
+    {
+        return array_slice(array_values($this->toutes), 0, $maximum);
+    }
+
     public function nombreRecuesEn(int $annee): int
     {
         return count(array_filter($this->toutes, static fn (Demande $d) => (int) $d->creeLe->format('Y') === $annee));
