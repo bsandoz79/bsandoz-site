@@ -37,7 +37,7 @@ export function Metier({ id }: Props) {
           </h1>
           <p className={styles.intro}>{contenu.intro}</p>
           <div className={styles.actions}>
-            <Link to={lienComposer} className={buttonClassName({ size: 'lg', className: 'anim-pulse' })}>
+            <Link to={lienComposer} className={buttonClassName({ size: 'lg' })}>
               {metierTextes.appel.composer}
             </Link>
             <Link to={metierTextes.appel.rdv.to} className={buttonClassName({ size: 'lg', variant: 'secondary' })}>
@@ -51,7 +51,6 @@ export function Metier({ id }: Props) {
         <Container className={styles.stack}>
           <SectionTitle
             id="fonctions-titre"
-            eyebrow={metierTextes.fonctions.eyebrow}
             title={metierTextes.fonctions.title}
             intro={metierTextes.prix(prixFormule(formuleParId('fonctionnel')))}
           />
@@ -74,7 +73,6 @@ export function Metier({ id }: Props) {
           <div className={styles.stack}>
             <SectionTitle
               id="exemple-titre"
-              eyebrow={metierTextes.exemple.eyebrow}
               title={metierTextes.exemple.title}
               intro={metierTextes.exemple.note}
             />

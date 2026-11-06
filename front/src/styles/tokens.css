@@ -109,11 +109,7 @@
   --shadow-rose: 0 12px 30px rgb(255 50 140 / 0.4);
   --color-phone-edge: #5a4a8f;
 
-  /* Ciel de nuit : lueurs orangée, rose et violette en haut de page. */
-  --fond-page:
-    radial-gradient(70rem 32rem at 85% -12%, rgb(255 120 60 / 0.16), transparent 60%),
-    radial-gradient(60rem 30rem at 50% -18%, rgb(255 60 150 / 0.16), transparent 65%),
-    radial-gradient(50rem 34rem at -10% 0%, rgb(140 70 255 / 0.2), transparent 60%),
-    var(--color-bg);
+  /* Fond uni : pas de lueurs colorées. */
+  --fond-page: var(--color-bg);
   color-scheme: dark;
 }

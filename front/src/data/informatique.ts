@@ -80,8 +80,8 @@ export const pageInformatique = {
   composer: { label: 'Décrire mon besoin', to: '/composer?onglet=informatique' },
   rdv: { label: 'Prendre rendez-vous (gratuit)', to: '/rendez-vous' },
   reassurance: ['Particuliers et professionnels', "50 km autour d'Amiens et d'Abbeville", 'Prix annoncé avant toute intervention'],
-  services: { eyebrow: 'Prestations', title: 'Ce que je fais chez vous' },
-  deroulement: { eyebrow: 'Comment ça se passe', title: 'Trois étapes, sans surprise.' },
+  services: { title: 'Ce que je fais chez vous' },
+  deroulement: { title: 'Comment ça se passe' },
   tarif: {
     title: informatiqueMentions.tarif,
     text: 'Chaque situation est différente : je vous donne un prix clair après un premier échange, avant toute intervention.',

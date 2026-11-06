@@ -8,17 +8,6 @@
   font-size: var(--text-sm);
 }
 
-/* Halo derrière le téléphone : dégradé rose qui respire doucement. */
-.circle {
-  position: absolute;
-  width: 20rem;
-  height: 20rem;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, var(--color-rose-light), var(--color-rose-soft) 55%, transparent 72%);
-  opacity: 0.8;
-  filter: blur(4px);
-}
-
 /* Téléphone façon smartphone récent : bords fins et très arrondis, effet métal sombre, ombre profonde. */
 .phone {
   position: relative;
@@ -258,11 +247,6 @@
   .scene {
     display: flex;
     height: 34rem;
-  }
-
-  .circle {
-    width: 26rem;
-    height: 26rem;
   }
 
   /* La photo à gauche, le téléphone devant elle à droite, les notifications autour. */

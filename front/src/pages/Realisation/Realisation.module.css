@@ -1,8 +1,6 @@
 /* En-tête du projet : bleu marine avec une lueur rose. */
 .hero {
-  background:
-    radial-gradient(50rem 18rem at 90% 0%, var(--color-rose-glow), transparent 60%),
-    linear-gradient(180deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+  background: var(--color-navy);
   color: var(--color-text-on-dark-muted);
 }
 

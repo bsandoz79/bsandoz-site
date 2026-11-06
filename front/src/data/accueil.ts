@@ -5,8 +5,6 @@ import { pages } from './pages';
 /** Textes de la page d'accueil (maquette `Main` et `Mobile`, cahier des charges section 9). */
 export const hero = {
   badge: 'Création de sites internet sur mesure · Amiens',
-  rotatingPrefix: 'Pour avoir',
-  rotatingWords: ['plus de clients', "moins d'appels manqués", 'des rendez-vous la nuit', 'des devis en 2 minutes'],
   text: `Développeur web à Amiens, je conçois des sites et des outils de réservation pour les artisans, commerçants et indépendants, dans la Somme et partout en France, ${prixFormule(formuleParId('vitrine'))}.`,
   /** Qui est derrière le site : photo, nom, métier. */
   identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
@@ -74,8 +72,7 @@ export const metiers = {
 };
 
 export const problemes = {
-  eyebrow: 'Ce qui vous fait perdre des clients',
-  title: "Votre métier, c'est le terrain. Votre site s'occupe du reste.",
+  title: 'Ce qui vous fait perdre des clients',
   items: [
     { probleme: 'Vous ratez des appels pendant vos interventions.', solution: 'Vos clients réservent seuls, 24 h/24.' },
     {
@@ -94,8 +91,7 @@ export const problemes = {
 };
 
 export const offres = {
-  eyebrow: 'Offres',
-  title: 'Des prix clairs, selon ce dont vous avez vraiment besoin.',
+  title: 'Mes tarifs',
   link: { label: 'Composer mon site', to: `${pages.composer.path}?onglet=web` },
   featuredBadge: 'Le plus complet',
   /** Libellé du bouton de chaque formule. */
@@ -107,13 +103,11 @@ export const offres = {
 };
 
 export const realisationsSection = {
-  eyebrow: 'Réalisations',
-  title: 'Des projets concrets, à tester vous-même.',
+  title: 'Mes réalisations',
 };
 
 export const methode = {
-  eyebrow: 'Comment ça se passe',
-  title: 'Quatre étapes, un seul interlocuteur.',
+  title: 'Comment ça se passe',
   steps: [
     {
       title: 'Vous décrivez votre projet',
@@ -129,8 +123,7 @@ export const methode = {
 };
 
 export const pourquoi = {
-  eyebrow: 'Pourquoi travailler avec moi',
-  title: 'Des outils simples, pour ceux qui ont un vrai métier à côté.',
+  title: 'Pourquoi travailler avec moi',
   photo: 'Baptiste Sandoz, développeur web à Amiens',
   photoCaption: 'Baptiste · développeur à Amiens',
   items: [

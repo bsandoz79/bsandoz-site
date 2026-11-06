@@ -155,7 +155,7 @@ describe('CarteZones', () => {
       expect(screen.getByText(carteTextes.position.enCours)).toBeInTheDocument();
 
       repondre(49.9085, 2.5097);
-      expect(screen.getByText(/Bonne nouvelle : vous êtes dans ma zone, à \d+ km d’Amiens/)).toBeInTheDocument();
+      expect(screen.getByText(/Vous êtes dans ma zone, à \d+ km d’Amiens : je viens chez vous sans frais/)).toBeInTheDocument();
       expect(screen.queryByText(/^Calcul : /)).not.toBeInTheDocument();
       await waitFor(() => expect(placerPosition).toHaveBeenCalledWith(49.9085, 2.5097, 'amiens'));
       expect(screen.queryByRole('button', { name: carteTextes.position.bouton })).not.toBeInTheDocument();
@@ -189,7 +189,7 @@ describe('CarteZones', () => {
 
       await user.click(screen.getByRole('button', { name: carteTextes.position.bouton }));
       repondre(49.8941, 2.2958);
-      expect(screen.getByText(/vous êtes dans ma zone, à moins d’1 km d’Amiens/)).toBeInTheDocument();
+      expect(screen.getByText(/Vous êtes dans ma zone, à moins d’1 km d’Amiens/)).toBeInTheDocument();
     });
 
     it('sans géolocalisation dans le navigateur : pas de bouton inutile', async () => {

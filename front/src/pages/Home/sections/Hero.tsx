@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Container, RotatingWords, buttonClassName } from '@bsandoz79/blocs';
+import { Container, buttonClassName } from '@bsandoz79/blocs';
 import { hero } from '../../../data/accueil';
 import { pages } from '../../../data/pages';
 import { HeroDemo } from './HeroDemo';
@@ -23,12 +23,9 @@ export function Hero() {
           <h1 id="accueil-titre" className={styles.title}>
             {pages.accueil.heading}
           </h1>
-          <p className={styles.rotating}>
-            {hero.rotatingPrefix} <RotatingWords words={hero.rotatingWords} />
-          </p>
           <p className={styles.text}>{hero.text}</p>
           <div className={styles.actions}>
-            <Link to={hero.primary.to} className={buttonClassName({ size: 'lg', className: 'anim-pulse anim-reflet' })}>
+            <Link to={hero.primary.to} className={buttonClassName({ size: 'lg', className: 'anim-reflet' })}>
               {hero.primary.label}
             </Link>
             <Link to={hero.secondary.to} className={buttonClassName({ variant: 'secondary', size: 'lg' })}>

@@ -78,7 +78,7 @@ export function Confidentialite({ compte, onChange }: { compte: Compte; onChange
         <input type="checkbox" checked={compte.notifications} onChange={(e) => changerNotifications(e.target.checked)} />
         <span>
           {t.notifications}
-          <span className={styles.aide}> — {t.notificationsAide}</span>
+          <span className={styles.aide}> ({t.notificationsAide})</span>
         </span>
       </label>
       {message && (

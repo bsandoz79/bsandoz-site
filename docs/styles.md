@@ -27,3 +27,8 @@ Couleurs : bleu marine `--color-navy` et rose `--color-rose` (logo SB).
 - Choix : `src/app/theme.ts` (stockage local `bsandoz.theme`), bouton `components/ThemeToggle` dans l'en-tête ; un petit script dans `index.html` applique le thème avant l'affichage.
 - Contrastes vérifiés (AA) dans les deux thèmes : texte et texte discret sur fond et surface, accent sur fond, blanc sur le rose et son survol, badges, panneaux sombres.
 
+## Sobriété (passe « moins IA », novembre 2026)
+- **Fond** : uni (`--fond-page: var(--color-bg)`), sans lueurs colorées ; sections sans halos.
+- **Effets gardés** : le reflet `anim-reflet` sur le seul bouton « Estimer mon projet » du haut de l'accueil, et le rideau `anim-rideau` sur la photo.
+- **Effets retirés de l'interface** : `anim-pulse`, `anim-float` et `anim-respire` restent définies, mais plus aucune page ne les utilise.
+- **Titres** : pas de petit titre en majuscules au-dessus des sections ; un titre simple suffit.

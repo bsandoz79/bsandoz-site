@@ -1,8 +1,6 @@
 /* Bande bleu marine : quatre chiffres clés, en dégradé rose. */
 .bande {
-  background:
-    radial-gradient(40rem 12rem at 50% 0%, var(--color-rose-glow), transparent 70%),
-    var(--color-navy);
+  background: var(--color-navy);
 }
 
 .liste {

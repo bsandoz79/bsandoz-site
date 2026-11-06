@@ -27,9 +27,9 @@ describe('Page Tarifs', () => {
     expect(screen.getByRole('article', { name: 'Fonctionnel' })).toHaveTextContent(/à partir de 989\s€/);
   });
 
-  it('fait passer un reflet sur les trois formules', () => {
+  it('ne met pas d’effet de reflet sur les trois formules', () => {
     renderTarifs();
-    for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) expect(screen.getByRole('article', { name: nom })).toHaveClass('anim-reflet');
+    for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) expect(screen.getByRole('article', { name: nom })).not.toHaveClass('anim-reflet');
   });
 
   it('affiche à part deux compléments : page en plus, suivi mensuel avec le tarif horaire', () => {
@@ -46,7 +46,7 @@ describe('Page Tarifs', () => {
 
   it('met en avant à part le référencement seul, avec le prix du marché et sa source', () => {
     renderTarifs();
-    const seo = screen.getByRole('region', { name: 'Faites-le remonter sur Google.' });
+    const seo = screen.getByRole('region', { name: 'Vous avez déjà un site ?' });
     expect(seo).toHaveTextContent('− 20 % sur le prix du marché');
     expect(seo).toHaveTextContent(/400\s€/);
     expect(seo).toHaveTextContent(`Sur le marché : ${marche.seo.fourchette}`);

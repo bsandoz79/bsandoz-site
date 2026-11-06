@@ -9,7 +9,7 @@ export function Realisations() {
   return (
     <section className="section" aria-labelledby="realisations-titre">
       <Container className={styles.stack}>
-        <SectionTitle id="realisations-titre" eyebrow={realisationsSection.eyebrow} title={realisationsSection.title} />
+        <SectionTitle id="realisations-titre" title={realisationsSection.title} />
         <ul className={styles.grid3}>
           {realisations.map((realisation, i) => (
             <Reveal as="li" key={realisation.id} delay={i * 80}>

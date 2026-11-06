@@ -16,6 +16,12 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Modifié (design)
+- Site plus sobre, « moins IA » :
+  - fond uni, sans lueurs colorées, et halos des sections retirés ;
+  - téléphone, bulles et cercle de l'accueil immobiles ; plus de halo qui pulse sur les boutons, ni de mots qui tournent ;
+  - le reflet ne reste que sur le bouton principal ;
+  - plus de petits titres en majuscules au-dessus des sections, et des titres simples (« Ce qui vous fait perdre des clients », « Mes tarifs », « Mes réalisations », « Comment ça se passe », « Questions fréquentes »…) ;
+  - plus de formules toutes faites (« Bonne nouvelle », « Pas d'inquiétude ») ni de tirets longs.
 - Choix sélectionnés :
   - fini la bordure rose épaisse sur fond violet ;
   - pastille choisie en rose plein, texte blanc (blocs `ChoiceChips`) ;

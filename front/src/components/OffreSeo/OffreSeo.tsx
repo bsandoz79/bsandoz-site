@@ -11,7 +11,6 @@ export function OffreSeo({ titreId = 'offre-seo-titre' }: { titreId?: string }) 
     <section className={styles.encart} aria-labelledby={titreId}>
       <div className={styles.texte}>
         <p className={styles.badge}>{o.badge}</p>
-        <p className={styles.eyebrow}>{o.eyebrow}</p>
         <h3 id={titreId} className={styles.titre}>
           {o.titre}
         </h3>

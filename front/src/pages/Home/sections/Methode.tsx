@@ -8,7 +8,7 @@ export function Methode() {
   return (
     <section className="section section--white" aria-labelledby="methode-titre">
       <Container className={sections.stack}>
-        <SectionTitle id="methode-titre" eyebrow={methode.eyebrow} title={methode.title} />
+        <SectionTitle id="methode-titre" title={methode.title} />
         <ol className={sections.grid4}>
           {methode.steps.map((step, i) => (
             <Reveal as="li" key={step.title} delay={i * 80} className={styles.step}>

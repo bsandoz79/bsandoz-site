@@ -59,7 +59,7 @@ export const devisTextes = {
   },
   besoins: {
     titre: "Qu'aimeriez-vous que votre site fasse pour vous ?",
-    aide: "Cochez tout ce qui vous parle. Pas d'inquiétude : on affinera ensemble.",
+    aide: "Cochez tout ce qui vous parle, on affinera ensemble.",
     legende: 'Besoins',
   },
   mots: {
