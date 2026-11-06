@@ -65,3 +65,6 @@ Après une réservation réussie, le contrôleur publie `Infrastructure/Evenemen
 - `tests/Booking/Domain`, `tests/Booking/Application` : domaine et cas d'usage, avec des doublures des ports (sans base ni mails).
 - `tests/Booking/Infrastructure/FichierIcsTest.php`, `NotificationsParMailTest.php` : fichier `.ics` et e-mails (faux mailer).
 - `tests/Booking/Infrastructure/RendezVousHttpTest.php` : parcours HTTP complet sur MySQL (réserver, créneau pris, données invalides, lien du mail, annulation qui libère le créneau). Ignoré si aucune base n'est joignable.
+
+## Frais kilométriques
+Pour un rendez-vous chez le client au-delà de la zone gratuite, la page envoie `kmFactures` (km facturés aller-retour) et `fraisCentimes` (montant estimé). Le rendez-vous les garde s'ils sont plausibles (entiers positifs, au plus 4 000 km et 2 000 €), seulement chez le client. Les mails de confirmation les indiquent : à la personne avec la mention « dus même si aucun devis n'est accepté », et au professionnel. Colonnes `km_factures` et `frais_centimes` (migration `Version20261106130000`).
