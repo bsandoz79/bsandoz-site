@@ -1,5 +1,42 @@
 import { ajouterJours, comparer, jourDeLaSemaine, type DateIso } from '@bsandoz79/blocs';
+import { urlApi } from '../../app/api';
 import { disponibilites, rdvTextes, urlGeocodage, zone, type LieuId } from '../../data/rendezvous';
+
+export type Disponibilites = typeof disponibilites;
+
+const listeDe = <T,>(valeur: unknown, estValide: (v: unknown) => v is T): T[] | null =>
+  Array.isArray(valeur) && valeur.every(estValide) ? valeur : null;
+const estNombre = (v: unknown): v is number => typeof v === 'number' && Number.isInteger(v);
+const estTexte = (v: unknown): v is string => typeof v === 'string';
+
+/** Disponibilités en vigueur, lues sur l'API. */
+export async function lireDisponibilites(): Promise<Disponibilites> {
+  const reponse = await fetch(`${urlApi}/rendez-vous/disponibilites`, { headers: { Accept: 'application/json' } });
+  if (!reponse.ok) throw new Error('Disponibilités indisponibles');
+  const recu = (await reponse.json()) as Partial<Record<keyof Disponibilites, unknown>>;
+  const joursTravailles = listeDe(recu.joursTravailles, estNombre);
+  const creneaux = listeDe(recu.creneaux, estTexte);
+  const joursFermes = listeDe(recu.joursFermes, estTexte);
+  if (!joursTravailles || !creneaux || !joursFermes) throw new Error('Disponibilités illisibles');
+  return {
+    joursTravailles,
+    creneaux,
+    joursFermes,
+    dureeMinutes: estNombre(recu.dureeMinutes) ? recu.dureeMinutes : disponibilites.dureeMinutes,
+    delaiMinJours: estNombre(recu.delaiMinJours) ? recu.delaiMinJours : disponibilites.delaiMinJours,
+    horizonJours: estNombre(recu.horizonJours) ? recu.horizonJours : disponibilites.horizonJours,
+  };
+}
+
+/** Le calendrier suit l'API ; si elle ne répond pas, il garde les valeurs de `data/rendezvous.ts`. L'API a le dernier mot à la réservation. */
+export async function actualiserDisponibilites(): Promise<boolean> {
+  try {
+    Object.assign(disponibilites, await lireDisponibilites());
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /** Premier et dernier jours réservables. */
 export function bornes(aujourdhui: DateIso) {
@@ -9,10 +46,10 @@ export function bornes(aujourdhui: DateIso) {
   };
 }
 
-/** Le jour est-il réservable ? (dans les bornes et travaillé) */
+/** Le jour est-il réservable ? (dans les bornes, travaillé et pas fermé) */
 export function jourDisponible(jour: DateIso, aujourdhui: DateIso) {
   const { min, max } = bornes(aujourdhui);
-  return comparer(jour, min) >= 0 && comparer(jour, max) <= 0 && disponibilites.joursTravailles.includes(jourDeLaSemaine(jour));
+  return comparer(jour, min) >= 0 && comparer(jour, max) <= 0 && disponibilites.joursTravailles.includes(jourDeLaSemaine(jour)) && !disponibilites.joursFermes.includes(jour);
 }
 
 const enMinutes = (heure: string) => {

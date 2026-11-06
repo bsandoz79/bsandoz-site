@@ -10,8 +10,8 @@ export const lieux: { id: LieuId; nom: string; description: string }[] = [
 ];
 
 /**
- * Disponibilités. À CONFIRMER par Baptiste : jours et horaires repris de la maquette.
- * Les vraies disponibilités viendront du back-office (V3).
+ * Disponibilités de départ. À CONFIRMER par Baptiste : jours et horaires repris de la maquette.
+ * Le calendrier suit celles du back-office dès que l'API répond ; celles-ci servent de repli.
  */
 export const disponibilites = {
   /** Jours travaillés : lundi = 0 … dimanche = 6. */
@@ -23,6 +23,8 @@ export const disponibilites = {
   delaiMinJours: 1,
   /** Dernier jour réservable, en jours après aujourd'hui. */
   horizonJours: 60,
+  /** Jours fermés (congés), « AAAA-MM-JJ ». */
+  joursFermes: [] as string[],
 };
 
 /** Zone de déplacement : 50 km à vol d'oiseau autour d'Amiens. */

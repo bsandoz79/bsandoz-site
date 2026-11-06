@@ -51,6 +51,9 @@ La personne connectée retrouve ses rendez-vous (par son adresse e-mail) dans `/
 - Distance à vol d'oiseau depuis Amiens ; au-delà de 50 km, visio ou téléphone.
 - Si le géocodage ne répond pas, la réservation reste possible (vérification manuelle).
 
+## Disponibilités
+Réglées depuis le back-office (`/admin`, onglet « Disponibilités ») : le calendrier les lit à l'ouverture de la page (`GET /rendez-vous/disponibilites`). `data/rendezvous.ts` sert de repli si l'API ne répond pas. L'API refuse de toute façon un créneau hors règle. Voir [Back-office](back-office.md).
+
 ## Réutilisable ?
 - `Calendar` : **oui** (prévu pour le kit de réservation des clients).
 - `distanceKm`, `verifierAdresse` : oui, en changeant la zone.

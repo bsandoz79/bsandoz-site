@@ -1,4 +1,6 @@
+import { disponibilites } from '../../data/rendezvous';
 import {
+  actualiserDisponibilites,
   bornes,
   corpsReservation,
   creneauxDuJour,
@@ -98,5 +100,42 @@ describe('validation et envoi', () => {
   it('n’envoie l’adresse que pour un rendez-vous chez vous', () => {
     expect(corpsReservation(complete).adresse).toBe('12 rue de la Gare, Abbeville');
     expect(corpsReservation({ ...complete, lieu: 'telephone' }).adresse).toBeNull();
+  });
+});
+
+describe('Disponibilités du back-office', () => {
+  const depart = structuredClone(disponibilites);
+  const lundi = '2030-01-07';
+  const aujourdhui = '2030-01-01';
+
+  afterEach(() => {
+    Object.assign(disponibilites, structuredClone(depart));
+    vi.unstubAllGlobals();
+  });
+
+  const api = (corps: unknown, statut = 200) => vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify(corps), { status: statut })));
+
+  it('un jour fermé n’est plus réservable et n’a plus de créneau', async () => {
+    api({ joursTravailles: [0, 1], creneaux: ['08:00'], joursFermes: [lundi], dureeMinutes: 60, delaiMinJours: 1, horizonJours: 60 });
+
+    expect(await actualiserDisponibilites()).toBe(true);
+
+    expect(jourDisponible(lundi, aujourdhui)).toBe(false);
+    expect(creneauxDuJour(lundi, aujourdhui)).toEqual([]);
+    expect(creneauxDuJour('2030-01-08', aujourdhui).map((c) => c.debut)).toEqual(['08:00']);
+    expect(jourDisponible('2030-01-09', aujourdhui)).toBe(false);
+  });
+
+  it.each([
+    ['une panne', () => vi.stubGlobal('fetch', vi.fn(async () => Promise.reject(new Error('réseau'))))],
+    ['une erreur', () => api({}, 500)],
+    ['une réponse illisible', () => api({ joursTravailles: 'tous', creneaux: ['08:00'], joursFermes: [] })],
+  ])('garde le réglage de départ après %s', async (_nom, simuler) => {
+    simuler();
+
+    expect(await actualiserDisponibilites()).toBe(false);
+
+    expect(disponibilites.creneaux).toEqual(depart.creneaux);
+    expect(jourDisponible(lundi, aujourdhui)).toBe(true);
   });
 });

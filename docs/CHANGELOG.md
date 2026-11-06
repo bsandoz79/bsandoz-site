@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (back-office : disponibilités)
+- Site : onglet « Disponibilités » de `/admin` (jours, créneaux, jours fermés) ; le calendrier de `/rendez-vous` les suit, avec repli sur `data/rendezvous.ts`.
+- API, module Booking : disponibilités en base (`booking_disponibilites`), valeurs de `booking.yaml` tant que rien n'est réglé, jour fermé refusé ; `GET /rendez-vous/disponibilites`, `POST /backoffice/disponibilites`.
+
 ### Ajouté (back-office : prix)
 - Site : onglet « Prix » de `/admin` ; le site applique les prix modifiés à son chargement, avec repli sur ceux du code (`data/prixEnLigne.ts`). Les prix actuels ne changent pas.
 - API : module `Catalogue` (`GET /prix`, `POST /backoffice/prix`), table `catalogue_prix`.

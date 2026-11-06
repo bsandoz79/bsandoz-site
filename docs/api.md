@@ -71,8 +71,9 @@ Les routes se déclarent par attribut `#[Route]` sur les contrôleurs de `Infras
 | GET | `/espace/demandes/{id}/devis.pdf` | télécharger son devis en PDF |
 | POST | `/espace/demandes/{id}/messages` | écrire dans le fil de la demande |
 
+| GET | `/rendez-vous/disponibilites` | jours, créneaux et jours fermés en vigueur |
 | GET | `/prix` | prix modifiés depuis le back-office (module Catalogue) |
-| GET, POST | `/backoffice/demandes…`, `/backoffice/prix` | back-office, réservé à `BACKOFFICE_EMAILS` (voir `docs/fonctionnalites/back-office.md`) |
+| GET, POST | `/backoffice/demandes…`, `/backoffice/prix`, `/backoffice/disponibilites` | back-office, réservé à `BACKOFFICE_EMAILS` (voir `docs/fonctionnalites/back-office.md`) |
 
 Commande à planifier : `php bin/console prospect:relever-mails` (réponses reçues par mail, toutes les 5 minutes).
 
