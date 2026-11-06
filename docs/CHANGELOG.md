@@ -16,6 +16,9 @@
   - un bandeau « Repris de votre estimation » propose « Repartir de zéro ».
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
+### Ajouté
+- Réalisation **Alterno** : application Android qui planifie les horaires variables d'un alternant. 6 captures, contexte, besoin, solution, fonctionnalités, technos et lien vers le code sur GitHub, repris du portfolio. Filtre « Applis & plateformes », plan du site.
+
 ### Modifié (design)
 - Changement de thème : la nouvelle couleur se déploie comme un rideau, de gauche à droite (0,7 s). Le changement est immédiat si le navigateur ne le permet pas ou si les animations sont réduites.
 - Site plus sobre, « moins IA » :

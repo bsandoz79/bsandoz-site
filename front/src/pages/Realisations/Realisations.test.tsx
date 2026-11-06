@@ -36,8 +36,8 @@ describe('Page Réalisations', () => {
     const cartes = () => screen.getAllByRole('article').map((a) => a.getAttribute('aria-labelledby'));
 
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getByText('3 projets')).toBeInTheDocument();
-    expect(cartes()).toHaveLength(3);
+    expect(screen.getByText('4 projets')).toBeInTheDocument();
+    expect(cartes()).toHaveLength(4);
 
     await user.click(screen.getByRole('radio', { name: 'Sites web' }));
     expect(screen.getByText('2 projets')).toBeInTheDocument();
@@ -45,22 +45,23 @@ describe('Page Réalisations', () => {
     expect(screen.getByRole('article', { name: 'Christophe Poix Moto' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: 'Applis & plateformes' }));
-    expect(screen.getByText('1 projet')).toBeInTheDocument();
+    expect(screen.getByText('2 projets')).toBeInTheDocument();
     expect(screen.getByRole('article', { name: "O'RDV" })).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Alterno' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: 'Tout' }));
-    expect(cartes()).toHaveLength(3);
+    expect(cartes()).toHaveLength(4);
   });
 
   it('reprend le filtre de l’adresse, et ignore un filtre inconnu', () => {
     const { unmount } = afficher(`${pages.realisations.path}?type=appli`);
     expect(screen.getByRole('radio', { name: 'Applis & plateformes' })).toBeChecked();
-    expect(screen.getAllByRole('article')).toHaveLength(1);
+    expect(screen.getAllByRole('article')).toHaveLength(2);
     unmount();
 
     afficher(`${pages.realisations.path}?type=inconnu`);
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getAllByRole('article')).toHaveLength(3);
+    expect(screen.getAllByRole('article')).toHaveLength(4);
   });
 
   it('chaque projet a un type couvert par un filtre', () => {
@@ -109,9 +110,17 @@ describe('Page d’une réalisation', () => {
   it('mène aux projets précédent et suivant, et revient à la liste', () => {
     afficher('/realisations/christophe-poix-moto');
     const voisins = within(screen.getByRole('navigation', { name: 'Autres réalisations' }));
-    expect(voisins.getByRole('link', { name: /Projet précédent/ })).toHaveAttribute('href', '/realisations/ordv');
+    expect(voisins.getByRole('link', { name: /Projet précédent/ })).toHaveAttribute('href', '/realisations/alterno');
     expect(voisins.getByRole('link', { name: /Projet suivant/ })).toHaveAttribute('href', '/realisations/demo-detailing');
     expect(screen.getByRole('link', { name: '← Toutes les réalisations' })).toHaveAttribute('href', pages.realisations.path);
+  });
+
+  it('présente Alterno : application mobile, captures, fonctionnalités et lien vers le code', () => {
+    afficher('/realisations/alterno');
+    expect(screen.getByRole('heading', { level: 1, name: 'Alterno' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Alterno : Simulation de semaines' })).toBeInTheDocument();
+    expect(screen.getByText('Recalcul automatique : arrivée plus tard, départ plus tôt, pause plus longue')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Voir le code sur GitHub/ })).toHaveAttribute('href', 'https://github.com/bsandoz79/Alterno');
   });
 
   it('affiche la page introuvable pour un projet inconnu', () => {
