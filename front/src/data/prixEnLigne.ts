@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from 'react';
 import { urlApi } from '../app/api';
 import { formules, options, type OptionId } from './offres';
 
@@ -89,4 +90,37 @@ export async function preparerPrix(maintenant = Date.now(), attenteMax = ATTENTE
     reinitialiserPrix();
     appliquerPrix(prix);
   }
+}
+
+/** Prix en vigueur qui diffèrent du code : c'est ce que l'API enregistre. */
+export function prixModifiesActuels(): PrixModifies {
+  const actuels: PrixModifies = {
+    ...Object.fromEntries(formules.map((f) => [`formule.${f.id}`, f.prix])),
+    ...Object.fromEntries(Object.values(options).map((o) => [`option.${o.id}`, o.prix])),
+  };
+  return Object.fromEntries(Object.entries(actuels).filter(([cle, montant]) => montant !== prixDeBase[cle]));
+}
+
+let version = 0;
+const abonnes = new Set<() => void>();
+
+/** Applique un nouveau prix sur la page et dans le cache du navigateur. */
+export function changerPrix(prix: PrixModifies, maintenant = Date.now()) {
+  reinitialiserPrix();
+  appliquerPrix(prix);
+  ecrireCache(prix, maintenant);
+  version += 1;
+  abonnes.forEach((abonne) => abonne());
+}
+
+/** Fait réafficher un composant quand un prix change. */
+export function useVersionPrix() {
+  return useSyncExternalStore(
+    (abonne) => {
+      abonnes.add(abonne);
+      return () => abonnes.delete(abonne);
+    },
+    () => version,
+    () => version,
+  );
 }

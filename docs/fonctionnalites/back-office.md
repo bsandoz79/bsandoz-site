@@ -71,3 +71,25 @@ Tout se règle d'un clic (`pages/Admin/DisponibilitesAdmin.tsx`) :
 - **jours travaillés** : sept boutons Lun à Dim ;
 - **heures de rendez-vous** : une grille de 7 h à 20 h, par demi-heure, groupée en matin, après-midi et soir. Une heure déjà enregistrée hors de la grille reste affichée ;
 - **jours fermés** : un clic dans le calendrier ferme le jour, un second le rouvre (bloc `Calendar`, options `isMarked` et `markedLabel`). Les jours fermés sont aussi listés, avec une croix pour les rouvrir.
+
+## Édition directe sur les pages (crayon)
+Un compte du back-office modifie les prix directement sur le site, sans passer par `/admin`.
+
+- **Qui voit les crayons** (`app/edition.ts`, `useEdition`) : une connexion est notée dans le navigateur (`bsandoz.session`, par `compteConnecte` et `seDeconnecter`). Si elle existe, le site appelle `/backoffice/demandes` : 200 affiche les crayons, 403 non, 401 efface la note. Un visiteur sans session ne déclenche aucun appel. La note ne donne aucun droit : c'est l'API qui refuse tout enregistrement à un compte non autorisé.
+- **Le composant** (`components/PrixModifiable`) : `<PrixModifiable cle="formule.vitrine" nom="Vitrine" montant={() => formule.prix}>{() => <p>…</p>}</PrixModifiable>`. Crayon, champ, Entrée ou « Enregistrer », Échap ou « Annuler ».
+- **L'enregistrement** : `POST /backoffice/prix` avec tous les prix qui diffèrent du code (`prixModifiesActuels`), puis `changerPrix` met à jour la page et le cache du navigateur.
+- **Où** : les trois formules (accueil et Tarifs) et la page supplémentaire.
+- **Limites actuelles** : les textes calculés une fois au chargement (hero, FAQ, CGV) suivent au rechargement suivant. Les prix écrits dans le code (heure, suivi mensuel, SEO seul) et les options du simulateur n'ont pas de crayon. Textes et images ne sont pas encore modifiables : il faudra les stocker dans l'API.
+
+```mermaid
+flowchart LR
+  co["Connexion<br/>compteConnecte()"] --> note["localStorage<br/>bsandoz.session"]
+  note --> verif["useEdition()<br/>GET /backoffice/demandes"]
+  verif -- "200" --> crayon["Crayon sur chaque prix"]
+  verif -- "403 ou 401" --> rien["Prix seul"]
+  crayon --> champ["Champ sur place"]
+  champ --> post["POST /backoffice/prix"]
+  post --> page["changerPrix()<br/>page et cache à jour"]
+```
+
+Tests : `PrixModifiable.test.tsx` (visiteur sans appel, 403, 401, enregistrement, retour au prix du code, annulation, montant invalide, échec de l'API).

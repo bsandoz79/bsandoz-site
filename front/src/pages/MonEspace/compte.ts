@@ -1,3 +1,4 @@
+import { noterSession } from '../../app/edition';
 import { appelerApi, urlApi } from '../../app/api';
 import { espaceTextes, MOT_DE_PASSE_MIN } from '../../data/espace';
 import { pages } from '../../data/pages';
@@ -123,7 +124,10 @@ export type AppareilConnecte = {
 /** Compte connecté, ou null si personne ne l'est. */
 export async function compteConnecte(): Promise<Compte | null> {
   const { statut, corps } = await appelerApi<{ compte?: Compte }>('/auth/moi');
-  return statut === 200 && corps.compte ? corps.compte : null;
+  const compte = statut === 200 && corps.compte ? corps.compte : null;
+  // Sert à afficher, ou non, les crayons d'édition sur les pages.
+  noterSession(compte !== null);
+  return compte;
 }
 
 export type ResultatConnexion = { ok: true; compte: Compte } | { ok: false; raison: 'identifiants' | 'trop-d-essais' | 'erreur' };
@@ -157,6 +161,7 @@ export async function definirMotDePasse(jeton: string, motDePasse: string): Prom
 
 export async function seDeconnecter() {
   await appelerApi('/auth/deconnexion', { corps: {} });
+  noterSession(false);
 }
 
 export async function appareilsConnectes(): Promise<AppareilConnecte[]> {

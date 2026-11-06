@@ -18,6 +18,7 @@
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
 ### Ajouté
+- Édition directe : connecté avec un compte du back-office, un petit crayon apparaît à côté des prix (formules sur l'accueil et Tarifs, page supplémentaire). On modifie sur place, on enregistre, et le prix change sans passer par `/admin`. Les visiteurs ne voient rien de plus.
 - Première mise en ligne de l'API sur `api.bsandoz.fr` ; `docs/mise-en-ligne.md` note ce qui a été vérifié sur le vrai serveur (chemin de PHP 8.3, MariaDB 11.4, serveur de mail).
 - En-tête : lien « Espace client » toujours visible (icône, et texte sur grand écran), et en toutes lettres dans le menu du téléphone. Avant, il n'était que dans le pied de page.
 - Configurateur : à une nouvelle visite, s'il reste une estimation de la fois précédente, une fenêtre demande « Voulez-vous reprendre là où vous en étiez ? ». « Oui, reprendre » garde l'estimation, « Non, recommencer » repart de zéro (en gardant la formule du lien suivi). Pendant une même visite, la question n'est pas posée.

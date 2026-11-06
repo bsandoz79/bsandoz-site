@@ -1,4 +1,5 @@
-import { complements } from '../../data/offres';
+import { complements, options, prixOption } from '../../data/offres';
+import { PrixModifiable } from '../PrixModifiable';
 import styles from './Complements.module.css';
 
 /** Compléments des formules (page en plus, suivi mensuel avec le tarif horaire) : deux cadres en pointillés, prix à droite. */
@@ -13,7 +14,15 @@ export function Complements({ titreId = 'complements-titre' }: { titreId?: strin
           <li key={c.id} className={styles.item}>
             <p className={styles.nom}>{c.nom}</p>
             <p className={styles.detail}>{c.detail}</p>
-            <p className={styles.prix}>{c.prix}</p>
+            {c.id === 'page' ? (
+              <div className={styles.prixModifiable}>
+                <PrixModifiable cle="option.page" nom={options.page.nom} montant={() => options.page.prix}>
+                  {() => <p className={styles.prix}>{prixOption(options.page)}</p>}
+                </PrixModifiable>
+              </div>
+            ) : (
+              <p className={styles.prix}>{c.prix}</p>
+            )}
           </li>
         ))}
       </ul>

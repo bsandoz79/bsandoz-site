@@ -75,5 +75,6 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
-- [ ] `feature/edition-en-page` : back-office « comme le site », crayon sur chaque bloc pour modifier textes et images
+- [x] `feature/edition-en-page` : crayon sur les prix, visible seulement par un compte du back-office
+- [ ] `feature/edition-textes` : crayon sur les textes et les images (à stocker dans l'API)
 - [ ] `chore/a-completer` : remplir les « [à compléter] » avec les informations fournies
