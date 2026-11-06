@@ -69,6 +69,6 @@ Réglées depuis le back-office (`/admin`, onglet « Disponibilités ») : le ca
 ## Zone et frais kilométriques
 L'adresse est géocodée puis rattachée à la base la plus proche, Amiens ou Abbeville (`situer`, `data/zones.ts`).
 - À 50 km ou moins : statut `ok`, déplacement gratuit.
-- Au-delà : statut `hors-zone`. Le rendez-vous est accepté et le message annonce les km facturés et le montant (`fraisKilometriques`), dus même si le projet ne se fait pas.
+- Au-delà : statut `hors-zone`. Le rendez-vous est accepté et le message annonce les km facturés **aller-retour** et le montant (`fraisKilometriques`), dus même si le projet ne se fait pas. Ces frais partent avec la réservation (`kmFactures`, `fraisCentimes`) : ils figurent dans les mails de confirmation, à la personne et au professionnel.
 
 Rien n'est bloqué : la visio et le téléphone restent proposés et gratuits. Le détail du calcul est dans [pages-de-contenu.md](pages-de-contenu.md#frais-kilométriques).

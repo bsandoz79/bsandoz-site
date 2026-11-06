@@ -72,9 +72,12 @@ export const CONSOMMATION_L_100KM = 7.5;
 /** Coût d'un kilomètre : 2,50 € × 7,5 L / 100 km = 0,1875 €. */
 export const COUT_KM = (PRIX_GAZOLE_LITRE * CONSOMMATION_L_100KM) / 100;
 
-/** Kilomètres facturés : ceux au-delà des 50 km (100 km → 50 km facturés). */
+/**
+ * Kilomètres facturés, aller-retour : ceux au-delà des 50 km, comptés à l'aller et au retour.
+ * Exemple : 100 km de distance → 50 km en plus → 100 km facturés.
+ */
 export function kmFactures(km: number) {
-  return Math.max(0, km - RAYON_KM);
+  return Math.max(0, km - RAYON_KM) * 2;
 }
 
 /** Frais kilométriques en euros, au centime. */
@@ -100,7 +103,7 @@ export function formatCoutKm() {
 
 /** Le calcul en clair : « 48 km × 0,1875 € = 9,00 € ». */
 export function detailCalcul(km: number) {
-  return `${kmFactures(km)} km × ${formatCoutKm()} = ${formatFrais(fraisKilometriques(km))}`;
+  return `${kmFactures(km)} km aller-retour × ${formatCoutKm()} = ${formatFrais(fraisKilometriques(km))}`;
 }
 
 /** D'où vient le prix du km : « 2,50 € le litre × 7,5 L aux 100 km ». */

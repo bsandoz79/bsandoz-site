@@ -63,6 +63,11 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/photo-rideau` : apparition en rideau de la photo au premier passage
 - [ ] `feature/devis-chat` : « Décrivez votre projet » mis en avant, sous forme de conversation guidée
 - [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
+- [x] `feature/frais-aller-retour` : frais kilométriques aller-retour, indiqués dans les mails du rendez-vous ; suivi mensuel = maintenance et mises à jour
+- [ ] `fix/lien-rendez-vous-mail` : le lien « rendez-vous » du mail de devis mène à une page 404
+- [ ] `feature/autre-activite` : champ pour préciser l'activité quand on choisit « Autre activité »
+- [ ] `feature/avis-google` : avis Google juste après la bande qui défile
+- [ ] `feature/composer-memoire` : le configurateur oublie d'une visite à l'autre, avec « Reprendre là où vous en étiez ? »
 - [x] `feature/alterno` : projet Alterno dans les réalisations
 - [ ] `feature/cibles` : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules

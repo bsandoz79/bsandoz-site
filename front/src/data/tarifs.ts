@@ -54,6 +54,6 @@ export const apresMiseEnLigne = {
   items: [
     { title: 'Un changement ?', text: `${tarifHoraire} € de l'heure, sans engagement. Demi-heure entamée due.` },
     { title: 'Vous gérez vous-même', text: 'Prix, horaires, photos : modifiables depuis votre espace.' },
-    { title: 'Vous préférez déléguer ?', text: `Le suivi mensuel : hébergement et maintenance pour ${abonnementMensuel} € par mois.` },
+    { title: 'Vous préférez déléguer ?', text: `Le suivi mensuel : maintenance et mises à jour pour ${abonnementMensuel} € par mois.` },
   ],
 };

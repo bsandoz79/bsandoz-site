@@ -69,5 +69,5 @@ Un prix, une option, un pack : `src/data/offres.ts`, puis relancer les tests (il
 ## Compléments et référencement seul
 - **`complements()`** (`data/offres.ts`) : deux compléments, affichés par `components/Complements` en cadres pointillés, prix à droite, sous les formules de l'accueil et de la page Tarifs :
   - la page supplémentaire (option `page`, modifiable dans le back-office) ;
-  - le suivi mensuel, `abonnementMensuel` à 29 € par mois, avec le tarif horaire `tarifHoraire` (29 €) en détail.
+  - le suivi mensuel (maintenance et mises à jour), `abonnementMensuel` à 29 € par mois, avec le tarif horaire `tarifHoraire` (29 €) en détail.
 - **`offreSeo()`** : le référencement Google seul, mis en avant à part par `components/OffreSeo`. C'est un encart sombre avec un halo rose, un badge « − 20 % sur le prix du marché », le prix (`prixSeoSeul()`, soit le bas de `marche.seo` moins `REMISE_SEO`), la fourchette du marché barrée, sa source et un bouton vers le devis.

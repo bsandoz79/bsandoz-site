@@ -80,7 +80,7 @@ export function RendezVous() {
   async function confirmer(event: FormEvent) {
     event.preventDefault();
     // Adresse pas encore vérifiée : on la vérifie (frais éventuels affichés), sans bloquer l'envoi.
-    if (demande.lieu === 'chezvous' && !verification) await verifier();
+    const controle = demande.lieu === 'chezvous' && !verification ? await verifier() : verification;
     const trouvees = validerRdv(demande);
     setErreurs(trouvees);
     if (Object.keys(trouvees).length > 0) return;
@@ -89,7 +89,7 @@ export function RendezVous() {
       const reponse = await fetch(`${urlApi}/rendez-vous`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(corpsReservation(demande)),
+        body: JSON.stringify(corpsReservation(demande, controle)),
       });
       if (reponse.status === 409) {
         setStatut('complet');
