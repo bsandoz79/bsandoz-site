@@ -213,4 +213,107 @@ final class DemandesHttpTest extends WebTestCase
         \assert($demandes instanceof Demandes);
         self::assertSame([], $demandes->parEmail('marie@exemple.fr'));
     }
+
+    /** @param array<string, mixed> $corps */
+    private function poster(string $chemin, array $corps): void
+    {
+        $this->client->request('POST', $chemin, server: ['CONTENT_TYPE' => 'application/json'], content: json_encode($corps, \JSON_THROW_ON_ERROR));
+    }
+
+    /** @return array<string, mixed> */
+    private function maDemande(): array
+    {
+        $this->client->request('GET', '/espace/demandes');
+
+        return $this->reponse()['demandes'][0];
+    }
+
+    public function testFilDeMessagesDansLEspaceClient(): void
+    {
+        $this->envoyerDemande();
+        $this->seConnecterAvecLeLienDActivation();
+        $demande = $this->maDemande();
+        self::assertSame([], $demande['messages']);
+
+        $this->poster("/espace/demandes/{$demande['id']}/messages", ['corps' => "Bonjour,\nune question."]);
+
+        self::assertResponseStatusCodeSame(201);
+        $messages = $this->reponse()['demande']['messages'];
+        self::assertCount(1, $messages);
+        self::assertSame('client', $messages[0]['auteur']);
+        self::assertSame('site', $messages[0]['origine']);
+        self::assertSame("Bonjour,\nune question.", $messages[0]['corps']);
+        $mail = self::getMailerMessage();
+        self::assertInstanceOf(Email::class, $mail);
+        self::assertSame('contact@bsandoz.fr', $mail->getTo()[0]->getAddress());
+        self::assertStringContainsString('une question.', (string) $mail->getTextBody());
+    }
+
+    public function testMessageRefusesDansLEspaceClient(): void
+    {
+        $this->envoyerDemande();
+        $this->seConnecterAvecLeLienDActivation();
+        $id = $this->maDemande()['id'];
+
+        $this->poster("/espace/demandes/{$id}/messages", ['corps' => '   ']);
+        self::assertResponseStatusCodeSame(400);
+        self::assertArrayHasKey('corps', $this->reponse()['erreurs']);
+
+        $this->poster('/espace/demandes/inconnue/messages', ['corps' => 'Bonjour']);
+        self::assertResponseStatusCodeSame(404);
+
+        $this->client->request('POST', "/espace/demandes/{$id}/messages", ['corps' => 'Depuis un formulaire']);
+        self::assertResponseStatusCodeSame(415);
+
+        // La limite est de 20 par heure, et les 2 essais refusés ci-dessus comptent.
+        for ($i = 0; $i < 18; ++$i) {
+            $this->poster("/espace/demandes/{$id}/messages", ['corps' => "Message {$i}"]);
+            self::assertResponseStatusCodeSame(201);
+        }
+        $this->poster("/espace/demandes/{$id}/messages", ['corps' => 'Un de trop']);
+        self::assertResponseStatusCodeSame(429);
+    }
+
+    public function testOnNEcritPasDansLaDemandeDUnAutre(): void
+    {
+        $this->envoyerDemande();
+        $this->seConnecterAvecLeLienDActivation();
+        $id = $this->maDemande()['id'];
+        $demandes = static::getContainer()->get(Demandes::class);
+        \assert($demandes instanceof Demandes);
+
+        $this->client->getCookieJar()->clear();
+        $this->envoyerDemande(['email' => 'autre@exemple.fr', 'nom' => 'Autre']);
+        $autre = array_values(array_filter(self::mails(), static fn (Email $m) => $m->getTo()[0]->getAddress() === 'autre@exemple.fr' && preg_match('/jeton=/', (string) $m->getTextBody()) === 1));
+        self::assertNotEmpty($autre);
+        preg_match('/jeton=([a-f0-9]{64})/', (string) $autre[0]->getTextBody(), $trouve);
+        $this->poster('/auth/lien/utiliser', ['jeton' => $trouve[1]]);
+        self::assertResponseIsSuccessful();
+
+        $this->poster("/espace/demandes/{$id}/messages", ['corps' => 'Intrusion']);
+        self::assertResponseStatusCodeSame(404);
+    }
+
+    public function testNonConnecteNEcritPas(): void
+    {
+        $this->poster('/espace/demandes/x/messages', ['corps' => 'Bonjour']);
+        self::assertResponseStatusCodeSame(401);
+    }
+
+    public function testLeFilEstExporteEtEfface(): void
+    {
+        $this->envoyerDemande();
+        $this->seConnecterAvecLeLienDActivation();
+        $id = $this->maDemande()['id'];
+        $this->poster("/espace/demandes/{$id}/messages", ['corps' => 'À garder dans mes données']);
+
+        $this->client->request('GET', '/espace/donnees');
+        self::assertSame('À garder dans mes données', $this->reponse()['demandes'][0]['messages'][0]['corps']);
+
+        $demandes = static::getContainer()->get(Demandes::class);
+        \assert($demandes instanceof Demandes);
+        $demandes->supprimer($demandes->parId($id));
+        $connexion = static::getContainer()->get(\Doctrine\ORM\EntityManagerInterface::class)->getConnection();
+        self::assertSame(0, (int) $connexion->fetchOne('SELECT COUNT(*) FROM prospect_message'), 'Le fil est effacé avec la demande.');
+    }
 }
