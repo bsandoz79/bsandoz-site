@@ -6,7 +6,7 @@ export const adminTextes = {
     texte: 'Ce compte n’a pas accès au back-office.',
   },
   erreur: 'Le back-office ne répond pas. Réessayez dans un instant.',
-  onglets: { demandes: 'Demandes' },
+  onglets: { demandes: 'Demandes', prix: 'Prix' },
   ongletsLibelle: 'Sections du back-office',
   demandes: {
     aucune: 'Aucune demande pour le moment.',
@@ -39,6 +39,18 @@ export const adminTextes = {
     non: 'Revenir',
     envoyeOk: 'Devis envoyé : le client est prévenu par mail.',
     invalide: 'Chaque ligne a besoin d’un libellé et d’un prix en euros entiers.',
+  },
+  prix: {
+    titre: 'Prix du site',
+    aide: 'En euros entiers. Tarifs, configurateur, FAQ et pré-devis suivent ces prix, au plus tard 5 minutes après l’enregistrement. Un devis déjà envoyé ne change pas.',
+    formules: 'Formules',
+    options: 'Options',
+    base: (prix: string) => `Prix d’origine : ${prix}`,
+    enregistrer: 'Enregistrer les prix',
+    enregistre: 'Prix enregistrés.',
+    invalide: 'Chaque prix doit être un nombre entier d’euros.',
+    echec: 'L’enregistrement n’a pas abouti. Réessayez.',
+    lectureImpossible: 'Impossible de lire les prix enregistrés. Réessayez dans un instant.',
   },
   fil: {
     titre: 'Échanges',

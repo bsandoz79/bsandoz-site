@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container } from '@bsandoz79/blocs';
+import { Button, Container } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { adminTextes } from '../../data/admin';
 import { pages } from '../../data/pages';
 import { DemandesAdmin } from './DemandesAdmin';
+import { PrixAdmin } from './PrixAdmin';
 import { listerDemandes, type Acces, type LigneDemande } from './api';
 import styles from './Admin.module.css';
 
 const t = adminTextes;
 const page = pages.admin;
 
+type Onglet = keyof typeof t.onglets;
+
 /** Back-office : réservé aux adresses autorisées par l'API. Sans session, renvoie vers la connexion, puis ici. */
 export function Admin() {
   const navigate = useNavigate();
   const [acces, setAcces] = useState<Acces | null>(null);
   const [demandes, setDemandes] = useState<LigneDemande[]>([]);
+  const [onglet, setOnglet] = useState<Onglet>('demandes');
 
   useEffect(() => {
     let actif = true;
@@ -47,7 +51,19 @@ export function Admin() {
           <p>{t.interdit.texte}</p>
         </section>
       )}
-      {acces === 'ok' && <DemandesAdmin demandes={demandes} />}
+      {acces === 'ok' && (
+        <>
+          <nav aria-label={t.ongletsLibelle} className={styles.onglets}>
+            {(Object.keys(t.onglets) as Onglet[]).map((id) => (
+              <Button key={id} variant={onglet === id ? 'primary' : 'secondary'} aria-pressed={onglet === id} onClick={() => setOnglet(id)}>
+                {t.onglets[id]}
+              </Button>
+            ))}
+          </nav>
+          {onglet === 'demandes' && <DemandesAdmin demandes={demandes} />}
+          {onglet === 'prix' && <PrixAdmin />}
+        </>
+      )}
     </Container>
   );
 }

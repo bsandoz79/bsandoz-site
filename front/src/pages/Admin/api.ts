@@ -45,6 +45,11 @@ export async function voirDemande(id: string): Promise<DemandeAdmin | null> {
   return statut === 200 ? (corps.demande ?? null) : null;
 }
 
+export async function enregistrerPrix(prix: Record<string, number>): Promise<boolean> {
+  const { statut } = await appelerApi('/backoffice/prix', { corps: { prix } });
+  return statut === 200;
+}
+
 export type Resultat = { ok: true; demande: DemandeAdmin } | { ok: false; erreur: string };
 
 async function agir(id: string, action: 'statut' | 'devis' | 'messages', corps: unknown, repli: string): Promise<Resultat> {
