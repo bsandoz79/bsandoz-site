@@ -78,7 +78,6 @@ export function CarteZones() {
     <section className={styles.section} aria-labelledby="carte-titre">
       <Container className={styles.inner}>
         <div className={styles.texte}>
-          <p className={styles.eyebrow}>{t.eyebrow}</p>
           <h2 id="carte-titre" className={styles.titre}>
             {t.titre}
           </h2>

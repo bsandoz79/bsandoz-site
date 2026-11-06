@@ -301,9 +301,8 @@ export function complements(): Complement[] {
 export function offreSeo() {
   return {
     badge: `− ${Math.round(REMISE_SEO * 100)} % sur le prix du marché`,
-    eyebrow: 'Vous avez déjà un site ?',
-    titre: 'Faites-le remonter sur Google.',
-    texte: 'Audit et optimisation du référencement de votre site existant, sans le refaire.',
+    titre: 'Vous avez déjà un site ?',
+    texte: 'Je peux améliorer sa place sur Google sans le refaire : audit et optimisation du référencement.',
     prix: formatPrix(prixSeoSeul()),
     marche: `Sur le marché : ${marche.seo.fourchette}`,
     source: `${marche.seo.description} (${marche.seo.source})`,

@@ -61,7 +61,7 @@ export function Simulateur() {
   return (
     <div className={styles.layout}>
       <div className={styles.form}>
-        <SectionTitle id="simulateur-titre" eyebrow={simulateur.eyebrow} title={simulateur.title} intro={simulateur.intro} />
+        <SectionTitle id="simulateur-titre" title={simulateur.title} intro={simulateur.intro} />
         <ChoiceChips
           legend={simulateur.formuleLegend}
           name="simulateur-formule"
@@ -124,7 +124,7 @@ export function Simulateur() {
           <div className={styles.suggestion}>
             <p className={styles.suggestionTitle}>{simulateur.suggestionTitle}</p>
             <p>
-              <strong>{suggestion.titre}</strong> — {suggestion.texte}
+              <strong>{suggestion.titre}</strong> : {suggestion.texte}
             </p>
             <Button variant="secondary" className={styles.suggestionButton} onClick={() => basculer(optionSuggeree, true)}>
               {simulateur.suggestionAction} « {options[optionSuggeree].nom} »

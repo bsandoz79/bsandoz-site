@@ -70,8 +70,7 @@ export const questionsFaq: QuestionFaq[] = [
 export const faqAccueil = {
   /** Ancre de la section : le lien « Questions fréquentes » mène à `/#faq`. */
   id: 'faq',
-  eyebrow: 'Questions fréquentes',
-  titre: 'Vos questions, mes réponses.',
+  titre: 'Questions fréquentes',
   intro: 'Les réponses aux questions qu’on me pose le plus souvent. Une autre question ? Parlons-en.',
   parPaquet: 3,
   voirPlus: 'Voir plus de questions',

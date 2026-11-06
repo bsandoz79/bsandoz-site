@@ -15,7 +15,6 @@ export const villes: Ville[] = [
 ];
 
 export const carteTextes = {
-  eyebrow: 'Où j’interviens',
   titre: 'Je me déplace chez vous.',
   intro: (liste: string) =>
     `Sans frais dans un rayon de ${RAYON_KM} km autour ${liste}. Plus loin, je viens quand même : seuls les kilomètres en plus sont facturés, au prix de l’essence. Partout en France : en visio ou par téléphone.`,
@@ -31,9 +30,9 @@ export const carteTextes = {
   position: {
     point: 'Vous êtes ici',
     enCours: 'Recherche de votre position…',
-    dansZone: (distance: string) => `Bonne nouvelle : vous êtes dans ma zone, ${distance}. Je peux venir chez vous.`,
+    dansZone: (distance: string) => `Vous êtes dans ma zone, ${distance} : je viens chez vous sans frais.`,
     horsZone: (distance: string, frais: string) =>
-      `Vous êtes ${distance}, un peu au-delà de ma zone. Pas d’inquiétude : je me déplace quand même, seuls les kilomètres en plus sont facturés, environ ${frais} d’essence (dus même si le projet ne se fait pas). La visio et le téléphone restent possibles partout.`,
+      `Vous êtes ${distance}, au-delà de ma zone. Je peux quand même venir : seuls les kilomètres en plus sont facturés, environ ${frais} d’essence (dus même si le projet ne se fait pas). La visio et le téléphone restent possibles partout.`,
     calcul: (detail: string) => `Calcul : ${detail}`,
     bouton: 'Me situer sur la carte',
     bloquee: 'Votre navigateur bloque la position : autorisez-la dans les réglages du site (icône à gauche de l’adresse), puis réessayez.',

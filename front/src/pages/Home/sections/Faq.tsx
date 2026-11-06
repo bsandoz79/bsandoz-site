@@ -27,7 +27,7 @@ export function Faq() {
   return (
     <section id={t.id} className={`section ${styles.section}`} aria-labelledby="faq-titre">
       <Container size="narrow" className={styles.stack}>
-        <SectionTitle id="faq-titre" eyebrow={t.eyebrow} title={t.titre} intro={t.intro} />
+        <SectionTitle id="faq-titre" title={t.titre} intro={t.intro} />
         <div id="faq-questions">
           <Accordion
             headingLevel={3}

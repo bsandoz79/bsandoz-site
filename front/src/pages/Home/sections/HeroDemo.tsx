@@ -11,7 +11,6 @@ export function HeroDemo() {
 
   return (
     <div className={styles.scene} aria-hidden="true">
-      <div className={`${styles.circle} anim-respire`} />
       <figure className={styles.portrait}>
         <img src={portrait} alt="" width="600" height="800" />
         <figcaption className={styles.portraitNom}>
@@ -19,7 +18,7 @@ export function HeroDemo() {
           <span>{hero.identite.role}</span>
         </figcaption>
       </figure>
-      <div className={`${styles.phone} anim-float`}>
+      <div className={styles.phone}>
         {/* Cadre façon smartphone récent : boutons latéraux, îlot en haut de l'écran, barre d'état. */}
         <span className={styles.boutonsGauche} />
         <span className={styles.boutonDroit} />
@@ -69,11 +68,11 @@ export function HeroDemo() {
           </div>
         </div>
       </div>
-      <div className={`${styles.toast} ${styles.toastTop} anim-float`}>
+      <div className={`${styles.toast} ${styles.toastTop}`}>
         <span className={styles.toastLabel}>{booking.label}</span>
         <span className={styles.toastValue}>{booking.value}</span>
       </div>
-      <div className={`${styles.toast} ${styles.toastBottom} anim-float`}>
+      <div className={`${styles.toast} ${styles.toastBottom}`}>
         <span className={styles.check}>✓</span>
         <span className={styles.toastText}>
           <span className={styles.toastLabel}>{payment.label}</span>

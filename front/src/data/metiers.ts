@@ -54,14 +54,13 @@ export const pagesMetier: Record<PageMetierId, PageMetier> = {
 };
 
 export const metierTextes = {
-  fonctions: { eyebrow: 'Ce que votre site peut faire', title: 'Les fonctions utiles à votre métier' },
+  fonctions: { title: 'Les fonctions utiles à votre métier' },
   prix: (prix: string) => `Site fonctionnel ${prix}. Chaque fonction s’ajoute au prix indiqué.`,
   exemple: {
-    eyebrow: 'Exemple',
     title: 'À quoi votre site pourrait ressembler',
     note: 'Entreprise fictive, pour l’exemple. Votre site est fait à vos couleurs, avec vos textes et vos photos.',
   },
-  realisation: { eyebrow: 'Réalisation', title: 'Un projet proche du vôtre' },
+  realisation: { title: 'Un projet proche du vôtre' },
   appel: {
     title: 'Voyons ce dont vous avez besoin.',
     text: 'Composez votre site option par option, ou parlons-en de vive voix : le rendez-vous découverte est gratuit.',

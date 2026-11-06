@@ -44,7 +44,7 @@ export function Informatique() {
 
       <section className="section section--white" aria-labelledby="services-titre">
         <Container className={styles.stack}>
-          <SectionTitle id="services-titre" eyebrow={t.services.eyebrow} title={t.services.title} />
+          <SectionTitle id="services-titre" title={t.services.title} />
           <ul className={styles.grille}>
             {servicesInformatique.map((service, i) => (
               <Reveal as="li" key={service.id} delay={(i % 4) * 60}>
@@ -65,7 +65,7 @@ export function Informatique() {
       <section className="section" aria-labelledby="deroulement-titre">
         <Container className={styles.colonnes}>
           <div className={styles.stack}>
-            <SectionTitle id="deroulement-titre" eyebrow={t.deroulement.eyebrow} title={t.deroulement.title} />
+            <SectionTitle id="deroulement-titre" title={t.deroulement.title} />
             <ol className={styles.etapes}>
               {deroulementInformatique.map((etape, i) => (
                 <li key={etape.titre} className={styles.etape}>

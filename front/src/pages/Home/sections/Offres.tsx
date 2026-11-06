@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { offres } from '../../../data/accueil';
@@ -15,7 +14,7 @@ export function Offres() {
     <section className="section section--white" aria-labelledby="offres-titre">
       <Container className={sections.stack}>
         <div className={sections.head}>
-          <SectionTitle id="offres-titre" eyebrow={offres.eyebrow} title={offres.title} />
+          <SectionTitle id="offres-titre" title={offres.title} />
           <Link to={offres.link.to} className={sections.arrowLink}>
             {offres.link.label} <span aria-hidden="true">→</span>
           </Link>
@@ -30,8 +29,7 @@ export function Offres() {
                   tone={featured ? 'dark' : 'muted'}
                   padding="lg"
                   lift
-                  className={`${sections.fill} anim-reflet`}
-                  style={{ '--reflet-delai': `${i * 0.25}s` } as CSSProperties}
+                  className={sections.fill}
                   aria-labelledby={`offre-${formule.id}`}
                 >
                   {featured && <p className={styles.badge}>{offres.featuredBadge}</p>}

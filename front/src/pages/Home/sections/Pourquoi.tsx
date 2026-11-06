@@ -18,7 +18,7 @@ export function Pourquoi() {
           </figure>
         </Reveal>
         <div className={styles.content}>
-          <SectionTitle id="pourquoi-titre" eyebrow={pourquoi.eyebrow} title={pourquoi.title} />
+          <SectionTitle id="pourquoi-titre" title={pourquoi.title} />
           <ul className={styles.items}>
             {pourquoi.items.map((item) => (
               <li key={item.title} className={styles.item}>

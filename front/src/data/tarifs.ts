@@ -30,7 +30,6 @@ export const pourquoiFonctionnel = {
 };
 
 export const simulateur = {
-  eyebrow: 'Simulateur',
   title: 'Simulez votre site',
   intro: 'Choisissez une formule, puis ce que votre site doit faire : le prix se met à jour en direct.',
   formuleLegend: '1. Votre formule',
