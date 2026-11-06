@@ -49,6 +49,7 @@
 
   --shadow-card: 0 18px 40px rgb(22 33 62 / 0.12);
   --shadow-bar: 0 12px 30px rgb(22 33 62 / 0.3);
+  --shadow-rose: 0 12px 28px rgb(201 24 74 / 0.32);
   --container: 74rem;
   --container-narrow: 46rem;
   --duration: 0.25s;

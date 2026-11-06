@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { hero, methode, metiers, pourquoi, problemes } from '../../data/accueil';
+import { formuleParId } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
 
@@ -118,5 +119,12 @@ describe("Page d'accueil", () => {
     expect(within(contact).getByRole('link', { name: /Prendre un rendez-vous gratuit/ })).toHaveAttribute('href', pages.rendezVous.path);
     await user.click(within(contact).getByRole('link', { name: 'Ou décrivez votre projet en détail' }));
     expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
+  });
+  it('affiche des chiffres clés tirés des offres, sans rien inventer', () => {
+    renderHome();
+    const bande = section('En bref');
+    expect(within(bande).getByText(formuleParId('vitrine').delai)).toBeInTheDocument();
+    expect(within(bande).getByText('24 h')).toBeInTheDocument();
+    expect(within(bande).getByText('50 km')).toBeInTheDocument();
   });
 });

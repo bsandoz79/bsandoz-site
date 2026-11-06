@@ -1,3 +1,4 @@
+import { formuleParId } from './offres';
 import { contact } from './navigation';
 import { pages } from './pages';
 
@@ -11,6 +12,17 @@ export const hero = {
   secondary: { label: 'Voir les réalisations', to: pages.realisations.path },
   rdv: { label: "Vous préférez en parler ? Prenez un rendez-vous gratuit d'une heure", to: pages.rendezVous.path },
   reassurance: ['Basé à Amiens', 'Réponse sous 24 h', 'Votre site vous appartient'],
+};
+
+/** Bande de chiffres clés sous le hero : seulement des faits affichés ailleurs sur le site. */
+export const chiffres = {
+  label: 'En bref',
+  liste: [
+    { valeur: formuleParId('vitrine').delai, texte: 'pour mettre un site vitrine en ligne' },
+    { valeur: '1', texte: 'seul interlocuteur, du devis à la mise en ligne' },
+    { valeur: '24 h', texte: 'pour recevoir une réponse à votre demande' },
+    { valeur: '50 km', texte: "autour d'Amiens : je me déplace gratuitement" },
+  ],
 };
 
 /** Écran de démonstration du hero : décoratif, caché aux lecteurs d'écran. */

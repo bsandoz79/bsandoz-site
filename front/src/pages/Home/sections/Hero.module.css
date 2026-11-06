@@ -1,5 +1,10 @@
 .hero {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--space-7) var(--space-8);
+  background:
+    radial-gradient(40rem 26rem at 95% 10%, var(--color-rose-soft), transparent 65%),
+    radial-gradient(34rem 22rem at -5% 90%, var(--color-veil-navy), transparent 70%);
 }
 
 .inner {

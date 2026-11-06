@@ -3,6 +3,7 @@ import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { pages } from '../../data/pages';
 import { jsonLdEntreprise } from '../../data/seo';
+import { Chiffres } from './sections/Chiffres';
 import { Hero } from './sections/Hero';
 import { Metiers } from './sections/Metiers';
 import { Methode } from './sections/Methode';
@@ -18,6 +19,7 @@ export function Home() {
       <PageMeta title={pages.accueil.title} description={pages.accueil.description} />
       <StructuredData data={jsonLdEntreprise()} />
       <Hero />
+      <Chiffres />
       <Metiers />
       <Problemes />
       <Offres />
