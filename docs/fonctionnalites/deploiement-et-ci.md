@@ -8,7 +8,7 @@ Vérifier automatiquement chaque push, publier `main` sur o2switch, et pouvoir r
 flowchart LR
   push["git push (toute branche)"] --> ci["CI (.github/workflows/ci.yml)"]
   ci --> f["front : lint · tests · build"]
-  ci --> a["api : conteneur · YAML · MySQL · Doctrine · PHPUnit"]
+  ci --> a["api : conteneur · YAML · MySQL · Doctrine · PHPUnit · cache de production"]
   main["fusion dans main"] --> dep["Déploiement (.github/workflows/deploy.yml)"]
   dep --> b["tests + build du front"]
   b --> s{"secrets FTP ?"}
