@@ -34,4 +34,16 @@ describe('RealisationCard', () => {
     renderCard(<RealisationCard realisation={moto} headingLevel={2} />);
     expect(screen.getByRole('heading', { level: 2, name: moto.titre })).toBeInTheDocument();
   });
+  it('un seul lien par carte : toute la carte est cliquable, mais un seul arrêt au clavier', () => {
+    for (const realisation of realisations) {
+      const { container, unmount } = render(
+        <MemoryRouter>
+          <RealisationCard realisation={realisation} />
+        </MemoryRouter>,
+      );
+      expect(container.querySelectorAll('a')).toHaveLength(1);
+      expect(realisation.resume.length).toBeLessThanOrEqual(80);
+      unmount();
+    }
+  });
 });
