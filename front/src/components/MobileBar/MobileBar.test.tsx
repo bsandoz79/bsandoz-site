@@ -20,7 +20,7 @@ describe('MobileBar', () => {
     expect(screen.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', pages.composer.path);
   });
 
-  it.each([pages.composer.path, pages.devis.path])("n'est pas affichée sur %s", (path) => {
+  it.each([pages.composer.path, pages.devis.path, pages.rendezVous.path, pages.monEspace.path, pages.connexion.path])("n'est pas affichée sur %s", (path) => {
     renderAt(path);
     expect(screen.queryByRole('complementary')).not.toBeInTheDocument();
   });

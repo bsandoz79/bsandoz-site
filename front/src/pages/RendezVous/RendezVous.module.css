@@ -102,6 +102,10 @@ a.option:hover {
   gap: var(--space-2);
 }
 
+.verifier {
+  align-self: flex-start;
+}
+
 .statutAdresse {
   min-height: 1.5rem;
   font-size: var(--text-sm);
