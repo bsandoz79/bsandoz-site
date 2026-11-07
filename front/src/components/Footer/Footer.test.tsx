@@ -6,7 +6,7 @@ import { contact } from '../../data/navigation';
 import { pages } from '../../data/pages';
 import { Footer } from './Footer';
 
-function renderFooter(chemin: string = pages.tarifs.path) {
+function renderFooter(chemin: string = pages.realisations.path) {
   return render(
     <MemoryRouter initialEntries={[chemin]}>
       <Footer />
@@ -62,7 +62,6 @@ describe('Footer', () => {
   it('donne accès aux principales pages du site et aux droits de l’année', () => {
     renderFooter();
     const nav = within(screen.getByRole('navigation', { name: 'Le site' }));
-    expect(nav.getByRole('link', { name: 'Tarifs' })).toHaveAttribute('href', pages.tarifs.path);
     expect(nav.getByRole('link', { name: 'Réalisations' })).toHaveAttribute('href', pages.realisations.path);
     expect(screen.getByText(`© ${new Date().getFullYear()} Baptiste Sandoz`)).toBeInTheDocument();
   });

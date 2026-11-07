@@ -24,9 +24,6 @@ export const informatiquePrefix = pages.informatique.path;
 /** Tous les appels à l'action mènent au formulaire de demande de devis. */
 export const lienDevis = pages.devis.path;
 
-/** L'estimation en ligne, proposée en second plan (page Devis, Tarifs). */
-export const lienEstimation = `${pages.composer.path}?onglet=web`;
-
 /** Pages métier, listées dans le pied de page. */
 export const metierLinks: NavLink[] = [
   { label: 'Artisan', to: pages.artisan.path },
@@ -48,12 +45,11 @@ export const header = {
   closeMenu: 'Fermer le menu',
   /** Toujours visible dans la barre : icône, et texte sur grand écran. */
   espaceClient: { label: 'Espace client', to: pages.monEspace.path },
-  /** « Estimer » : un simple lien, le seul bouton reste « Demander un devis ». */
+  /** Le seul bouton reste « Demander un devis ». */
   links: [
     { label: 'Réalisations', to: pages.realisations.path },
-    { label: 'Tarifs', to: pages.tarifs.path },
-    { label: 'Estimer', to: lienEstimation },
     { label: 'À propos', to: pages.aPropos.path },
+    { label: 'Questions fréquentes', to: lienFaq },
   ] satisfies NavLink[],
   cta: { label: 'Demander un devis', to: lienDevis },
 };
@@ -79,7 +75,6 @@ export const footer = {
   /** Pages métier : dans le pied de page (utiles pour Google), plus dans la barre. */
   metiersLabel: 'Sites par métier',
   site: [
-    { label: 'Tarifs', to: pages.tarifs.path },
     { label: 'Réalisations', to: pages.realisations.path },
     { label: 'Informatique sur place', to: pages.informatique.path },
     { label: 'Questions fréquentes', to: lienFaq },
@@ -105,7 +100,7 @@ export const mobileBar = {
   text: 'Devis gratuit, réponse sous 24 h',
   cta: { label: 'Demander', to: lienDevis },
   /** Pages où la barre est masquée : on y est déjà en train de demander un devis ou de prendre rendez-vous. */
-  hiddenOn: [pages.devis.path, pages.composer.path, pages.rendezVous.path] as string[],
+  hiddenOn: [pages.devis.path, pages.rendezVous.path] as string[],
   /** Débuts d'adresse où la barre est masquée : l'espace client. */
   hiddenUnder: [pages.monEspace.path] as string[],
 };

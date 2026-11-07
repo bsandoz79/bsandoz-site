@@ -4,21 +4,21 @@ import { CLE_SESSION, reinitialiserEdition } from '../../app/edition';
 import { hero } from '../../data/accueil';
 import { blocs } from '../../data/blocs';
 import { medias } from '../../data/medias';
-import { formatPrix, formuleParId } from '../../data/offres';
+import { formatPrix, formuleParId, prixDepart } from '../../data/offres';
 import { reinitialiserPrix } from '../../data/prixEnLigne';
 import { BlocModifiable } from './BlocModifiable';
 
 vi.mock('../../app/image', () => ({ imageEnBase64: vi.fn(async () => 'QUJD') }));
 
-const vitrine = formuleParId('vitrine');
+const vitrinePlus = formuleParId('vitrinePlus');
 const badgeInitial = hero.badge;
 const portraitInitial = medias.portrait;
 
 function Carte() {
   return (
     <article>
-      <h3>{vitrine.nom}</h3>
-      <p>{formatPrix(vitrine.prix)}</p>
+      <h3>{hero.badge}</h3>
+      <p>{formatPrix(prixDepart())}</p>
     </article>
   );
 }
@@ -27,7 +27,7 @@ function Photo() {
 }
 const afficherCarte = () =>
   render(
-    <BlocModifiable id="offre.vitrine">
+    <BlocModifiable id="accueil.hero">
       <Carte />
     </BlocModifiable>,
   );
@@ -46,7 +46,7 @@ function api({ acces = 200, enregistrement = 200 } = {}) {
   return { envois, fetchMock };
 }
 
-const crayon = (titre = 'Formule Vitrine') => screen.findByRole('button', { name: `Modifier ce bloc : ${titre}` });
+const crayon = (titre = 'Haut de page') => screen.findByRole('button', { name: `Modifier ce bloc : ${titre}` });
 const panneau = () => screen.findByRole('dialog');
 
 describe('BlocModifiable', () => {
@@ -58,7 +58,6 @@ describe('BlocModifiable', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     reinitialiserPrix();
-    vitrine.nom = 'Vitrine';
     hero.badge = badgeInitial;
     medias.portrait = portraitInitial;
   });
@@ -96,37 +95,37 @@ describe('BlocModifiable', () => {
     afficherCarte();
     await user.click(await crayon());
     const fenetre = within(await panneau());
-    expect(fenetre.getByRole('textbox', { name: 'Accroche' })).toBeInTheDocument();
-    expect(fenetre.getByRole('textbox', { name: 'Point fort (accueil) 1' })).toBeInTheDocument();
+    expect(fenetre.getByRole('textbox', { name: 'Grand titre' })).toBeInTheDocument();
+    expect(fenetre.getByRole('textbox', { name: 'Garantie 1' })).toBeInTheDocument();
 
-    const nom = fenetre.getByRole('textbox', { name: 'Nom' });
+    const nom = fenetre.getByRole('textbox', { name: 'Petite étiquette' });
     await user.clear(nom);
     await user.type(nom, 'Essentiel');
-    const prix = fenetre.getByRole('textbox', { name: 'Prix de départ (€)' });
+    const prix = fenetre.getByRole('textbox', { name: 'Prix « à partir de » (€)' });
     await user.clear(prix);
-    await user.type(prix, '129');
+    await user.type(prix, '429');
     await user.click(fenetre.getByRole('button', { name: 'Enregistrer' }));
 
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
-    expect(envois['/backoffice/contenus']).toEqual([{ contenus: { 'offre.vitrine.nom': 'Essentiel' } }]);
-    expect(envois['/backoffice/prix']).toEqual([{ prix: { 'formule.vitrine': 129 } }]);
+    expect(envois['/backoffice/contenus']).toEqual([{ contenus: { 'accueil.hero.badge': 'Essentiel' } }]);
+    expect(envois['/backoffice/prix']).toEqual([{ prix: { 'formule.vitrinePlus': 429 } }]);
     // La page change sur place.
     expect(screen.getByRole('heading', { name: 'Essentiel' })).toBeInTheDocument();
-    expect(screen.getByText(/129/)).toBeInTheDocument();
+    expect(screen.getByText(/429/)).toBeInTheDocument();
   });
 
   it('revenir au texte du code efface la modification', async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(CLE_SESSION, '1');
     const { envois } = api();
-    vitrine.nom = 'Essentiel';
+    hero.badge = 'Essentiel';
     afficherCarte();
     await user.click(await crayon());
-    const nom = within(await panneau()).getByRole('textbox', { name: 'Nom' });
+    const nom = within(await panneau()).getByRole('textbox', { name: 'Petite étiquette' });
     await user.clear(nom);
-    await user.type(nom, 'Vitrine');
+    await user.type(nom, badgeInitial);
     await user.click(screen.getByRole('button', { name: 'Enregistrer' }));
-    await waitFor(() => expect(envois['/backoffice/contenus']).toEqual([{ contenus: { 'offre.vitrine.nom': null } }]));
+    await waitFor(() => expect(envois['/backoffice/contenus']).toEqual([{ contenus: { 'accueil.hero.badge': null } }]));
   });
 
   it('remplace une image : envoi immédiat, puis enregistrée avec le reste', async () => {
@@ -169,7 +168,7 @@ describe('BlocModifiable', () => {
     afficherCarte();
     await user.click(await crayon());
     const fenetre = within(await panneau());
-    const prix = fenetre.getByRole('textbox', { name: 'Prix de départ (€)' });
+    const prix = fenetre.getByRole('textbox', { name: 'Prix « à partir de » (€)' });
     await user.clear(prix);
     await user.type(prix, 'abc');
     await user.click(fenetre.getByRole('button', { name: 'Enregistrer' }));
@@ -180,7 +179,7 @@ describe('BlocModifiable', () => {
     await user.type(prix, '150');
     await user.click(fenetre.getByRole('button', { name: 'Enregistrer' }));
     expect(await fenetre.findByRole('alert')).toHaveTextContent('n’a pas abouti');
-    expect(vitrine.prix).toBe(99);
+    expect(vitrinePlus.prix).toBe(390);
   });
 
   it('chaque bloc du registre a des champs lisibles', () => {

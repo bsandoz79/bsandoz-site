@@ -42,12 +42,9 @@ flowchart LR
   api --> mail["Accusé de réception"]
 ```
 
-## Avec une estimation
-Depuis `/composer`, « Valider et recevoir mon devis » affiche le même formulaire avec la prop `estimation` (`EstimationJointe`). Le récapitulatif de l'estimation est affiché en tête. Le métier est pré-rempli, et le projet devient facultatif (« Une précision ? »). L'envoi joint le texte de l'estimation (`predevis`), que l'accusé de réception reprend. Sur `/devis`, un lien discret (`avecEstimation`) propose « Faire une estimation en ligne ».
-
 ## Comment l'appeler
 - **Composant** : `<ContactRapide />`, ou `<ContactRapide titre="Demande de devis" niveau={1} />` pour une page dédiée.
-- **Adresse** : `/devis`. Tous les boutons y mènent : « Demander un devis » de l'en-tête, du pied de page et de la barre mobile, Tarifs, pages métier, réalisations, Informatique sur place. L'ancienne adresse `/composer` redirige ici.
+- **Adresse** : `/devis`. Tous les boutons y mènent : « Demander un devis » de l'en-tête, du pied de page et de la barre mobile, Tarifs, pages métier, réalisations, Informatique sur place. Les anciennes adresses `/composer` et `/tarifs` redirigent ici.
 
 ## Réutilisable ?
 Oui. Le composant ne dépend que de `TextField`, `ChoiceChips` et `Button`, et la liste des activités est une donnée. L'API attend toujours le même contrat qu'avant : il n'a pas changé.

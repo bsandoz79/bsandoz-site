@@ -85,3 +85,6 @@ Le lien « Espace client » (`header.espaceClient`, `data/navigation.ts`) est to
 
 ## Barre de navigation (2026-11-07)
 `header.links` (`data/navigation.ts`) : Réalisations, Tarifs, Estimer (`lienEstimation`, `/composer?onglet=web`), À propos. Le seul bouton est « Demander un devis ». Le sous-menu « Métiers » est retiré de l'en-tête, avec son état et ses styles. Les pages métier (`metierLinks`) sont listées dans le pied de page, sous « Sites par métier » (`footer.metiersLabel`), qui a maintenant quatre colonnes sur grand écran. Le lien « Portfolio » n'est plus que dans le pied de page. Les paragraphes plus haut qui décrivent le sous-menu « Métiers » sont dépassés. Tests : `Header.test.tsx`, `Footer.test.tsx`.
+
+## Barre de navigation sans tarifs (2026-11-07, `chore/prix-unique`)
+La barre ne propose plus que Réalisations, À propos et Questions fréquentes, avec le bouton « Demander un devis ». « Tarifs » et « Estimer » sont retirés, et « Tarifs » aussi du pied de page. « Questions fréquentes » mène à `/#faq` ; un lien vers une section n'est jamais signalé comme page en cours (`ItemLink`, `Header.tsx`). La paragraphe précédent sur « Estimer » est dépassé.

@@ -61,6 +61,16 @@
   }
 }
 
+.prix {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.prix strong {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
 .rdv {
   display: flex;
   flex-wrap: wrap;

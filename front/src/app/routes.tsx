@@ -5,7 +5,6 @@ import { ancienneAdresseFaq, lienFaq } from '../data/faq';
 import { pages } from '../data/pages';
 import { Admin } from '../pages/Admin';
 import { APropos } from '../pages/APropos';
-import { Composer } from '../pages/Composer';
 import { Devis } from '../pages/Devis';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
@@ -17,15 +16,12 @@ import { Placeholder } from '../pages/Placeholder';
 import { Realisation } from '../pages/Realisation';
 import { Realisations } from '../pages/Realisations';
 import { RendezVous } from '../pages/RendezVous';
-import { Tarifs } from '../pages/Tarifs';
 
 type PageKey = keyof typeof pages;
 
 /** Pages déjà construites. Les autres affichent un contenu provisoire en attendant leur branche du plan. */
 const builtPages: Partial<Record<PageKey, ReactElement>> = {
   accueil: <Home />,
-  tarifs: <Tarifs />,
-  composer: <Composer />,
   informatique: <Informatique />,
   artisan: <Metier id="artisan" />,
   ecommerce: <Metier id="ecommerce" />,
@@ -62,6 +58,9 @@ export function AppRoutes() {
         <Route path={`${pages.realisations.path}/:id`} element={<Realisation />} />
         {/* La FAQ est maintenant une section de l'accueil : l'ancienne adresse y mène. */}
         <Route path={ancienneAdresseFaq} element={<Navigate to={lienFaq} replace />} />
+        {/* Les tarifs détaillés et l'estimation sont retirés : un seul prix « à partir de », le reste sur devis. */}
+        <Route path="/tarifs" element={<Navigate to={pages.devis.path} replace />} />
+        <Route path="/composer" element={<Navigate to={pages.devis.path} replace />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

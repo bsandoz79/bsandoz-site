@@ -141,3 +141,9 @@ flowchart TB
 ```
 
 Tests : `Home.test.tsx` (ordre des sections, bande, autonomie, vitrine sans doublon lu, livraison) et `Showcase.test.tsx`.
+
+## Prix unique (2026-11-07)
+- **Haut de l'accueil** : « Sites à partir de 390 €. Le prix exact dans votre devis, sous 24 h. »
+- **FAQ** : plus aucun montant. Délais en mots, et textes ou logo « indiqués dans le devis ».
+- **Pages métier** : les fonctions sans leur prix.
+- **Pourquoi moi** : « Un devis clair » remplace « Des prix affichés ».
