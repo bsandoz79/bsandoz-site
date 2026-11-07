@@ -18,6 +18,7 @@ Liste des blocs de la bibliothèque `@bsandoz79/blocs` (`packages/blocs/src/`, m
 | [`Accordion`](../packages/blocs/src/Accordion/README.md) | questions dépliables (`details` / `summary`), pour une FAQ | prêt |
 | [`Stepper`](../packages/blocs/src/Stepper/README.md) | barre de progression et étapes d'un parcours | prêt |
 | [`TextField`](../packages/blocs/src/TextField/README.md) | champ ou zone de texte avec libellé, aide et erreur | prêt |
+| [`Showcase`](../packages/blocs/src/Showcase/README.md) | vitrine de cartes qui défile en continu, pause, rangée à faire glisser si animations réduites | prêt |
 | [`Calendar`](../packages/blocs/src/Calendar/README.md) | calendrier mensuel accessible, jours indisponibles, navigation clavier | prêt |
 
 Les blocs animés s'appuient sur `packages/blocs/src/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».

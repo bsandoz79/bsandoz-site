@@ -16,6 +16,7 @@ export * from './PriceSummary';
 export * from './Reveal';
 export * from './RotatingWords';
 export * from './SectionTitle';
+export * from './Showcase';
 export * from './SitePreview';
 export * from './Stepper';
 export * from './TextField';
