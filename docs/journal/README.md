@@ -126,3 +126,4 @@ Types de tests :
 | 95 | [Retour de l'estimation, plus simple et en second plan](95-feature-estimation-retour.md) | `feature/estimation-retour` | 2026-11-07 |
 | 96 | [Barre de navigation : Estimer, sans Métiers](96-feature-nav-estimation.md) | `feature/nav-estimation` | 2026-11-07 |
 | 97 | [Un seul prix : à partir de 390 €](97-chore-prix-unique.md) | `chore/prix-unique` | 2026-11-07 |
+| 98 | [À propos : emplois pendant les études](98-chore-apropos-jobs.md) | `chore/apropos-jobs` | 2026-11-07 |
