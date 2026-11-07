@@ -4,7 +4,6 @@ import {
   options,
   optionsParFormule,
   optionsParMetier,
-  packs,
   precisions,
   prixFormule,
   prixOption,
@@ -41,14 +40,6 @@ describe('offres', () => {
   it('ne référence que des options existantes', () => {
     const listes = [...Object.values(optionsParFormule), ...Object.values(optionsParMetier)];
     for (const liste of listes) for (const id of liste) expect(options[id]).toBeDefined();
-    for (const pack of packs) [...pack.requises, pack.offerte].forEach((id) => expect(options[id]).toBeDefined());
     for (const id of Object.keys(precisions)) expect(options[id as keyof typeof options]).toBeDefined();
-  });
-
-  it('propose chaque pack dans au moins une liste d’options', () => {
-    const listes = [...Object.values(optionsParFormule), ...Object.values(optionsParMetier)];
-    for (const pack of packs) {
-      expect(listes.some((liste) => pack.requises.every((id) => liste.includes(id)))).toBe(true);
-    }
   });
 });

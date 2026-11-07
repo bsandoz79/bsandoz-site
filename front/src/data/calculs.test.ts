@@ -3,8 +3,9 @@ import {
   comparaisonMarche,
   configurationVide,
   garderOptionsValides,
+  inclusRestantes,
   optionsDisponibles,
-  packsActifs,
+  optionsIncluses,
   suggestions,
   type Configuration,
 } from './calculs';
@@ -16,14 +17,16 @@ describe('optionsDisponibles', () => {
     expect(optionsDisponibles(null, 'artisan')).toEqual([]);
   });
 
-  it('propose la même liste pour Vitrine et Vitrine+, quel que soit le métier', () => {
-    expect(optionsDisponibles('vitrine', null)).toEqual(['page', 'galerie', 'textes', 'logo']);
-    expect(optionsDisponibles('vitrinePlus', 'restaurant')).toEqual(['avantapres', 'avis', 'textes', 'logo', 'seo', 'anglais']);
+  it('propose toutes les petites options en Vitrine, sans la galerie en Vitrine+ (elle y est déjà)', () => {
+    expect(optionsDisponibles('vitrine', null)).toEqual(['page', 'galerie', 'textes', 'logo', 'avantapres', 'avis', 'seo', 'anglais']);
+    expect(optionsDisponibles('vitrinePlus', 'restaurant')).toEqual(['page', 'textes', 'logo', 'avantapres', 'avis', 'seo', 'anglais']);
   });
 
-  it('attend le métier pour le Fonctionnel, puis propose sa liste', () => {
+  it('attend le métier pour le Fonctionnel : ses gros modules d’abord, puis les petites options', () => {
     expect(optionsDisponibles('fonctionnel', null)).toEqual([]);
-    expect(optionsDisponibles('fonctionnel', 'restaurant')).toEqual(['table', 'clickcollect', 'avis', 'pwa', 'anglais']);
+    expect(optionsDisponibles('fonctionnel', 'restaurant')).toEqual([
+      'table', 'clickcollect', 'avis', 'pwa', 'anglais', 'page', 'galerie', 'textes', 'logo', 'avantapres', 'seo',
+    ]);
   });
 });
 
@@ -34,29 +37,26 @@ describe('garderOptionsValides', () => {
   });
 });
 
-describe('packsActifs', () => {
-  it('active un pack quand toutes ses options sont choisies', () => {
-    const [actif] = packsActifs(['rdv', 'acompte']);
-    expect(actif.pack.nom).toBe('Pack Réservation sereine');
-    expect(actif).toMatchObject({ offerte: 'avis', valeur: 60, dejaChoisie: false });
+describe('options incluses', () => {
+  it('inclut les premières petites options cochées : 1 en Vitrine, 2 en Vitrine+, 3 en Fonctionnel', () => {
+    expect(optionsIncluses(config({ formule: 'vitrine', options: ['galerie', 'page'] }))).toEqual(['galerie']);
+    expect(optionsIncluses(config({ formule: 'vitrinePlus', options: ['logo', 'textes', 'seo'] }))).toEqual(['logo', 'textes']);
+    expect(optionsIncluses(config({ formule: 'fonctionnel', metier: 'artisan', options: ['seo', 'avis', 'anglais', 'logo'] }))).toEqual([
+      'seo',
+      'avis',
+      'anglais',
+    ]);
   });
 
-  it("n'active rien si une option manque", () => {
-    expect(packsActifs(['rdv'])).toEqual([]);
+  it('ne compte jamais un gros module : il reste payant', () => {
+    expect(optionsIncluses(config({ formule: 'fonctionnel', metier: 'artisan', options: ['rdv', 'espace', 'avis'] }))).toEqual(['avis']);
   });
 
-  it("n'offre une même option qu'une fois", () => {
-    const actifs = packsActifs(['rdv', 'acompte', 'table', 'clickcollect']);
-    expect(actifs.map((a) => a.offerte)).toEqual(['avis']);
-  });
-
-  it('cumule des packs différents', () => {
-    const actifs = packsActifs(['rdv', 'acompte', 'espace']);
-    expect(actifs.map((a) => a.pack.id)).toEqual(['reservation', 'toutEnUn']);
-  });
-
-  it("signale quand l'option offerte était déjà choisie", () => {
-    expect(packsActifs(['logo', 'textes', 'page'])[0].dejaChoisie).toBe(true);
+  it('dit combien il en reste à choisir', () => {
+    expect(inclusRestantes(config({ formule: 'vitrinePlus', options: [] }))).toBe(2);
+    expect(inclusRestantes(config({ formule: 'vitrinePlus', options: ['logo'] }))).toBe(1);
+    expect(inclusRestantes(config({ formule: 'vitrinePlus', options: ['logo', 'seo', 'avis'] }))).toBe(0);
+    expect(inclusRestantes(configurationVide)).toBe(0);
   });
 });
 
@@ -65,14 +65,21 @@ describe('calculerEstimation', () => {
     expect(calculerEstimation(configurationVide)).toMatchObject({ lignes: [], total: 0, delai: null, fourchette: null });
   });
 
-  it('additionne la formule et les options, sans fourchette pour une vitrine', () => {
+  it('additionne la formule et les options payantes, sans fourchette pour une vitrine', () => {
     const estimation = calculerEstimation(config({ formule: 'vitrine', options: ['page', 'galerie'] }));
     expect(estimation.lignes).toEqual([
       { libelle: 'Site Vitrine', prix: 99 },
-      { libelle: 'Page supplémentaire', prix: 50 },
+      { libelle: 'Page supplémentaire', prix: 50, offerte: true },
       { libelle: 'Galerie photos', prix: 80 },
     ]);
-    expect(estimation).toMatchObject({ valeur: 229, offert: 0, total: 229, delai: '3 jours', fourchette: null });
+    expect(estimation).toMatchObject({ valeur: 229, offert: 50, total: 179, delai: '3 jours', fourchette: null, incluses: ['page'] });
+  });
+
+  it('les options incluses comptent dans la valeur, pas dans le prix', () => {
+    const estimation = calculerEstimation(
+      config({ formule: 'fonctionnel', metier: 'artisan', options: ['rdv', 'seo', 'avis', 'anglais', 'logo'] }),
+    );
+    expect(estimation).toMatchObject({ offert: 150 + 60 + 150, total: 989 + 400 + 150, valeur: 989 + 400 + 150 + 360 });
   });
 
   it('ajoute le prix des précisions', () => {
@@ -91,18 +98,6 @@ describe('calculerEstimation', () => {
     expect(estimation.total).toBe(989 + 400 + 300);
   });
 
-  it("offre l'option d'un pack : valeur barrée, montant offert et prix payé", () => {
-    const estimation = calculerEstimation(config({ formule: 'fonctionnel', metier: 'artisan', options: ['rdv', 'acompte'] }));
-    expect(estimation.lignes.at(-1)).toEqual({ libelle: 'Avis Google affichés', prix: 60, offerte: true });
-    expect(estimation).toMatchObject({ valeur: 989 + 400 + 150 + 60, offert: 60, total: 989 + 400 + 150 });
-  });
-
-  it("rend gratuite l'option offerte si elle était déjà choisie", () => {
-    const estimation = calculerEstimation(config({ formule: 'vitrine', options: ['logo', 'textes', 'page'] }));
-    expect(estimation).toMatchObject({ valeur: 99 + 150 + 60 + 50, offert: 50, total: 99 + 150 + 60 });
-    expect(estimation.lignes.some((ligne) => ligne.offerte)).toBe(false);
-  });
-
   it('donne une fourchette −5 % / +10 % arrondie à 10 € pour le Fonctionnel', () => {
     const estimation = calculerEstimation(config({ formule: 'fonctionnel', metier: 'sante', options: ['rdv'] }));
     expect(estimation.total).toBe(1389);
@@ -117,21 +112,9 @@ describe('calculerEstimation', () => {
 });
 
 describe('suggestions', () => {
-  it('propose de compléter un pack presque complet', () => {
-    const [suggestion] = suggestions(config({ formule: 'fonctionnel', metier: 'artisan', options: ['rdv'] }));
-    expect(suggestion).toEqual({
-      titre: 'Pack Réservation sereine',
-      texte: 'Ajoutez « Acompte en ligne » et je vous offre « Avis Google affichés » (valeur 60 €).',
-      libelle: "Ajouter et profiter de l'offre",
-      action: { type: 'option', option: 'acompte' },
-    });
-  });
-
-  it("ne propose pas un pack dont une option n'est pas proposée pour ce métier", () => {
-    // Restaurant : pas de rendez-vous, donc pas de Pack Réservation sereine.
-    const liste = suggestions(config({ formule: 'fonctionnel', metier: 'restaurant', options: ['table'] }));
-    expect(liste[0].action).toEqual({ type: 'option', option: 'clickcollect' });
-    expect(liste.map((s) => s.titre)).not.toContain('Pack Réservation sereine');
+  it('propose ce qui complète les choix : l’acompte après le rendez-vous, l’appli après une réservation', () => {
+    expect(suggestions(config({ formule: 'fonctionnel', metier: 'artisan', options: ['rdv'] }))[0].action).toEqual({ type: 'option', option: 'acompte' });
+    expect(suggestions(config({ formule: 'fonctionnel', metier: 'restaurant', options: ['table'] }))[0].action).toEqual({ type: 'option', option: 'pwa' });
   });
 
   it('ne propose pas deux fois la même option', () => {
