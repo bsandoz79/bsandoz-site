@@ -3,10 +3,11 @@ import { Container, SectionTitle, Showcase } from '@bsandoz79/blocs';
 import { RealisationCard } from '../../../components/RealisationCard';
 import { realisationsSection } from '../../../data/accueil';
 import { pages } from '../../../data/pages';
+import { exemplesOutils } from '../../../data/exemples';
 import { realisations } from '../../../data/realisations';
 import styles from './Sections.module.css';
 
-/** Réalisations qui défilent, avec le lien vers la page qui les présente toutes. */
+/** Réalisations qui défilent, suivies d'exemples d'outils (maquettes marquées « Exemple »), et le lien vers toutes les réalisations. */
 export function Realisations() {
   return (
     <section className="section" aria-labelledby="realisations-titre">
@@ -24,7 +25,7 @@ export function Realisations() {
         label={realisationsSection.title}
         pauseLabel={realisationsSection.pause}
         playLabel={realisationsSection.lecture}
-        items={realisations.map((r) => ({ id: r.id, content: <RealisationCard realisation={r} /> }))}
+        items={[...realisations, ...exemplesOutils].map((r) => ({ id: r.id, content: <RealisationCard realisation={r} /> }))}
       />
     </section>
   );

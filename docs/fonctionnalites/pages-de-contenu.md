@@ -149,3 +149,12 @@ Tests : `Home.test.tsx` (ordre des sections, bande, autonomie, vitrine sans doub
 - **Pourquoi moi** : « Un devis clair » remplace « Des prix affichés ».
 
 Parcours de la page À propos, mis à jour le 2026-11-07 : trois saisons en snack-bar et huit mois chez McDonald’s, en parallèle des études.
+
+## Exemples d'outils dans la vitrine (2026-11-07)
+`data/exemples.ts` (`exemplesOutils`) : quatre maquettes d'entreprises fictives, affichées après les réalisations dans le `Showcase` de l'accueil :
+- stocks et DLC ;
+- carte par QR code ;
+- suivi des clients ;
+- galerie de photographe.
+
+Chacune utilise `RealisationCard` avec `exemple: true`, qui ajoute le badge « Exemple » sur l'image (et « Exemple · » lu par les lecteurs d'écran). Leur lien mène au devis. Les images sont dans `assets/exemples/`, en 1 280 × 720 WebP. Leur source est `docs/exemples/maquettes-outils.html` : ouvrir le fichier dans Chrome, capturer chaque `section` en 1 280 × 720 avec une fenêtre assez haute, puis convertir en WebP. Elles ne sont jamais présentées comme des clients. Tests : `Home.test.tsx`.

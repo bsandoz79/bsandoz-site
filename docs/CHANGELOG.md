@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (vitrine)
+- Quatre exemples d'outils dans la vitrine de l'accueil, après les vraies réalisations : stocks et dates limites, carte par QR code, suivi des clients, galerie privée de photographe. Ce sont des maquettes d'entreprises fictives, toutes marquées « Exemple ». Elles mènent au devis (« Un outil comme celui-ci ? »).
+
 ### Modifié (édition)
 - Édition sur place, sans panneau latéral.
   - « Modifier » encadre chaque texte, prix et image du bloc.
