@@ -4,6 +4,12 @@
   color: var(--color-text-on-dark);
 }
 
+.question {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-on-dark-muted);
+  text-align: center;
+}
+
 .marquee {
   --marquee-accent: var(--color-rose-light);
   font-family: var(--font-display);

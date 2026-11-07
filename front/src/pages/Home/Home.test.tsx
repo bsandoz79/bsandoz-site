@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
-import { hero, methode, metiers, pourquoi, problemes } from '../../data/accueil';
+import { autonomie, hero, livraison, methode, metiers } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
 import { formuleParId, prixFormule } from '../../data/offres';
 import { pages } from '../../data/pages';
@@ -30,11 +30,10 @@ describe("Page d'accueil", () => {
     renderHome();
     const titles = screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent);
     expect(titles).toEqual([
-      problemes.title,
-      'Mes tarifs',
+      autonomie.titre,
       'Mes réalisations',
       methode.title,
-      pourquoi.title,
+      livraison.titre,
       faqAccueil.titre,
       'Je me déplace chez vous.',
       'Parlez-moi de votre projet.',
@@ -44,10 +43,7 @@ describe("Page d'accueil", () => {
   it('hero : appels à l’action et réassurance, sans mots qui tournent', () => {
     renderHome();
     const heroSection = section(pages.accueil.heading);
-    expect(within(heroSection).getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute(
-      'href',
-      `${pages.composer.path}?onglet=web`,
-    );
+    expect(within(heroSection).getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
     expect(within(heroSection).getByRole('link', { name: 'Voir les réalisations' })).toHaveAttribute(
       'href',
       pages.realisations.path,
@@ -59,59 +55,45 @@ describe("Page d'accueil", () => {
     for (const item of hero.reassurance) expect(within(heroSection).getByText(item)).toBeInTheDocument();
   });
 
-  it('affiche la bande des métiers', () => {
+  it('fait défiler les métiers qui ont besoin d’un site, sous une question', () => {
     renderHome();
     const list = screen.getByRole('list', { name: metiers.label });
     expect(within(list).getAllByRole('listitem')).toHaveLength(metiers.items.length);
+    expect(within(list).getByText('Avocats')).toBeInTheDocument();
+    expect(screen.getByText(metiers.question)).toBeInTheDocument();
   });
 
-  it('associe chaque problème à sa solution', () => {
+  it('dit ce que le client modifie seul, et ce qui reste à faire par Baptiste', () => {
     renderHome();
-    const items = within(section(problemes.title)).getAllByRole('listitem');
-    expect(items).toHaveLength(4);
-    expect(items[0]).toHaveTextContent(problemes.items[0].probleme);
-    expect(items[0]).toHaveTextContent(problemes.items[0].solution);
+    const bloc = section(autonomie.titre);
+    expect(within(bloc).getAllByRole('article')).toHaveLength(autonomie.items.length);
+    expect(bloc).toHaveTextContent('« Modifier »');
+    expect(bloc).toHaveTextContent(autonomie.note);
   });
 
-  it('affiche les trois formules avec leur prix et un lien vers le configurateur', () => {
+  it('fait défiler les réalisations, avec une pause et le lien vers toutes les réalisations', () => {
     renderHome();
-    const offres = section('Mes tarifs');
-    const vitrine = within(offres).getByRole('article', { name: 'Vitrine' });
-    expect(vitrine).toHaveTextContent(/99\s€/);
-    expect(within(vitrine).getByRole('link', { name: 'Choisir Vitrine' })).toHaveAttribute(
-      'href',
-      '/composer?formule=vitrine',
-    );
-    expect(within(offres).getByRole('article', { name: 'Vitrine+' })).toHaveTextContent(/390\s€/);
-    const fonctionnel = within(offres).getByRole('article', { name: 'Fonctionnel' });
-    expect(fonctionnel).toHaveTextContent(/à partir de 989\s€/);
-    expect(fonctionnel).toHaveTextContent('Le plus complet');
-    expect(offres).toHaveTextContent('TVA non applicable (art. 293 B du CGI)');
-  });
-
-  it('affiche les réalisations', () => {
-    renderHome();
-    const realisationsSection = section('Mes réalisations');
+    const bloc = section('Mes réalisations');
+    const liste = within(bloc).getByRole('list', { name: 'Mes réalisations' });
     for (const realisation of realisations) {
-      expect(within(realisationsSection).getByRole('article', { name: realisation.titre })).toBeInTheDocument();
+      expect(within(liste).getByRole('article', { name: realisation.titre })).toBeInTheDocument();
     }
+    // La copie qui sert à boucler n'est ni lue ni atteignable au clavier.
+    expect(within(bloc).getAllByRole('article')).toHaveLength(realisations.length);
+    expect(within(bloc).getByRole('button', { name: 'Mettre en pause' })).toBeInTheDocument();
+    expect(within(bloc).getByRole('link', { name: /Voir toutes les réalisations/ })).toHaveAttribute('href', pages.realisations.path);
+  });
+
+  it('liste ce que le client reçoit à la livraison', () => {
+    renderHome();
+    const bloc = section(livraison.titre);
+    for (const item of livraison.items) expect(bloc).toHaveTextContent(item.titre);
   });
 
   it('numérote les quatre étapes de la méthode', () => {
     renderHome();
     const steps = within(section(methode.title)).getAllByRole('listitem');
     expect(steps.map((step) => step.querySelector('h3')?.textContent)).toEqual(methode.steps.map((s) => s.title));
-  });
-
-  it('renvoie vers le portfolio, sans inventer de photo', () => {
-    renderHome();
-    const pourquoiSection = section(pourquoi.title);
-    expect(within(pourquoiSection).getByRole('img', { name: 'Baptiste Sandoz, développeur web à Amiens' })).toBeInTheDocument();
-    expect(within(pourquoiSection).queryByText('[photo à compléter]')).not.toBeInTheDocument();
-    expect(within(pourquoiSection).getByRole('link', { name: /portfolio/ })).toHaveAttribute(
-      'href',
-      'https://portfolio.bsandoz.fr',
-    );
   });
 
   it('finit par le formulaire de contact rapide, avec le rendez-vous et le devis détaillé à côté', async () => {
@@ -123,13 +105,6 @@ describe("Page d'accueil", () => {
     await user.click(within(contact).getByRole('link', { name: 'Ou décrivez votre projet en détail' }));
     expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
   });
-  it('affiche des chiffres clés tirés des offres, sans rien inventer', () => {
-    renderHome();
-    const bande = section('En bref');
-    expect(within(bande).getByText(formuleParId('vitrine').delai)).toBeInTheDocument();
-    expect(within(bande).getByText('24 h')).toBeInTheDocument();
-    expect(within(bande).getByText('50 km')).toBeInTheDocument();
-  });
   it('montre tout de suite qui est derrière le site : photo, nom et métier, prix de départ', () => {
     renderHome();
     expect(screen.getAllByText('Baptiste Sandoz').length).toBeGreaterThan(0);
@@ -139,12 +114,10 @@ describe("Page d'accueil", () => {
     expect(screen.getByText((texte) => texte.replace(/\s/g, ' ').includes(prix))).toBeInTheDocument();
   });
 
-  it('garde le reflet seulement sur le bouton principal, sans effets sur les cartes de prix', () => {
+  it('garde le reflet seulement sur le bouton principal', () => {
     renderHome();
-    expect(within(section(pages.accueil.heading)).getByRole('link', { name: 'Estimer mon projet' })).toHaveClass('anim-reflet');
-    for (const nom of ['Vitrine', 'Vitrine+', 'Fonctionnel']) {
-      expect(within(section('Mes tarifs')).getByRole('article', { name: nom })).not.toHaveClass('anim-reflet');
-    }
+    expect(within(section(pages.accueil.heading)).getByRole('link', { name: 'Demander un devis' })).toHaveClass('anim-reflet');
+    expect(document.querySelectorAll('.anim-reflet')).toHaveLength(1);
     expect(document.querySelector('.anim-pulse, .anim-float, .anim-respire')).toBeNull();
   });
 

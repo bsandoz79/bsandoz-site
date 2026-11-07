@@ -1,6 +1,12 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (accueil)
+- Accueil recentré sur une promesse : « Un site à vous, que vous modifiez vous-même. » Ordre : haut de page, bande des métiers qui ont besoin d'un site (« Vous avez une entreprise, mais pas encore de site ? »), « Votre site, vous le modifiez vous-même », réalisations qui défilent, méthode, « Ce que vous recevez à la livraison », questions fréquentes, carte, contact.
+- Le bouton principal de l'accueil mène à la demande de devis.
+- Retirés de l'accueil : chiffres clés, « Ce qui vous fait perdre des clients », les formules, « Pourquoi travailler avec moi » (la photo en rideau reste sur la page À propos).
+- Nouveau bloc réutilisable `Showcase` : vitrine de cartes qui défile, avec bouton pause, arrêt au survol et au clavier, et rangée à faire glisser si les animations sont réduites.
+
 ### Corrigé (téléphone)
 - Fond de page fixe réservé aux ordinateurs (saccades et fond qui saute sur iPhone) ; marges entre sections plus courtes sur téléphone.
 

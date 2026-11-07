@@ -47,6 +47,9 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/faq-accueil` : FAQ en bas de l'accueil avant la carte, 3 questions puis « Voir plus » (+3), le lien du menu mène à l'ancre
 - [x] `feature/bandeau-cookies` : bandeau discret en bas, non bloquant ; carte affichée directement au défilement
 - [x] `feature/carte-position` : demande de position quand la carte apparaît, point sur la carte, message dans la zone / hors zone (frais kilométriques), bouton pour réactiver
+- [x] `feature/accueil-autonomie` : accueil recentré sur « un site que vous modifiez vous-même », bande des métiers, réalisations qui défilent (bloc `Showcase`), ce que vous recevez à la livraison
+- [ ] `chore/retrait-simulation` : retirer l'estimation ; le devis devient un formulaire de contact court
+- [ ] `feature/exemples-outils` : maquettes d'outils (marquées « Exemple ») dans la vitrine des réalisations
 - [ ] `feature/composer-etapes` : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
 - [x] `feature/ordre-accueil` : fin de l'accueil Questions → Carte → Contact ; pas d'appel du pied de page sur l'accueil
 - [x] `feature/frais-kilometriques` : zones Amiens et Abbeville, frais au-delà de 50 km (2,50 €/L, 7,5 L/100), dus même sans devis

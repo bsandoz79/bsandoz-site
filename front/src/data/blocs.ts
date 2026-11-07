@@ -1,4 +1,4 @@
-import { hero, chiffres, metiers, methode, offres as offresAccueil, pourquoi, problemes, realisationsSection } from './accueil';
+import { autonomie, hero, livraison, methode, metiers, realisationsSection } from './accueil';
 import { contactRapide } from './contact';
 import { faqAccueil, questionsFaq } from './faq';
 import { medias } from './medias';
@@ -71,7 +71,6 @@ function blocFormule(id: FormuleId): Bloc {
       champ(`offre.${id}.delai`, 'Délai', f, 'delai'),
       ...liste(`offre.${id}.point`, 'Point fort (accueil)', f.pointsForts),
       ...liste(`offre.${id}.contenu`, 'Contenu (page Tarifs)', contenuFormules[id]),
-      champ(`offre.${id}.bouton`, 'Bouton (accueil)', offresAccueil.cta, id),
     ],
   };
 }
@@ -93,35 +92,6 @@ export const blocs: Record<string, Bloc> = {
       ...liste('accueil.hero.garantie', 'Garantie', hero.reassurance),
     ],
   },
-  'accueil.chiffres': {
-    titre: 'Chiffres clés',
-    champs: chiffres.liste.flatMap((c, i) => [
-      champ(`accueil.chiffres.${i}.valeur`, `Chiffre ${i + 1}`, c, 'valeur'),
-      champ(`accueil.chiffres.${i}.texte`, `Texte du chiffre ${i + 1}`, c, 'texte'),
-    ]),
-  },
-  'accueil.metiers': {
-    titre: 'Bande des métiers',
-    champs: liste('accueil.metiers', 'Métier', metiers.items),
-  },
-  'accueil.problemes': {
-    titre: 'Ce qui fait perdre des clients',
-    champs: [
-      champ('accueil.problemes.titre', 'Titre', problemes, 'title'),
-      ...problemes.items.flatMap((p, i) => [
-        champ(`accueil.problemes.${i}.probleme`, `Problème ${i + 1}`, p, 'probleme', 'long'),
-        champ(`accueil.problemes.${i}.solution`, `Solution ${i + 1}`, p, 'solution', 'long'),
-      ]),
-    ],
-  },
-  'accueil.offres': {
-    titre: 'Titre des tarifs',
-    champs: [
-      champ('accueil.offres.titre', 'Titre', offresAccueil, 'title'),
-      champ('accueil.offres.lien', 'Lien', offresAccueil.link, 'label'),
-      champ('accueil.offres.badge', 'Badge de la formule complète', offresAccueil, 'featuredBadge'),
-    ],
-  },
   'offre.vitrine': blocFormule('vitrine'),
   'offre.vitrinePlus': blocFormule('vitrinePlus'),
   'offre.fonctionnel': blocFormule('fonctionnel'),
@@ -129,9 +99,28 @@ export const blocs: Record<string, Bloc> = {
     titre: 'Compléments',
     champs: [prix('option.page', 'Page supplémentaire (€)', options.page)],
   },
+  'accueil.metiers': {
+    titre: 'Bande des métiers',
+    champs: [champ('accueil.metiers.question', 'Question', metiers, 'question'), ...liste('accueil.metiers', 'Métier', metiers.items)],
+  },
+  'accueil.autonomie': {
+    titre: 'Vous le modifiez vous-même',
+    champs: [
+      champ('accueil.autonomie.titre', 'Titre', autonomie, 'titre'),
+      champ('accueil.autonomie.intro', 'Introduction', autonomie, 'intro', 'long'),
+      ...autonomie.items.flatMap((a, i) => [
+        champ(`accueil.autonomie.${i}.titre`, `Carte ${i + 1}`, a, 'titre'),
+        champ(`accueil.autonomie.${i}.texte`, `Texte de la carte ${i + 1}`, a, 'texte', 'long'),
+      ]),
+      champ('accueil.autonomie.note', 'Note', autonomie, 'note'),
+    ],
+  },
   'accueil.realisations': {
     titre: 'Titre des réalisations',
-    champs: [champ('accueil.realisations.titre', 'Titre', realisationsSection, 'title')],
+    champs: [
+      champ('accueil.realisations.titre', 'Titre', realisationsSection, 'title'),
+      champ('accueil.realisations.lien', 'Lien', realisationsSection, 'lien'),
+    ],
   },
   'accueil.methode': {
     titre: 'Comment ça se passe',
@@ -143,15 +132,13 @@ export const blocs: Record<string, Bloc> = {
       ]),
     ],
   },
-  'accueil.pourquoi': {
-    titre: 'Pourquoi travailler avec moi',
+  'accueil.livraison': {
+    titre: 'Ce que vous recevez',
     champs: [
-      champ('accueil.pourquoi.titre', 'Titre', pourquoi, 'title'),
-      champ('media.portrait', 'Photo', medias, 'portrait', 'image'),
-      champ('accueil.pourquoi.legende', 'Légende de la photo', pourquoi, 'photoCaption'),
-      ...pourquoi.items.flatMap((p, i) => [
-        champ(`accueil.pourquoi.${i}.titre`, `Argument ${i + 1}`, p, 'title'),
-        champ(`accueil.pourquoi.${i}.texte`, `Texte de l’argument ${i + 1}`, p, 'text', 'long'),
+      champ('accueil.livraison.titre', 'Titre', livraison, 'titre'),
+      ...livraison.items.flatMap((l, i) => [
+        champ(`accueil.livraison.${i}.titre`, `Point ${i + 1}`, l, 'titre'),
+        champ(`accueil.livraison.${i}.texte`, `Texte du point ${i + 1}`, l, 'texte', 'long'),
       ]),
     ],
   },

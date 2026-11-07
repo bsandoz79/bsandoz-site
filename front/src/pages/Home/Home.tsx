@@ -6,17 +6,15 @@ import { StructuredData } from '../../components/StructuredData';
 import { pages } from '../../data/pages';
 import { questionsFaq } from '../../data/faq';
 import { jsonLdEntreprise, jsonLdFaq } from '../../data/seo';
-import { Chiffres } from './sections/Chiffres';
+import { Autonomie } from './sections/Autonomie';
 import { Faq } from './sections/Faq';
 import { Hero } from './sections/Hero';
+import { Livraison } from './sections/Livraison';
 import { Metiers } from './sections/Metiers';
 import { Methode } from './sections/Methode';
-import { Offres } from './sections/Offres';
-import { Pourquoi } from './sections/Pourquoi';
-import { Problemes } from './sections/Problemes';
 import { Realisations } from './sections/Realisations';
 
-/** Page d'accueil (maquette `Main` et `Mobile`). */
+/** Page d'accueil : un site que le client modifie lui-même, les réalisations, la méthode, la livraison. */
 export function Home() {
   return (
     <>
@@ -26,17 +24,11 @@ export function Home() {
       <BlocModifiable id="accueil.hero">
         <Hero />
       </BlocModifiable>
-      <BlocModifiable id="accueil.chiffres">
-        <Chiffres />
-      </BlocModifiable>
       <BlocModifiable id="accueil.metiers">
         <Metiers />
       </BlocModifiable>
-      <BlocModifiable id="accueil.problemes">
-        <Problemes />
-      </BlocModifiable>
-      <BlocModifiable id="accueil.offres">
-        <Offres />
+      <BlocModifiable id="accueil.autonomie">
+        <Autonomie />
       </BlocModifiable>
       <BlocModifiable id="accueil.realisations">
         <Realisations />
@@ -44,8 +36,8 @@ export function Home() {
       <BlocModifiable id="accueil.methode">
         <Methode />
       </BlocModifiable>
-      <BlocModifiable id="accueil.pourquoi">
-        <Pourquoi />
+      <BlocModifiable id="accueil.livraison">
+        <Livraison />
       </BlocModifiable>
       <BlocModifiable id="accueil.faq">
         <Faq />
