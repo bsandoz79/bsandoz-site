@@ -66,7 +66,7 @@
 }
 
 /* Colonnes */
-/* Sur téléphone : la présentation sur toute la largeur, puis « Le site » et « Contact » côte à côte. */
+/* Sur téléphone : la présentation sur toute la largeur, puis les listes deux par deux. */
 .colonnes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -178,7 +178,7 @@
   }
 
   .colonnes {
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
   }
 
   .marque {

@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (navigation)
+- **Barre de navigation** : Réalisations, Tarifs, Estimer, À propos, puis le bouton « Demander un devis ». « Estimer » est un simple lien, pour qu'on retrouve l'estimation sans qu'elle passe devant le devis.
+- **Retirés de la barre** : le sous-menu « Métiers » et le lien « Portfolio ». Les pages métier sont dans le pied de page (colonne « Sites par métier ») et restent utiles pour Google. Le portfolio était déjà dans le pied de page.
+
 ### Modifié (estimation)
 - L'estimation en ligne revient (`/composer`), en second plan derrière « Demander un devis » : un lien discret sur la page Devis et sur Tarifs.
 - **Métier** : il se tape, avec des suggestions (« me » → menuisier, mécanicien…). Il peut aussi s'écrire librement. Même champ dans le formulaire de devis, à la place des pastilles.

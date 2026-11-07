@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@bsandoz79/blocs';
 import { rouvrirBandeau } from '../../app/consentement';
 import { bandeau } from '../../data/consentement';
-import { contact, footer } from '../../data/navigation';
+import { contact, footer, metierLinks } from '../../data/navigation';
 import { pages } from '../../data/pages';
 import styles from './Footer.module.css';
 
@@ -54,6 +54,19 @@ export function Footer() {
               {footer.site.map((item) => (
                 <li key={item.to}>
                   <Link to={item.to}>{item.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-label={footer.metiersLabel}>
+            <p className={styles.titre} aria-hidden="true">
+              {footer.metiersLabel}
+            </p>
+            <ul className={styles.liste}>
+              {metierLinks.map((item) => (
+                <li key={item.label}>
+                  <Link to={item.to!}>{item.label}</Link>
                 </li>
               ))}
             </ul>

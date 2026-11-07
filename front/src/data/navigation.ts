@@ -27,7 +27,7 @@ export const lienDevis = pages.devis.path;
 /** L'estimation en ligne, proposée en second plan (page Devis, Tarifs). */
 export const lienEstimation = `${pages.composer.path}?onglet=web`;
 
-/** Pages métier, regroupées sous « Métiers » dans le menu. */
+/** Pages métier, listées dans le pied de page. */
 export const metierLinks: NavLink[] = [
   { label: 'Artisan', to: pages.artisan.path },
   { label: 'Commerce', to: pages.ecommerce.path },
@@ -44,16 +44,16 @@ export const header = {
   name: 'Baptiste Sandoz',
   navLabel: 'Navigation principale',
   tabsLabel: 'Catégories de services',
-  metiersLabel: 'Métiers',
   openMenu: 'Ouvrir le menu',
   closeMenu: 'Fermer le menu',
   /** Toujours visible dans la barre : icône, et texte sur grand écran. */
   espaceClient: { label: 'Espace client', to: pages.monEspace.path },
+  /** « Estimer » : un simple lien, le seul bouton reste « Demander un devis ». */
   links: [
     { label: 'Réalisations', to: pages.realisations.path },
     { label: 'Tarifs', to: pages.tarifs.path },
+    { label: 'Estimer', to: lienEstimation },
     { label: 'À propos', to: pages.aPropos.path },
-    { label: 'Portfolio', href: contact.portfolio },
   ] satisfies NavLink[],
   cta: { label: 'Demander un devis', to: lienDevis },
 };
@@ -76,6 +76,8 @@ export const footer = {
     rendezVous: { label: 'Rendez-vous gratuit', to: pages.rendezVous.path },
   },
   siteLabel: 'Le site',
+  /** Pages métier : dans le pied de page (utiles pour Google), plus dans la barre. */
+  metiersLabel: 'Sites par métier',
   site: [
     { label: 'Tarifs', to: pages.tarifs.path },
     { label: 'Réalisations', to: pages.realisations.path },

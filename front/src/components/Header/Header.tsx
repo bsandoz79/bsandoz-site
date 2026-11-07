@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
 import { pages } from '../../data/pages';
-import { header, informatiquePrefix, metierLinks, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
+import { header, informatiquePrefix, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
 import styles from './Header.module.css';
 import { ThemeToggle } from '../ThemeToggle';
 import { useMasquageAuDefilement } from './useMasquageAuDefilement';
 
 const MENU_ID = 'menu-principal';
-const METIERS_ID = 'menu-metiers';
 
 function navClass({ isActive }: { isActive: boolean }) {
   return isActive ? `${styles.link} ${styles.active}` : styles.link;
@@ -31,46 +30,27 @@ function ItemLink({ item, className }: { item: NavItem; className?: string }) {
 
 /**
  * En-tête du site : onglets des deux catégories de services, logo, navigation
- * (avec le sous-menu « Métiers ») et menu repliable sur mobile.
+ * (Réalisations, Tarifs, Estimer, À propos), bouton « Demander un devis » et menu repliable sur mobile.
  */
 export function Header() {
   const { pathname } = useLocation();
   // On retient l'adresse où chaque menu a été ouvert : changer de page les referme.
   const [menuOpenAt, setMenuOpenAt] = useState<string | null>(null);
-  const [metiersOpenAt, setMetiersOpenAt] = useState<string | null>(null);
   const menuOpen = menuOpenAt === pathname;
-  const metiersOpen = metiersOpenAt === pathname;
   // Le focus clavier dans l'en-tête le garde visible (on ne cache jamais ce qu'on est en train d'utiliser).
   const [focusDedans, setFocusDedans] = useState(false);
-  const { masque, decolle, enHaut } = useMasquageAuDefilement(menuOpen || metiersOpen || focusDedans);
+  const { masque, decolle, enHaut } = useMasquageAuDefilement(menuOpen || focusDedans);
   // Hors du haut de page, seule la barre principale revient : les onglets restent cachés.
   const etat = masque ? styles.masque : enHaut ? '' : styles.compact;
 
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const metiersRef = useRef<HTMLLIElement>(null);
 
-  const [firstLink, ...otherLinks] = header.links;
   const inInformatique = pathname.startsWith(informatiquePrefix);
   // L'estimation a ses propres onglets « Sites & applis / Informatique sur place » : pas de seconde barre.
   const sansOnglets = pathname === pages.composer.path;
-  const metiersActive = metierLinks.some((item) => item.to === pathname);
-
-  // Un clic en dehors du sous-menu « Métiers » le referme.
-  useEffect(() => {
-    if (!metiersOpen) return;
-    function onPointerDown(event: PointerEvent) {
-      if (!metiersRef.current?.contains(event.target as Node)) setMetiersOpenAt(null);
-    }
-    document.addEventListener('pointerdown', onPointerDown);
-    return () => document.removeEventListener('pointerdown', onPointerDown);
-  }, [metiersOpen]);
-
   function onKeyDown(event: KeyboardEvent) {
     if (event.key !== 'Escape') return;
-    if (metiersOpen) {
-      setMetiersOpenAt(null);
-      metiersRef.current?.querySelector('button')?.focus();
-    } else if (menuOpen) {
+    if (menuOpen) {
       setMenuOpenAt(null);
       toggleRef.current?.focus();
     }
@@ -145,31 +125,7 @@ export function Header() {
           className={menuOpen ? `${styles.nav} ${styles.navOpen}` : styles.nav}
         >
           <ul className={styles.list}>
-            <li>
-              <ItemLink item={firstLink} />
-            </li>
-            <li ref={metiersRef} className={styles.dropdown}>
-              <button
-                type="button"
-                className={metiersActive ? `${styles.link} ${styles.active}` : styles.link}
-                aria-expanded={metiersOpen}
-                aria-controls={METIERS_ID}
-                onClick={() => setMetiersOpenAt(metiersOpen ? null : pathname)}
-              >
-                {header.metiersLabel}
-                <svg className={styles.chevron} width="12" height="12" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <ul id={METIERS_ID} className={styles.submenu} hidden={!metiersOpen}>
-                {metierLinks.map((item) => (
-                  <li key={item.label}>
-                    <ItemLink item={item} />
-                  </li>
-                ))}
-              </ul>
-            </li>
-            {otherLinks.map((item) => (
+            {header.links.map((item) => (
               <li key={item.label}>
                 <ItemLink item={item} />
               </li>

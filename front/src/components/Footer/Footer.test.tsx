@@ -95,4 +95,11 @@ describe('Footer', () => {
     await user.click(screen.getByRole('button', { name: 'Services tiers' }));
     expect(visible).toBe(true);
   });
+
+  it('liste les pages par métier, sorties de la barre de navigation', () => {
+    renderFooter();
+    const metiers = screen.getByRole('navigation', { name: 'Sites par métier' });
+    expect(within(metiers).getByRole('link', { name: 'Artisan' })).toHaveAttribute('href', pages.artisan.path);
+    expect(within(metiers).getAllByRole('link')).toHaveLength(4);
+  });
 });

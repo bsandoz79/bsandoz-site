@@ -82,3 +82,6 @@ L'estimation en ligne est retirée (2026-11-07). Le bouton de l'en-tête, la bar
 
 ## Espace client dans l'en-tête
 Le lien « Espace client » (`header.espaceClient`, `data/navigation.ts`) est toujours visible dans la barre, à côté du bouton de thème : icône de personne, avec le texte à partir de 1 200 px. Dans le menu du téléphone, il est aussi écrit en toutes lettres. Les libellés de la barre restent sur une ligne : entre 960 et 1 099 px, le nom est masqué à l'écran (le logo reste, et le nom reste lisible par les lecteurs d'écran) ; sur téléphone, les boutons passent à 2,5 rem pour tenir sur une ligne.
+
+## Barre de navigation (2026-11-07)
+`header.links` (`data/navigation.ts`) : Réalisations, Tarifs, Estimer (`lienEstimation`, `/composer?onglet=web`), À propos. Le seul bouton est « Demander un devis ». Le sous-menu « Métiers » est retiré de l'en-tête, avec son état et ses styles. Les pages métier (`metierLinks`) sont listées dans le pied de page, sous « Sites par métier » (`footer.metiersLabel`), qui a maintenant quatre colonnes sur grand écran. Le lien « Portfolio » n'est plus que dans le pied de page. Les paragraphes plus haut qui décrivent le sous-menu « Métiers » sont dépassés. Tests : `Header.test.tsx`, `Footer.test.tsx`.
