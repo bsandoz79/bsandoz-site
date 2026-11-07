@@ -1,4 +1,5 @@
 import { useId, useState, type KeyboardEvent } from 'react';
+import { filtrerSuggestions } from './filtre';
 import styles from './Autocomplete.module.css';
 
 export type AutocompleteProps = {
@@ -19,23 +20,6 @@ export type AutocompleteProps = {
   announce?: (count: number) => string;
   className?: string;
 };
-
-/** Minuscules, sans accents : « Électricien » et « electri » se rejoignent. */
-export const normaliser = (texte: string) =>
-  texte
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .trim();
-
-/** Suggestions pour une saisie : d'abord celles qui commencent par la saisie, puis celles qui la contiennent. */
-export function filtrerSuggestions(suggestions: string[], saisie: string, max = 6): string[] {
-  const s = normaliser(saisie);
-  if (!s) return [];
-  const debut = suggestions.filter((x) => normaliser(x).startsWith(s));
-  const dedans = suggestions.filter((x) => !debut.includes(x) && normaliser(x).includes(s));
-  return [...debut, ...dedans].filter((x) => normaliser(x) !== s).slice(0, max);
-}
 
 /**
  * Champ texte qui propose de finir le mot pendant la saisie (motif « combobox » de l'ARIA) :

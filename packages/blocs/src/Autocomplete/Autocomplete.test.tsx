@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Autocomplete, filtrerSuggestions, normaliser } from './Autocomplete';
+import { Autocomplete } from './Autocomplete';
+import { filtrerSuggestions, normaliser } from './filtre';
 
 const metiers = ['Menuisier', 'Mécanicien', 'Maçon', 'Électricien', 'Plombier', 'Médecin'];
 
