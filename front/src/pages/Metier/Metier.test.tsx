@@ -41,13 +41,11 @@ describe('Pages métier', () => {
     expect(screen.queryByText('Un projet proche du vôtre')).not.toBeInTheDocument();
   });
 
-  it('ouvre le configurateur sur le Fonctionnel et le bon métier', async () => {
+  it('mène à la demande de devis', async () => {
     const user = userEvent.setup();
     renderAt(pages.independant.path);
-    await user.click(screen.getAllByRole('link', { name: 'Composer mon site' })[0]);
-    expect(screen.getByRole('radio', { name: /^Fonctionnel/ })).toBeChecked();
-    expect(screen.getByRole('radio', { name: 'Santé / bien-être' })).toBeChecked();
-    expect(screen.getAllByRole('checkbox')).toHaveLength(5);
+    await user.click(within(screen.getByRole('main')).getAllByRole('link', { name: 'Demander un devis' })[0]);
+    expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
   });
 
   it('propose un rendez-vous gratuit', () => {

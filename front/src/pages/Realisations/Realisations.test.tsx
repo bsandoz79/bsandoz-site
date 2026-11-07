@@ -69,9 +69,9 @@ describe('Page Réalisations', () => {
     for (const realisation of realisations) expect(types.has(realisation.type)).toBe(true);
   });
 
-  it('propose de composer un projet', () => {
+  it('propose de demander un devis', () => {
     afficher(pages.realisations.path);
-    expect(screen.getByRole('link', { name: 'Composer mon site' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+    expect(within(screen.getByRole('main')).getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
   });
 });
 

@@ -13,7 +13,7 @@ flowchart TB
   layout --> header["components/Header<br/>onglets, menu, Métiers, menu mobile"]
   layout --> main["main#contenu<br/>la page"]
   layout --> footer["components/Footer"]
-  layout --> bar["components/MobileBar<br/>(masquée sur /composer et /devis)"]
+  layout --> bar["components/MobileBar<br/>(masquée sur /devis et /rendez-vous)"]
   layout --> haut["components/RetourHaut<br/>bouton « revenir en haut »"]
   layout --> bandeau["components/BandeauCookies<br/>services tiers"]
   nav["src/data/navigation.ts<br/>libellés, liens, contact"] --> header & footer & bar & haut
@@ -77,10 +77,8 @@ flowchart LR
 
 La position du visiteur sur la carte est décrite dans [pages-de-contenu.md](pages-de-contenu.md#carte-des-zones-et-position).
 
-## Boutons « Estimer »
-`lienEstimer(pathname)` (`data/navigation.ts`) donne l'adresse du configurateur avec le bon onglet : `?onglet=informatique` depuis Informatique sur place, `?onglet=web` partout ailleurs. Il sert au bouton de l'en-tête, à la barre mobile et au pied de page. Les liens « Estimer / Composer mon site » des pages sites (accueil, Tarifs, réalisations) mènent à `?onglet=web`. Sans cela, le configurateur rouvrait le dernier onglet utilisé, même en venant de la partie sites.
-
-Sur la page Estimer (`/composer`), l'en-tête n'affiche pas sa barre d'onglets « Sites & applis / Informatique sur place » (classe `sansOnglets`) : il ne reste que celle du configurateur.
+## Boutons « Demander un devis »
+L'estimation en ligne est retirée (2026-11-07). Le bouton de l'en-tête, la barre mobile et le pied de page mènent tous à `/devis` (`lienDevis`, `data/navigation.ts`). Le pied de page n'affiche pas son appel sur l'accueil ni sur `/devis`, qui se terminent déjà par le formulaire.
 
 ## Espace client dans l'en-tête
 Le lien « Espace client » (`header.espaceClient`, `data/navigation.ts`) est toujours visible dans la barre, à côté du bouton de thème : icône de personne, avec le texte à partir de 1 200 px. Dans le menu du téléphone, il est aussi écrit en toutes lettres. Les libellés de la barre restent sur une ligne : entre 960 et 1 099 px, le nom est masqué à l'écran (le logo reste, et le nom reste lisible par les lecteurs d'écran) ; sur téléphone, les boutons passent à 2,5 rem pour tenir sur une ligne.

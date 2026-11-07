@@ -40,11 +40,11 @@ describe('Page Informatique sur place', () => {
     expect(within(screen.getByRole('region', { name: 'Comment ça se passe' })).getAllByRole('listitem')).toHaveLength(3);
   });
 
-  it('ouvre le configurateur directement sur l’onglet informatique', async () => {
+  it('« Décrire mon besoin » mène à la demande de devis', async () => {
     const user = userEvent.setup();
     renderInformatique();
     await user.click(screen.getAllByRole('link', { name: 'Décrire mon besoin' })[0]);
-    expect(screen.getByRole('tab', { name: 'Informatique sur place' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
   });
 
   it('propose un rendez-vous gratuit', () => {

@@ -3,7 +3,7 @@ import { Card, Container, Reveal, SectionTitle, SitePreview, buttonClassName } f
 import { PageMeta } from '../../components/PageMeta';
 import { RealisationCard } from '../../components/RealisationCard';
 import { apercuTextes, modeleApercu } from '../../data/apercu';
-import { lienComposerMetier, metierTextes, pagesMetier, type PageMetierId } from '../../data/metiers';
+import { metierTextes, pagesMetier, type PageMetierId } from '../../data/metiers';
 import { formuleParId, options, optionsParMetier, prixFormule, prixOption } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
@@ -23,7 +23,7 @@ export function Metier({ id }: Props) {
     precisions: {},
   });
   const realisation = realisations.find((r) => r.id === contenu.realisation);
-  const lienComposer = lienComposerMetier(contenu.metier);
+  const lienComposer = pages.devis.path;
 
   return (
     <>

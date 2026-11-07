@@ -48,9 +48,9 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/bandeau-cookies` : bandeau discret en bas, non bloquant ; carte affichée directement au défilement
 - [x] `feature/carte-position` : demande de position quand la carte apparaît, point sur la carte, message dans la zone / hors zone (frais kilométriques), bouton pour réactiver
 - [x] `feature/accueil-autonomie` : accueil recentré sur « un site que vous modifiez vous-même », bande des métiers, réalisations qui défilent (bloc `Showcase`), ce que vous recevez à la livraison
-- [ ] `chore/retrait-simulation` : retirer l'estimation ; le devis devient un formulaire de contact court
+- [x] `chore/retrait-simulation` : estimation retirée ; le devis devient un formulaire court (accueil et `/devis`), activité avec « Autre » à préciser
 - [ ] `feature/exemples-outils` : maquettes d'outils (marquées « Exemple ») dans la vitrine des réalisations
-- [ ] `feature/composer-etapes` : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
+- ~~`feature/composer-etapes`~~ : sans objet (estimation retirée) : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
 - [x] `feature/ordre-accueil` : fin de l'accueil Questions → Carte → Contact ; pas d'appel du pied de page sur l'accueil
 - [x] `feature/frais-kilometriques` : zones Amiens et Abbeville, frais au-delà de 50 km (2,50 €/L, 7,5 L/100), dus même sans devis
 - [x] `feature/theme-rideau` : changement de thème en rideau, de gauche à droite
@@ -65,7 +65,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `style/complements-pointilles` : compléments en cadres pointillés, prix à droite ; calcul des frais kilométriques affiché en petit
 - [x] `feature/photo-rideau` : apparition en rideau de la photo au premier passage
 - ~~`feature/devis-chat`~~ : abandonné à la demande de Baptiste (trop « IA »)
-- [ ] `feature/realisations-similaires` : dans le configurateur et le devis, les réalisations du même métier
+- ~~`feature/realisations-similaires`~~ : sans objet (estimation retirée) : dans le configurateur et le devis, les réalisations du même métier
 - [x] `feature/frais-aller-retour` : frais kilométriques aller-retour, indiqués dans les mails du rendez-vous ; suivi mensuel = maintenance et mises à jour
 - [x] `fix/lien-rendez-vous-mail` : le lien « rendez-vous » du mail de devis mène à une page 404
 - [x] `feature/autre-activite` : champ pour préciser l'activité quand on choisit « Autre activité »

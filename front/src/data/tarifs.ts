@@ -3,7 +3,7 @@ import { pages } from './pages';
 
 /** Textes de la page Tarifs (maquette `Tarifs`, cahier des charges section 4). */
 export const intro = {
-  text: "Un site qui présente votre activité et un site qui prend des rendez-vous ou encaisse des acomptes, ce n'est pas le même travail. Choisissez votre point de départ, ajoutez ce qui vous sert, et voyez le prix en direct.",
+  text: "Un site qui présente votre activité et un site qui prend des rendez-vous ou encaisse des acomptes, ce n'est pas le même travail. Voici les prix de départ ; le prix exact dépend de votre projet.",
 };
 
 /** Contenu détaillé de chaque formule. */
@@ -29,31 +29,18 @@ export const pourquoiFonctionnel = {
   text: 'Un site vitrine montre qui vous êtes. Un site fonctionnel calcule, enregistre vos rendez-vous, envoie des mails, encaisse des acomptes et protège les données de vos clients. Il demande plus de développement, de sécurité et de tests.',
 };
 
-export const simulateur = {
-  title: 'Simulez votre site',
-  intro: 'Choisissez une formule, puis ce que votre site doit faire : le prix se met à jour en direct.',
-  formuleLegend: '1. Votre formule',
-  activiteLegend: '2. Votre activité',
-  optionsLegend: 'Ce que votre site doit faire',
-  choisirFormule: 'Choisissez une formule pour voir les options proposées.',
-  choisirActivite: 'Choisissez votre activité pour voir les options proposées.',
-  resumeTitle: 'Votre estimation',
-  resumeEyebrow: 'Votre estimation',
-  delai: 'Délai estimé',
-  suggestionTitle: 'Vous pourriez aussi avoir besoin de',
-  suggestionAction: 'Ajouter',
-  offert: 'Offert',
-  economie: 'Offert grâce au pack',
-  devis: { label: 'Recevoir mon devis détaillé', to: pages.devis.path },
-  composer: { label: 'Composer mon site en détail', to: `${pages.composer.path}?onglet=web` },
-  footnote: 'Estimation indicative, devis précis après échange. Prix nets, TVA non applicable.',
+/** Appel au devis, sous les formules. */
+export const appelDevis = {
+  titre: 'Votre projet a ses particularités ?',
+  texte: 'Décrivez-le en quelques lignes : je vous réponds sous 24 h avec une proposition claire.',
+  lien: { label: 'Demander un devis', to: pages.devis.path },
 };
 
 export const apresMiseEnLigne = {
   title: 'Et après la mise en ligne ?',
   items: [
     { title: 'Un changement ?', text: `${tarifHoraire} € de l'heure, sans engagement. Demi-heure entamée due.` },
-    { title: 'Vous gérez vous-même', text: 'Prix, horaires, photos : modifiables depuis votre espace.' },
+    { title: 'Vous gérez vous-même', text: 'Textes, prix, photos : vous les changez directement sur votre site.' },
     { title: 'Vous préférez déléguer ?', text: `Le suivi mensuel : maintenance et mises à jour pour ${abonnementMensuel} € par mois.` },
   ],
 };

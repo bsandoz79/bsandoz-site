@@ -2,18 +2,18 @@ import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@bsandoz79/blocs';
 import { rouvrirBandeau } from '../../app/consentement';
 import { bandeau } from '../../data/consentement';
-import { contact, footer, lienEstimer } from '../../data/navigation';
+import { contact, footer } from '../../data/navigation';
 import { pages } from '../../data/pages';
 import styles from './Footer.module.css';
 
 /** Année des droits, calculée une fois au chargement du site. */
 const ANNEE = new Date().getFullYear();
 
-/** Pied de page sombre et compact : appel à l'action (sauf sur l'accueil), présentation, liens du site, contact, mentions légales. */
+/** Pied de page sombre et compact : appel à l'action (sauf sur l'accueil et le devis), présentation, liens du site, contact, mentions légales. */
 export function Footer() {
-  // Sur l'accueil, la page se termine déjà par le formulaire de contact : pas de second appel juste dessous.
+  // L'accueil et le devis se terminent déjà par le formulaire de contact : pas de second appel juste dessous.
   const { pathname } = useLocation();
-  const avecAppel = pathname !== pages.accueil.path;
+  const avecAppel = pathname !== pages.accueil.path && pathname !== pages.devis.path;
 
   return (
     <footer className={styles.footer}>
@@ -25,8 +25,8 @@ export function Footer() {
               <p className={styles.appelTexte}>{footer.appel.texte}</p>
             </div>
             <div className={styles.appelActions}>
-              <Link to={lienEstimer(pathname)} className={styles.boutonRose}>
-                {footer.appel.estimer.label}
+              <Link to={footer.appel.devis.to} className={styles.boutonRose}>
+                {footer.appel.devis.label}
               </Link>
               <Link to={footer.appel.rendezVous.to} className={styles.boutonClair}>
                 {footer.appel.rendezVous.label}

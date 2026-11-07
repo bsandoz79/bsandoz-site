@@ -64,10 +64,7 @@ export const metierTextes = {
   appel: {
     title: 'Voyons ce dont vous avez besoin.',
     text: 'Composez votre site option par option, ou parlons-en de vive voix : le rendez-vous découverte est gratuit.',
-    composer: 'Composer mon site',
+    composer: 'Demander un devis',
     rdv: { label: 'Prendre rendez-vous (gratuit)', to: pages.rendezVous.path },
   },
 };
-
-/** Adresse du configurateur préréglé sur le Fonctionnel et le métier de la page. */
-export const lienComposerMetier = (metier: MetierId) => `${pages.composer.path}?formule=fonctionnel&metier=${metier}`;

@@ -65,7 +65,7 @@ export const informatiqueMentions = {
   zone: "Je me déplace sans frais dans un rayon de 50 km autour d'Amiens et d'Abbeville ; plus loin, seuls les kilomètres en plus sont facturés.",
 };
 
-/** Déroulement d'une intervention (page Informatique et configurateur). */
+/** Déroulement d'une intervention (page Informatique). */
 export const deroulementInformatique = [
   { titre: 'On en parle', texte: 'rendez-vous gratuit ou description en ligne.' },
   { titre: 'Devis clair', texte: 'avant toute intervention.' },
@@ -77,7 +77,7 @@ export const pageInformatique = {
   badge: "Informatique sur place · autour d'Amiens",
   intro:
     "Windows 10 n'est plus mis à jour depuis octobre 2025. Avec Linux, un ordinateur de plusieurs années redevient rapide et sûr, et vos fichiers vous suivent. Je viens chez vous pour installer, régler, dépanner et vous montrer.",
-  composer: { label: 'Décrire mon besoin', to: '/composer?onglet=informatique' },
+  composer: { label: 'Décrire mon besoin', to: '/devis' },
   rdv: { label: 'Prendre rendez-vous (gratuit)', to: '/rendez-vous' },
   reassurance: ['Particuliers et professionnels', "50 km autour d'Amiens et d'Abbeville", 'Prix annoncé avant toute intervention'],
   services: { title: 'Ce que je fais chez vous' },

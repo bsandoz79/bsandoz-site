@@ -47,15 +47,15 @@ describe('Footer', () => {
     expect(screen.getByRole('link', { name: '07 69 28 78 37' })).toHaveAttribute('href', 'tel:0769287837');
   });
 
-  it('propose d’estimer son projet ou de prendre rendez-vous', () => {
+  it('propose de demander un devis ou de prendre rendez-vous', () => {
     renderFooter();
     expect(screen.getByText('Un projet en tête ?')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+    expect(screen.getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
     expect(screen.getByRole('link', { name: 'Rendez-vous gratuit' })).toHaveAttribute('href', pages.rendezVous.path);
   });
 
-  it('sauf sur l’accueil, qui se termine déjà par le formulaire de contact', () => {
-    renderFooter(pages.accueil.path);
+  it.each([pages.accueil.path, pages.devis.path])('sauf sur %s, qui se termine déjà par le formulaire de contact', (chemin) => {
+    renderFooter(chemin);
     expect(screen.queryByText('Un projet en tête ?')).not.toBeInTheDocument();
   });
 

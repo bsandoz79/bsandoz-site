@@ -1,30 +1,7 @@
 # Simulateur de la page Tarifs
 
-## À quoi ça sert
-Sur `/tarifs`, simuler rapidement un site : **formule** (Vitrine, Vitrine+ ou Fonctionnel, aucune choisie à l'avance), puis l'activité (seulement pour le Fonctionnel) et les fonctions → prix en direct, packs offerts et une suggestion. Le configurateur complet reste `/composer`.
+**Retiré le 2026-11-07**, à la demande de Baptiste : trop précis, et pas assez « pro » pour un indépendant qui préfère s'adapter à chaque demande. Tout passe maintenant par la [demande de devis](demande-de-devis.md), un formulaire court.
 
-## Schéma
-```mermaid
-flowchart LR
-  f["ChoiceChips<br/>formule"] --> st["état local<br/>formule, metier, choix"]
-  a["ChoiceChips<br/>activité (Fonctionnel)"] --> st
-  o["OptionCard × n<br/>optionsDisponibles(formule, metier)"] --> st
-  st --> e["calculerEstimation()"]
-  st --> s["suggestions() → 1re suggestion d'option"]
-  e --> r["PriceSummary<br/>fourchette, délai, lignes, offert"]
-  s --> r
-  r --> l1["/devis"]
-  r --> l2["/composer"]
-```
-
-## Chemin
-`pages/Tarifs/Tarifs.tsx` (formules, encadré, après mise en ligne) → `pages/Tarifs/Simulateur.tsx` (état local, sans mémoire) → `data/calculs.ts`. Textes : `data/tarifs.ts`.
-
-## Comment l'appeler
-Page `/tarifs`. Le composant `Simulateur` n'a pas de paramètre.
-
-## Réutilisable ?
-Non (propre à la page), mais il n'assemble que des blocs réutilisables et les calculs communs.
-
-## Tests
-- **fonctionnels** : `pages/Tarifs/Tarifs.test.tsx` (aucune formule à l'avance, Vitrine+ sans activité, activité demandée pour le Fonctionnel, prix en direct, pack proposé puis offert, options gardées au changement d'activité, liens).
+- L'ancienne adresse `/composer` mène à `/devis`.
+- Le code est dans l'historique git, avant la fusion de `chore/retrait-simulation`.
+- Les calculs (`data/calculs.ts`) restent : ils servent encore à l'aperçu des pages métier ([apercu.md](apercu.md)).

@@ -12,20 +12,13 @@ function renderAt(path: string) {
 }
 
 describe('MobileBar', () => {
-  it('propose « Estimer », qui mène au configurateur', () => {
+  it('propose de demander un devis', () => {
     renderAt(pages.tarifs.path);
-    expect(screen.getByRole('complementary', { name: 'Estimation rapide' })).toHaveTextContent(
-      'Devis gratuit en 2 min',
-    );
-    expect(screen.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+    expect(screen.getByRole('complementary', { name: 'Demande de devis' })).toHaveTextContent('Devis gratuit, réponse sous 24 h');
+    expect(screen.getByRole('link', { name: 'Demander' })).toHaveAttribute('href', pages.devis.path);
   });
 
-  it('depuis Informatique sur place, « Estimer » ouvre l’onglet informatique', () => {
-    renderAt(pages.informatique.path);
-    expect(screen.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', `${pages.composer.path}?onglet=informatique`);
-  });
-
-  it.each([pages.composer.path, pages.devis.path, pages.rendezVous.path, pages.monEspace.path, pages.connexion.path])("n'est pas affichée sur %s", (path) => {
+  it.each([pages.devis.path, pages.rendezVous.path, pages.monEspace.path, pages.connexion.path])("n'est pas affichée sur %s", (path) => {
     renderAt(path);
     expect(screen.queryByRole('complementary')).not.toBeInTheDocument();
   });

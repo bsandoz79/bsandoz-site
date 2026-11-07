@@ -40,14 +40,8 @@ export const pages = {
     path: '/tarifs',
     title: 'Tarifs',
     description:
-      'Trois formules aux prix affichés : vitrine, vitrine+ et site fonctionnel. Simulez le prix de votre site.',
+      'Trois formules aux prix de départ affichés : vitrine, vitrine+ et site fonctionnel. Le prix exact sur devis, sous 24 h.',
     heading: 'Des prix clairs, selon ce dont vous avez vraiment besoin.',
-  },
-  composer: {
-    path: '/composer',
-    title: 'Composer mon site',
-    description: 'Composez votre site option par option et voyez le résultat et le prix en direct.',
-    heading: 'Composez votre site, et regardez-le se construire.',
   },
   realisations: {
     path: '/realisations',
@@ -96,7 +90,7 @@ export const pages = {
   devis: {
     path: '/devis',
     title: 'Demande de devis',
-    description: 'Décrivez votre projet en quelques étapes et recevez une première estimation par mail.',
+    description: 'Décrivez votre projet en quelques lignes : je vous réponds sous 24 h avec une proposition.',
     heading: 'Demande de devis',
   },
   rendezVous: {

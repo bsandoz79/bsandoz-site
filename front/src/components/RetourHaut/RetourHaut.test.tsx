@@ -54,7 +54,7 @@ describe('RetourHaut', () => {
     const { unmount } = renderBouton('/');
     const classeAccueil = bouton().className;
     unmount();
-    renderBouton(pages.composer.path);
+    renderBouton(pages.devis.path);
     expect(bouton().className).not.toBe(classeAccueil);
     expect(classeAccueil).toMatch(/auDessusBarre/);
     expect(bouton().className).not.toMatch(/auDessusBarre/);
