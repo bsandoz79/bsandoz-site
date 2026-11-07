@@ -19,17 +19,19 @@ const mainNav = () => screen.getByRole('navigation', { name: 'Navigation princip
 
 describe('Header', () => {
   it("affiche le logo, qui ramène à l'accueil", () => {
-    renderAt(pages.tarifs.path);
+    renderAt(pages.realisations.path);
     expect(screen.getByRole('link', { name: 'Baptiste Sandoz' })).toHaveAttribute('href', '/');
   });
 
-  it('affiche les liens du menu, « Estimer » en simple lien, et le bouton « Demander un devis »', () => {
+  it('affiche les liens du menu et le seul bouton « Demander un devis »', () => {
     renderAt('/');
     const nav = within(mainNav());
-    for (const name of ['Réalisations', 'Tarifs', 'À propos']) {
+    for (const name of ['Réalisations', 'À propos', 'Questions fréquentes']) {
       expect(nav.getByRole('link', { name })).toBeInTheDocument();
     }
-    expect(nav.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+    // Plus de tarifs détaillés ni d'estimation.
+    expect(nav.queryByRole('link', { name: 'Tarifs' })).not.toBeInTheDocument();
+    expect(nav.queryByRole('link', { name: 'Estimer' })).not.toBeInTheDocument();
     // Les métiers et le portfolio sont dans le pied de page.
     expect(nav.queryByRole('button', { name: 'Métiers' })).not.toBeInTheDocument();
     expect(nav.queryByRole('link', { name: 'Portfolio' })).not.toBeInTheDocument();
@@ -41,22 +43,19 @@ describe('Header', () => {
     expect(within(mainNav()).getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
   });
 
-  it('une seule barre d’onglets sur la page d’estimation : la sienne', () => {
-    const { container, unmount } = renderAt(pages.tarifs.path);
-    expect(container.querySelector('header')!.className).not.toMatch(/sansOnglets/);
-    unmount();
-    const page = renderAt(pages.composer.path);
-    expect(page.container.querySelector('header')!.className).toMatch(/sansOnglets/);
+  it('ne signale pas « Questions fréquentes » comme page en cours sur l’accueil', () => {
+    renderAt('/');
+    expect(within(mainNav()).getByRole('link', { name: 'Questions fréquentes' })).not.toHaveAttribute('aria-current');
   });
 
   it('signale la page en cours', () => {
-    renderAt(pages.tarifs.path);
-    expect(within(mainNav()).getByRole('link', { name: 'Tarifs' })).toHaveAttribute('aria-current', 'page');
+    renderAt(pages.realisations.path);
+    expect(within(mainNav()).getByRole('link', { name: 'Réalisations' })).toHaveAttribute('aria-current', 'page');
   });
 
   describe('onglets des services', () => {
     it('marque « Sites & applis » sur les pages des sites', () => {
-      renderAt(pages.tarifs.path);
+      renderAt(pages.realisations.path);
       const tabs = within(screen.getByRole('navigation', { name: 'Catégories de services' }));
       expect(tabs.getByRole('link', { name: 'Sites & applis' })).toHaveAttribute('aria-current', 'true');
       expect(tabs.getByRole('link', { name: 'Informatique sur place' })).not.toHaveAttribute('aria-current');
@@ -101,13 +100,13 @@ describe('Header', () => {
       const user = userEvent.setup();
       renderAt('/');
       await user.click(menuButton());
-      await user.click(within(mainNav()).getByRole('link', { name: 'Tarifs' }));
+      await user.click(within(mainNav()).getByRole('link', { name: 'À propos' }));
       expect(menuButton()).toHaveAttribute('aria-expanded', 'false');
     });
   });
 
   it('donne accès à l’espace client depuis la barre, et depuis le menu du téléphone', () => {
-    renderAt(pages.tarifs.path);
+    renderAt(pages.realisations.path);
     const liens = within(screen.getByRole('banner')).getAllByRole('link', { name: 'Espace client' });
     expect(liens).toHaveLength(2);
     for (const lien of liens) expect(lien).toHaveAttribute('href', pages.monEspace.path);

@@ -26,10 +26,9 @@ describe('validerContact', () => {
     expect(validerContact(complet)).toEqual({});
   });
 
-  it('l’entreprise est facultative ; le projet aussi quand une estimation est jointe', () => {
+  it('l’entreprise est facultative ; le métier doit être écrit', () => {
     expect(validerContact({ ...complet, entreprise: '' })).toEqual({});
     expect(validerContact({ ...complet, activite: 'A' })).toEqual({ activite: 'Indiquez votre métier ou votre activité.' });
-    expect(validerContact({ ...complet, projet: '' }, true)).toEqual({});
   });
 });
 
@@ -44,14 +43,6 @@ describe('construireEnvoiContact', () => {
     expect(recapitulatif).toContain('Activité : Paysagiste');
     expect(recapitulatif).toContain('Projet : Je suis paysagiste');
     expect(recapitulatif.length).toBeGreaterThanOrEqual(20);
-  });
-
-  it('joint l’estimation validée : titre, lignes et texte pour l’accusé de réception', () => {
-    const estimation = { titre: 'Site Vitrine · Logo simple', activite: 'Paysagiste', lignes: [['Formule', 'Site Vitrine']] as [string, string][], predevis: 'Votre estimation' };
-    const donnees = construireEnvoiContact({ ...complet, projet: '' }, '', estimation);
-    expect(donnees.get('titre')).toBe('Site Vitrine · Logo simple');
-    expect(donnees.get('predevis')).toBe('Votre estimation');
-    expect(String(donnees.get('recapitulatif'))).toMatch(/^Origine : Estimation en ligne\nFormule : Site Vitrine\nActivité : Paysagiste/);
   });
 
   it('transmet le champ piège tel quel (le serveur ignore alors la demande)', () => {

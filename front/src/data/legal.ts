@@ -55,7 +55,7 @@ export const cgv: PageLegale = {
       titre: 'Prix',
       paragraphes: [
         mentionsPrix.tva,
-        'Les prix des formules et des options sont affichés sur la page Tarifs. Les prestations d’informatique sur place sont sur devis.',
+        'Le site indique un prix de départ. Le prix de chaque projet, comme celui des prestations d’informatique sur place, est fixé dans le devis.',
       ],
     },
     {

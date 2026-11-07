@@ -24,8 +24,13 @@ describe('Demande de devis', () => {
     expect(screen.queryByText(/Étape 1/)).not.toBeInTheDocument();
   });
 
-  it('propose l’estimation en ligne, en second plan', () => {
-    afficher();
-    expect(screen.getByRole('link', { name: /Faire une estimation en ligne/ })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+  it('les anciennes adresses des tarifs et de l’estimation mènent au devis', () => {
+    afficher('/tarifs');
+    expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
+  });
+
+  it('l’ancienne adresse de l’estimation aussi', () => {
+    afficher('/composer?onglet=web');
+    expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
   });
 });

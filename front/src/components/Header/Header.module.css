@@ -23,14 +23,6 @@
 }
 
 /* Page Estimer : la barre d'onglets de l'en-tête est retirée (le configurateur a les siens). */
-.sansOnglets {
-  --hauteur-onglets: 0px;
-}
-
-.sansOnglets .tabsBar {
-  display: none;
-}
-
 .decolle {
   box-shadow: var(--shadow-header);
 }

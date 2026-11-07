@@ -1,7 +1,6 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
-import { pages } from '../../data/pages';
 import { header, informatiquePrefix, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
 import styles from './Header.module.css';
 import { ThemeToggle } from '../ThemeToggle';
@@ -21,6 +20,14 @@ function ItemLink({ item, className }: { item: NavItem; className?: string }) {
       </a>
     );
   }
+  // Lien vers une section (« /#faq ») : jamais signalé comme la page en cours.
+  if (item.to.includes('#')) {
+    return (
+      <Link to={item.to} className={className ?? styles.link}>
+        {item.label}
+      </Link>
+    );
+  }
   return (
     <NavLink to={item.to} className={className ?? navClass}>
       {item.label}
@@ -30,7 +37,7 @@ function ItemLink({ item, className }: { item: NavItem; className?: string }) {
 
 /**
  * En-tête du site : onglets des deux catégories de services, logo, navigation
- * (Réalisations, Tarifs, Estimer, À propos), bouton « Demander un devis » et menu repliable sur mobile.
+ * (Réalisations, À propos, Questions fréquentes), bouton « Demander un devis » et menu repliable sur mobile.
  */
 export function Header() {
   const { pathname } = useLocation();
@@ -46,8 +53,6 @@ export function Header() {
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const inInformatique = pathname.startsWith(informatiquePrefix);
-  // L'estimation a ses propres onglets « Sites & applis / Informatique sur place » : pas de seconde barre.
-  const sansOnglets = pathname === pages.composer.path;
   function onKeyDown(event: KeyboardEvent) {
     if (event.key !== 'Escape') return;
     if (menuOpen) {
@@ -58,7 +63,7 @@ export function Header() {
 
   return (
     <header
-      className={[styles.header, etat, decolle ? styles.decolle : '', sansOnglets ? styles.sansOnglets : ''].filter(Boolean).join(' ')}
+      className={[styles.header, etat, decolle ? styles.decolle : ''].filter(Boolean).join(' ')}
       onKeyDown={onKeyDown}
       onFocus={() => setFocusDedans(true)}
       onBlur={(event) => {

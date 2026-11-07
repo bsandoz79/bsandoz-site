@@ -1,10 +1,11 @@
-import { formuleParId, prixFormule } from './offres';
 import { pages } from './pages';
 
 /** Textes de la page d'accueil (maquette `Main` et `Mobile`, cahier des charges section 9). */
 export const hero = {
   badge: 'Création de sites internet sur mesure · Amiens',
-  text: `Je crée des sites et des outils sur mesure pour les artisans, commerçants et indépendants, à Amiens et partout en France. Une fois en ligne, vous changez vous-même vos textes, vos photos et vos prix, sans coder. Sites ${prixFormule(formuleParId('vitrine'))}.`,
+  text: `Je crée des sites et des outils sur mesure pour les artisans, commerçants et indépendants, à Amiens et partout en France. Une fois en ligne, vous changez vous-même vos textes, vos photos et vos prix, sans coder.`,
+  /** Suivi du seul prix affiché (`prixDepart`), puis « sur devis ». */
+  prix: { avant: 'Sites à partir de', apres: 'Le prix exact dans votre devis, sous 24 h.' },
   /** Qui est derrière le site : photo, nom, métier. */
   identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
   primary: { label: 'Demander un devis', to: pages.devis.path },
@@ -121,7 +122,7 @@ export const livraison = {
 export const pourquoi = {
   items: [
     { title: 'Un seul interlocuteur', text: 'Local, qui vous répond.' },
-    { title: 'Des prix affichés', text: 'Sans surprise.' },
+    { title: 'Un devis clair', text: 'Sans surprise.' },
     { title: 'Votre site vous appartient', text: "Pas d'abonnement imposé." },
     { title: 'Vous restez autonome', text: 'Prix, horaires, photos : vous les changez.' },
   ],

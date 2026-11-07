@@ -3,7 +3,6 @@ import { pages } from './pages';
 /**
  * Formulaire de contact : le seul du site. Bas de l'accueil et page « Demande de devis ».
  * Court : coordonnées, activité, quelques lignes sur le projet. Baptiste répond avec une proposition.
- * Il sert aussi à valider une estimation en ligne : elle est alors jointe à la demande.
  */
 export const contactRapide = {
   titre: 'Parlez-moi de votre projet.',
@@ -16,11 +15,6 @@ export const contactRapide = {
   activiteAide: 'Commencez à écrire : menuisier, avocat, photographe…',
   projet: 'Votre projet',
   projetAide: 'Ce que vous attendez du site, ce qui vous ferait gagner du temps, un site que vous aimez…',
-  /** Quand une estimation est jointe : le projet est déjà décrit. */
-  precision: 'Une précision ? (facultatif)',
-  estimation: 'Votre estimation, jointe à la demande',
-  /** Lien discret vers l'estimation, sur la page Devis. */
-  estimer: { texte: 'Vous préférez estimer le prix vous-même ?', label: 'Faire une estimation en ligne' },
   suggestions: (n: number) => (n > 1 ? `${n} suggestions` : n === 1 ? '1 suggestion' : ''),
   consentement:
     "J'accepte que mes informations soient utilisées pour répondre à ma demande. Elles ne sont ni revendues ni utilisées à d'autres fins.",

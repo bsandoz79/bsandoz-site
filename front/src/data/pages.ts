@@ -36,19 +36,6 @@ export const pages = {
       "Sites internet, prise de rendez-vous en ligne et applis pour artisans, commerçants et indépendants autour d'Amiens.",
     heading: 'Un site à vous, que vous modifiez vous-même.',
   },
-  tarifs: {
-    path: '/tarifs',
-    title: 'Tarifs',
-    description:
-      'Trois formules aux prix de départ affichés : vitrine, vitrine+ et site fonctionnel. Le prix exact sur devis, sous 24 h.',
-    heading: 'Des prix clairs, selon ce dont vous avez vraiment besoin.',
-  },
-  composer: {
-    path: '/composer',
-    title: 'Estimer mon site',
-    description: 'Estimez le prix de votre site en quelques clics, puis validez pour recevoir votre devis.',
-    heading: 'Estimez votre site en quelques clics.',
-  },
   realisations: {
     path: '/realisations',
     title: 'Réalisations',

@@ -7,7 +7,7 @@ export function Devis() {
   return (
     <>
       <PageMeta title={pages.devis.title} description={pages.devis.description} />
-      <ContactRapide titre={pages.devis.heading} niveau={1} avecEstimation />
+      <ContactRapide titre={pages.devis.heading} niveau={1} />
     </>
   );
 }

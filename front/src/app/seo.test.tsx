@@ -17,7 +17,6 @@ function typesJsonLd(path: string) {
 describe('Données structurées et indexation', () => {
   it.each([
     [pages.accueil.path, ['ProfessionalService', 'FAQPage']],
-    [pages.tarifs.path, ['OfferCatalog']],
   ])('%s porte ses données structurées', (path, types) => {
     expect(typesJsonLd(path)).toEqual(types);
   });
@@ -29,7 +28,7 @@ describe('Données structurées et indexation', () => {
 
   it('n’indexe pas moins les pages construites', () => {
     document.head.innerHTML = '<meta name="robots" content="noindex" />';
-    typesJsonLd(pages.tarifs.path);
+    typesJsonLd(pages.realisations.path);
     expect(document.head.querySelector('meta[name="robots"]')).toBeNull();
   });
 });

@@ -30,7 +30,7 @@ describe('Page À propos', () => {
     const valeurs = screen.getByRole('region', { name: 'Ce qui compte pour moi' });
     expect(within(valeurs).getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual([
       'Un seul interlocuteur',
-      'Des prix affichés',
+      'Un devis clair',
       'Votre site vous appartient',
       'Vous restez autonome',
     ]);

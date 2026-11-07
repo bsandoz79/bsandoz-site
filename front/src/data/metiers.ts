@@ -55,7 +55,6 @@ export const pagesMetier: Record<PageMetierId, PageMetier> = {
 
 export const metierTextes = {
   fonctions: { title: 'Les fonctions utiles à votre métier' },
-  prix: (prix: string) => `Site fonctionnel ${prix}. Chaque fonction s’ajoute au prix indiqué.`,
   exemple: {
     title: 'À quoi votre site pourrait ressembler',
     note: 'Entreprise fictive, pour l’exemple. Votre site est fait à vos couleurs, avec vos textes et vos photos.',

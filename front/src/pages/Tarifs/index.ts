@@ -1,1 +1,0 @@
-export { Tarifs } from './Tarifs';

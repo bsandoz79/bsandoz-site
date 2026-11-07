@@ -1,6 +1,13 @@
 # Journal des modifications
 
 ## [Non publié]
+### Retiré (prix)
+- La page Tarifs, l'estimation en ligne, les compléments, l'offre SEO seule et les prix des pages métier et de la FAQ. Les adresses `/tarifs` et `/composer` mènent au devis.
+
+### Modifié (prix)
+- Un seul prix sur le site, dans le haut de l'accueil : « Sites à partir de 390 €. Le prix exact dans votre devis, sous 24 h. » Il se modifie depuis la page ou le back-office.
+- Barre de navigation : Réalisations, À propos, Questions fréquentes, puis « Demander un devis ».
+
 ### Modifié (navigation)
 - **Barre de navigation** : Réalisations, Tarifs, Estimer, À propos, puis le bouton « Demander un devis ». « Estimer » est un simple lien, pour qu'on retrouve l'estimation sans qu'elle passe devant le devis.
 - **Retirés de la barre** : le sous-menu « Métiers » et le lien « Portfolio ». Les pages métier sont dans le pied de page (colonne « Sites par métier ») et restent utiles pour Google. Le portfolio était déjà dans le pied de page.

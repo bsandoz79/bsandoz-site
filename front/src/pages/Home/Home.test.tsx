@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { autonomie, hero, livraison, methode, metiers } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
-import { formuleParId, prixFormule } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
 
@@ -102,13 +101,16 @@ describe("Page d'accueil", () => {
     expect(within(contact).getByRole('form', { name: 'Parlez-moi de votre projet.' })).toBeInTheDocument();
     expect(within(contact).getByRole('link', { name: /Prendre un rendez-vous gratuit/ })).toHaveAttribute('href', pages.rendezVous.path);
   });
-  it('montre tout de suite qui est derrière le site : photo, nom et métier, prix de départ', () => {
+  it('montre qui est derrière le site, et un seul prix : « à partir de 390 € »', () => {
     renderHome();
     expect(screen.getAllByText('Baptiste Sandoz').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Développeur web à Amiens').length).toBeGreaterThan(0);
-    // Le prix de départ vient des formules ; on compare sans tenir compte des espaces insécables.
-    const prix = prixFormule(formuleParId('vitrine')).replace(/\s/g, ' ');
-    expect(screen.getByText((texte) => texte.replace(/\s/g, ' ').includes(prix))).toBeInTheDocument();
+    const heroSection = section(pages.accueil.heading);
+    expect(heroSection).toHaveTextContent(/Sites à partir de 390\s€\. Le prix exact dans votre devis/);
+    // Aucun autre prix sur l'accueil (hors démonstration décorative du téléphone, cachée aux lecteurs d'écran).
+    const visible = document.body.cloneNode(true) as HTMLElement;
+    visible.querySelectorAll('[aria-hidden="true"]').forEach((el) => el.remove());
+    expect(visible.textContent?.match(/\d+\s€/g)?.map((p) => p.replace(/\s/g, ' '))).toEqual(['390 €']);
   });
 
   it('garde le reflet seulement sur le bouton principal', () => {
@@ -149,7 +151,7 @@ describe("Page d'accueil", () => {
       expect(voirPlus()).not.toBeInTheDocument();
     });
 
-    it('déplie une réponse au clic, avec les prix et délais des données', async () => {
+    it('déplie une réponse au clic, sans prix', async () => {
       const user = userEvent.setup();
       renderHome();
       const delais = document.getElementById('delais') as HTMLDetailsElement;
@@ -157,7 +159,7 @@ describe("Page d'accueil", () => {
       await user.click(within(faq()).getByText(questionsFaq[0].question));
       expect(delais.open).toBe(true);
       expect(delais).toHaveTextContent(
-        'Comptez 3 jours pour une Vitrine, 1 à 2 semaines pour une Vitrine+ et 3 à 6 semaines pour un site fonctionnel.',
+        'Comptez quelques jours pour un site d’une page, 1 à 2 semaines pour un site de plusieurs pages',
       );
     });
 

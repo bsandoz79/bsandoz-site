@@ -1,12 +1,11 @@
 import { questionsFaq } from './faq';
-import { formules } from './offres';
 import { pages } from './pages';
-import { cheminsIndexables, pagesNonIndexees, genererSitemap, jsonLdEntreprise, jsonLdFaq, jsonLdOffres, robotsTxt, urlComplete } from './seo';
+import { cheminsIndexables, pagesNonIndexees, genererSitemap, jsonLdEntreprise, jsonLdFaq, robotsTxt, urlComplete } from './seo';
 
 describe('SEO', () => {
   it('construit les adresses complètes', () => {
     expect(urlComplete('/')).toBe('https://bsandoz.fr/');
-    expect(urlComplete('/tarifs')).toBe('https://bsandoz.fr/tarifs');
+    expect(urlComplete('/devis')).toBe('https://bsandoz.fr/devis');
   });
 
   it('publie toutes les pages publiques, pas celles de l’espace client', () => {
@@ -27,9 +26,9 @@ describe('SEO', () => {
   });
 
   it('génère un sitemap valide', () => {
-    const xml = genererSitemap(['/', '/tarifs']);
+    const xml = genererSitemap(['/', '/devis']);
     expect(xml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
-    expect(xml).toContain('<url><loc>https://bsandoz.fr/tarifs</loc></url>');
+    expect(xml).toContain('<url><loc>https://bsandoz.fr/devis</loc></url>');
     expect(new DOMParser().parseFromString(xml, 'application/xml').querySelector('parsererror')).toBeNull();
   });
 
@@ -54,12 +53,6 @@ describe('SEO', () => {
   it('reprend chaque question de la FAQ', () => {
     const faq = jsonLdFaq(questionsFaq);
     expect(faq.mainEntity).toHaveLength(questionsFaq.length);
-    expect(faq.mainEntity[0].acceptedAnswer.text).toContain('3 jours');
-  });
-
-  it('décrit les formules avec leur prix', () => {
-    const offres = jsonLdOffres(formules).itemListElement;
-    expect(offres[0]).toMatchObject({ name: 'Site Vitrine', priceSpecification: { minPrice: 99 }, priceCurrency: 'EUR' });
-    expect(offres[2]).toMatchObject({ name: 'Site Fonctionnel', priceSpecification: { minPrice: 989 } });
+    expect(faq.mainEntity[0].acceptedAnswer.text).toContain('1 à 2 semaines');
   });
 });

@@ -279,6 +279,14 @@ export const marche: Record<MarcheId, Marche> = {
   },
 };
 
+/**
+ * Seul prix affiché sur le site : « à partir de », celui de la Vitrine+ (plusieurs pages, design personnalisé,
+ * modifiable par le client). Le reste est chiffré dans le devis. Suit le prix modifié dans le back-office.
+ */
+export function prixDepart() {
+  return formuleParId('vitrinePlus').prix;
+}
+
 /** Tarif horaire après la mise en ligne. */
 export const tarifHoraire = 29;
 

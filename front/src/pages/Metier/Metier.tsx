@@ -5,14 +5,14 @@ import { PageMeta } from '../../components/PageMeta';
 import { RealisationCard } from '../../components/RealisationCard';
 import { apercuTextes, modeleApercu } from '../../data/apercu';
 import { metierTextes, pagesMetier, type PageMetierId } from '../../data/metiers';
-import { formuleParId, options, optionsParMetier, prixFormule, prixOption } from '../../data/offres';
+import { options, optionsParMetier } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
 import styles from './Metier.module.css';
 
 type Props = { id: PageMetierId };
 
-/** Page métier : promesse, fonctions utiles avec leur prix, exemple de site, réalisation, appel à l'action. */
+/** Page métier : promesse, fonctions utiles, exemple de site, réalisation, appel à l'action. Les prix sont dans le devis. */
 export function Metier({ id }: Props) {
   const contenu = pagesMetier[id];
   const page = pages[contenu.page];
@@ -51,7 +51,6 @@ export function Metier({ id }: Props) {
           <SectionTitle
             id="fonctions-titre"
             title={metierTextes.fonctions.title}
-            intro={metierTextes.prix(prixFormule(formuleParId('fonctionnel')))}
           />
           <ul className={styles.grille}>
             {fonctions.map((optionId, i) => (
@@ -59,7 +58,6 @@ export function Metier({ id }: Props) {
                 <Card tone="muted" className={styles.fonction}>
                   <h3 className={styles.fonctionNom}>{options[optionId].nom}</h3>
                   <p className={styles.muted}>{options[optionId].description}</p>
-                  <p className={styles.prix}>{prixOption(options[optionId])}</p>
                 </Card>
               </Reveal>
             ))}

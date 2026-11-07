@@ -2,9 +2,8 @@ import { autonomie, hero, livraison, methode, metiers, realisationsSection } fro
 import { contactRapide } from './contact';
 import { faqAccueil, questionsFaq } from './faq';
 import { medias } from './medias';
-import { formules, options, type FormuleId } from './offres';
+import { formules } from './offres';
 import { pages } from './pages';
-import { contenuFormules } from './tarifs';
 import { carteTextes } from './zones';
 
 /**
@@ -59,22 +58,6 @@ function prix(cle: string, libelle: string, objet: { prix: number }): Champ {
 const liste = (cle: string, libelle: string, valeurs: string[], type: TypeChamp = 'texte') =>
   valeurs.map((_, i) => champ(`${cle}.${i}`, `${libelle} ${i + 1}`, valeurs, i, type));
 
-/** Bloc d'une formule : le même sur l'accueil et sur la page Tarifs. */
-function blocFormule(id: FormuleId): Bloc {
-  const f = formules.find((x) => x.id === id)!;
-  return {
-    titre: `Formule ${f.nom}`,
-    champs: [
-      champ(`offre.${id}.nom`, 'Nom', f, 'nom'),
-      champ(`offre.${id}.accroche`, 'Accroche', f, 'accroche'),
-      prix(`formule.${id}`, 'Prix de départ (€)', f),
-      champ(`offre.${id}.delai`, 'Délai', f, 'delai'),
-      ...liste(`offre.${id}.point`, 'Point fort (accueil)', f.pointsForts),
-      ...liste(`offre.${id}.contenu`, 'Contenu (page Tarifs)', contenuFormules[id]),
-    ],
-  };
-}
-
 export const blocs: Record<string, Bloc> = {
   'accueil.hero': {
     titre: 'Haut de page',
@@ -82,6 +65,9 @@ export const blocs: Record<string, Bloc> = {
       champ('accueil.hero.badge', 'Petite étiquette', hero, 'badge'),
       champ('accueil.hero.titre', 'Grand titre', pages.accueil, 'heading', 'long'),
       champ('accueil.hero.texte', 'Texte', hero, 'text', 'long'),
+      champ('accueil.hero.prixAvant', 'Avant le prix', hero.prix, 'avant'),
+      prix('formule.vitrinePlus', 'Prix « à partir de » (€)', formules.find((f) => f.id === 'vitrinePlus')!),
+      champ('accueil.hero.prixApres', 'Après le prix', hero.prix, 'apres'),
       champ('accueil.hero.nom', 'Votre nom', hero.identite, 'nom'),
       champ('accueil.hero.role', 'Votre métier', hero.identite, 'role'),
       champ('media.portrait', 'Grande photo', medias, 'portrait', 'image'),
@@ -92,13 +78,6 @@ export const blocs: Record<string, Bloc> = {
       champ('accueil.hero.rdv', 'Bouton rendez-vous', hero.rdv, 'label'),
       ...liste('accueil.hero.garantie', 'Garantie', hero.reassurance),
     ],
-  },
-  'offre.vitrine': blocFormule('vitrine'),
-  'offre.vitrinePlus': blocFormule('vitrinePlus'),
-  'offre.fonctionnel': blocFormule('fonctionnel'),
-  complements: {
-    titre: 'Compléments',
-    champs: [prix('option.page', 'Page supplémentaire (€)', options.page)],
   },
   'accueil.metiers': {
     titre: 'Bande des métiers',

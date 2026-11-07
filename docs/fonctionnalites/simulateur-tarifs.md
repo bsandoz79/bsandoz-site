@@ -1,7 +1,7 @@
-# Simulateur de la page Tarifs
+# Page Tarifs et simulateur
 
-**Retiré le 2026-11-07**, à la demande de Baptiste : trop précis, et pas assez « pro » pour un indépendant qui préfère s'adapter à chaque demande. Tout passe maintenant par la [demande de devis](demande-de-devis.md), un formulaire court.
+**Retiré le 2026-11-07** (`chore/prix-unique`), à la demande de Baptiste : le site n'affiche plus qu'un prix de départ, « Sites à partir de 390 € ». Tout le reste est chiffré dans le devis, demandé avec le [formulaire court](demande-de-devis.md).
 
-- L'ancienne adresse `/composer` mène à `/devis`.
-- Le code est dans l'historique git, avant la fusion de `chore/retrait-simulation`.
-- Les calculs (`data/calculs.ts`) restent : ils servent encore à l'aperçu des pages métier ([apercu.md](apercu.md)).
+- Les anciennes adresses `/tarifs` et `/composer` mènent à `/devis`.
+- Le code est dans l'historique git, avant la fusion de `chore/prix-unique`.
+- Les prix restent dans `data/offres.ts`, pour le back-office (devis, prix modifiables). `prixDepart()` donne le prix affiché (celui de la Vitrine+).

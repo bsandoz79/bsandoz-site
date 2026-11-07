@@ -6,6 +6,7 @@ import { BoutonRdv } from '../../../components/BoutonRdv';
 import { HeroDemo } from './HeroDemo';
 import styles from './Hero.module.css';
 import { medias } from '../../../data/medias';
+import { formatPrix, prixDepart } from '../../../data/offres';
 
 /** Haut de l'accueil : promesse, mots qui tournent, appels à l'action et écran de démonstration. */
 export function Hero() {
@@ -25,6 +26,9 @@ export function Hero() {
             {pages.accueil.heading}
           </h1>
           <p className={styles.text}>{hero.text}</p>
+          <p className={styles.prix}>
+            {hero.prix.avant} <strong>{formatPrix(prixDepart())}</strong>. {hero.prix.apres}
+          </p>
           <div className={styles.actions}>
             <Link to={hero.primary.to} className={buttonClassName({ size: 'lg', className: 'anim-reflet' })}>
               {hero.primary.label}

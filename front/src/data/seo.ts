@@ -1,6 +1,5 @@
 import type { QuestionFaq } from './faq';
 import { contact } from './navigation';
-import type { Formule } from './offres';
 import { pages, site } from './pages';
 import { cheminRealisation, idsRealisations } from './realisationsIds';
 
@@ -68,26 +67,6 @@ export function jsonLdFaq(questions: QuestionFaq[]) {
       '@type': 'Question',
       name: q.question,
       acceptedAnswer: { '@type': 'Answer', text: q.reponse.join(' ') },
-    })),
-  };
-}
-
-/** Données structurées des formules (prix en euros, TVA non applicable). */
-export function jsonLdOffres(formules: Formule[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'OfferCatalog',
-    name: 'Formules de site internet',
-    url: urlComplete(pages.tarifs.path),
-    itemListElement: formules.map((formule) => ({
-      '@type': 'Offer',
-      name: `Site ${formule.nom}`,
-      description: formule.accroche,
-      priceCurrency: 'EUR',
-      ...(formule.prixMinimum
-        ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: formule.prix, priceCurrency: 'EUR' } }
-        : { price: formule.prix }),
-      seller: { '@type': 'ProfessionalService', name: site.name },
     })),
   };
 }

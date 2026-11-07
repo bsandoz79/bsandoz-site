@@ -1,4 +1,3 @@
-import { formuleParId, options, tarifHoraire } from './offres';
 import { pages } from './pages';
 
 /**
@@ -8,16 +7,12 @@ import { pages } from './pages';
  */
 export type QuestionFaq = { id: string; question: string; reponse: string[] };
 
-const vitrine = formuleParId('vitrine');
-const vitrinePlus = formuleParId('vitrinePlus');
-const fonctionnel = formuleParId('fonctionnel');
-
 export const questionsFaq: QuestionFaq[] = [
   {
     id: 'delais',
     question: 'En combien de temps mon site est-il prêt ?',
     reponse: [
-      `Comptez ${vitrine.delai} pour une Vitrine, ${vitrinePlus.delai} pour une Vitrine+ et ${fonctionnel.delai} pour un site fonctionnel.`,
+      'Comptez quelques jours pour un site d’une page, 1 à 2 semaines pour un site de plusieurs pages, et 3 à 6 semaines pour un site avec rendez-vous, boutique ou espace client. Le délai exact est dans le devis.',
     ],
   },
   {
@@ -25,7 +20,7 @@ export const questionsFaq: QuestionFaq[] = [
     question: 'Que dois-je fournir ?',
     reponse: [
       'Vos textes, vos photos et votre logo si vous en avez un.',
-      `Pas de textes ? Je peux les rédiger (${options.textes.prix} € par page). Pas de logo ? Je peux en créer un simple (${options.logo.prix} €).`,
+      'Pas de textes ? Je peux les rédiger. Pas de logo ? Je peux en créer un simple. C’est indiqué dans le devis.',
     ],
   },
   {
@@ -37,7 +32,7 @@ export const questionsFaq: QuestionFaq[] = [
     id: 'hebergement',
     question: 'Qui s’occupe de l’hébergement et du nom de domaine ?',
     reponse: [
-      'Avec la Vitrine, le nom de domaine et l’hébergement sont à votre charge, et je vous forme pendant 1 h si vous les gérez vous-même.',
+      'Le nom de domaine et l’hébergement sont à votre nom. Si vous les gérez vous-même, je vous forme pendant 1 h.',
       'Si vous préférez déléguer, demandez-moi la formule hébergement + maintenance.',
     ],
   },
@@ -45,8 +40,8 @@ export const questionsFaq: QuestionFaq[] = [
     id: 'modifications',
     question: 'Et si je veux modifier mon site après la mise en ligne ?',
     reponse: [
-      'Prix, horaires, photos : vous pouvez les changer vous-même.',
-      `Pour le reste, je m’en occupe à ${tarifHoraire} € de l’heure, sans engagement (toute demi-heure entamée est due).`,
+      'Textes, prix, horaires, photos : vous les changez vous-même, directement sur votre site.',
+      'Pour le reste (une nouvelle page, le menu…), je m’en occupe, au tarif indiqué dans le devis.',
     ],
   },
   {

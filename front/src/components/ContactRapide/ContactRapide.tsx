@@ -4,8 +4,8 @@ import { Autocomplete, Button, Container, TextField } from '@bsandoz79/blocs';
 import { contactRapide } from '../../data/contact';
 import { nomsMetiers } from '../../data/metiersConnus';
 import { urlEnvoiDevis } from '../../data/devis';
-import { contact, lienEstimation } from '../../data/navigation';
-import { construireEnvoiContact, messageVide, validerContact, type ErreursContact, type EstimationJointe, type MessageContact } from './contact';
+import { contact } from '../../data/navigation';
+import { construireEnvoiContact, messageVide, validerContact, type ErreursContact, type MessageContact } from './contact';
 import { BoutonRdv } from '../BoutonRdv';
 import styles from './ContactRapide.module.css';
 
@@ -20,17 +20,13 @@ type ContactRapideProps = {
   titre?: string;
   /** 1 sur la page « Demande de devis », 2 en bas de l'accueil. */
   niveau?: 1 | 2;
-  /** Estimation validée : jointe à la demande, le projet devient facultatif. */
-  estimation?: EstimationJointe;
   /** Texte d'introduction, celui des données par défaut. */
   intro?: string;
-  /** Propose l'estimation en ligne sous l'introduction (page Devis). */
-  avecEstimation?: boolean;
 };
 
 /** Formulaire de contact, en carte : le formulaire à gauche, les autres moyens de contact à droite. */
-export function ContactRapide({ titre = t.titre, niveau = 2, estimation, intro = t.intro, avecEstimation = false }: ContactRapideProps) {
-  const [message, setMessage] = useState<MessageContact>(() => ({ ...messageVide, activite: estimation?.activite ?? '' }));
+export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: ContactRapideProps) {
+  const [message, setMessage] = useState<MessageContact>(messageVide);
   const [erreurs, setErreurs] = useState<ErreursContact>({});
   const [statut, setStatut] = useState<'saisie' | 'envoi' | 'envoye' | 'echec' | 'trop-rapide'>('saisie');
   const [piege, setPiege] = useState('');
@@ -48,7 +44,7 @@ export function ContactRapide({ titre = t.titre, niveau = 2, estimation, intro =
 
   async function envoyer(event: FormEvent) {
     event.preventDefault();
-    const trouvees = validerContact(message, Boolean(estimation));
+    const trouvees = validerContact(message);
     setErreurs(trouvees);
     if (Object.keys(trouvees).length > 0) return;
     if (Date.now() - dernierEnvoi < DELAI_MS) {
@@ -57,7 +53,7 @@ export function ContactRapide({ titre = t.titre, niveau = 2, estimation, intro =
     }
     setStatut('envoi');
     try {
-      const reponse = await fetch(urlEnvoiDevis, { method: 'POST', body: construireEnvoiContact(message, piege, estimation) });
+      const reponse = await fetch(urlEnvoiDevis, { method: 'POST', body: construireEnvoiContact(message, piege) });
       if (reponse.status === 429) {
         setStatut('trop-rapide');
         return;
@@ -78,11 +74,6 @@ export function ContactRapide({ titre = t.titre, niveau = 2, estimation, intro =
             {titre}
           </Titre>
           <p className={styles.intro}>{intro}</p>
-          {avecEstimation && (
-            <p className={styles.estimer}>
-              {t.estimer.texte} <Link to={lienEstimation}>{t.estimer.label}</Link>
-            </p>
-          )}
         </div>
 
         <div className={styles.carte}>
@@ -93,19 +84,6 @@ export function ContactRapide({ titre = t.titre, niveau = 2, estimation, intro =
             </div>
           ) : (
             <form className={styles.formulaire} onSubmit={envoyer} noValidate aria-labelledby="contact-rapide-titre">
-              {estimation && (
-                <div className={styles.estimation}>
-                  <p className={styles.estimationTitre}>{t.estimation}</p>
-                  <dl className={styles.estimationListe}>
-                    {estimation.lignes.map(([cle, valeur]) => (
-                      <div key={cle}>
-                        <dt>{cle}</dt>
-                        <dd>{valeur}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              )}
               <div className={styles.deux}>
                 <TextField label={t.nom} required autoComplete="name" value={message.nom} error={erreurs.nom} onChange={(e) => maj({ nom: e.target.value })} />
                 <TextField label={t.entreprise} autoComplete="organization" value={message.entreprise} onChange={(e) => maj({ entreprise: e.target.value })} />
@@ -126,11 +104,11 @@ export function ContactRapide({ titre = t.titre, niveau = 2, estimation, intro =
                 onChange={(activite) => maj({ activite })}
               />
               <TextField
-                label={estimation ? t.precision : t.projet}
+                label={t.projet}
                 placeholder={t.projetAide}
                 multiline
-                rows={estimation ? 3 : 4}
-                required={!estimation}
+                rows={4}
+                required
                 value={message.projet}
                 error={erreurs.projet}
                 onChange={(e) => maj({ projet: e.target.value })}
