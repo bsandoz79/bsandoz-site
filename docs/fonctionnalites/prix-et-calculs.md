@@ -71,3 +71,6 @@ Un prix, une option, un pack : `src/data/offres.ts`, puis relancer les tests (il
   - la page supplémentaire (option `page`, modifiable dans le back-office) ;
   - le suivi mensuel (maintenance et mises à jour), `abonnementMensuel` à 29 € par mois, avec le tarif horaire `tarifHoraire` (29 €) en détail.
 - **`offreSeo()`** : le référencement Google seul, mis en avant à part par `components/OffreSeo`. C'est un encart sombre avec un halo rose, un badge « − 20 % sur le prix du marché », le prix (`prixSeoSeul()`, soit le bas de `marche.seo` moins `REMISE_SEO`), la fourchette du marché barrée, sa source et un bouton vers le devis.
+
+## Options incluses (2026-11-07)
+Les packs sont supprimés. Chaque formule inclut des petites options (`inclusParFormule` : Vitrine 1, Vitrine+ 2, Fonctionnel 3). Les gros modules (`gros: true`) restent toujours payants. `optionsIncluses(config)` retient les premières petites options cochées, et `inclusRestantes(config)` dit combien il en reste. `calculerEstimation` compte les options incluses dans `valeur` et `offert`, pas dans `total` ; les lignes portent `offerte: true` (affichées « Inclus »). Toutes les petites options (`petitesOptions`) sont proposées avec chaque formule. Le pré-devis ne part plus que d'une estimation validée (`preDevis(config)`). Les paragraphes plus haut qui parlent de packs ou de besoins cochés sont dépassés.

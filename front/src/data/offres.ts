@@ -88,9 +88,9 @@ export const metierAutreTextes = {
   max: 80,
 };
 
-/** Nom de l'activité à afficher : celle précisée pour « Autre activité », sinon le nom de la liste. */
+/** Nom de l'activité à afficher : le métier écrit, sinon le nom de sa catégorie. */
 export function nomActivite(metier: MetierId | null, metierAutre = ''): string {
-  if (metier === 'autre' && metierAutre.trim()) return metierAutre.trim();
+  if (metierAutre.trim()) return metierAutre.trim();
   return metiers.find((m) => m.id === metier)?.nom ?? '';
 }
 
@@ -122,6 +122,8 @@ export type Option = {
   prixMinimum?: boolean;
   /** Unité de prix, par exemple « / page ». */
   unite?: string;
+  /** Gros module (rendez-vous, boutique…) : toujours payant, jamais compté dans les options incluses. */
+  gros?: boolean;
 };
 
 export const options: Record<OptionId, Option> = {
@@ -133,7 +135,7 @@ export const options: Record<OptionId, Option> = {
   avis: { id: 'avis', nom: 'Avis Google affichés', description: 'Vos étoiles mises en avant.', prix: 60 },
   seo: { id: 'seo', nom: 'SEO avancé', description: 'Pages par ville, suivi Google.', prix: 150 },
   anglais: { id: 'anglais', nom: 'Site en anglais', description: "Pour les touristes et l'export.", prix: 150 },
-  rdv: { id: 'rdv', nom: 'Rendez-vous en ligne', description: 'Vos clients réservent seuls, rappel la veille.', prix: 400 },
+  rdv: { id: 'rdv', nom: 'Rendez-vous en ligne', description: 'Vos clients réservent seuls, rappel la veille.', prix: 400, gros: true },
   acompte: { id: 'acompte', nom: 'Acompte en ligne', description: 'Fini les rendez-vous non honorés.', prix: 150 },
   calcul: {
     id: 'calcul',
@@ -141,32 +143,44 @@ export const options: Record<OptionId, Option> = {
     description: 'Le prix selon vos critères, en direct.',
     prix: 300,
     prixMinimum: true,
+    gros: true,
   },
-  pwa: { id: 'pwa', nom: 'Appli sur téléphone', description: "Le site s'installe comme une appli.", prix: 200 },
-  espace: { id: 'espace', nom: 'Espace client', description: 'Historique, factures, suivi.', prix: 300 },
+  pwa: { id: 'pwa', nom: 'Appli sur téléphone', description: "Le site s'installe comme une appli.", prix: 200, gros: true },
+  espace: { id: 'espace', nom: 'Espace client', description: 'Historique, factures, suivi.', prix: 300, gros: true },
   boutique: {
     id: 'boutique',
     nom: 'Boutique en ligne',
     description: 'Vendez vos produits, paiement sécurisé.',
     prix: 600,
     prixMinimum: true,
+    gros: true,
   },
-  table: { id: 'table', nom: 'Réservation de table', description: 'Vos clients réservent en 2 clics.', prix: 300 },
+  table: { id: 'table', nom: 'Réservation de table', description: 'Vos clients réservent en 2 clics.', prix: 300, gros: true },
   clickcollect: {
     id: 'clickcollect',
     nom: 'Click & collect',
     description: 'Commande en ligne, retrait sur place.',
     prix: 300,
+    gros: true,
   },
 };
 
+/**
+ * Options incluses dans le prix de chaque formule, à choisir parmi les petites options (pas les gros modules).
+ * Les premières cochées sont incluses ; les suivantes restent possibles, mais payantes.
+ */
+export const inclusParFormule: Record<FormuleId, number> = { vitrine: 1, vitrinePlus: 2, fonctionnel: 3 };
+
+/** Petites options : proposées avec toutes les formules (la galerie est déjà dans Vitrine+). */
+export const petitesOptions: OptionId[] = ['page', 'galerie', 'textes', 'logo', 'avantapres', 'avis', 'seo', 'anglais'];
+
 /** Options proposées pour les formules Vitrine et Vitrine+ (quel que soit le métier). */
 export const optionsParFormule: Record<Exclude<FormuleId, 'fonctionnel'>, OptionId[]> = {
-  vitrine: ['page', 'galerie', 'textes', 'logo'],
-  vitrinePlus: ['avantapres', 'avis', 'textes', 'logo', 'seo', 'anglais'],
+  vitrine: petitesOptions,
+  vitrinePlus: petitesOptions.filter((id) => id !== 'galerie'),
 };
 
-/** Options proposées pour la formule Fonctionnel, selon le métier. */
+/** Gros modules proposés pour la formule Fonctionnel, selon le métier (les petites options s'y ajoutent). */
 export const optionsParMetier: Record<MetierId, OptionId[]> = {
   artisan: ['rdv', 'acompte', 'calcul', 'pwa', 'espace', 'avantapres'],
   commerce: ['boutique', 'clickcollect', 'espace', 'seo', 'avis', 'pwa'],
@@ -222,17 +236,6 @@ export const precisions: Partial<Record<OptionId, Precision>> = {
     ],
   },
 };
-
-/** Packs : si toutes les options requises sont choisies, une option est offerte. */
-export type Pack = { id: string; nom: string; requises: OptionId[]; offerte: OptionId };
-
-export const packs: Pack[] = [
-  { id: 'reservation', nom: 'Pack Réservation sereine', requises: ['rdv', 'acompte'], offerte: 'avis' },
-  { id: 'toutEnUn', nom: 'Pack Tout-en-un', requises: ['rdv', 'acompte', 'espace'], offerte: 'pwa' },
-  { id: 'boutique', nom: 'Pack Boutique visible', requises: ['boutique', 'seo'], offerte: 'avis' },
-  { id: 'restaurant', nom: 'Pack Restaurant complet', requises: ['table', 'clickcollect'], offerte: 'avis' },
-  { id: 'image', nom: 'Pack Image de marque', requises: ['logo', 'textes'], offerte: 'page' },
-];
 
 /** Prix du marché, avec leur source (à toujours afficher). */
 export type MarcheId = 'vitrine' | 'vitrinePlus' | 'boutique' | 'surMesure' | 'seo';
