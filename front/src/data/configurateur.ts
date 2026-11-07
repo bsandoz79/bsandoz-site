@@ -11,7 +11,7 @@ export const onglets = {
 export const titres = {
   web: {
     title: pages.composer.heading,
-    subtitle: "Chaque choix ajoute sa partie à l'aperçu et met le prix à jour.",
+    subtitle: 'Chaque choix met le prix à jour. Validez à la fin : votre estimation devient une demande de devis.',
   },
   informatique: {
     title: 'Votre informatique, installée et réglée chez vous.',
@@ -29,11 +29,18 @@ export const reprise = {
 
 export const etapes = {
   type: '1. Quel type de site ?',
-  metier: '2. Quelle est votre activité ?',
+  metier: '2. Quel est votre métier ?',
+  metierChamp: 'Votre métier',
+  metierAide: 'Commencez à écrire : menuisier, coiffeur, avocat…',
+  annonce: (n: number) => (n > 1 ? `${n} suggestions` : n === 1 ? '1 suggestion' : ''),
   optionsFonctionnel: '3. Que doit faire votre site ?',
   optionsVitrine: "3. Envie d'ajouter quelque chose ?",
-  aideFonctionnel: 'Les fonctions proposées dépendent de votre activité. Cochez tout ce qui vous sert.',
-  aideVitrine: 'Facultatif : cochez ce qui vous sert.',
+  /** Options incluses dans la formule : combien il en reste à choisir. */
+  inclus: (total: number, restantes: number) =>
+    restantes > 0
+      ? `${total > 1 ? `${total} options incluses` : '1 option incluse'} dans la formule, parmi les petites (pas les gros modules). Encore ${restantes} à choisir.`
+      : 'Options incluses choisies. Les suivantes restent possibles, au prix indiqué.',
+  inclusBadge: 'Inclus',
   precisions: '4. Quelques précisions',
   suggestions: 'Vous pourriez aussi y penser',
 };
@@ -41,14 +48,19 @@ export const etapes = {
 export const estimationTextes = {
   title: 'Votre estimation',
   valeur: 'Valeur',
-  offert: 'Offert',
+  offert: 'Inclus',
   fourchette: 'Fourchette',
   delai: 'Délai indicatif',
   recommencer: 'Recommencer',
   footnote: 'Estimation indicative, devis précis après échange. Prix nets, TVA non applicable.',
-  devis: { label: 'Recevoir mon devis détaillé', to: pages.devis.path },
+  valider: 'Valider et recevoir mon devis',
   rdv: { label: 'En parler en rendez-vous', to: pages.rendezVous.path },
-  finirAvantDevis: 'Choisissez votre activité pour recevoir votre devis détaillé.',
+  finirAvantDevis: 'Indiquez votre métier pour valider votre estimation.',
+  /** Formulaire affiché après « Valider ». */
+  formulaire: {
+    titre: 'Où vous envoyer votre devis ?',
+    intro: 'Votre estimation est jointe à la demande. Je la confirme ou l’ajuste sous 24 h.',
+  },
 };
 
 export const marcheTextes = {

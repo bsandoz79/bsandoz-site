@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { pages } from '../../data/pages';
-import { construireEnvoiContact, messageVide, nomActiviteContact, validerContact, type MessageContact } from './contact';
+import { construireEnvoiContact, messageVide, validerContact, type MessageContact } from './contact';
 import { ContactRapide } from './ContactRapide';
 import { urlEnvoiDevis } from '../../data/devis';
 
@@ -11,8 +11,7 @@ const complet: MessageContact = {
   entreprise: 'Dupont Jardins',
   telephone: '06 12 34 56 78',
   email: 'marie@exemple.fr',
-  activite: 'artisan',
-  activiteAutre: '',
+  activite: 'Paysagiste',
   projet: 'Je suis paysagiste, je voudrais que mes clients réservent en ligne.',
   consentement: true,
 };
@@ -27,10 +26,10 @@ describe('validerContact', () => {
     expect(validerContact(complet)).toEqual({});
   });
 
-  it('l’entreprise est facultative ; « Autre » demande de préciser l’activité', () => {
+  it('l’entreprise est facultative ; le projet aussi quand une estimation est jointe', () => {
     expect(validerContact({ ...complet, entreprise: '' })).toEqual({});
-    expect(validerContact({ ...complet, activite: 'autre' })).toEqual({ activiteAutre: 'Précisez votre activité en quelques mots.' });
-    expect(validerContact({ ...complet, activite: 'autre', activiteAutre: 'Avocat' })).toEqual({});
+    expect(validerContact({ ...complet, activite: 'A' })).toEqual({ activite: 'Indiquez votre métier ou votre activité.' });
+    expect(validerContact({ ...complet, projet: '' }, true)).toEqual({});
   });
 });
 
@@ -39,17 +38,20 @@ describe('construireEnvoiContact', () => {
     const donnees = construireEnvoiContact(complet, '');
     expect(donnees.get('nom')).toBe('Marie Dupont');
     expect(donnees.get('entreprise')).toBe('Dupont Jardins');
-    expect(donnees.get('titre')).toBe('Projet · Artisan, bâtiment');
+    expect(donnees.get('titre')).toBe('Projet · Paysagiste');
     expect(donnees.get('predevis')).toBe('');
     const recapitulatif = String(donnees.get('recapitulatif'));
-    expect(recapitulatif).toContain('Activité : Artisan, bâtiment');
+    expect(recapitulatif).toContain('Activité : Paysagiste');
     expect(recapitulatif).toContain('Projet : Je suis paysagiste');
     expect(recapitulatif.length).toBeGreaterThanOrEqual(20);
   });
 
-  it('reprend l’activité précisée pour « Autre »', () => {
-    expect(nomActiviteContact({ activite: 'autre', activiteAutre: ' Avocat ' })).toBe('Avocat');
-    expect(construireEnvoiContact({ ...complet, activite: 'autre', activiteAutre: 'Avocat' }, '').get('titre')).toBe('Projet · Avocat');
+  it('joint l’estimation validée : titre, lignes et texte pour l’accusé de réception', () => {
+    const estimation = { titre: 'Site Vitrine · Logo simple', activite: 'Paysagiste', lignes: [['Formule', 'Site Vitrine']] as [string, string][], predevis: 'Votre estimation' };
+    const donnees = construireEnvoiContact({ ...complet, projet: '' }, '', estimation);
+    expect(donnees.get('titre')).toBe('Site Vitrine · Logo simple');
+    expect(donnees.get('predevis')).toBe('Votre estimation');
+    expect(String(donnees.get('recapitulatif'))).toMatch(/^Origine : Estimation en ligne\nFormule : Site Vitrine\nActivité : Paysagiste/);
   });
 
   it('transmet le champ piège tel quel (le serveur ignore alors la demande)', () => {
@@ -70,7 +72,7 @@ describe('ContactRapide', () => {
     await user.type(screen.getByRole('textbox', { name: /Entreprise/ }), complet.entreprise);
     await user.type(screen.getByRole('textbox', { name: /E-mail/ }), complet.email);
     await user.type(screen.getByRole('textbox', { name: /Téléphone/ }), complet.telephone);
-    await user.click(screen.getByRole('radio', { name: 'Artisan, bâtiment' }));
+    await user.type(screen.getByRole('combobox', { name: /Votre métier ou activité/ }), complet.activite);
     await user.type(screen.getByRole('textbox', { name: /Votre projet/ }), complet.projet);
     await user.click(screen.getByRole('checkbox', { name: /J'accepte/ }));
   }
@@ -86,19 +88,22 @@ describe('ContactRapide', () => {
     await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
     expect(screen.getByText('Indiquez votre nom.')).toBeInTheDocument();
-    expect(screen.getByText('Choisissez votre domaine d’activité.')).toBeInTheDocument();
+    expect(screen.getByText('Indiquez votre métier ou votre activité.')).toBeInTheDocument();
     expect(screen.getByText('Décrivez votre projet en quelques mots.')).toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('« Autre » ouvre un champ pour préciser l’activité', async () => {
+  it('le métier se tape : il propose de finir le mot, ou garde ce qui est écrit', async () => {
     const user = userEvent.setup();
     vi.stubGlobal('fetch', vi.fn());
     afficher();
-    expect(screen.queryByRole('textbox', { name: /Précisez votre activité/ })).not.toBeInTheDocument();
-    await user.click(screen.getByRole('radio', { name: 'Autre' }));
-    await user.type(screen.getByRole('textbox', { name: /Précisez votre activité/ }), 'Avocat');
-    expect(screen.getByRole('textbox', { name: /Précisez votre activité/ })).toHaveValue('Avocat');
+    const champ = screen.getByRole('combobox', { name: /Votre métier ou activité/ });
+    await user.type(champ, 'avo');
+    await user.click(screen.getByRole('option', { name: 'Avocat' }));
+    expect(champ).toHaveValue('Avocat');
+    await user.clear(champ);
+    await user.type(champ, 'Sculpteur');
+    expect(champ).toHaveValue('Sculpteur');
   });
 
   it('envoie la demande et remercie', async () => {
@@ -113,7 +118,7 @@ describe('ContactRapide', () => {
     expect(await screen.findByRole('status')).toHaveTextContent('Merci, c’est bien reçu !');
     expect(fetchMock).toHaveBeenCalledWith(urlEnvoiDevis, expect.objectContaining({ method: 'POST' }));
     const envoi = fetchMock.mock.calls[0][1].body as FormData;
-    expect(envoi.get('titre')).toBe('Projet · Artisan, bâtiment');
+    expect(envoi.get('titre')).toBe('Projet · Paysagiste');
     expect(envoi.get('entreprise')).toBe('Dupont Jardins');
   }, 15_000);
 

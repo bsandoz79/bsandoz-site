@@ -20,14 +20,12 @@ describe('Demande de devis', () => {
     for (const nom of [/Prénom et nom/, /Entreprise/, /E-mail/, /Téléphone/, /Votre projet/]) {
       expect(screen.getByRole('textbox', { name: nom })).toBeInTheDocument();
     }
-    expect(screen.getByRole('group', { name: /Votre domaine d’activité/ })).toBeInTheDocument();
-    // Plus d'étapes ni d'estimation.
+    expect(screen.getByRole('combobox', { name: /Votre métier ou activité/ })).toBeInTheDocument();
     expect(screen.queryByText(/Étape 1/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/estimation/i)).not.toBeInTheDocument();
   });
 
-  it('l’ancienne adresse de l’estimation mène au devis', () => {
-    afficher('/composer?onglet=web');
-    expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
+  it('propose l’estimation en ligne, en second plan', () => {
+    afficher();
+    expect(screen.getByRole('link', { name: /Faire une estimation en ligne/ })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
   });
 });

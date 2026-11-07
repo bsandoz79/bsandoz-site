@@ -15,44 +15,52 @@ function renderComposer(path: string = pages.composer.path) {
 
 const estimation = () => screen.getByRole('complementary', { name: 'Votre estimation' });
 const stocke = () => JSON.parse(window.localStorage.getItem(CLE_STOCKAGE) ?? '{}');
+const total = () => within(estimation()).getByText((_, el) => el?.getAttribute('aria-live') === 'polite');
+
+/** Écrit le métier ; avec `choix`, clique la suggestion proposée. */
+async function ecrireMetier(user: ReturnType<typeof userEvent.setup>, texte: string, choix?: string) {
+  await user.type(screen.getByRole('combobox', { name: 'Votre métier' }), texte);
+  if (choix) await user.click(screen.getByRole('option', { name: choix }));
+}
 
 describe('Configurateur /composer', () => {
   beforeEach(() => window.localStorage.clear());
 
-  it('ouvre les étapes l’une après l’autre', async () => {
+  it('ouvre les étapes l’une après l’autre ; le métier se tape, avec des suggestions', async () => {
     const user = userEvent.setup();
     renderComposer();
     expect(screen.getByRole('heading', { level: 1, name: pages.composer.heading })).toBeInTheDocument();
-    expect(screen.queryByRole('group', { name: /Quelle est votre activité/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('combobox', { name: 'Votre métier' })).not.toBeInTheDocument();
     expect(screen.queryByRole('complementary', { name: 'Votre estimation' })).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: /^Fonctionnel/ }));
-    expect(screen.getByRole('group', { name: /Quelle est votre activité/ })).toBeInTheDocument();
-    // Le Fonctionnel attend l'activité avant de proposer des options.
+    // Le Fonctionnel attend le métier avant de proposer des options.
     expect(screen.queryAllByRole('checkbox')).toHaveLength(0);
-    expect(estimation()).toHaveTextContent('Choisissez votre activité pour recevoir votre devis détaillé.');
+    expect(estimation()).toHaveTextContent('Indiquez votre métier pour valider votre estimation.');
 
-    await user.click(screen.getByRole('radio', { name: 'Restaurant / bar' }));
-    expect(screen.getAllByRole('checkbox')).toHaveLength(5);
-    expect(within(estimation()).getByRole('link', { name: 'Recevoir mon devis détaillé' })).toHaveAttribute(
-      'href',
-      pages.devis.path,
-    );
-    expect(within(estimation()).getByRole('link', { name: 'En parler en rendez-vous' })).toHaveAttribute(
-      'href',
-      pages.rendezVous.path,
-    );
+    await user.type(screen.getByRole('combobox', { name: 'Votre métier' }), 'me');
+    expect(screen.getAllByRole('option').map((o) => o.textContent)).toEqual(expect.arrayContaining(['Menuisier', 'Mécanicien']));
+    await user.click(screen.getByRole('option', { name: 'Menuisier' }));
+    expect(screen.getByRole('combobox', { name: 'Votre métier' })).toHaveValue('Menuisier');
+    // Artisan : ses gros modules, puis les petites options.
+    expect(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ })).toBeInTheDocument();
+    expect(screen.getByRole('checkbox', { name: /Logo simple/ })).toBeInTheDocument();
+    expect(within(estimation()).getByRole('button', { name: 'Valider et recevoir mon devis' })).toBeInTheDocument();
+    expect(within(estimation()).getByRole('link', { name: 'En parler en rendez-vous' })).toHaveAttribute('href', pages.rendezVous.path);
   });
 
-  it('propose les options de la vitrine sans attendre l’activité', async () => {
+  it('inclut une petite option en Vitrine ; la suivante est payante', async () => {
     const user = userEvent.setup();
     renderComposer();
     await user.click(screen.getByRole('radio', { name: /^Vitrine\s*à partir de 99/ }));
-    expect(screen.getByRole('group', { name: /Envie d'ajouter quelque chose/ })).toBeInTheDocument();
+    const groupe = screen.getByRole('group', { name: /Envie d'ajouter quelque chose/ });
+    expect(groupe).toHaveTextContent('1 option incluse dans la formule');
     await user.click(screen.getByRole('checkbox', { name: /Galerie photos/ }));
-    expect(within(estimation()).getByText((_, el) => el?.getAttribute('aria-live') === 'polite')).toHaveTextContent(
-      /179\s€/,
-    );
+    expect(screen.getByRole('checkbox', { name: /Galerie photos/ })).toHaveAccessibleName(/Inclus/);
+    expect(total()).toHaveTextContent(/99\s€/);
+    expect(groupe).toHaveTextContent('Options incluses choisies');
+    await user.click(screen.getByRole('checkbox', { name: /Page supplémentaire/ }));
+    expect(total()).toHaveTextContent(/149\s€/);
     expect(estimation()).not.toHaveTextContent('Fourchette');
   });
 
@@ -60,7 +68,7 @@ describe('Configurateur /composer', () => {
     const user = userEvent.setup();
     renderComposer();
     await user.click(screen.getByRole('radio', { name: /^Fonctionnel/ }));
-    await user.click(screen.getByRole('radio', { name: 'Restaurant / bar' }));
+    await ecrireMetier(user, 'pizz', 'Pizzeria');
     await user.click(screen.getByRole('checkbox', { name: /Réservation de table/ }));
     const question = screen.getByRole('group', { name: /Un acompte pour les grandes tablées/ });
     await user.click(within(question).getByRole('radio', { name: /Oui \(\+ 150/ }));
@@ -68,18 +76,18 @@ describe('Configurateur /composer', () => {
     expect(estimation()).toHaveTextContent('Réservation de table · Oui');
   });
 
-  it('offre une option grâce à une suggestion de pack', async () => {
+  it('Vitrine+ : deux petites options incluses ; un gros module n’est jamais inclus', async () => {
     const user = userEvent.setup();
     renderComposer();
+    await user.click(screen.getByRole('radio', { name: /^Vitrine\+/ }));
+    for (const nom of [/Logo simple/, /SEO avancé/, /Site en anglais/]) await user.click(screen.getByRole('checkbox', { name: nom }));
+    expect(total()).toHaveTextContent(/540\s€/);
+    expect(estimation()).toHaveTextContent(/Valeur 840\s€/);
+
     await user.click(screen.getByRole('radio', { name: /^Fonctionnel/ }));
-    await user.click(screen.getByRole('radio', { name: 'Santé / bien-être' }));
+    await ecrireMetier(user, 'Ostéopathe');
     await user.click(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ }));
-    const suggestions = screen.getByRole('region', { name: 'Vous pourriez aussi y penser' });
-    await user.click(within(suggestions).getByRole('button', { name: "Ajouter et profiter de l'offre" }));
-    expect(screen.getByRole('checkbox', { name: /Acompte en ligne/ })).toBeChecked();
-    expect(estimation()).toHaveTextContent(/Offert : − 60\s€/);
-    expect(estimation()).toHaveTextContent('Pack Réservation sereine · Avis Google affichés');
-    expect(estimation()).toHaveTextContent(/Valeur 1\s599\s€/);
+    expect(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ })).not.toHaveAccessibleName(/Inclus/);
   });
 
   it('compare au marché en citant la source', async () => {
@@ -121,8 +129,10 @@ describe('Configurateur /composer', () => {
       expect(apercu()).toHaveTextContent("Choisissez un type de site : l'aperçu se remplit au fil de vos choix.");
 
       await user.click(screen.getByRole('radio', { name: /^Fonctionnel/ }));
-      await user.click(screen.getByRole('radio', { name: 'Santé / bien-être' }));
+      await ecrireMetier(user, 'Ostéopathe');
       expect(apercu()).toHaveTextContent('Studio Équilibre');
+      // Un squelette d'exemple, pas le site final.
+      expect(apercu()).toHaveTextContent('Exemple · squelette sans style');
       expect(apercu()).toHaveTextContent('www.studio-equilibre.fr');
 
       await user.click(screen.getByRole('checkbox', { name: /Rendez-vous en ligne/ }));
@@ -179,16 +189,42 @@ describe('Configurateur /composer', () => {
     });
   });
 
-  it('« Autre activité » ouvre un champ pour la préciser, repris dans l’estimation et gardé', async () => {
+  it('un métier hors de la liste est gardé tel qu’il est écrit, repris dans l’estimation', async () => {
     const user = userEvent.setup();
     renderComposer();
     await user.click(screen.getByRole('radio', { name: /^Fonctionnel/ }));
-    expect(screen.queryByRole('textbox', { name: /Précisez votre activité/ })).not.toBeInTheDocument();
-    await user.click(screen.getByRole('radio', { name: 'Autre activité' }));
-    await user.type(screen.getByRole('textbox', { name: /Précisez votre activité/ }), 'Photographe');
-    expect(estimation()).toHaveTextContent('photographe');
-    expect(JSON.parse(window.localStorage.getItem(CLE_STOCKAGE)!).config.metierAutre).toBe('Photographe');
+    await ecrireMetier(user, 'Sculpteur sur bois');
+    expect(estimation()).toHaveTextContent('sculpteur sur bois');
+    expect(stocke().config).toMatchObject({ metier: 'autre', metierAutre: 'Sculpteur sur bois' });
   });
+
+  it('« Valider » ouvre le formulaire, avec l’estimation jointe et le métier repris, puis l’envoie comme une demande de devis', async () => {
+    const user = userEvent.setup();
+    const envoi = vi.fn().mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
+    vi.stubGlobal('fetch', envoi);
+    renderComposer();
+    await user.click(screen.getByRole('radio', { name: /^Vitrine\+/ }));
+    await ecrireMetier(user, 'plomb', 'Plombier');
+    await user.click(screen.getByRole('checkbox', { name: /Logo simple/ }));
+    await user.click(within(estimation()).getByRole('button', { name: 'Valider et recevoir mon devis' }));
+
+    const formulaire = screen.getByRole('form', { name: 'Où vous envoyer votre devis ?' });
+    expect(formulaire).toHaveTextContent('Votre estimation, jointe à la demande');
+    expect(formulaire).toHaveTextContent('Site Vitrine+');
+    expect(within(formulaire).getByRole('combobox', { name: /Votre métier ou activité/ })).toHaveValue('Plombier');
+    await user.type(within(formulaire).getByRole('textbox', { name: /Prénom et nom/ }), 'Marie Dupont');
+    await user.type(within(formulaire).getByRole('textbox', { name: /E-mail/ }), 'marie@exemple.fr');
+    await user.type(within(formulaire).getByRole('textbox', { name: /Téléphone/ }), '06 12 34 56 78');
+    await user.click(within(formulaire).getByRole('checkbox', { name: /J'accepte/ }));
+    await user.click(within(formulaire).getByRole('button', { name: 'Envoyer ma demande' }));
+
+    expect(await screen.findByText('Merci, c’est bien reçu !')).toBeInTheDocument();
+    const donnees = envoi.mock.calls[0][1].body as FormData;
+    expect(donnees.get('titre')).toBe('Site Vitrine+ · Logo simple');
+    expect(String(donnees.get('recapitulatif'))).toContain('Origine : Estimation en ligne');
+    expect(String(donnees.get('predevis'))).toContain('Logo simple (incluse)');
+    vi.unstubAllGlobals();
+  }, 20_000);
 
   describe('reprendre là où l’on en était', () => {
     const precedente = { onglet: 'web', config: { formule: 'fonctionnel', metier: 'artisan', options: ['rdv'], precisions: {} } };

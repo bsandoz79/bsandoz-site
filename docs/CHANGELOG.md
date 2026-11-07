@@ -1,6 +1,17 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (estimation)
+- L'estimation en ligne revient (`/composer`), en second plan derrière « Demander un devis » : un lien discret sur la page Devis et sur Tarifs.
+- **Métier** : il se tape, avec des suggestions (« me » → menuisier, mécanicien…). Il peut aussi s'écrire librement. Même champ dans le formulaire de devis, à la place des pastilles.
+- **Options incluses selon la formule** : 1 en Vitrine, 2 en Vitrine+, 3 en Fonctionnel, parmi les petites options. Les gros modules restent payants, et les packs sont supprimés.
+- **Plus d'options** : toutes les petites options sont proposées avec chaque formule.
+- **Aperçu** : présenté comme un squelette d'exemple, sans style.
+- **« Valider et recevoir mon devis »** ouvre le formulaire de contact avec l'estimation jointe. Elle part comme une demande de devis, et l'accusé de réception la reprend.
+
+### Ajouté (blocs)
+- Bloc réutilisable `Autocomplete` : champ texte qui propose de finir le mot pendant la saisie, au clavier comme à la souris, sans tenir compte des accents ni des majuscules.
+
 ### Modifié (rendez-vous)
 - La prise de rendez-vous a son propre bouton, partout sur le site (`components/BoutonRdv`) : icône de calendrier, contour rose, coins moins arrondis, différent des boutons « Demander un devis ». Il remplace le lien souligné avec une flèche du haut de l'accueil et du formulaire de contact, et les boutons de rendez-vous du pied de page, de la page À propos, des pages métier et d'Informatique sur place.
 - Page rendez-vous : la règle des frais kilométriques (gratuit à 50 km d'Amiens ou d'Abbeville, au-delà les kilomètres en plus) est écrite en petit dès qu'on choisit « Chez vous », avant l'adresse.

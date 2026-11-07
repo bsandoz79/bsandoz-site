@@ -1,29 +1,31 @@
-import { Button, ChoiceChips, OptionCard, TextField } from '@bsandoz79/blocs';
-import { optionsDisponibles, packsActifs, suggestions } from '../../data/calculs';
-import { estimationTextes, etapes } from '../../data/configurateur';
+import { Autocomplete, Button, ChoiceChips, OptionCard } from '@bsandoz79/blocs';
+import { inclusRestantes, optionsDisponibles, optionsIncluses, suggestions } from '../../data/calculs';
+import { etapes } from '../../data/configurateur';
 import {
   formatPrix,
   formules,
+  inclusParFormule,
   metierAutreTextes,
-  metiers,
   options,
   precisions,
   prixFormule,
   prixOption,
   type OptionId,
 } from '../../data/offres';
+import { nomsMetiers } from '../../data/metiersConnus';
 import { Estimation } from './Estimation';
 import type { useComposer } from './useComposer';
 import styles from './Composer.module.css';
 
-type Props = { composer: ReturnType<typeof useComposer> };
+type Props = { composer: ReturnType<typeof useComposer>; onValider: () => void };
 
 /** Onglet « Sites & applis » : étapes qui s'ouvrent l'une après l'autre, puis l'estimation. */
-export function ConfigurateurWeb({ composer }: Props) {
+export function ConfigurateurWeb({ composer, onValider }: Props) {
   const { config } = composer.etat;
   const { formule, metier } = config;
   const disponibles = optionsDisponibles(formule, metier);
-  const offertes = new Set(packsActifs(config.options).map((actif) => actif.offerte));
+  const incluses = optionsIncluses(config);
+  const restantes = inclusRestantes(config);
   const aPreciser = config.options.filter((id): id is OptionId => Boolean(precisions[id]));
   const listeSuggestions = suggestions(config);
   const fonctionnel = formule === 'fonctionnel';
@@ -43,23 +45,17 @@ export function ConfigurateurWeb({ composer }: Props) {
 
       {formule && (
         <section className={`${styles.etape} anim-appear`} aria-label={etapes.metier}>
-          <ChoiceChips
-            legend={<h2 className={styles.etapeTitre}>{etapes.metier}</h2>}
-            name="composer-metier"
-            choices={metiers.map((m) => ({ value: m.id, label: m.nom }))}
-            value={metier}
-            onChange={composer.choisirMetier}
+          <h2 className={styles.etapeTitre}>{etapes.metier}</h2>
+          <Autocomplete
+            className={styles.metierAutre}
+            label={etapes.metierChamp}
+            placeholder={etapes.metierAide}
+            maxLength={metierAutreTextes.max}
+            suggestions={nomsMetiers}
+            announce={etapes.annonce}
+            value={config.metierAutre ?? ''}
+            onChange={composer.ecrireMetier}
           />
-          {metier === 'autre' && (
-            <TextField
-              className={styles.metierAutre}
-              label={metierAutreTextes.label}
-              placeholder={metierAutreTextes.placeholder}
-              maxLength={metierAutreTextes.max}
-              value={config.metierAutre ?? ''}
-              onChange={(e) => composer.preciserMetier(e.target.value)}
-            />
-          )}
         </section>
       )}
 
@@ -70,7 +66,7 @@ export function ConfigurateurWeb({ composer }: Props) {
               <h2 id="etape-options" className={styles.etapeTitre}>
                 {fonctionnel ? etapes.optionsFonctionnel : etapes.optionsVitrine}
               </h2>
-              <span className={styles.aide}>{fonctionnel ? etapes.aideFonctionnel : etapes.aideVitrine}</span>
+              <span className={styles.aide}>{etapes.inclus(inclusParFormule[formule!], restantes)}</span>
             </legend>
             <ul className={styles.grille}>
               {disponibles.map((id) => (
@@ -78,8 +74,8 @@ export function ConfigurateurWeb({ composer }: Props) {
                   <OptionCard
                     title={options[id].nom}
                     description={options[id].description}
-                    price={prixOption(options[id])}
-                    badge={offertes.has(id) ? estimationTextes.offert : undefined}
+                    price={incluses.includes(id) ? undefined : prixOption(options[id])}
+                    badge={incluses.includes(id) ? etapes.inclusBadge : undefined}
                     checked={config.options.includes(id)}
                     onChange={() => composer.basculerOption(id)}
                   />
@@ -140,7 +136,7 @@ export function ConfigurateurWeb({ composer }: Props) {
         </section>
       )}
 
-      {formule && <Estimation config={config} onRecommencer={composer.recommencer} />}
+      {formule && <Estimation config={config} onRecommencer={composer.recommencer} onValider={onValider} />}
     </div>
   );
 }

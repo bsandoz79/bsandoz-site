@@ -1,21 +1,9 @@
 import { pages } from './pages';
 
-/** Activités proposées dans le formulaire de contact : « Autre » ouvre un champ pour la préciser. */
-export const activitesContact = [
-  { value: 'artisan', label: 'Artisan, bâtiment' },
-  { value: 'commerce', label: 'Commerce' },
-  { value: 'restauration', label: 'Restauration' },
-  { value: 'sante', label: 'Santé, bien-être' },
-  { value: 'liberal', label: 'Profession libérale' },
-  { value: 'particulier', label: 'Particulier' },
-  { value: 'autre', label: 'Autre' },
-] as const;
-
-export type ActiviteContact = (typeof activitesContact)[number]['value'];
-
 /**
  * Formulaire de contact : le seul du site. Bas de l'accueil et page « Demande de devis ».
  * Court : coordonnées, activité, quelques lignes sur le projet. Baptiste répond avec une proposition.
+ * Il sert aussi à valider une estimation en ligne : elle est alors jointe à la demande.
  */
 export const contactRapide = {
   titre: 'Parlez-moi de votre projet.',
@@ -24,11 +12,16 @@ export const contactRapide = {
   entreprise: 'Entreprise (facultatif)',
   telephone: 'Téléphone',
   email: 'E-mail',
-  activite: 'Votre domaine d’activité',
-  activiteAutre: 'Précisez votre activité',
-  activiteAutreAide: 'Ex. : avocat, couvreur, photographe…',
+  activite: 'Votre métier ou activité',
+  activiteAide: 'Commencez à écrire : menuisier, avocat, photographe…',
   projet: 'Votre projet',
   projetAide: 'Ce que vous attendez du site, ce qui vous ferait gagner du temps, un site que vous aimez…',
+  /** Quand une estimation est jointe : le projet est déjà décrit. */
+  precision: 'Une précision ? (facultatif)',
+  estimation: 'Votre estimation, jointe à la demande',
+  /** Lien discret vers l'estimation, sur la page Devis. */
+  estimer: { texte: 'Vous préférez estimer le prix vous-même ?', label: 'Faire une estimation en ligne' },
+  suggestions: (n: number) => (n > 1 ? `${n} suggestions` : n === 1 ? '1 suggestion' : ''),
   consentement:
     "J'accepte que mes informations soient utilisées pour répondre à ma demande. Elles ne sont ni revendues ni utilisées à d'autres fins.",
   confidentialite: { label: 'Politique de confidentialité', to: pages.confidentialite.path },
@@ -50,8 +43,7 @@ export const contactRapide = {
     nom: 'Indiquez votre nom.',
     telephone: 'Numéro de téléphone invalide.',
     email: 'Adresse e-mail invalide.',
-    activite: 'Choisissez votre domaine d’activité.',
-    activiteAutre: 'Précisez votre activité en quelques mots.',
+    activite: 'Indiquez votre métier ou votre activité.',
     projet: 'Décrivez votre projet en quelques mots.',
     consentement: 'Cochez la case pour que je puisse vous répondre.',
   },

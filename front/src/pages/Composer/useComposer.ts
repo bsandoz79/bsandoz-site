@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { garderOptionsValides, type Suggestion } from '../../data/calculs';
+import { categorieDuMetier } from '../../data/metiersConnus';
 import type { PublicInformatique, ServiceInformatiqueId } from '../../data/informatique';
-import type { FormuleId, MetierId, OptionId } from '../../data/offres';
+import type { FormuleId, OptionId } from '../../data/offres';
 import {
   chargerEtat,
   enregistrerEtat,
@@ -37,9 +38,12 @@ export function useComposer(recherche: string) {
     choisirOnglet: (onglet: Onglet) => setEtat((e) => ({ ...e, onglet })),
     choisirFormule: (formule: FormuleId) =>
       majConfig((c) => ({ ...c, formule, options: garderOptionsValides(c.options, formule, c.metier) })),
-    choisirMetier: (metier: MetierId) =>
-      majConfig((c) => ({ ...c, metier, options: garderOptionsValides(c.options, c.formule, metier) })),
-    preciserMetier: (metierAutre: string) => majConfig((c) => ({ ...c, metierAutre })),
+    /** Métier écrit : sa catégorie (liste connue, sinon « autre ») choisit les fonctionnalités proposées. */
+    ecrireMetier: (nom: string) =>
+      majConfig((c) => {
+        const metier = categorieDuMetier(nom);
+        return { ...c, metier, metierAutre: nom, options: garderOptionsValides(c.options, c.formule, metier) };
+      }),
     basculerOption: (option: OptionId) => majConfig((c) => ({ ...c, options: basculer(c.options, option) })),
     choisirPrecision: (option: OptionId, reponse: string) =>
       majConfig((c) => ({ ...c, precisions: { ...c.precisions, [option]: reponse } })),

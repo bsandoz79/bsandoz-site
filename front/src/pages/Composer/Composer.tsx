@@ -1,8 +1,9 @@
-import { useRef, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Container } from '@bsandoz79/blocs';
+import { ContactRapide } from '../../components/ContactRapide';
 import { PageMeta } from '../../components/PageMeta';
-import { onglets, titres } from '../../data/configurateur';
+import { estimationTextes, onglets, titres } from '../../data/configurateur';
 import { pages } from '../../data/pages';
 import { Apercu } from './Apercu';
 import { ConfigurateurInformatique } from './ConfigurateurInformatique';
@@ -10,6 +11,7 @@ import { ConfigurateurWeb } from './ConfigurateurWeb';
 import { Reprise } from './Reprise';
 import { chargerEtat, resumeEtat, type Onglet } from './stockage';
 import { useComposer } from './useComposer';
+import { estimationJointe } from './validation';
 import styles from './Composer.module.css';
 
 const ONGLETS: { id: Onglet; label: string }[] = [
@@ -17,13 +19,24 @@ const ONGLETS: { id: Onglet; label: string }[] = [
   { id: 'informatique', label: onglets.informatique },
 ];
 
-/** Configurateur `/composer` : onglets « Sites & applis » et « Informatique sur place ». */
+/**
+ * Estimation `/composer` : onglets « Sites & applis » et « Informatique sur place ».
+ * « Valider » affiche le formulaire de contact, avec l'estimation jointe : elle devient une demande de devis.
+ */
 export function Composer() {
   const { search } = useLocation();
   const composer = useComposer(search);
   const { onglet } = composer.etat;
   const refs = useRef<Record<Onglet, HTMLButtonElement | null>>({ web: null, informatique: null });
   const textes = onglet === 'web' ? titres.web : titres.informatique;
+  const [valide, setValide] = useState(false);
+  const jointe = estimationJointe(composer.etat.config);
+  const formulaire = useRef<HTMLDivElement>(null);
+
+  // Après « Valider », on descend jusqu'au formulaire.
+  useEffect(() => {
+    if (valide) formulaire.current?.scrollIntoView?.({ block: 'start' });
+  }, [valide]);
 
   // Onglets accessibles : flèches gauche/droite, Début et Fin.
   function onKeyDown(event: KeyboardEvent) {
@@ -75,11 +88,20 @@ export function Composer() {
 
         <div className={styles.colonnes}>
           <div role="tabpanel" id={`panneau-${onglet}`} aria-labelledby={`onglet-${onglet}`} className={styles.panneau}>
-            {onglet === 'web' ? <ConfigurateurWeb composer={composer} /> : <ConfigurateurInformatique composer={composer} />}
+            {onglet === 'web' ? (
+              <ConfigurateurWeb composer={composer} onValider={() => setValide(true)} />
+            ) : (
+              <ConfigurateurInformatique composer={composer} />
+            )}
           </div>
           <Apercu onglet={onglet} config={composer.etat.config} />
         </div>
       </Container>
+      {valide && onglet === 'web' && jointe && (
+        <div ref={formulaire}>
+          <ContactRapide titre={estimationTextes.formulaire.titre} intro={estimationTextes.formulaire.intro} estimation={jointe} />
+        </div>
+      )}
     </>
   );
 }

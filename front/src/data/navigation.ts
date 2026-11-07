@@ -24,6 +24,9 @@ export const informatiquePrefix = pages.informatique.path;
 /** Tous les appels à l'action mènent au formulaire de demande de devis. */
 export const lienDevis = pages.devis.path;
 
+/** L'estimation en ligne, proposée en second plan (page Devis, Tarifs). */
+export const lienEstimation = `${pages.composer.path}?onglet=web`;
+
 /** Pages métier, regroupées sous « Métiers » dans le menu. */
 export const metierLinks: NavLink[] = [
   { label: 'Artisan', to: pages.artisan.path },
@@ -100,7 +103,7 @@ export const mobileBar = {
   text: 'Devis gratuit, réponse sous 24 h',
   cta: { label: 'Demander', to: lienDevis },
   /** Pages où la barre est masquée : on y est déjà en train de demander un devis ou de prendre rendez-vous. */
-  hiddenOn: [pages.devis.path, pages.rendezVous.path] as string[],
+  hiddenOn: [pages.devis.path, pages.composer.path, pages.rendezVous.path] as string[],
   /** Débuts d'adresse où la barre est masquée : l'espace client. */
   hiddenUnder: [pages.monEspace.path] as string[],
 };

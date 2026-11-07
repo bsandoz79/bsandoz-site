@@ -76,9 +76,14 @@ export function Tarifs() {
       <section className="section section--white" aria-labelledby="appel-devis-titre">
         <Container className={styles.appel}>
           <SectionTitle id="appel-devis-titre" title={appelDevis.titre} intro={appelDevis.texte} />
-          <Link to={appelDevis.lien.to} className={buttonClassName({ size: 'lg' })}>
-            {appelDevis.lien.label}
-          </Link>
+          <div className={styles.appelActions}>
+            <Link to={appelDevis.lien.to} className={buttonClassName({ size: 'lg' })}>
+              {appelDevis.lien.label}
+            </Link>
+            <Link to={appelDevis.estimer.to} className={styles.estimer}>
+              {appelDevis.estimer.label}
+            </Link>
+          </div>
         </Container>
       </section>
 

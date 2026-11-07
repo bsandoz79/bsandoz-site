@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
-import { Button, PriceSummary, buttonClassName } from '@bsandoz79/blocs';
+import { Button, PriceSummary } from '@bsandoz79/blocs';
+import { BoutonRdv } from '../../components/BoutonRdv';
 import { calculerEstimation, comparaisonMarche, type Configuration } from '../../data/calculs';
 import { estimationTextes } from '../../data/configurateur';
-import { formatPrix, nomActivite, options } from '../../data/offres';
+import { formatPrix, nomActivite } from '../../data/offres';
 import { ComparaisonMarche } from './ComparaisonMarche';
 import styles from './Composer.module.css';
 
-type Props = { config: Configuration; onRecommencer: () => void };
+type Props = { config: Configuration; onRecommencer: () => void; onValider: () => void };
 
-/** Estimation détaillée : total, packs offerts, fourchette, délai, lignes, comparaison au marché. */
-export function Estimation({ config, onRecommencer }: Props) {
+/** Estimation détaillée : total, options incluses, fourchette, délai, lignes, comparaison au marché, validation. */
+export function Estimation({ config, onRecommencer, onValider }: Props) {
   const estimation = calculerEstimation(config);
   const total = formatPrix(estimation.total);
   const comparaison = comparaisonMarche(config.formule, config.options, estimation.total);
@@ -42,29 +42,13 @@ export function Estimation({ config, onRecommencer }: Props) {
       freeLabel={estimationTextes.offert}
       footnote={estimationTextes.footnote}
     >
-      {estimation.packs.length > 0 && (
-        <div className={styles.offert}>
-          <p className={styles.offertTitre}>
-            {estimationTextes.offert} : − {formatPrix(estimation.offert)}
-          </p>
-          <ul className={styles.offertListe}>
-            {estimation.packs.map((actif) => (
-              <li key={actif.pack.id}>
-                {actif.pack.nom} · {options[actif.offerte].nom} ({formatPrix(actif.valeur)})
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
       {comparaison && <ComparaisonMarche comparaison={comparaison} total={total} />}
       {config.metier ? (
         <div className={styles.actions}>
-          <Link to={estimationTextes.devis.to} className={buttonClassName({ block: true })}>
-            {estimationTextes.devis.label}
-          </Link>
-          <Link to={estimationTextes.rdv.to} className={`${buttonClassName({ block: true })} ${styles.outline}`}>
-            {estimationTextes.rdv.label}
-          </Link>
+          <Button block onClick={onValider}>
+            {estimationTextes.valider}
+          </Button>
+          <BoutonRdv to={estimationTextes.rdv.to} label={estimationTextes.rdv.label} block className={styles.rdvClair} />
         </div>
       ) : (
         <p className={styles.aide}>{estimationTextes.finirAvantDevis}</p>

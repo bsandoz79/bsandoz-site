@@ -49,6 +49,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/carte-position` : demande de position quand la carte apparaît, point sur la carte, message dans la zone / hors zone (frais kilométriques), bouton pour réactiver
 - [x] `feature/accueil-autonomie` : accueil recentré sur « un site que vous modifiez vous-même », bande des métiers, réalisations qui défilent (bloc `Showcase`), ce que vous recevez à la livraison
 - [x] `chore/retrait-simulation` : estimation retirée ; le devis devient un formulaire court (accueil et `/devis`), activité avec « Autre » à préciser
+- [x] `feature/estimation-retour` : estimation remise en second plan (métier tapé avec suggestions, options incluses selon la formule, aperçu « squelette », validation en demande de devis) ; bloc `Autocomplete`
 - [ ] `feature/exemples-outils` : maquettes d'outils (marquées « Exemple ») dans la vitrine des réalisations
 - ~~`feature/composer-etapes`~~ : sans objet (estimation retirée) : le configurateur s'affiche étape par étape et centre chaque nouvelle étape
 - [x] `feature/ordre-accueil` : fin de l'accueil Questions → Carte → Contact ; pas d'appel du pied de page sur l'accueil

@@ -1,27 +1,36 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, ChoiceChips, Container, TextField } from '@bsandoz79/blocs';
-import { activitesContact, contactRapide, type ActiviteContact } from '../../data/contact';
+import { Autocomplete, Button, Container, TextField } from '@bsandoz79/blocs';
+import { contactRapide } from '../../data/contact';
+import { nomsMetiers } from '../../data/metiersConnus';
 import { urlEnvoiDevis } from '../../data/devis';
-import { contact } from '../../data/navigation';
-import { construireEnvoiContact, messageVide, validerContact, type ErreursContact, type MessageContact } from './contact';
+import { contact, lienEstimation } from '../../data/navigation';
+import { construireEnvoiContact, messageVide, validerContact, type ErreursContact, type EstimationJointe, type MessageContact } from './contact';
 import { BoutonRdv } from '../BoutonRdv';
 import styles from './ContactRapide.module.css';
 
 const t = contactRapide;
 /** Un envoi par minute depuis le même navigateur (le serveur limite aussi). */
 const DELAI_MS = 60_000;
+/** Suggestions du champ « métier » : les métiers connus, et les particuliers (informatique sur place). */
+const SUGGESTIONS = [...nomsMetiers, 'Particulier'];
 
 type ContactRapideProps = {
   /** Titre de la section : celui des données par défaut. */
   titre?: string;
   /** 1 sur la page « Demande de devis », 2 en bas de l'accueil. */
   niveau?: 1 | 2;
+  /** Estimation validée : jointe à la demande, le projet devient facultatif. */
+  estimation?: EstimationJointe;
+  /** Texte d'introduction, celui des données par défaut. */
+  intro?: string;
+  /** Propose l'estimation en ligne sous l'introduction (page Devis). */
+  avecEstimation?: boolean;
 };
 
 /** Formulaire de contact, en carte : le formulaire à gauche, les autres moyens de contact à droite. */
-export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProps) {
-  const [message, setMessage] = useState<MessageContact>(messageVide);
+export function ContactRapide({ titre = t.titre, niveau = 2, estimation, intro = t.intro, avecEstimation = false }: ContactRapideProps) {
+  const [message, setMessage] = useState<MessageContact>(() => ({ ...messageVide, activite: estimation?.activite ?? '' }));
   const [erreurs, setErreurs] = useState<ErreursContact>({});
   const [statut, setStatut] = useState<'saisie' | 'envoi' | 'envoye' | 'echec' | 'trop-rapide'>('saisie');
   const [piege, setPiege] = useState('');
@@ -39,7 +48,7 @@ export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProp
 
   async function envoyer(event: FormEvent) {
     event.preventDefault();
-    const trouvees = validerContact(message);
+    const trouvees = validerContact(message, Boolean(estimation));
     setErreurs(trouvees);
     if (Object.keys(trouvees).length > 0) return;
     if (Date.now() - dernierEnvoi < DELAI_MS) {
@@ -48,7 +57,7 @@ export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProp
     }
     setStatut('envoi');
     try {
-      const reponse = await fetch(urlEnvoiDevis, { method: 'POST', body: construireEnvoiContact(message, piege) });
+      const reponse = await fetch(urlEnvoiDevis, { method: 'POST', body: construireEnvoiContact(message, piege, estimation) });
       if (reponse.status === 429) {
         setStatut('trop-rapide');
         return;
@@ -68,7 +77,12 @@ export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProp
           <Titre id="contact-rapide-titre" className={styles.titre}>
             {titre}
           </Titre>
-          <p className={styles.intro}>{t.intro}</p>
+          <p className={styles.intro}>{intro}</p>
+          {avecEstimation && (
+            <p className={styles.estimer}>
+              {t.estimer.texte} <Link to={lienEstimation}>{t.estimer.label}</Link>
+            </p>
+          )}
         </div>
 
         <div className={styles.carte}>
@@ -79,6 +93,19 @@ export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProp
             </div>
           ) : (
             <form className={styles.formulaire} onSubmit={envoyer} noValidate aria-labelledby="contact-rapide-titre">
+              {estimation && (
+                <div className={styles.estimation}>
+                  <p className={styles.estimationTitre}>{t.estimation}</p>
+                  <dl className={styles.estimationListe}>
+                    {estimation.lignes.map(([cle, valeur]) => (
+                      <div key={cle}>
+                        <dt>{cle}</dt>
+                        <dd>{valeur}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
               <div className={styles.deux}>
                 <TextField label={t.nom} required autoComplete="name" value={message.nom} error={erreurs.nom} onChange={(e) => maj({ nom: e.target.value })} />
                 <TextField label={t.entreprise} autoComplete="organization" value={message.entreprise} onChange={(e) => maj({ entreprise: e.target.value })} />
@@ -87,42 +114,23 @@ export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProp
                 <TextField label={t.email} type="email" required autoComplete="email" value={message.email} error={erreurs.email} onChange={(e) => maj({ email: e.target.value })} />
                 <TextField label={t.telephone} type="tel" required autoComplete="tel" value={message.telephone} error={erreurs.telephone} onChange={(e) => maj({ telephone: e.target.value })} />
               </div>
-              <div className={styles.champ}>
-                <ChoiceChips<ActiviteContact>
-                  legend={
-                    <>
-                      {t.activite}
-                      <span aria-hidden="true"> *</span>
-                    </>
-                  }
-                  name="contact-activite"
-                  choices={[...activitesContact]}
-                  value={message.activite || null}
-                  onChange={(activite) => maj({ activite })}
-                />
-                {erreurs.activite && (
-                  <p id="contact-activite-erreur" className={styles.erreur} role="alert">
-                    {erreurs.activite}
-                  </p>
-                )}
-              </div>
-              {message.activite === 'autre' && (
-                <TextField
-                  label={t.activiteAutre}
-                  placeholder={t.activiteAutreAide}
-                  required
-                  maxLength={80}
-                  value={message.activiteAutre}
-                  error={erreurs.activiteAutre}
-                  onChange={(e) => maj({ activiteAutre: e.target.value })}
-                />
-              )}
+              <Autocomplete
+                label={t.activite}
+                placeholder={t.activiteAide}
+                required
+                maxLength={80}
+                suggestions={SUGGESTIONS}
+                announce={t.suggestions}
+                value={message.activite}
+                error={erreurs.activite}
+                onChange={(activite) => maj({ activite })}
+              />
               <TextField
-                label={t.projet}
+                label={estimation ? t.precision : t.projet}
                 placeholder={t.projetAide}
                 multiline
-                rows={4}
-                required
+                rows={estimation ? 3 : 4}
+                required={!estimation}
                 value={message.projet}
                 error={erreurs.projet}
                 onChange={(e) => maj({ projet: e.target.value })}

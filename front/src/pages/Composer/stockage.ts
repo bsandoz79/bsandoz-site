@@ -56,7 +56,7 @@ export function lireEtat(brut: unknown): EtatComposer {
       metier,
       options: garderOptionsValides([...new Set(choix)], formule, metier),
       precisions: reponses,
-      ...(metier === 'autre' && typeof config.metierAutre === 'string' && config.metierAutre.trim()
+      ...(metier && typeof config.metierAutre === 'string' && config.metierAutre.trim()
         ? { metierAutre: config.metierAutre.slice(0, metierAutreTextes.max) }
         : {}),
     },

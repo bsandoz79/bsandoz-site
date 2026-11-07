@@ -39,6 +39,14 @@ describe('Header', () => {
     expect(within(mainNav()).getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
   });
 
+  it('une seule barre d’onglets sur la page d’estimation : la sienne', () => {
+    const { container, unmount } = renderAt(pages.tarifs.path);
+    expect(container.querySelector('header')!.className).not.toMatch(/sansOnglets/);
+    unmount();
+    const page = renderAt(pages.composer.path);
+    expect(page.container.querySelector('header')!.className).toMatch(/sansOnglets/);
+  });
+
   it('signale la page en cours', () => {
     renderAt(pages.tarifs.path);
     expect(within(mainNav()).getByRole('link', { name: 'Tarifs' })).toHaveAttribute('aria-current', 'page');

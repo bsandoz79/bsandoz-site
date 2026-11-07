@@ -10,7 +10,7 @@ C'est le seul formulaire du site. Il est à deux endroits :
 ## Le formulaire
 - **Champs obligatoires** : prénom et nom, e-mail, téléphone, domaine d'activité, projet (10 caractères au moins), consentement.
 - **Champ facultatif** : entreprise.
-- **Domaine d'activité** : des pastilles (`ChoiceChips`) : artisan, commerce, restauration, santé, profession libérale, particulier, autre. « Autre » ouvre le champ « Précisez votre activité ».
+- **Métier ou activité** : champ `Autocomplete` qui propose de finir le mot (liste `data/metiersConnus.ts`, plus « Particulier »). On peut aussi écrire librement.
 - **Anti-robots** :
   - un champ piège `site_web`, invisible ;
   - un envoi par minute depuis le navigateur ;
@@ -41,6 +41,9 @@ flowchart LR
   api --> admin["/admin et espace client"]
   api --> mail["Accusé de réception"]
 ```
+
+## Avec une estimation
+Depuis `/composer`, « Valider et recevoir mon devis » affiche le même formulaire avec la prop `estimation` (`EstimationJointe`). Le récapitulatif de l'estimation est affiché en tête. Le métier est pré-rempli, et le projet devient facultatif (« Une précision ? »). L'envoi joint le texte de l'estimation (`predevis`), que l'accusé de réception reprend. Sur `/devis`, un lien discret (`avecEstimation`) propose « Faire une estimation en ligne ».
 
 ## Comment l'appeler
 - **Composant** : `<ContactRapide />`, ou `<ContactRapide titre="Demande de devis" niveau={1} />` pour une page dédiée.

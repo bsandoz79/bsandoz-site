@@ -43,6 +43,12 @@ export const pages = {
       'Trois formules aux prix de départ affichés : vitrine, vitrine+ et site fonctionnel. Le prix exact sur devis, sous 24 h.',
     heading: 'Des prix clairs, selon ce dont vous avez vraiment besoin.',
   },
+  composer: {
+    path: '/composer',
+    title: 'Estimer mon site',
+    description: 'Estimez le prix de votre site en quelques clics, puis validez pour recevoir votre devis.',
+    heading: 'Estimez votre site en quelques clics.',
+  },
   realisations: {
     path: '/realisations',
     title: 'Réalisations',
