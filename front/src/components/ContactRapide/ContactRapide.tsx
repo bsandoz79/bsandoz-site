@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Container, TextField } from '@bsandoz79/blocs';
-import { besoinsContact, contactRapide, type BesoinContact } from '../../data/contact';
+import { Button, ChoiceChips, Container, TextField } from '@bsandoz79/blocs';
+import { activitesContact, contactRapide, type ActiviteContact } from '../../data/contact';
 import { urlEnvoiDevis } from '../../data/devis';
 import { contact } from '../../data/navigation';
 import { construireEnvoiContact, messageVide, validerContact, type ErreursContact, type MessageContact } from './contact';
@@ -11,13 +11,21 @@ const t = contactRapide;
 /** Un envoi par minute depuis le même navigateur (le serveur limite aussi). */
 const DELAI_MS = 60_000;
 
-/** Formulaire de contact rapide, en carte : le formulaire à gauche, les autres moyens de contact à droite. */
-export function ContactRapide() {
+type ContactRapideProps = {
+  /** Titre de la section : celui des données par défaut. */
+  titre?: string;
+  /** 1 sur la page « Demande de devis », 2 en bas de l'accueil. */
+  niveau?: 1 | 2;
+};
+
+/** Formulaire de contact, en carte : le formulaire à gauche, les autres moyens de contact à droite. */
+export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProps) {
   const [message, setMessage] = useState<MessageContact>(messageVide);
   const [erreurs, setErreurs] = useState<ErreursContact>({});
   const [statut, setStatut] = useState<'saisie' | 'envoi' | 'envoye' | 'echec' | 'trop-rapide'>('saisie');
   const [piege, setPiege] = useState('');
   const [dernierEnvoi, setDernierEnvoi] = useState(0);
+  const Titre = `h${niveau}` as const;
 
   const maj = (champ: Partial<MessageContact>) => {
     setMessage((m) => ({ ...m, ...champ }));
@@ -56,9 +64,9 @@ export function ContactRapide() {
     <section className={styles.section} aria-labelledby="contact-rapide-titre">
       <Container>
         <div className={styles.entete}>
-          <h2 id="contact-rapide-titre" className={styles.titre}>
-            {t.titre}
-          </h2>
+          <Titre id="contact-rapide-titre" className={styles.titre}>
+            {titre}
+          </Titre>
           <p className={styles.intro}>{t.intro}</p>
         </div>
 
@@ -70,39 +78,54 @@ export function ContactRapide() {
             </div>
           ) : (
             <form className={styles.formulaire} onSubmit={envoyer} noValidate aria-labelledby="contact-rapide-titre">
-              <TextField label={t.nom} placeholder={t.nom} required autoComplete="name" value={message.nom} error={erreurs.nom} onChange={(e) => maj({ nom: e.target.value })} />
               <div className={styles.deux}>
-                <TextField label={t.telephone} placeholder={t.telephone} type="tel" required autoComplete="tel" value={message.telephone} error={erreurs.telephone} onChange={(e) => maj({ telephone: e.target.value })} />
-                <TextField label={t.email} placeholder={t.email} type="email" required autoComplete="email" value={message.email} error={erreurs.email} onChange={(e) => maj({ email: e.target.value })} />
+                <TextField label={t.nom} required autoComplete="name" value={message.nom} error={erreurs.nom} onChange={(e) => maj({ nom: e.target.value })} />
+                <TextField label={t.entreprise} autoComplete="organization" value={message.entreprise} onChange={(e) => maj({ entreprise: e.target.value })} />
+              </div>
+              <div className={styles.deux}>
+                <TextField label={t.email} type="email" required autoComplete="email" value={message.email} error={erreurs.email} onChange={(e) => maj({ email: e.target.value })} />
+                <TextField label={t.telephone} type="tel" required autoComplete="tel" value={message.telephone} error={erreurs.telephone} onChange={(e) => maj({ telephone: e.target.value })} />
               </div>
               <div className={styles.champ}>
-                <label htmlFor="contact-besoin" className={styles.label}>
-                  {t.besoin}
-                  <span aria-hidden="true"> *</span>
-                </label>
-                <select
-                  id="contact-besoin"
-                  className={styles.select}
-                  required
-                  value={message.besoin}
-                  onChange={(e) => maj({ besoin: e.target.value as BesoinContact })}
-                  aria-invalid={erreurs.besoin ? true : undefined}
-                  aria-describedby={erreurs.besoin ? 'contact-besoin-erreur' : undefined}
-                >
-                  <option value="">{t.choisir}</option>
-                  {besoinsContact.map((b) => (
-                    <option key={b.value} value={b.value}>
-                      {b.label}
-                    </option>
-                  ))}
-                </select>
-                {erreurs.besoin && (
-                  <p id="contact-besoin-erreur" className={styles.erreur}>
-                    {erreurs.besoin}
+                <ChoiceChips<ActiviteContact>
+                  legend={
+                    <>
+                      {t.activite}
+                      <span aria-hidden="true"> *</span>
+                    </>
+                  }
+                  name="contact-activite"
+                  choices={[...activitesContact]}
+                  value={message.activite || null}
+                  onChange={(activite) => maj({ activite })}
+                />
+                {erreurs.activite && (
+                  <p id="contact-activite-erreur" className={styles.erreur} role="alert">
+                    {erreurs.activite}
                   </p>
                 )}
               </div>
-              <TextField label={t.projet} placeholder={t.projetAide} multiline rows={4} value={message.projet} onChange={(e) => maj({ projet: e.target.value })} />
+              {message.activite === 'autre' && (
+                <TextField
+                  label={t.activiteAutre}
+                  placeholder={t.activiteAutreAide}
+                  required
+                  maxLength={80}
+                  value={message.activiteAutre}
+                  error={erreurs.activiteAutre}
+                  onChange={(e) => maj({ activiteAutre: e.target.value })}
+                />
+              )}
+              <TextField
+                label={t.projet}
+                placeholder={t.projetAide}
+                multiline
+                rows={4}
+                required
+                value={message.projet}
+                error={erreurs.projet}
+                onChange={(e) => maj({ projet: e.target.value })}
+              />
 
               {/* Champ piège anti-robots : invisible et ignoré par les lecteurs d'écran. */}
               <div className={styles.piege} aria-hidden="true">
@@ -163,9 +186,6 @@ export function ContactRapide() {
             </ul>
             <Link to={t.aCote.rendezVous.to} className={styles.lienFort}>
               {t.aCote.rendezVous.label} →
-            </Link>
-            <Link to={t.aCote.devis.to} className={styles.lienDiscret}>
-              {t.aCote.devis.label}
             </Link>
           </aside>
         </div>

@@ -37,7 +37,7 @@ Au build du site : `VITE_DEVIS_URL=https://api.client.fr/demandes`.
 **À modifier dans le code** :
 - `src/Prospect/Infrastructure/Pdf/DevisPdf.php` : « Création de sites web & développement » et « TVA non applicable, art. 293 B du CGI » sont écrits en dur. Ce sont **mes** mentions : un client soumis à la TVA ne peut pas les garder. Faire vérifier ses mentions obligatoires.
 - `src/Prospect/Infrastructure/Mail/NotificationsProspectParMail.php` : l'accusé de réception annonce le suivi dans l'espace client. **Sans espace client, retirer cette phrase**, sinon le lien mène à une page inexistante.
-- Le pré-devis : mêmes précautions que [Devis par mail](devis-par-mail.md), c'est le site qui l'envoie.
+- Le formulaire : mêmes réglages que [Devis par mail](devis-par-mail.md) (textes et activités dans `data/contact.ts`).
 
 ## Base de données
 Trois tables, `prospect_demande`, `prospect_devis` et `prospect_message`, créées par les migrations.
