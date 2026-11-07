@@ -2,22 +2,24 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { pages } from '../../data/pages';
-import { construireEnvoiContact, messageVide, validerContact } from './contact';
+import { construireEnvoiContact, messageVide, nomActiviteContact, validerContact, type MessageContact } from './contact';
 import { ContactRapide } from './ContactRapide';
 import { urlEnvoiDevis } from '../../data/devis';
 
-const complet = {
+const complet: MessageContact = {
   nom: 'Marie Dupont',
+  entreprise: 'Dupont Jardins',
   telephone: '06 12 34 56 78',
   email: 'marie@exemple.fr',
-  besoin: 'fonctionnel' as const,
+  activite: 'artisan',
+  activiteAutre: '',
   projet: 'Je suis paysagiste, je voudrais que mes clients réservent en ligne.',
   consentement: true,
 };
 
 describe('validerContact', () => {
-  it('signale chaque champ manquant ou invalide', () => {
-    expect(Object.keys(validerContact(messageVide))).toEqual(['nom', 'telephone', 'email', 'besoin', 'consentement']);
+  it('signale chaque champ obligatoire manquant ou invalide', () => {
+    expect(Object.keys(validerContact(messageVide))).toEqual(['nom', 'telephone', 'email', 'activite', 'projet', 'consentement']);
     expect(validerContact({ ...complet, telephone: '12', email: 'x@y' })).toEqual({
       telephone: 'Numéro de téléphone invalide.',
       email: 'Adresse e-mail invalide.',
@@ -25,23 +27,29 @@ describe('validerContact', () => {
     expect(validerContact(complet)).toEqual({});
   });
 
-  it('accepte un projet vide (le besoin suffit)', () => {
-    expect(validerContact({ ...complet, projet: '' })).toEqual({});
+  it('l’entreprise est facultative ; « Autre » demande de préciser l’activité', () => {
+    expect(validerContact({ ...complet, entreprise: '' })).toEqual({});
+    expect(validerContact({ ...complet, activite: 'autre' })).toEqual({ activiteAutre: 'Précisez votre activité en quelques mots.' });
+    expect(validerContact({ ...complet, activite: 'autre', activiteAutre: 'Avocat' })).toEqual({});
   });
 });
 
 describe('construireEnvoiContact', () => {
-  it('reprend le contrat de la demande de devis (même destination, même accusé de réception)', () => {
+  it('envoie à l’API le même contrat qu’avant, sans pré-devis', () => {
     const donnees = construireEnvoiContact(complet, '');
     expect(donnees.get('nom')).toBe('Marie Dupont');
-    expect(donnees.get('email')).toBe('marie@exemple.fr');
-    expect(donnees.get('telephone')).toBe('06 12 34 56 78');
-    expect(donnees.get('titre')).toBe('Un site avec rendez-vous, devis ou boutique');
-    expect(donnees.get('site_web')).toBe('');
+    expect(donnees.get('entreprise')).toBe('Dupont Jardins');
+    expect(donnees.get('titre')).toBe('Projet · Artisan, bâtiment');
+    expect(donnees.get('predevis')).toBe('');
     const recapitulatif = String(donnees.get('recapitulatif'));
-    expect(recapitulatif).toContain('Origine : Formulaire de contact rapide');
+    expect(recapitulatif).toContain('Activité : Artisan, bâtiment');
     expect(recapitulatif).toContain('Projet : Je suis paysagiste');
     expect(recapitulatif.length).toBeGreaterThanOrEqual(20);
+  });
+
+  it('reprend l’activité précisée pour « Autre »', () => {
+    expect(nomActiviteContact({ activite: 'autre', activiteAutre: ' Avocat ' })).toBe('Avocat');
+    expect(construireEnvoiContact({ ...complet, activite: 'autre', activiteAutre: 'Avocat' }, '').get('titre')).toBe('Projet · Avocat');
   });
 
   it('transmet le champ piège tel quel (le serveur ignore alors la demande)', () => {
@@ -59,9 +67,10 @@ describe('ContactRapide', () => {
 
   async function remplir(user: ReturnType<typeof userEvent.setup>) {
     await user.type(screen.getByRole('textbox', { name: /Prénom et nom/ }), complet.nom);
-    await user.type(screen.getByRole('textbox', { name: /Téléphone/ }), complet.telephone);
+    await user.type(screen.getByRole('textbox', { name: /Entreprise/ }), complet.entreprise);
     await user.type(screen.getByRole('textbox', { name: /E-mail/ }), complet.email);
-    await user.selectOptions(screen.getByRole('combobox', { name: /Votre besoin/ }), 'fonctionnel');
+    await user.type(screen.getByRole('textbox', { name: /Téléphone/ }), complet.telephone);
+    await user.click(screen.getByRole('radio', { name: 'Artisan, bâtiment' }));
     await user.type(screen.getByRole('textbox', { name: /Votre projet/ }), complet.projet);
     await user.click(screen.getByRole('checkbox', { name: /J'accepte/ }));
   }
@@ -74,27 +83,39 @@ describe('ContactRapide', () => {
     vi.stubGlobal('fetch', fetchMock);
     afficher();
 
-    await user.click(screen.getByRole('button', { name: 'Envoyer' }));
+    await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
     expect(screen.getByText('Indiquez votre nom.')).toBeInTheDocument();
-    expect(screen.getByText('Choisissez votre besoin.')).toBeInTheDocument();
-    expect(screen.getByRole('combobox', { name: /Votre besoin/ })).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText('Choisissez votre domaine d’activité.')).toBeInTheDocument();
+    expect(screen.getByText('Décrivez votre projet en quelques mots.')).toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('envoie le message et remercie', async () => {
+  it('« Autre » ouvre un champ pour préciser l’activité', async () => {
+    const user = userEvent.setup();
+    vi.stubGlobal('fetch', vi.fn());
+    afficher();
+    expect(screen.queryByRole('textbox', { name: /Précisez votre activité/ })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: 'Autre' }));
+    await user.type(screen.getByRole('textbox', { name: /Précisez votre activité/ }), 'Avocat');
+    expect(screen.getByRole('textbox', { name: /Précisez votre activité/ })).toHaveValue('Avocat');
+  });
+
+  it('envoie la demande et remercie', async () => {
     const user = userEvent.setup();
     const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
     vi.stubGlobal('fetch', fetchMock);
     afficher();
 
     await remplir(user);
-    await user.click(screen.getByRole('button', { name: 'Envoyer' }));
+    await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
     expect(await screen.findByRole('status')).toHaveTextContent('Merci, c’est bien reçu !');
     expect(fetchMock).toHaveBeenCalledWith(urlEnvoiDevis, expect.objectContaining({ method: 'POST' }));
-    expect((fetchMock.mock.calls[0][1].body as FormData).get('titre')).toBe('Un site avec rendez-vous, devis ou boutique');
-  });
+    const envoi = fetchMock.mock.calls[0][1].body as FormData;
+    expect(envoi.get('titre')).toBe('Projet · Artisan, bâtiment');
+    expect(envoi.get('entreprise')).toBe('Dupont Jardins');
+  }, 15_000);
 
   it('signale un échec et garde les réponses', async () => {
     const user = userEvent.setup();
@@ -102,11 +123,11 @@ describe('ContactRapide', () => {
     afficher();
 
     await remplir(user);
-    await user.click(screen.getByRole('button', { name: 'Envoyer' }));
+    await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('L’envoi n’a pas abouti.');
     expect(screen.getByRole('textbox', { name: /Prénom et nom/ })).toHaveValue('Marie Dupont');
-  });
+  }, 15_000);
 
   it('demande de patienter quand le serveur limite les envois', async () => {
     const user = userEvent.setup();
@@ -114,16 +135,15 @@ describe('ContactRapide', () => {
     afficher();
 
     await remplir(user);
-    await user.click(screen.getByRole('button', { name: 'Envoyer' }));
+    await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Merci de patienter une minute');
-  });
+  }, 15_000);
 
-  it('propose aussi l’e-mail, le rendez-vous et le devis détaillé', () => {
+  it('propose aussi l’e-mail et le rendez-vous', () => {
     vi.stubGlobal('fetch', vi.fn());
     afficher();
     expect(screen.getByRole('link', { name: /contact@bsandoz.fr/ })).toHaveAttribute('href', 'mailto:contact@bsandoz.fr');
     expect(screen.getByRole('link', { name: /Prendre un rendez-vous gratuit/ })).toHaveAttribute('href', pages.rendezVous.path);
-    expect(screen.getByRole('link', { name: 'Ou décrivez votre projet en détail' })).toHaveAttribute('href', pages.devis.path);
   });
 });

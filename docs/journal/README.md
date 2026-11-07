@@ -121,3 +121,4 @@ Types de tests :
 | 90 | [Chiffre d'affaires dans les statistiques](90-feature-ca-statistiques.md) | `feature/ca-statistiques` | 2026-11-06 |
 | 91 | [Retrait des cartes des autres besoins](91-fix-retrait-cibles.md) | `fix/retrait-cibles` | 2026-11-07 |
 | 92 | [Accueil : un site que vous modifiez vous-même](92-feature-accueil-autonomie.md) | `feature/accueil-autonomie` | 2026-11-07 |
+| 93 | [Retrait de l'estimation, devis en formulaire court](93-chore-retrait-simulation.md) | `chore/retrait-simulation` | 2026-11-07 |

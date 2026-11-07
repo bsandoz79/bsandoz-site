@@ -57,7 +57,7 @@ export const adminTextes = {
   },
   prix: {
     titre: 'Prix du site',
-    aide: 'En euros entiers. Tarifs, configurateur, FAQ et pré-devis suivent ces prix, au plus tard 5 minutes après l’enregistrement. Un devis déjà envoyé ne change pas.',
+    aide: 'En euros entiers. Tarifs, pages métier et FAQ suivent ces prix, au plus tard 5 minutes après l’enregistrement. Un devis déjà envoyé ne change pas.',
     formules: 'Formules',
     options: 'Options',
     base: (prix: string) => `Prix d’origine : ${prix}`,

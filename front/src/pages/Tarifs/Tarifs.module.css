@@ -121,3 +121,11 @@
   letter-spacing: 0.02em;
   opacity: 0.8;
 }
+
+/* Appel au devis, à la place de l'ancien simulateur. */
+.appel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}

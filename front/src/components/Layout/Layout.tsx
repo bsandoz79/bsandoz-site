@@ -10,7 +10,7 @@ import styles from './Layout.module.css';
 
 /**
  * Mise en page commune à toutes les pages : lien d'évitement, en-tête, contenu,
- * pied de page, barre « Estimer » sur mobile, bouton « revenir en haut » et bandeau des services tiers.
+ * pied de page, barre « Demander un devis » sur mobile, bouton « revenir en haut » et bandeau des services tiers.
  */
 export function Layout() {
   const { pathname, hash } = useLocation();

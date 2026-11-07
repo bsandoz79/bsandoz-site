@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
-import { header, informatiquePrefix, lienEstimer, metierLinks, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
-import { pages } from '../../data/pages';
+import { header, informatiquePrefix, metierLinks, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
 import styles from './Header.module.css';
 import { ThemeToggle } from '../ThemeToggle';
 import { useMasquageAuDefilement } from './useMasquageAuDefilement';
@@ -51,8 +50,6 @@ export function Header() {
 
   const [firstLink, ...otherLinks] = header.links;
   const inInformatique = pathname.startsWith(informatiquePrefix);
-  // Le configurateur a ses propres onglets « Sites & applis / Informatique sur place » : pas de seconde barre.
-  const sansOnglets = pathname === pages.composer.path;
   const metiersActive = metierLinks.some((item) => item.to === pathname);
 
   // Un clic en dehors du sous-menu « Métiers » le referme.
@@ -78,7 +75,7 @@ export function Header() {
 
   return (
     <header
-      className={[styles.header, etat, decolle ? styles.decolle : '', sansOnglets ? styles.sansOnglets : ''].filter(Boolean).join(' ')}
+      className={[styles.header, etat, decolle ? styles.decolle : ''].filter(Boolean).join(' ')}
       onKeyDown={onKeyDown}
       onFocus={() => setFocusDedans(true)}
       onBlur={(event) => {
@@ -175,7 +172,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <Link to={lienEstimer(pathname)} className={buttonClassName({ className: styles.cta })}>
+          <Link to={header.cta.to} className={buttonClassName({ className: styles.cta })}>
             {header.cta.label}
           </Link>
           {/* Dans le menu du téléphone : le lien en toutes lettres. Sur ordinateur, il est dans la barre. */}

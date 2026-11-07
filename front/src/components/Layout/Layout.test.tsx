@@ -21,7 +21,7 @@ describe('Layout', () => {
     expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(screen.getByRole('main')).toHaveTextContent('Accueil');
     expect(screen.getByRole('contentinfo')).toBeInTheDocument();
-    expect(screen.getByRole('complementary', { name: 'Estimation rapide' })).toBeInTheDocument();
+    expect(screen.getByRole('complementary', { name: 'Demande de devis' })).toBeInTheDocument();
   });
 
   it("va jusqu'à l'ancre demandée dans l'adresse", () => {

@@ -36,7 +36,7 @@ Dans les deux cas, le code est copié pour **ce** client : pas de paquet privé 
 | Enregistrer et numéroter ses demandes | [Demandes de devis](demandes-de-devis.md) | oui |
 | Un espace client : compte, rendez-vous, devis | [Espace client](espace-client.md) | oui |
 
-Le configurateur et les pages de contenu sont propres à bsandoz.fr : ils ne se copient pas, on les réécrit avec les blocs.
+Les pages de contenu sont propres à bsandoz.fr : ils ne se copient pas, on les réécrit avec les blocs.
 
 ```mermaid
 flowchart TD

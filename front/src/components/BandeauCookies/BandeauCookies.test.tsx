@@ -61,7 +61,7 @@ describe('BandeauCookies', () => {
     const { unmount } = renderBandeau('/');
     expect(region()!.className).toMatch(/auDessusBarre/);
     unmount();
-    renderBandeau(pages.composer.path);
+    renderBandeau(pages.devis.path);
     expect(region()!.className).not.toMatch(/auDessusBarre/);
   });
 });

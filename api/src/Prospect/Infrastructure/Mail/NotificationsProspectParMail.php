@@ -44,7 +44,7 @@ final class NotificationsProspectParMail implements NotificationsProspect
         $d = $demande->demandeur;
         $estimation = $demande->predevis !== ''
             ? "Voici une première estimation, calculée d'après vos réponses. Je vous réponds sous 24 h pour la confirmer ou l'ajuster.\n\n{$demande->predevis}\n\n"
-            : "Je vous réponds sous 24 h avec une première estimation.\n\n";
+            : "Je vous réponds sous 24 h avec une proposition.\n\n";
 
         $this->mailer->send($this->duFil($demande, $d->email, $demande->predevis !== ''
             ? "Votre demande n° {$demande->numero} et une première estimation"

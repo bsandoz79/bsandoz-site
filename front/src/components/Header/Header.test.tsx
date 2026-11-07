@@ -31,20 +31,12 @@ describe('Header', () => {
       expect(nav.getByRole('link', { name })).toBeInTheDocument();
     }
     expect(nav.getByRole('link', { name: 'Portfolio' })).toHaveAttribute('href', 'https://portfolio.bsandoz.fr');
-    expect(nav.getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+    expect(nav.getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
   });
 
-  it('« Estimer mon projet » ouvre l’onglet de la page où l’on est', () => {
+  it('« Demander un devis » mène au formulaire, quelle que soit la page', () => {
     renderAt(pages.informatique.path);
-    expect(within(mainNav()).getByRole('link', { name: 'Estimer mon projet' })).toHaveAttribute('href', `${pages.composer.path}?onglet=informatique`);
-  });
-
-  it('une seule barre d’onglets sur la page Estimer : celle du configurateur', () => {
-    const { container, unmount } = renderAt(pages.tarifs.path);
-    expect(container.querySelector('header')!.className).not.toMatch(/sansOnglets/);
-    unmount();
-    const page = renderAt(pages.composer.path);
-    expect(page.container.querySelector('header')!.className).toMatch(/sansOnglets/);
+    expect(within(mainNav()).getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
   });
 
   it('signale la page en cours', () => {

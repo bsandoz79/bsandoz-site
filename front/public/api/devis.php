@@ -120,7 +120,7 @@ $pourClient = "Bonjour $nom,\n\n"
     . ($predevis !== ''
         ? "Merci pour votre demande, je l'ai bien reçue. Voici une première estimation, calculée d'après vos réponses. "
             . "Je vous réponds sous 24 h pour la confirmer ou l'ajuster.\n\n$predevis\n\n"
-        : "Merci pour votre demande. Je l'ai bien reçue et je vous réponds sous 24 h avec une première estimation.\n\n")
+        : "Merci pour votre demande. Je l'ai bien reçue et je vous réponds sous 24 h avec une proposition.\n\n")
     . "Pour rappel, voici ce que vous m'avez indiqué :\n\n$recapitulatif\n\n"
     . "Pour ajouter une précision, répondez simplement à cet e-mail.\n\n"
     . "Baptiste Sandoz\nbsandoz.fr";

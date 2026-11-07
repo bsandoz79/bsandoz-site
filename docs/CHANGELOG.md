@@ -1,6 +1,17 @@
 # Journal des modifications
 
 ## [Non publié]
+### Retiré
+- L'estimation en ligne : la page Estimer (`/composer`), le simulateur de la page Tarifs, le pré-devis chiffré et la fenêtre « reprendre là où vous en étiez ». L'ancienne adresse `/composer` mène au devis.
+
+### Modifié (devis)
+- La demande de devis devient un formulaire court, le même en bas de l'accueil et sur `/devis` :
+  - prénom et nom, entreprise (facultatif), e-mail, téléphone ;
+  - domaine d'activité, où « Autre » ouvre un champ pour le préciser ;
+  - le projet en quelques lignes.
+- Tous les boutons mènent à « Demander un devis ». La page Tarifs garde les prix de départ et invite à demander un devis.
+- Accusé de réception (API et `devis.php`) : « Je vous réponds sous 24 h avec une proposition. »
+
 ### Modifié (accueil)
 - Accueil recentré sur une promesse : « Un site à vous, que vous modifiez vous-même. » Ordre : haut de page, bande des métiers qui ont besoin d'un site (« Vous avez une entreprise, mais pas encore de site ? »), « Votre site, vous le modifiez vous-même », réalisations qui défilent, méthode, « Ce que vous recevez à la livraison », questions fréquentes, carte, contact.
 - Le bouton principal de l'accueil mène à la demande de devis.

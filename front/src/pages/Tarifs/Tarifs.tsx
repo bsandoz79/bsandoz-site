@@ -1,4 +1,5 @@
-import { Card, Container, SectionTitle } from '@bsandoz79/blocs';
+import { Link } from 'react-router-dom';
+import { Card, Container, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { StructuredData } from '../../components/StructuredData';
 import { Complements } from '../../components/Complements';
@@ -7,11 +8,10 @@ import { BlocModifiable } from '../../components/BlocModifiable';
 import { A_PARTIR_DE, formatPrix, formules, mentionsPrix } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { jsonLdOffres } from '../../data/seo';
-import { apresMiseEnLigne, contenuFormules, formulesSection, intro, pourquoiFonctionnel } from '../../data/tarifs';
-import { Simulateur } from './Simulateur';
+import { apresMiseEnLigne, appelDevis, contenuFormules, formulesSection, intro, pourquoiFonctionnel } from '../../data/tarifs';
 import styles from './Tarifs.module.css';
 
-/** Page Tarifs : formules, explication du prix du fonctionnel, simulateur, après la mise en ligne. */
+/** Page Tarifs : prix de départ des formules, explication du prix du fonctionnel, appel au devis, après la mise en ligne. */
 export function Tarifs() {
   const page = pages.tarifs;
 
@@ -73,9 +73,12 @@ export function Tarifs() {
         </Container>
       </section>
 
-      <section className="section section--white" aria-labelledby="simulateur-titre">
-        <Container>
-          <Simulateur />
+      <section className="section section--white" aria-labelledby="appel-devis-titre">
+        <Container className={styles.appel}>
+          <SectionTitle id="appel-devis-titre" title={appelDevis.titre} intro={appelDevis.texte} />
+          <Link to={appelDevis.lien.to} className={buttonClassName({ size: 'lg' })}>
+            {appelDevis.lien.label}
+          </Link>
         </Container>
       </section>
 
