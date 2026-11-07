@@ -76,6 +76,7 @@ Liste complète : `src/styles/base.css`. Les classes des blocs sont préfixées 
 | `Reveal` | apparition au défilement |
 | `RotatingWords` | mots qui défilent |
 | `SectionTitle` | sur-titre, titre, introduction |
+| `Showcase` | vitrine de cartes qui défile, avec pause |
 | `SitePreview` | aperçu dessiné d'un site d'exemple |
 | `Stepper` | étapes et progression |
 | `TextField` | champ avec libellé, aide et erreur |

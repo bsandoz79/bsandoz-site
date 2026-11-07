@@ -120,3 +120,4 @@ Types de tests :
 | 89 | [Parcours de la page À propos](89-chore-apropos-parcours.md) | `chore/apropos-parcours` | 2026-11-06 |
 | 90 | [Chiffre d'affaires dans les statistiques](90-feature-ca-statistiques.md) | `feature/ca-statistiques` | 2026-11-06 |
 | 91 | [Retrait des cartes des autres besoins](91-fix-retrait-cibles.md) | `fix/retrait-cibles` | 2026-11-07 |
+| 92 | [Accueil : un site que vous modifiez vous-même](92-feature-accueil-autonomie.md) | `feature/accueil-autonomie` | 2026-11-07 |

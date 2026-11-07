@@ -41,12 +41,39 @@
   font-weight: 600;
 }
 
+/* Liste simple, sans cartes : un trait au-dessus de chaque point. */
+.liste {
+  display: grid;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste > li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Vitrine pleine largeur ; le bouton pause reste aligné sur le contenu. */
+.vitrine {
+  margin-top: var(--space-5);
+}
+
+.vitrine > button {
+  margin-inline-end: max(var(--space-5), calc((100% - var(--container)) / 2 + var(--space-5)));
+}
+
 .note {
   color: var(--color-text-muted);
   font-size: var(--text-sm);
 }
 
 @media (min-width: 640px) {
+  .liste,
   .grid4 {
     grid-template-columns: repeat(2, 1fr);
   }

@@ -110,7 +110,34 @@ La page Rendez-vous accepte donc toute adresse trouvée :
 - au-delà, elle annonce les km facturés et le montant.
 
 ## Photo en rideau
-`components/Rideau` entoure la photo de Baptiste (section « Pourquoi moi » de l'accueil, page À propos). La première fois que la photo est visible à 35 %, il ajoute `anim-rideau--ouvert` : deux panneaux aux couleurs du site s'écartent vers les côtés en 1 s, et la photo se pose avec un léger zoom. L'effet n'a lieu qu'une fois. Si l'animation est réduite, il n'y a pas de panneaux ; sans IntersectionObserver, la photo est visible tout de suite. Tests : `Rideau.test.tsx`.
+`components/Rideau` entoure la photo de Baptiste sur la page À propos. La première fois que la photo est visible à 35 %, il ajoute `anim-rideau--ouvert` : deux panneaux aux couleurs du site s'écartent vers les côtés en 1 s, et la photo se pose avec un léger zoom. L'effet n'a lieu qu'une fois. Si l'animation est réduite, il n'y a pas de panneaux ; sans IntersectionObserver, la photo est visible tout de suite. Tests : `Rideau.test.tsx`.
 
 ## Parcours de la page À propos
 Texte dans `aPropos.parcours.paragraphes` (`data/apropos.ts`), un paragraphe par entrée, tiré du portfolio. Ce qui vise un recruteur (recherche d'alternance) n'y figure pas. Tests : `APropos.test.tsx`.
+
+## Accueil : un site que le client modifie lui-même
+L'accueil s'appuie sur une idée : une fois livré, le site appartient au client et il le modifie sans coder (édition par bloc, voir `back-office.md`). Les textes ne promettent que ce qui marche : textes, photos et prix. Ajouter une page ou changer le menu reste du ressort de Baptiste, et la page le dit.
+
+Sections, dans l'ordre (`pages/Home/Home.tsx`, données dans `data/accueil.ts`) :
+1. `Hero` : promesse, prix de départ d'un site, « Demander un devis », réalisations, rendez-vous.
+2. `Metiers` (`metiers`) : question, puis une bande `Marquee` de métiers.
+3. `Autonomie` (`autonomie`) : ce que le client change seul.
+4. `Realisations` (`realisationsSection`) : les projets de `data/realisations.ts` dans le bloc `Showcase`, sur toute la largeur.
+5. `Methode` (`methode`), puis `Livraison` (`livraison`).
+6. FAQ, carte des zones, contact rapide.
+
+Chaque section est un bloc modifiable (`accueil.metiers`, `accueil.autonomie`, `accueil.livraison`…).
+
+```mermaid
+flowchart TB
+  data["data/accueil.ts"] --> hero["Hero"]
+  data --> metiers["Metiers<br/>(Marquee)"]
+  data --> auto["Autonomie"]
+  real["data/realisations.ts"] --> vitrine["Realisations<br/>(Showcase)"]
+  data --> methode["Methode"]
+  data --> livraison["Livraison"]
+  hero --> devis["/devis"]
+  vitrine --> projet["/realisations/…"]
+```
+
+Tests : `Home.test.tsx` (ordre des sections, bande, autonomie, vitrine sans doublon lu, livraison) et `Showcase.test.tsx`.

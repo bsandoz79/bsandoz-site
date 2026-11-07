@@ -134,11 +134,11 @@ describe('BlocModifiable', () => {
     window.localStorage.setItem(CLE_SESSION, '1');
     const { envois } = api();
     render(
-      <BlocModifiable id="accueil.pourquoi">
+      <BlocModifiable id="accueil.hero">
         <Photo />
       </BlocModifiable>,
     );
-    await user.click(await crayon('Pourquoi travailler avec moi'));
+    await user.click(await crayon('Haut de page'));
     const fenetre = await panneau();
     await user.upload(fenetre.querySelector('input[type="file"]') as HTMLInputElement, new File(['x'], 'photo.png', { type: 'image/png' }));
     await waitFor(() => expect(envois['/backoffice/images']).toEqual([{ image: 'QUJD' }]));
