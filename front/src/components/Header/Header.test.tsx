@@ -15,7 +15,6 @@ function renderAt(path: string) {
 }
 
 const menuButton = () => screen.getByRole('button', { name: /le menu/ });
-const metiersButton = () => screen.getByRole('button', { name: 'Métiers' });
 const mainNav = () => screen.getByRole('navigation', { name: 'Navigation principale' });
 
 describe('Header', () => {
@@ -24,13 +23,16 @@ describe('Header', () => {
     expect(screen.getByRole('link', { name: 'Baptiste Sandoz' })).toHaveAttribute('href', '/');
   });
 
-  it('affiche les liens du menu et le bouton « Estimer mon projet »', () => {
+  it('affiche les liens du menu, « Estimer » en simple lien, et le bouton « Demander un devis »', () => {
     renderAt('/');
     const nav = within(mainNav());
-    for (const name of ['Réalisations', 'Tarifs', 'À propos', 'Portfolio']) {
+    for (const name of ['Réalisations', 'Tarifs', 'À propos']) {
       expect(nav.getByRole('link', { name })).toBeInTheDocument();
     }
-    expect(nav.getByRole('link', { name: 'Portfolio' })).toHaveAttribute('href', 'https://portfolio.bsandoz.fr');
+    expect(nav.getByRole('link', { name: 'Estimer' })).toHaveAttribute('href', `${pages.composer.path}?onglet=web`);
+    // Les métiers et le portfolio sont dans le pied de page.
+    expect(nav.queryByRole('button', { name: 'Métiers' })).not.toBeInTheDocument();
+    expect(nav.queryByRole('link', { name: 'Portfolio' })).not.toBeInTheDocument();
     expect(nav.getByRole('link', { name: 'Demander un devis' })).toHaveAttribute('href', pages.devis.path);
   });
 
@@ -101,51 +103,6 @@ describe('Header', () => {
       await user.click(menuButton());
       await user.click(within(mainNav()).getByRole('link', { name: 'Tarifs' }));
       expect(menuButton()).toHaveAttribute('aria-expanded', 'false');
-    });
-  });
-
-  describe('sous-menu Métiers', () => {
-    it('est replié par défaut et se déplie au clic', async () => {
-      const user = userEvent.setup();
-      renderAt('/');
-      expect(metiersButton()).toHaveAttribute('aria-expanded', 'false');
-      expect(screen.queryByRole('link', { name: 'Artisan' })).not.toBeInTheDocument();
-
-      await user.click(metiersButton());
-      expect(metiersButton()).toHaveAttribute('aria-expanded', 'true');
-      expect(screen.getByRole('link', { name: 'Artisan' })).toHaveAttribute('href', pages.artisan.path);
-      expect(screen.getByRole('link', { name: 'Commerce' })).toHaveAttribute('href', pages.ecommerce.path);
-      expect(screen.getByRole('link', { name: 'Restaurant' })).toHaveAttribute('href', pages.restaurant.path);
-      expect(screen.getByRole('link', { name: 'Santé et bien-être' })).toHaveAttribute(
-        'href',
-        pages.independant.path,
-      );
-    });
-
-    it('se replie avec Échap et rend le focus au bouton Métiers', async () => {
-      const user = userEvent.setup();
-      renderAt('/');
-      await user.click(metiersButton());
-      await user.keyboard('{Escape}');
-      expect(metiersButton()).toHaveAttribute('aria-expanded', 'false');
-      expect(metiersButton()).toHaveFocus();
-    });
-
-    it('se replie au clic en dehors', async () => {
-      const user = userEvent.setup();
-      renderAt('/');
-      await user.click(metiersButton());
-      await user.click(screen.getByRole('link', { name: 'Baptiste Sandoz' }));
-      expect(metiersButton()).toHaveAttribute('aria-expanded', 'false');
-    });
-
-    it('se replie après avoir choisi un métier, qui est alors signalé', async () => {
-      const user = userEvent.setup();
-      renderAt('/');
-      await user.click(metiersButton());
-      await user.click(screen.getByRole('link', { name: 'Restaurant' }));
-      expect(metiersButton()).toHaveAttribute('aria-expanded', 'false');
-      expect(metiersButton()).toHaveClass('active');
     });
   });
 
