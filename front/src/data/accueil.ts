@@ -9,7 +9,7 @@ export const hero = {
   identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
   primary: { label: 'Demander un devis', to: pages.devis.path },
   secondary: { label: 'Voir les réalisations', to: pages.realisations.path },
-  rdv: { label: "Vous préférez en parler ? Prenez un rendez-vous gratuit d'une heure", to: pages.rendezVous.path },
+  rdv: { question: 'Vous préférez en parler ?', label: 'Prendre un rendez-vous gratuit', to: pages.rendezVous.path },
   reassurance: ['Basé à Amiens', 'Réponse sous 24 h', 'Sans abonnement imposé'],
 };
 

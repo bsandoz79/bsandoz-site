@@ -6,6 +6,7 @@ import { pages } from '../../data/pages';
 import styles from './APropos.module.css';
 import { medias } from '../../data/medias';
 import { Rideau } from '../../components/Rideau';
+import { BoutonRdv } from '../../components/BoutonRdv';
 
 /** Page À propos : photo, parcours, valeurs, zone d'intervention. */
 export function APropos() {
@@ -71,9 +72,7 @@ export function APropos() {
               {t.appel.titre}
             </h2>
             <p>{t.appel.texte}</p>
-            <Link to={t.appel.rdv.to} className={buttonClassName({ block: true })}>
-              {t.appel.rdv.label}
-            </Link>
+            <BoutonRdv to={t.appel.rdv.to} label={t.appel.rdv.label} block />
             <Link to={t.appel.devis.to} className={`${buttonClassName({ block: true })} ${styles.outline}`}>
               {t.appel.devis.label}
             </Link>

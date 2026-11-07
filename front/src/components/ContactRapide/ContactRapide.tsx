@@ -5,6 +5,7 @@ import { activitesContact, contactRapide, type ActiviteContact } from '../../dat
 import { urlEnvoiDevis } from '../../data/devis';
 import { contact } from '../../data/navigation';
 import { construireEnvoiContact, messageVide, validerContact, type ErreursContact, type MessageContact } from './contact';
+import { BoutonRdv } from '../BoutonRdv';
 import styles from './ContactRapide.module.css';
 
 const t = contactRapide;
@@ -184,9 +185,7 @@ export function ContactRapide({ titre = t.titre, niveau = 2 }: ContactRapideProp
                 <li key={p}>{p}</li>
               ))}
             </ul>
-            <Link to={t.aCote.rendezVous.to} className={styles.lienFort}>
-              {t.aCote.rendezVous.label} →
-            </Link>
+            <BoutonRdv to={t.aCote.rendezVous.to} label={t.aCote.rendezVous.label} />
           </aside>
         </div>
       </Container>

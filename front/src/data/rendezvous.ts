@@ -4,7 +4,7 @@ import { pages } from './pages';
 export type LieuId = 'chezvous' | 'visio' | 'telephone';
 
 export const lieux: { id: LieuId; nom: string; description: string }[] = [
-  { id: 'chezvous', nom: 'Chez vous', description: "Votre atelier, boutique ou local. Sans frais à 50 km d'Amiens ou d'Abbeville" },
+  { id: 'chezvous', nom: 'Chez vous', description: 'Votre atelier, boutique ou local' },
   { id: 'visio', nom: 'En visio', description: 'Lien envoyé par mail, partout en France' },
   { id: 'telephone', nom: 'Par téléphone', description: 'Je vous appelle au créneau choisi' },
 ];

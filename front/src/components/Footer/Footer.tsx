@@ -1,3 +1,4 @@
+import { BoutonRdv } from '../BoutonRdv';
 import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@bsandoz79/blocs';
 import { rouvrirBandeau } from '../../app/consentement';
@@ -28,9 +29,7 @@ export function Footer() {
               <Link to={footer.appel.devis.to} className={styles.boutonRose}>
                 {footer.appel.devis.label}
               </Link>
-              <Link to={footer.appel.rendezVous.to} className={styles.boutonClair}>
-                {footer.appel.rendezVous.label}
-              </Link>
+              <BoutonRdv to={footer.appel.rendezVous.to} label={footer.appel.rendezVous.label} className={styles.rdv} />
             </div>
           </div>
         )}

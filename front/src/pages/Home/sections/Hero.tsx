@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
 import { hero } from '../../../data/accueil';
 import { pages } from '../../../data/pages';
+import { BoutonRdv } from '../../../components/BoutonRdv';
 import { HeroDemo } from './HeroDemo';
 import styles from './Hero.module.css';
 import { medias } from '../../../data/medias';
@@ -32,9 +33,10 @@ export function Hero() {
               {hero.secondary.label}
             </Link>
           </div>
-          <Link to={hero.rdv.to} className={styles.rdv}>
-            {hero.rdv.label} <span aria-hidden="true">→</span>
-          </Link>
+          <p className={styles.rdv}>
+            <span>{hero.rdv.question}</span>
+            <BoutonRdv to={hero.rdv.to} label={hero.rdv.label} />
+          </p>
           <ul className={styles.reassurance}>
             {hero.reassurance.map((item) => (
               <li key={item}>{item}</li>

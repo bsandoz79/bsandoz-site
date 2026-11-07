@@ -41,8 +41,7 @@
   gap: var(--space-3);
 }
 
-.boutonRose,
-.boutonClair {
+.boutonRose {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
@@ -62,13 +61,8 @@
   color: var(--color-text-on-dark);
   transform: translateY(-2px);
 }
-.footer .boutonClair {
-  border: 1px solid var(--color-border-on-dark);
+.footer .rdv {
   color: var(--color-text-on-dark);
-}
-.footer .boutonClair:hover {
-  background: var(--color-veil-on-dark);
-  transform: translateY(-2px);
 }
 
 /* Colonnes */
