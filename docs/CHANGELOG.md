@@ -1,6 +1,13 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (édition)
+- Édition sur place, sans panneau latéral.
+  - « Modifier » encadre chaque texte, prix et image du bloc.
+  - Un clic dessus ouvre une petite bulle juste à côté ; « Valider » montre le changement dans la page.
+  - Une barre en bas de l'écran enregistre tout d'un coup, ou annule.
+  - Les textes invisibles sont dans « Autres textes ».
+
 ### Modifié (À propos)
 - Parcours : trois saisons en snack-bar et huit mois chez McDonald’s, en parallèle des études.
 
