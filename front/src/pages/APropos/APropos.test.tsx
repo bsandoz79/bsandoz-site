@@ -18,6 +18,7 @@ describe('Page À propos', () => {
     expect(screen.getByRole('img', { name: 'Baptiste Sandoz, développeur web à Amiens' })).toBeInTheDocument();
     expect(screen.getByText(/BTS SIO option SLAM/)).toBeInTheDocument();
     expect(screen.getByText(/Devisse Informatique/)).toBeInTheDocument();
+    expect(screen.getByText(/trois saisons en snack-bar et huit mois chez McDonald’s/)).toBeInTheDocument();
     expect(document.body).not.toHaveTextContent('à compléter');
     expect(screen.getByRole('link', { name: /mes compétences sur mon portfolio/ })).toHaveAttribute(
       'href',
