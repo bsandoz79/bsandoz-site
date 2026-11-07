@@ -1,0 +1,42 @@
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-5) var(--space-2) var(--space-2);
+  border: 1.5px solid var(--color-rose);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: background-color var(--duration) ease, border-color var(--duration) ease;
+}
+
+.bouton:hover {
+  border-color: var(--color-rose-hover);
+  background: var(--color-veil-navy);
+}
+
+.bouton:focus-visible {
+  outline: 3px solid var(--color-rose-light);
+  outline-offset: 2px;
+}
+
+.icone {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-rose);
+  color: var(--color-text-on-dark);
+}
+
+.block {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
