@@ -124,3 +124,4 @@ Types de tests :
 | 93 | [Retrait de l'estimation, devis en formulaire court](93-chore-retrait-simulation.md) | `chore/retrait-simulation` | 2026-11-07 |
 | 94 | [Bouton de rendez-vous et frais kilométriques](94-feature-bouton-rdv.md) | `feature/bouton-rdv` | 2026-11-07 |
 | 95 | [Retour de l'estimation, plus simple et en second plan](95-feature-estimation-retour.md) | `feature/estimation-retour` | 2026-11-07 |
+| 96 | [Barre de navigation : Estimer, sans Métiers](96-feature-nav-estimation.md) | `feature/nav-estimation` | 2026-11-07 |
