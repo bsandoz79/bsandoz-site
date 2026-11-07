@@ -1,5 +1,5 @@
 import type { PreviewSection, SitePreviewModel } from '@bsandoz79/blocs';
-import { packsActifs, type Configuration } from './calculs';
+import type { Configuration } from './calculs';
 import { options, type MetierId, type OptionId } from './offres';
 
 /** Entreprises d'exemple de l'aperçu (cahier des charges, section 5). */
@@ -51,7 +51,7 @@ export const entreprisesExemple: Record<
 
 export const apercuTextes = {
   label: 'Aperçu de votre futur site',
-  caption: "Aperçu en direct · exemple, s'adapte à vos choix",
+  caption: "Exemple · squelette sans style : il montre seulement où se placent les parties. Votre site aura son propre design.",
   vide: "Choisissez un type de site : l'aperçu se remplit au fil de vos choix.",
   descriptionVide: "L'aperçu est vide : aucun type de site choisi.",
   description: (nom: string, fonctions: string[]) =>
@@ -120,14 +120,12 @@ const initiales = (nom: string) =>
 
 /**
  * Construit le modèle de l'aperçu à partir de la configuration (logique de la maquette `Configurateur`).
- * Les options offertes par un pack apparaissent aussi dans l'aperçu.
  */
 export function modeleApercu(config: Configuration): { modele: SitePreviewModel | null; description: string } {
   const { formule } = config;
   if (!formule) return { modele: null, description: apercuTextes.descriptionVide };
 
-  const offertes = packsActifs(config.options).map((actif) => actif.offerte);
-  const a = (id: OptionId) => config.options.includes(id) || offertes.includes(id);
+  const a = (id: OptionId) => config.options.includes(id);
   const entreprise = entreprisesExemple[config.metier ?? 'autre'];
   const t = apercuTextes;
 

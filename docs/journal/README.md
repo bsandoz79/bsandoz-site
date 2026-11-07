@@ -123,3 +123,4 @@ Types de tests :
 | 92 | [Accueil : un site que vous modifiez vous-même](92-feature-accueil-autonomie.md) | `feature/accueil-autonomie` | 2026-11-07 |
 | 93 | [Retrait de l'estimation, devis en formulaire court](93-chore-retrait-simulation.md) | `chore/retrait-simulation` | 2026-11-07 |
 | 94 | [Bouton de rendez-vous et frais kilométriques](94-feature-bouton-rdv.md) | `feature/bouton-rdv` | 2026-11-07 |
+| 95 | [Retour de l'estimation, plus simple et en second plan](95-feature-estimation-retour.md) | `feature/estimation-retour` | 2026-11-07 |

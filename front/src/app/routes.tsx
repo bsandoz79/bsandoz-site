@@ -5,6 +5,7 @@ import { ancienneAdresseFaq, lienFaq } from '../data/faq';
 import { pages } from '../data/pages';
 import { Admin } from '../pages/Admin';
 import { APropos } from '../pages/APropos';
+import { Composer } from '../pages/Composer';
 import { Devis } from '../pages/Devis';
 import { Home } from '../pages/Home';
 import { Informatique } from '../pages/Informatique';
@@ -24,6 +25,7 @@ type PageKey = keyof typeof pages;
 const builtPages: Partial<Record<PageKey, ReactElement>> = {
   accueil: <Home />,
   tarifs: <Tarifs />,
+  composer: <Composer />,
   informatique: <Informatique />,
   artisan: <Metier id="artisan" />,
   ecommerce: <Metier id="ecommerce" />,
@@ -60,8 +62,6 @@ export function AppRoutes() {
         <Route path={`${pages.realisations.path}/:id`} element={<Realisation />} />
         {/* La FAQ est maintenant une section de l'accueil : l'ancienne adresse y mène. */}
         <Route path={ancienneAdresseFaq} element={<Navigate to={lienFaq} replace />} />
-        {/* L'estimation en ligne est retirée : son ancienne adresse mène à la demande de devis. */}
-        <Route path="/composer" element={<Navigate to={pages.devis.path} replace />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

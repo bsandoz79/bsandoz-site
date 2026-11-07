@@ -52,10 +52,9 @@ describe('modeleApercu', () => {
       subtitle: "À domicile · frais selon l'adresse",
       deposit: 'Acompte de 30 € payé en ligne · carte, Apple Pay, Google Pay',
     });
-    // Pack Réservation sereine : les avis Google offerts apparaissent aussi.
-    expect(modele?.sections.some((s) => s.type === 'reviews')).toBe(true);
+    // Seules les options choisies apparaissent (plus d'option offerte d'office).
+    expect(modele?.sections.some((s) => s.type === 'reviews')).toBe(false);
     expect(description).toContain('rendez-vous en ligne');
-    expect(description).toContain('avis google affichés');
   });
 
   it('montre la boutique, le click & collect, la galerie, l’avant/après, le logo, l’anglais et l’appli', () => {

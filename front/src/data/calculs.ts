@@ -5,17 +5,17 @@
 import {
   formatPrix,
   formuleParId,
+  inclusParFormule,
   marche,
   options,
   optionsParFormule,
   optionsParMetier,
-  packs,
+  petitesOptions,
   precisions,
   type FormuleId,
   type Marche,
   type MetierId,
   type OptionId,
-  type Pack,
 } from './offres';
 
 /** Choix faits dans le configurateur. */
@@ -25,7 +25,7 @@ export type Configuration = {
   options: OptionId[];
   /** Réponse choisie pour chaque sous-question (identifiant du choix). */
   precisions: Partial<Record<OptionId, string>>;
-  /** Activité précisée quand `metier` vaut « autre ». */
+  /** Métier tel qu'il est écrit (« Menuisier ») ; `metier` est sa catégorie. */
   metierAutre?: string;
 };
 
@@ -34,7 +34,10 @@ export const configurationVide: Configuration = { formule: null, metier: null, o
 /** Options proposées pour une formule (et un métier, pour le Fonctionnel). */
 export function optionsDisponibles(formule: FormuleId | null, metier: MetierId | null): OptionId[] {
   if (!formule) return [];
-  if (formule === 'fonctionnel') return metier ? optionsParMetier[metier] : [];
+  if (formule === 'fonctionnel') {
+    if (!metier) return [];
+    return [...optionsParMetier[metier], ...petitesOptions.filter((id) => !optionsParMetier[metier].includes(id))];
+  }
   return optionsParFormule[formule];
 }
 
@@ -44,45 +47,36 @@ export function garderOptionsValides(choix: OptionId[], formule: FormuleId | nul
   return choix.filter((id) => disponibles.includes(id));
 }
 
-export type PackActif = {
-  pack: Pack;
-  offerte: OptionId;
-  valeur: number;
-  /** L'option offerte était déjà choisie : elle devient gratuite. */
-  dejaChoisie: boolean;
-};
-
-/** Packs dont toutes les options requises sont choisies. Une même option n'est offerte qu'une fois. */
-export function packsActifs(choix: OptionId[]): PackActif[] {
-  const offertes = new Set<OptionId>();
-  const actifs: PackActif[] = [];
-  for (const pack of packs) {
-    if (!pack.requises.every((id) => choix.includes(id)) || offertes.has(pack.offerte)) continue;
-    offertes.add(pack.offerte);
-    actifs.push({
-      pack,
-      offerte: pack.offerte,
-      valeur: options[pack.offerte].prix,
-      dejaChoisie: choix.includes(pack.offerte),
-    });
-  }
-  return actifs;
+/**
+ * Options incluses dans le prix de la formule : les premières petites options cochées,
+ * dans l'ordre où elles l'ont été, jusqu'au nombre prévu par la formule.
+ */
+export function optionsIncluses(config: Pick<Configuration, 'formule' | 'options'>): OptionId[] {
+  if (!config.formule) return [];
+  return config.options.filter((id) => !options[id].gros).slice(0, inclusParFormule[config.formule]);
 }
 
+/** Petites options encore incluses possibles (0 quand le quota est atteint). */
+export function inclusRestantes(config: Pick<Configuration, 'formule' | 'options'>): number {
+  if (!config.formule) return 0;
+  return inclusParFormule[config.formule] - optionsIncluses(config).length;
+}
+
+/** `offerte` : option incluse dans le prix de la formule (affichée « Inclus »). */
 export type Ligne = { libelle: string; prix: number; offerte?: boolean };
 
 export type Estimation = {
   lignes: Ligne[];
-  /** Valeur totale, options offertes comprises (prix barré). */
+  /** Valeur totale, options incluses comprises (prix barré). */
   valeur: number;
-  /** Montant offert par les packs. */
+  /** Valeur des options incluses dans le prix de la formule. */
   offert: number;
   /** Prix à payer. */
   total: number;
   /** Fourchette (−5 % / +10 %, arrondie à 10 €), seulement pour le Fonctionnel. */
   fourchette: { bas: number; haut: number } | null;
   delai: string | null;
-  packs: PackActif[];
+  incluses: OptionId[];
 };
 
 const arrondi10 = (montant: number) => Math.round(montant / 10) * 10;
@@ -98,10 +92,17 @@ export function calculerEstimation(config: Configuration): Estimation {
     lignes.push({ libelle: `Site ${formule.nom}`, prix: formule.prix });
   }
 
+  const incluses = optionsIncluses(config);
+  let offert = 0;
   for (const id of config.options) {
     const option = options[id];
-    total += option.prix;
-    lignes.push({ libelle: option.nom, prix: option.prix });
+    if (incluses.includes(id)) {
+      offert += option.prix;
+      lignes.push({ libelle: option.nom, prix: option.prix, offerte: true });
+    } else {
+      total += option.prix;
+      lignes.push({ libelle: option.nom, prix: option.prix });
+    }
     const precision = precisions[id];
     const choix = precision?.choix.find((c) => c.id === config.precisions[id]);
     if (choix?.prix) {
@@ -110,17 +111,7 @@ export function calculerEstimation(config: Configuration): Estimation {
     }
   }
 
-  const actifs = packsActifs(config.options);
-  let valeur = total;
-  let offert = 0;
-  for (const actif of actifs) {
-    offert += actif.valeur;
-    if (!actif.dejaChoisie) {
-      valeur += actif.valeur;
-      lignes.push({ libelle: options[actif.offerte].nom, prix: actif.valeur, offerte: true });
-    }
-  }
-  total = valeur - offert;
+  const valeur = total + offert;
 
   return {
     lignes,
@@ -136,7 +127,7 @@ export function calculerEstimation(config: Configuration): Estimation {
           }
         : null,
     delai: config.formule ? formuleParId(config.formule).delai : null,
-    packs: actifs,
+    incluses,
   };
 }
 
@@ -147,10 +138,7 @@ export type Suggestion = {
   action: { type: 'option'; option: OptionId } | { type: 'formule'; formule: FormuleId };
 };
 
-/**
- * Suggestions personnalisées (2 au plus) : d'abord les packs presque complets,
- * puis les montées en gamme et les options utiles selon les choix.
- */
+/** Suggestions personnalisées (2 au plus) : montées en gamme et options utiles selon les choix. */
 export function suggestions(config: Configuration): Suggestion[] {
   const { formule, metier } = config;
   const choisie = (id: OptionId) => config.options.includes(id);
@@ -158,23 +146,8 @@ export function suggestions(config: Configuration): Suggestion[] {
   const proposee = (id: OptionId) => disponibles.includes(id);
   const liste: Suggestion[] = [];
 
-  // Options déjà mises en avant (offertes par un pack, ou proposées une fois).
-  const dejaProposees = new Set<OptionId>(packsActifs(config.options).map((actif) => actif.offerte));
-
-  for (const pack of packs) {
-    const manquantes = pack.requises.filter((id) => !choisie(id));
-    if (manquantes.length !== 1 || !pack.requises.every(proposee)) continue;
-    const [manquante] = manquantes;
-    if (dejaProposees.has(manquante)) continue;
-    dejaProposees.add(manquante);
-    const offerte = options[pack.offerte];
-    liste.push({
-      titre: pack.nom,
-      texte: `Ajoutez « ${options[manquante].nom} » et je vous offre « ${offerte.nom} » (valeur ${formatPrix(offerte.prix)}).`,
-      libelle: "Ajouter et profiter de l'offre",
-      action: { type: 'option', option: manquante },
-    });
-  }
+  // Options déjà proposées une fois.
+  const dejaProposees = new Set<OptionId>();
 
   const ajouter = (option: OptionId, titre: string, texte: string, libelle: string) => {
     if (!proposee(option) || choisie(option) || dejaProposees.has(option)) return;

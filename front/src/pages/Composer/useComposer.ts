@@ -1,0 +1,70 @@
+import { useEffect, useState } from 'react';
+import { garderOptionsValides, type Suggestion } from '../../data/calculs';
+import { categorieDuMetier } from '../../data/metiersConnus';
+import type { PublicInformatique, ServiceInformatiqueId } from '../../data/informatique';
+import type { FormuleId, OptionId } from '../../data/offres';
+import {
+  chargerEtat,
+  enregistrerEtat,
+  etatVide,
+  etatDepuisAdresse,
+  aDesChoix,
+  estNouvelleVisite,
+  marquerVisite,
+  ongletDepuisAdresse,
+  type EtatComposer,
+  type Onglet,
+} from './stockage';
+
+const basculer = <T>(liste: T[], valeur: T) =>
+  liste.includes(valeur) ? liste.filter((x) => x !== valeur) : [...liste, valeur];
+
+/** État du configurateur, enregistré dans le navigateur à chaque changement. */
+export function useComposer(recherche: string) {
+  const [etat, setEtat] = useState<EtatComposer>(() => etatDepuisAdresse(chargerEtat(), recherche));
+  // Nouvelle visite avec une estimation enregistrée : on demande s'il faut la reprendre.
+  const [aReprendre, setAReprendre] = useState(() => estNouvelleVisite() && aDesChoix(chargerEtat()));
+
+  useEffect(() => enregistrerEtat(etat), [etat]);
+  useEffect(() => {
+    if (!aReprendre) marquerVisite();
+  }, [aReprendre]);
+
+  const majConfig = (maj: (config: EtatComposer['config']) => EtatComposer['config']) =>
+    setEtat((e) => ({ ...e, config: maj(e.config) }));
+
+  return {
+    etat,
+    choisirOnglet: (onglet: Onglet) => setEtat((e) => ({ ...e, onglet })),
+    choisirFormule: (formule: FormuleId) =>
+      majConfig((c) => ({ ...c, formule, options: garderOptionsValides(c.options, formule, c.metier) })),
+    /** Métier écrit : sa catégorie (liste connue, sinon « autre ») choisit les fonctionnalités proposées. */
+    ecrireMetier: (nom: string) =>
+      majConfig((c) => {
+        const metier = categorieDuMetier(nom);
+        return { ...c, metier, metierAutre: nom, options: garderOptionsValides(c.options, c.formule, metier) };
+      }),
+    basculerOption: (option: OptionId) => majConfig((c) => ({ ...c, options: basculer(c.options, option) })),
+    choisirPrecision: (option: OptionId, reponse: string) =>
+      majConfig((c) => ({ ...c, precisions: { ...c.precisions, [option]: reponse } })),
+    appliquerSuggestion: ({ action }: Suggestion) =>
+      majConfig((c) =>
+        action.type === 'option'
+          ? { ...c, options: c.options.includes(action.option) ? c.options : [...c.options, action.option] }
+          : { ...c, formule: action.formule, options: garderOptionsValides(c.options, action.formule, c.metier) },
+      ),
+    choisirPublic: (publicCible: PublicInformatique) =>
+      setEtat((e) => ({ ...e, informatique: { ...e.informatique, public: publicCible } })),
+    basculerService: (service: ServiceInformatiqueId) =>
+      setEtat((e) => ({ ...e, informatique: { ...e.informatique, services: basculer(e.informatique.services, service) } })),
+    recommencer: () => setEtat((e) => ({ ...etatVide, onglet: e.onglet })),
+    /** Question de reprise : la visite précédente avait une estimation. */
+    aReprendre,
+    reprendre: () => setAReprendre(false),
+    /** Repart de zéro, en gardant ce que demande l'adresse (onglet, formule, métier). */
+    repartirDeZero: () => {
+      setEtat(etatDepuisAdresse({ ...etatVide, onglet: ongletDepuisAdresse(recherche) ?? 'web' }, recherche));
+      setAReprendre(false);
+    },
+  };
+}

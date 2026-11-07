@@ -34,6 +34,7 @@ export const appelDevis = {
   titre: 'Votre projet a ses particularités ?',
   texte: 'Décrivez-le en quelques lignes : je vous réponds sous 24 h avec une proposition claire.',
   lien: { label: 'Demander un devis', to: pages.devis.path },
+  estimer: { label: 'Ou estimez-le en ligne', to: `${pages.composer.path}?onglet=web` },
 };
 
 export const apresMiseEnLigne = {

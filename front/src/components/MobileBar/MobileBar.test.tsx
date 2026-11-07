@@ -18,7 +18,7 @@ describe('MobileBar', () => {
     expect(screen.getByRole('link', { name: 'Demander' })).toHaveAttribute('href', pages.devis.path);
   });
 
-  it.each([pages.devis.path, pages.rendezVous.path, pages.monEspace.path, pages.connexion.path])("n'est pas affichée sur %s", (path) => {
+  it.each([pages.devis.path, pages.composer.path, pages.rendezVous.path, pages.monEspace.path, pages.connexion.path])("n'est pas affichée sur %s", (path) => {
     renderAt(path);
     expect(screen.queryByRole('complementary')).not.toBeInTheDocument();
   });

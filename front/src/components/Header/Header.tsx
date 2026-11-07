@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
+import { pages } from '../../data/pages';
 import { header, informatiquePrefix, metierLinks, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
 import styles from './Header.module.css';
 import { ThemeToggle } from '../ThemeToggle';
@@ -50,6 +51,8 @@ export function Header() {
 
   const [firstLink, ...otherLinks] = header.links;
   const inInformatique = pathname.startsWith(informatiquePrefix);
+  // L'estimation a ses propres onglets « Sites & applis / Informatique sur place » : pas de seconde barre.
+  const sansOnglets = pathname === pages.composer.path;
   const metiersActive = metierLinks.some((item) => item.to === pathname);
 
   // Un clic en dehors du sous-menu « Métiers » le referme.
@@ -75,7 +78,7 @@ export function Header() {
 
   return (
     <header
-      className={[styles.header, etat, decolle ? styles.decolle : ''].filter(Boolean).join(' ')}
+      className={[styles.header, etat, decolle ? styles.decolle : '', sansOnglets ? styles.sansOnglets : ''].filter(Boolean).join(' ')}
       onKeyDown={onKeyDown}
       onFocus={() => setFocusDedans(true)}
       onBlur={(event) => {
