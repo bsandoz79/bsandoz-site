@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (À propos)
+- Parcours : trois saisons en snack-bar et huit mois chez McDonald’s, en parallèle des études.
+
 ### Retiré (prix)
 - La page Tarifs, l'estimation en ligne, les compléments, l'offre SEO seule et les prix des pages métier et de la FAQ. Les adresses `/tarifs` et `/composer` mènent au devis.
 

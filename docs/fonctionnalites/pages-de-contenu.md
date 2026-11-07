@@ -147,3 +147,5 @@ Tests : `Home.test.tsx` (ordre des sections, bande, autonomie, vitrine sans doub
 - **FAQ** : plus aucun montant. Délais en mots, et textes ou logo « indiqués dans le devis ».
 - **Pages métier** : les fonctions sans leur prix.
 - **Pourquoi moi** : « Un devis clair » remplace « Des prix affichés ».
+
+Parcours de la page À propos, mis à jour le 2026-11-07 : trois saisons en snack-bar et huit mois chez McDonald’s, en parallèle des études.
