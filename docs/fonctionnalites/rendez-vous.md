@@ -78,3 +78,9 @@ Rien n'est bloqué : la visio et le téléphone restent proposés et gratuits. L
 
 - **Route** : `GET /rendez-vous/{id}/agenda.ics`, publique. Elle répond 404 pour un rendez-vous annulé.
 - **Sécurité** : l'identifiant du rendez-vous n'est pas devinable et ne permet pas d'annuler. Le jeton d'annulation continue de partir uniquement par mail.
+
+## Bouton de rendez-vous
+Tous les liens vers `/rendez-vous` utilisent `components/BoutonRdv` (`<BoutonRdv label="…" />`, adresse par défaut `pages.rendezVous.path`, option `block`). Il se reconnaît à son icône de calendrier, à son contour rose et à ses coins moins arrondis que les autres boutons. Son texte prend la couleur du fond, il marche donc sur fond clair comme sur fond sombre. Il est utilisé dans le haut de l'accueil, le formulaire de contact, le pied de page, la page À propos, les pages métier et Informatique sur place. Tests : `BoutonRdv.test.tsx`.
+
+## Frais kilométriques à l'écran
+Dès que « Chez vous » est choisi, la règle s'affiche en petit, avant le champ d'adresse : gratuit dans les 50 km autour d'Amiens et d'Abbeville ; au-delà, seuls les kilomètres en plus sont facturés (`rendezVousTextes.adresse.limite`). Le montant précis vient après la vérification de l'adresse.

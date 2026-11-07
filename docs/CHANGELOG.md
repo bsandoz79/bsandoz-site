@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (rendez-vous)
+- La prise de rendez-vous a son propre bouton, partout sur le site (`components/BoutonRdv`) : icône de calendrier, contour rose, coins moins arrondis, différent des boutons « Demander un devis ». Il remplace le lien souligné avec une flèche du haut de l'accueil et du formulaire de contact, et les boutons de rendez-vous du pied de page, de la page À propos, des pages métier et d'Informatique sur place.
+- Page rendez-vous : la règle des frais kilométriques (gratuit à 50 km d'Amiens ou d'Abbeville, au-delà les kilomètres en plus) est écrite en petit dès qu'on choisit « Chez vous », avant l'adresse.
+
 ### Retiré
 - L'estimation en ligne : la page Estimer (`/composer`), le simulateur de la page Tarifs, le pré-devis chiffré et la fenêtre « reprendre là où vous en étiez ». L'ancienne adresse `/composer` mène au devis.
 

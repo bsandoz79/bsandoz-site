@@ -1,3 +1,4 @@
+import { BoutonRdv } from '../../components/BoutonRdv';
 import { Link } from 'react-router-dom';
 import { Card, Container, Reveal, SectionTitle, SitePreview, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
@@ -40,9 +41,7 @@ export function Metier({ id }: Props) {
             <Link to={lienComposer} className={buttonClassName({ size: 'lg' })}>
               {metierTextes.appel.composer}
             </Link>
-            <Link to={metierTextes.appel.rdv.to} className={buttonClassName({ size: 'lg', variant: 'secondary' })}>
-              {metierTextes.appel.rdv.label}
-            </Link>
+            <BoutonRdv to={metierTextes.appel.rdv.to} label={metierTextes.appel.rdv.label} />
           </div>
         </Container>
       </section>
@@ -100,9 +99,7 @@ export function Metier({ id }: Props) {
               <Link to={lienComposer} className={buttonClassName({ size: 'lg' })}>
                 {metierTextes.appel.composer}
               </Link>
-              <Link to={metierTextes.appel.rdv.to} className={`${buttonClassName({ size: 'lg' })} ${styles.outline}`}>
-                {metierTextes.appel.rdv.label}
-              </Link>
+              <BoutonRdv to={metierTextes.appel.rdv.to} label={metierTextes.appel.rdv.label} />
             </div>
           </div>
         </Container>

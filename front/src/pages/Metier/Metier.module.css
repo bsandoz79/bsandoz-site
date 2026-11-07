@@ -121,16 +121,6 @@
   font-size: var(--text-lg);
 }
 
-.outline,
-.outline:hover {
-  border-color: var(--color-text-on-dark);
-  background: transparent;
-  color: var(--color-text-on-dark);
-}
-.outline:hover {
-  background: var(--color-veil-on-dark);
-}
-
 @media (min-width: 640px) {
   .actions {
     flex-direction: row;

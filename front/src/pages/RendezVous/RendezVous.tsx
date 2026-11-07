@@ -191,6 +191,8 @@ export function RendezVous() {
               />
               {demande.lieu === 'chezvous' && (
                 <div className={styles.adresse}>
+                  {/* Les frais sont dits avant l'adresse, en petit : on sait à quoi s'attendre avant de la taper. */}
+                  <p className={styles.aide}>{t.adresse.limite}</p>
                   <TextField
                     label={t.adresse.label}
                     hint={t.adresse.aide}
@@ -233,7 +235,6 @@ export function RendezVous() {
                           </span>
                         )}
                   </p>
-                  <p className={styles.aide}>{t.adresse.limite}</p>
                 </div>
               )}
             </div>

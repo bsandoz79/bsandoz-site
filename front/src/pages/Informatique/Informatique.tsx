@@ -1,3 +1,4 @@
+import { BoutonRdv } from '../../components/BoutonRdv';
 import { Link } from 'react-router-dom';
 import { Card, Container, Reveal, SectionTitle, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
@@ -30,9 +31,7 @@ export function Informatique() {
             <Link to={t.composer.to} className={buttonClassName({ size: 'lg' })}>
               {t.composer.label}
             </Link>
-            <Link to={t.rdv.to} className={buttonClassName({ size: 'lg', variant: 'secondary' })}>
-              {t.rdv.label}
-            </Link>
+            <BoutonRdv to={t.rdv.to} label={t.rdv.label} />
           </div>
           <ul className={styles.reassurance}>
             {t.reassurance.map((item) => (

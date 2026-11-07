@@ -175,14 +175,6 @@
   font-weight: 800;
 }
 
-.lienFort {
-  color: var(--color-text-on-dark);
-  font-weight: 700;
-}
-.lienFort:hover {
-  color: var(--color-rose-light);
-}
-
 .lienDiscret {
   color: var(--color-text-on-dark-muted);
   font-size: var(--text-sm);
@@ -191,7 +183,6 @@
   color: var(--color-text-on-dark);
 }
 
-.lienFort:focus-visible,
 .lienDiscret:focus-visible,
 .coordonnee:focus-visible {
   outline-color: var(--color-rose-light);
