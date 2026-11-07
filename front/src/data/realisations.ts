@@ -27,6 +27,13 @@ export { cheminRealisation };
 
 export type Capture = { src: string; legende: string };
 
+/** Ce qu'affiche une carte : une vraie réalisation, ou un exemple d'outil (`exemple`, voir `data/exemples.ts`). */
+export type CarteRealisation = Pick<Realisation, 'categorie' | 'titre' | 'resume' | 'lien' | 'apercu' | 'emplacements' | 'captures'> & {
+  id: string;
+  /** Maquette d'une entreprise fictive : marquée « Exemple » sur la carte. */
+  exemple?: boolean;
+};
+
 /** Type de projet, pour le filtre de la page Réalisations. */
 export type TypeRealisation = 'site' | 'appli';
 

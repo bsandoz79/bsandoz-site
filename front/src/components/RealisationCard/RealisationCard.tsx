@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import { Card } from '@bsandoz79/blocs';
-import type { Realisation } from '../../data/realisations';
+import type { CarteRealisation } from '../../data/realisations';
 import styles from './RealisationCard.module.css';
 
 type RealisationCardProps = {
-  realisation: Realisation;
+  realisation: CarteRealisation;
   /** Niveau du titre de la carte. */
   headingLevel?: 2 | 3;
 };
 
 /** Couverture : la première capture dans un cadre de navigateur ; sinon, une illustration provisoire. */
-function Apercu({ realisation }: { realisation: Realisation }) {
+function Apercu({ realisation }: { realisation: CarteRealisation }) {
   const { apercu, emplacements, captures } = realisation;
   if (captures.length > 0) {
     return (
@@ -21,6 +21,7 @@ function Apercu({ realisation }: { realisation: Realisation }) {
           <span />
         </span>
         <img src={captures[0].src} alt="" loading="lazy" decoding="async" className={styles.image} />
+        {realisation.exemple && <span className={styles.exemple}>{exempleTexte}</span>}
       </div>
     );
   }
@@ -54,7 +55,10 @@ function Apercu({ realisation }: { realisation: Realisation }) {
   );
 }
 
-/** Carte d'une réalisation : aperçu, métier, titre, résumé et lien. */
+/** Mention d'une maquette : une entreprise fictive, pas un client. */
+const exempleTexte = 'Exemple';
+
+/** Carte d'une réalisation, ou d'un exemple d'outil : aperçu, métier, titre, résumé et lien. */
 export function RealisationCard({ realisation, headingLevel = 3 }: RealisationCardProps) {
   const Heading = `h${headingLevel}` as const;
   const titleId = `realisation-${realisation.id}`;
@@ -63,7 +67,10 @@ export function RealisationCard({ realisation, headingLevel = 3 }: RealisationCa
     <Card as="article" padding="none" lift className={styles.card} aria-labelledby={titleId}>
       <Apercu realisation={realisation} />
       <div className={styles.body}>
-        <p className={styles.categorie}>{realisation.categorie}</p>
+        <p className={styles.categorie}>
+          {realisation.exemple && <span className="sr-only">{exempleTexte} · </span>}
+          {realisation.categorie}
+        </p>
         <Heading id={titleId} className={styles.titre}>
           {realisation.titre}
         </Heading>

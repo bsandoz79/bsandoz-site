@@ -128,3 +128,4 @@ Types de tests :
 | 97 | [Un seul prix : à partir de 390 €](97-chore-prix-unique.md) | `chore/prix-unique` | 2026-11-07 |
 | 98 | [À propos : emplois pendant les études](98-chore-apropos-jobs.md) | `chore/apropos-jobs` | 2026-11-07 |
 | 99 | [Édition sur place](99-feature-edition-sur-place.md) | `feature/edition-sur-place` | 2026-11-07 |
+| 100 | [Exemples d'outils dans la vitrine](100-feature-exemples-outils.md) | `feature/exemples-outils` | 2026-11-07 |

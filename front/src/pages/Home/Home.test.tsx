@@ -5,6 +5,7 @@ import { AppRoutes } from '../../app/routes';
 import { autonomie, hero, livraison, methode, metiers } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
 import { pages } from '../../data/pages';
+import { exemplesOutils } from '../../data/exemples';
 import { realisations } from '../../data/realisations';
 
 function renderHome() {
@@ -78,9 +79,19 @@ describe("Page d'accueil", () => {
       expect(within(liste).getByRole('article', { name: realisation.titre })).toBeInTheDocument();
     }
     // La copie qui sert à boucler n'est ni lue ni atteignable au clavier.
-    expect(within(bloc).getAllByRole('article')).toHaveLength(realisations.length);
+    expect(within(bloc).getAllByRole('article')).toHaveLength(realisations.length + exemplesOutils.length);
     expect(within(bloc).getByRole('button', { name: 'Mettre en pause' })).toBeInTheDocument();
     expect(within(bloc).getByRole('link', { name: /Voir toutes les réalisations/ })).toHaveAttribute('href', pages.realisations.path);
+  });
+
+  it('montre aussi des exemples d’outils, marqués « Exemple », qui mènent au devis', () => {
+    renderHome();
+    const liste = within(section('Mes réalisations')).getByRole('list', { name: 'Mes réalisations' });
+    for (const exemple of exemplesOutils) {
+      const carte = within(liste).getByRole('article', { name: exemple.titre });
+      expect(carte).toHaveTextContent('Exemple');
+      expect(within(carte).getByRole('link', { name: /Un outil comme celui-ci/ })).toHaveAttribute('href', pages.devis.path);
+    }
   });
 
   it('liste ce que le client reçoit à la livraison', () => {
