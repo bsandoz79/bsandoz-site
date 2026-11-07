@@ -119,3 +119,4 @@ Types de tests :
 | 88 | [Cartes des autres besoins](88-feature-cibles.md) | `feature/cibles` | 2026-11-06 |
 | 89 | [Parcours de la page À propos](89-chore-apropos-parcours.md) | `chore/apropos-parcours` | 2026-11-06 |
 | 90 | [Chiffre d'affaires dans les statistiques](90-feature-ca-statistiques.md) | `feature/ca-statistiques` | 2026-11-06 |
+| 91 | [Retrait des cartes des autres besoins](91-fix-retrait-cibles.md) | `fix/retrait-cibles` | 2026-11-07 |

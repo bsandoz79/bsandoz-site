@@ -7,7 +7,6 @@ import { pages } from '../../data/pages';
 import { questionsFaq } from '../../data/faq';
 import { jsonLdEntreprise, jsonLdFaq } from '../../data/seo';
 import { Chiffres } from './sections/Chiffres';
-import { Cibles } from './sections/Cibles';
 import { Faq } from './sections/Faq';
 import { Hero } from './sections/Hero';
 import { Metiers } from './sections/Metiers';
@@ -38,9 +37,6 @@ export function Home() {
       </BlocModifiable>
       <BlocModifiable id="accueil.offres">
         <Offres />
-      </BlocModifiable>
-      <BlocModifiable id="accueil.cibles">
-        <Cibles />
       </BlocModifiable>
       <BlocModifiable id="accueil.realisations">
         <Realisations />

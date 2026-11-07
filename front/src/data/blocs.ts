@@ -1,4 +1,4 @@
-import { cibles, hero, chiffres, metiers, methode, offres as offresAccueil, pourquoi, problemes, realisationsSection } from './accueil';
+import { hero, chiffres, metiers, methode, offres as offresAccueil, pourquoi, problemes, realisationsSection } from './accueil';
 import { contactRapide } from './contact';
 import { faqAccueil, questionsFaq } from './faq';
 import { medias } from './medias';
@@ -128,18 +128,6 @@ export const blocs: Record<string, Bloc> = {
   complements: {
     titre: 'Compléments',
     champs: [prix('option.page', 'Page supplémentaire (€)', options.page)],
-  },
-  'accueil.cibles': {
-    titre: 'Autres besoins',
-    champs: [
-      champ('accueil.cibles.titre', 'Titre', cibles, 'titre'),
-      champ('accueil.cibles.surDevis', 'Mention « sur devis »', cibles, 'surDevis'),
-      champ('accueil.cibles.lien', 'Lien des cartes', cibles, 'lien'),
-      ...cibles.items.flatMap((c) => [
-        champ(`accueil.cibles.${c.id}.titre`, `Titre : ${c.id}`, c, 'titre'),
-        champ(`accueil.cibles.${c.id}.texte`, `Texte : ${c.id}`, c, 'texte', 'long'),
-      ]),
-    ],
   },
   'accueil.realisations': {
     titre: 'Titre des réalisations',

@@ -18,6 +18,9 @@
   - un bandeau « Repris de votre estimation » propose « Repartir de zéro ».
 - Page blanche sur preview.bsandoz.fr après des déploiements rapprochés. `index.html` est maintenant envoyé en dernier, après les fichiers qu'il utilise, et un déploiement n'est plus jamais annulé en cours.
 
+### Retiré
+- Accueil : les cartes « D'autres besoins, d'autres métiers ». Les besoins hors site (CRM, logiciel interne…) passent par une demande de devis.
+
 ### Ajouté
 - Statistiques du back-office : chiffre d'affaires du mois, chiffre d'affaires signé et devis en attente, calculés sur les vrais devis.
 - Page À propos : le parcours est rempli depuis le portfolio (formation et expériences).

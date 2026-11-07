@@ -1,4 +1,4 @@
-import { formuleParId, prixFormule, type FormuleId } from './offres';
+import { formuleParId, prixFormule } from './offres';
 import { contact } from './navigation';
 import { pages } from './pages';
 
@@ -100,42 +100,6 @@ export const offres = {
     vitrinePlus: 'Choisir Vitrine+',
     fonctionnel: 'Composer mon projet',
   },
-};
-
-/**
- * Autres besoins, en cartes sur l'accueil. Une page dédiée viendra quand un projet de ce type sera terminé.
- * Prix : le départ de la formule correspondante, ou « sur devis » pour ce qui s'éloigne d'un site.
- */
-export const cibles = {
-  titre: 'D’autres besoins, d’autres métiers',
-  surDevis: 'Sur devis',
-  lien: 'En parler',
-  items: [
-    {
-      id: 'photographes',
-      titre: 'Photographes',
-      texte: 'Un outil pour stocker, présenter et vendre vos photos.',
-      formule: 'fonctionnel',
-    },
-    {
-      id: 'restauration',
-      titre: 'Restauration et fast-food',
-      texte: 'Une carte numérique, accessible par QR code sur vos tables.',
-      formule: 'vitrinePlus',
-    },
-    {
-      id: 'entreprises',
-      titre: 'Entreprises et PME',
-      texte: 'Un CRM sur mesure, adapté à votre façon de travailler.',
-      formule: null,
-    },
-    {
-      id: 'charcutiers',
-      titre: 'Charcutiers et commerces de bouche',
-      texte: 'Un logiciel interne pour gérer vos stocks, vos DLC et le reste.',
-      formule: null,
-    },
-  ] as { id: string; titre: string; texte: string; formule: FormuleId | null }[],
 };
 
 export const realisationsSection = {
