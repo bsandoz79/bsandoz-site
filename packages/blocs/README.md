@@ -65,6 +65,7 @@ Liste complète : `src/styles/base.css`. Les classes des blocs sont préfixées 
 | Bloc | Rôle |
 | --- | --- |
 | `Accordion` | questions dépliables (`details` / `summary`) |
+| `Autocomplete` | champ qui propose de finir le mot |
 | `Button`, `buttonClassName` | bouton ou lien, 3 variantes |
 | `Calendar` (+ fonctions de dates) | calendrier mensuel accessible |
 | `Card` | carte, 3 fonds |
