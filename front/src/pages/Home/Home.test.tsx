@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
-import { cibles, hero, methode, metiers, pourquoi, problemes } from '../../data/accueil';
+import { hero, methode, metiers, pourquoi, problemes } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
 import { formuleParId, prixFormule } from '../../data/offres';
 import { pages } from '../../data/pages';
@@ -32,7 +32,6 @@ describe("Page d'accueil", () => {
     expect(titles).toEqual([
       problemes.title,
       'Mes tarifs',
-      cibles.titre,
       'Mes réalisations',
       methode.title,
       pourquoi.title,
@@ -203,15 +202,5 @@ describe("Page d'accueil", () => {
       expect(screen.getByRole('heading', { level: 1, name: pages.accueil.heading })).toBeInTheDocument();
       expect(scrollIntoView.mock.contexts[0]).toBe(section(faqAccueil.titre));
     });
-  });
-
-  it('présente les autres besoins : prix de départ, ou sur devis pour ce qui s’éloigne d’un site', () => {
-    renderHome();
-    const bloc = section(cibles.titre);
-    expect(within(bloc).getByRole('article', { name: 'Photographes' })).toHaveTextContent(/à partir de 989\s€/);
-    expect(within(bloc).getByRole('article', { name: 'Restauration et fast-food' })).toHaveTextContent(/à partir de 390\s€/);
-    expect(within(bloc).getByRole('article', { name: 'Entreprises et PME' })).toHaveTextContent('Sur devis');
-    expect(within(bloc).getByRole('article', { name: /Charcutiers/ })).toHaveTextContent('Sur devis');
-    expect(within(bloc).getAllByRole('link', { name: /En parler/ })[0]).toHaveAttribute('href', pages.devis.path);
   });
 });

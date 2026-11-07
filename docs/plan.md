@@ -72,7 +72,7 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/lien-espace-client` : lien « Espace client » visible dans l'en-tête
 - [x] `feature/composer-memoire` : le configurateur oublie d'une visite à l'autre, avec « Reprendre là où vous en étiez ? »
 - [x] `feature/alterno` : projet Alterno dans les réalisations
-- [x] `feature/cibles` (cartes sur l'accueil ; une page quand un projet sera terminé) : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
+- [x] `feature/cibles` : cartes retirées à la demande de Baptiste. Ces besoins passent par une demande de devis ; une page viendra quand un projet de ce type sera terminé. Besoins visés : photographes (galerie et vente de photos), PME (CRM sur mesure), restauration (carte par QR code), charcutiers (logiciel interne : stocks, DLC…)
 - [x] `feature/tarifs-complements` : 29 €/h, suivi 29 €/mois, SEO seul à −20 % du marché, compléments à part, « à partir de », simulateur sur les trois formules
 - [ ] `feature/plaquette-pdf` : plaquette PDF des services et tarifs, générée depuis les prix du back-office
 - [x] `feature/edition-en-page` : crayon sur les prix, visible seulement par un compte du back-office
