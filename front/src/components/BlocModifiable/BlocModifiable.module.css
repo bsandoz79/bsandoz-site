@@ -43,59 +43,6 @@
   outline-offset: 2px;
 }
 
-/* Panneau latéral, à droite : la page reste visible à côté. */
-.fond {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: flex-end;
-  background: color-mix(in srgb, var(--color-navy-deep) 45%, transparent);
-}
-
-.panneau {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  width: min(100%, 28rem);
-  height: 100%;
-  overflow-y: auto;
-  padding: var(--space-5);
-  border-left: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
-}
-
-.panneauTitre {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 800;
-}
-
-.champs {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.image {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-2);
-}
-
-.imageNom {
-  font-weight: 600;
-}
-
-.apercu {
-  max-width: 10rem;
-  max-height: 10rem;
-  border-radius: var(--radius-md);
-  object-fit: cover;
-}
-
 .fichier {
   position: absolute;
   width: 1px;
@@ -109,13 +56,113 @@
   font-weight: 600;
 }
 
-/* Les boutons restent visibles en bas du panneau. */
-.actions {
-  position: sticky;
-  bottom: calc(-1 * var(--space-5));
+/* Bloc en cours de modification : contour net, le reste de la page ne bouge pas. */
+.enEdition,
+.enEdition:hover {
+  outline: 2px solid var(--color-rose);
+  outline-offset: -2px;
+}
+
+.edition {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.edition > * {
+  pointer-events: auto;
+}
+
+/* Barre du bloc : fixée en bas de l'écran, elle ne cache rien du bloc et reste visible pendant le défilement. */
+.barre {
+  position: fixed;
+  bottom: var(--space-4);
+  left: 50%;
+  z-index: 60;
+  width: min(48rem, calc(100% - var(--space-5)));
+  transform: translateX(-50%);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
-  padding-block: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
   background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+}
+
+.barreTitre {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+.barreAide {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+
+.barreActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.autres {
+  display: grid;
+  flex-basis: 100%;
+  gap: var(--space-3);
+}
+
+/* Ce qui se modifie : encadré en pointillé, plein au survol. */
+.cible {
+  position: absolute;
+  z-index: 1;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  padding: 0;
+  border: 1.5px dashed var(--color-rose);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: text;
+}
+
+.cibleImage {
+  cursor: pointer;
+}
+
+.cible:hover,
+.cible:focus-visible {
+  border-style: solid;
+  background: color-mix(in srgb, var(--color-rose) 10%, transparent);
+  outline: none;
+}
+
+/* Bulle de saisie, juste sous ce qu'on modifie. */
+.bulle {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: min(26rem, calc(100% - var(--space-4)));
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+}
+
+.bulleActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }

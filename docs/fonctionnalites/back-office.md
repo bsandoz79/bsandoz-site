@@ -77,7 +77,7 @@ Un compte du back-office modifie le site directement sur les pages, bloc par blo
 
 - **Qui voit les boutons** (`app/edition.ts`, `useEdition`) : une connexion est notée dans le navigateur (`bsandoz.session`, par `compteConnecte` et `seDeconnecter`). Si elle existe, le site appelle `/backoffice/demandes` : 200 affiche les boutons, 403 non, 401 efface la note. Un visiteur sans session ne déclenche aucun appel. La note ne donne aucun droit : c'est l'API qui refuse tout enregistrement à un compte non autorisé.
 - **Le registre** (`data/blocs.ts`) : pour chaque bloc, tout ce qu'il contient (`texte`, `long`, `image`, `prix`). Chaque champ pointe vers la donnée que la page affiche. Ajouter un champ ou un bloc se fait ici.
-- **Sur la page** (`components/BlocModifiable`) : `<BlocModifiable id="accueil.hero"><Hero /></BlocModifiable>`. Pour un visiteur, aucun élément n'est ajouté à la page. Pour un compte autorisé, un bouton « Modifier » ouvre le panneau (`PanneauBloc`, chargé seulement à ce moment-là).
+- **Sur la page** (`components/BlocModifiable`) : `<BlocModifiable id="accueil.hero"><Hero /></BlocModifiable>`. Pour un visiteur, aucun élément n'est ajouté à la page. Pour un compte autorisé, un bouton « Modifier » lance l'édition sur place (`EditeurBloc`, chargé seulement à ce moment-là) : voir « Édition sur place » plus bas.
 - **Enregistrer** : `POST /backoffice/contenus` envoie seulement ce qui a changé (`null` si on revient au texte du code) et `POST /backoffice/prix` les prix. La page et le cache du navigateur sont mis à jour sur place.
 - **Images** (`app/image.ts`) : réduites à 1 600 px et converties en WebP dans le navigateur, envoyées en JSON à `POST /backoffice/images`, écrites dans `public/medias/` de l'API. Le serveur lit le vrai type du fichier et tire le nom au hasard.
 - **Au chargement** (`main.tsx`) : `chargerContenus` (`data/contenusEnLigne.ts`) demande `/contenus`, avec un cache de 5 minutes et 800 ms d'attente au plus, puis `appliquerContenus` remplace les textes. Si l'API ne répond pas, le site affiche les textes de son code.
@@ -112,3 +112,19 @@ L'onglet **Planning**, ouvert par défaut dans `/admin` (`pages/Admin/PlanningAd
 API : `GET /backoffice/rendez-vous?du=AAAA-MM-JJ&au=AAAA-MM-JJ` (400 jours au plus, jamais le jeton) et `POST /backoffice/rendez-vous/{id}/annuler` avec `{ message, lien }`.
 
 Tests : `PlanningAdmin.test.tsx` et `tests/BackOffice/PlanningBackOfficeTest.php`.
+
+## Édition sur place (2026-11-07)
+Il n'y a plus de panneau latéral : on modifie dans la page.
+
+1. **« Modifier »** : le bloc est entouré. Chaque texte, prix et image qu'il affiche est encadré en pointillé. Une barre fixée en bas de l'écran propose « Annuler » et « Enregistrer ».
+2. **Un clic sur un élément encadré** ouvre une petite bulle juste en dessous : un champ (texte ou prix) ou « Changer l'image ». « Valider » montre tout de suite le changement dans la page, sans l'enregistrer encore.
+3. **« Enregistrer »** envoie d'un coup tous les changements (`POST /backoffice/contenus`, `POST /backoffice/prix`). « Annuler » ou Échap remettent les valeurs d'avant.
+4. **Textes invisibles** (texte de remplacement…) : ils sont repérés automatiquement et listés dans « Autres textes ».
+
+- **Repérage** (`BlocModifiable/cibles.ts`, `trouverCibles`) :
+  - les textes et les prix, par leur texte exact dans la page (prix mis en forme avec `formatPrix`) ;
+  - les images, par leur adresse ;
+  - les éléments de l'interface d'édition (`data-edition`) sont ignorés.
+- **Aperçu** : chaque « Valider » écrit la valeur dans les données et réaffiche le bloc. Les cadres sont recalculés après chaque réaffichage, au redimensionnement et après les apparitions animées.
+- **Accessibilité** : les cadres sont de vrais boutons (« Modifier : Petite étiquette »). La bulle est un formulaire nommé. Échap ferme la bulle, puis annule.
+- **Tests** : `BlocModifiable.test.tsx` (texte puis prix, aperçu, enregistrement d'un coup, retour au texte du code, image, Annuler et Échap, « Autres textes », prix invalide, échec de l'API).
