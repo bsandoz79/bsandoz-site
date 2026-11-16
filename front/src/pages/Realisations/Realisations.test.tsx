@@ -104,6 +104,8 @@ describe('Page d’une réalisation', () => {
     afficher('/realisations/demo-detailing');
     expect(screen.getByRole('heading', { level: 1, name: 'Perfect Clean' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /Perfect Clean : Zone d’intervention/ })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /Perfect Clean : Encaissement sur place/ })).toBeInTheDocument();
+    expect(screen.getByText(/Abonnements sans engagement/)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Ce que fait le site' })).toBeInTheDocument();
     expect(screen.queryByText('[à compléter]')).not.toBeInTheDocument();
     const demo = screen.getByRole('link', { name: /Essayer la démo en ligne/ });

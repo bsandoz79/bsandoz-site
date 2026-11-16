@@ -2,6 +2,11 @@
 
 ## [Non publié]
 ### Modifié (réalisations)
+- Perfect Clean mis à jour avec les nouveautés de la démo.
+  - Neuf captures : accueil animé avec réservation directe, prestations, formule complète, abonnements, espace pro, encaissement par QR code, zone, fidélité, encart professionnels.
+  - Résumé, solution et fonctionnalités complétés : abonnements prélevés, paiement sur place (carte, QR code, espèces, virement, chèque), formule complète, espace pro installable sur le téléphone, site modifiable par l'artisan.
+
+### Modifié (réalisations)
 - La démo de detailing auto devient « Perfect Clean ».
   - Six captures : accueil, prestations, réservation, zone d'intervention, carte de fidélité, espace professionnels.
   - Contexte, besoin, solution, fonctionnalités et technologies remplis d'après le projet `bsandoz-booking`.
