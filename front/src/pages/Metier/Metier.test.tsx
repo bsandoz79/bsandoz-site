@@ -34,7 +34,7 @@ describe('Pages métier', () => {
 
   it('montre la réalisation proche du métier quand il y en a une', () => {
     renderAt(pages.artisan.path);
-    expect(screen.getByRole('article', { name: 'Réservation avec acompte' })).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Perfect Clean' })).toBeInTheDocument();
   });
 
   it('ne montre pas de réalisation quand il n’y en a pas', () => {

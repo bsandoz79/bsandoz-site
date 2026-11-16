@@ -1,6 +1,13 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (réalisations)
+- La démo de detailing auto devient « Perfect Clean ».
+  - Six captures : accueil, prestations, réservation, zone d'intervention, carte de fidélité, espace professionnels.
+  - Contexte, besoin, solution, fonctionnalités et technologies remplis d'après le projet `bsandoz-booking`.
+  - Lien « Essayer la démo en ligne » vers https://demo.bsandoz.fr.
+  - Le titre « Réservation avec acompte » est remplacé : la démo propose maintenant le paiement en ligne ou sur place.
+
 ### Ajouté (vitrine)
 - Quatre exemples d'outils dans la vitrine de l'accueil, après les vraies réalisations : stocks et dates limites, carte par QR code, suivi des clients, galerie privée de photographe. Ce sont des maquettes d'entreprises fictives, toutes marquées « Exemple ». Elles mènent au devis (« Un outil comme celui-ci ? »).
 
