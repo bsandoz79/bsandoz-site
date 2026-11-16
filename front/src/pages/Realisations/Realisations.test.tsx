@@ -100,11 +100,15 @@ describe('Page d’une réalisation', () => {
     expect(demo).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('laisse « [à compléter] » plutôt que d’inventer, et annonce les captures à venir', () => {
+  it('présente la démo Perfect Clean : captures, fonctionnalités et lien vers demo.bsandoz.fr', () => {
     afficher('/realisations/demo-detailing');
-    expect(screen.getAllByText('[à compléter]').length).toBeGreaterThanOrEqual(3);
-    expect(screen.getByText('Les captures arrivent bientôt.')).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Ce que fait le site' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Perfect Clean' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /Perfect Clean : Zone d’intervention/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Ce que fait le site' })).toBeInTheDocument();
+    expect(screen.queryByText('[à compléter]')).not.toBeInTheDocument();
+    const demo = screen.getByRole('link', { name: /Essayer la démo en ligne/ });
+    expect(demo).toHaveAttribute('href', 'https://demo.bsandoz.fr');
+    expect(demo).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
   it('mène aux projets précédent et suivant, et revient à la liste', () => {

@@ -158,3 +158,6 @@ Parcours de la page À propos, mis à jour le 2026-11-07 : trois saisons en snac
 - galerie de photographe.
 
 Chacune utilise `RealisationCard` avec `exemple: true`, qui ajoute le badge « Exemple » sur l'image (et « Exemple · » lu par les lecteurs d'écran). Leur lien mène au devis. Les images sont dans `assets/exemples/`, en 1 280 × 720 WebP. Leur source est `docs/exemples/maquettes-outils.html` : ouvrir le fichier dans Chrome, capturer chaque `section` en 1 280 × 720 avec une fenêtre assez haute, puis convertir en WebP. Elles ne sont jamais présentées comme des clients. Tests : `Home.test.tsx`.
+
+## Réalisation « Perfect Clean » (2026-11-16)
+La fiche `demo-detailing` (`data/realisations.ts`) est complète : six captures (`assets/realisations/demo-detailing/`, 1 280 × 720 WebP) et le lien vers https://demo.bsandoz.fr. Ses textes viennent de la documentation du projet `bsandoz-booking`. Les captures ont été prises sur la démo servie en local, car la protection d'o2switch bloque les captures automatiques du site en ligne (erreur 429). Plus aucune réalisation n'a de « [à compléter] » : l'aperçu provisoire des cartes reste testé avec une réalisation fictive (`RealisationCard.test.tsx`).

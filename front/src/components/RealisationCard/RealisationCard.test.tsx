@@ -4,7 +4,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { realisations } from '../../data/realisations';
 import { RealisationCard } from './RealisationCard';
 
-const [moto, detailing] = realisations;
+const [moto] = realisations;
+/** Projet sans captures : la carte montre une illustration provisoire. */
+const provisoire = { ...realisations[1], captures: [], emplacements: ['[écran réservation]', '[écran paiement]'] };
 
 function renderCard(ui: ReactElement) {
   return render(<MemoryRouter>{ui}</MemoryRouter>);
@@ -24,10 +26,10 @@ describe('RealisationCard', () => {
   });
 
   it('cache l’aperçu provisoire aux lecteurs d’écran', () => {
-    const { container } = renderCard(<RealisationCard realisation={detailing} />);
+    const { container } = renderCard(<RealisationCard realisation={provisoire} />);
     const apercu = container.querySelector('[aria-hidden="true"]');
     expect(apercu).toHaveTextContent('[écran réservation]');
-    expect(apercu).toHaveTextContent('[écran acompte]');
+    expect(apercu).toHaveTextContent('[écran paiement]');
   });
 
   it('accepte un titre de niveau 2', () => {

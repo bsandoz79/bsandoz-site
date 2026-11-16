@@ -2,6 +2,12 @@
  * Réalisations présentées (cahier des charges, section 9). Textes repris du portfolio de Baptiste :
  * rien n'est inventé ; ce qui manque reste « [à compléter] ».
  */
+import detailingAccueil from '../assets/realisations/demo-detailing/accueil.webp';
+import detailingFidelite from '../assets/realisations/demo-detailing/fidelite.webp';
+import detailingPrestations from '../assets/realisations/demo-detailing/prestations.webp';
+import detailingProfessionnels from '../assets/realisations/demo-detailing/professionnels.webp';
+import detailingReservation from '../assets/realisations/demo-detailing/reservation.webp';
+import detailingZone from '../assets/realisations/demo-detailing/zone.webp';
 import poixAccueil from '../assets/realisations/christophe-poix-moto/accueil.webp';
 import poixContact from '../assets/realisations/christophe-poix-moto/contact.webp';
 import poixGalerie from '../assets/realisations/christophe-poix-moto/galerie.webp';
@@ -61,8 +67,6 @@ export type Realisation = {
   /** Site ou démo en ligne. */
   demo?: { label: string; url: string };
 };
-
-const A_COMPLETER = '[à compléter]';
 
 /** Textes des pages Réalisations (liste et projet). */
 export const pageRealisations = {
@@ -138,18 +142,38 @@ export const realisations: Realisation[] = [
     id: 'demo-detailing',
     categorie: 'Detailing auto à domicile · démo',
     type: 'site',
-    titre: 'Réservation avec acompte',
-    resume: 'Démo : réservation en ligne, prix calculé et acompte.',
-    annee: A_COMPLETER,
+    titre: 'Perfect Clean',
+    resume: 'Démo : réservation en ligne, frais de déplacement, espaces client et pro.',
+    annee: '2026',
     lien: { label: 'Voir la démo', to: cheminRealisation('demo-detailing') },
     apercu: 'telephones',
-    emplacements: ['[écran réservation]', '[écran acompte]'],
-    captures: [],
-    contexte: A_COMPLETER,
-    besoin: A_COMPLETER,
-    solution: A_COMPLETER,
-    fonctionnalites: [],
-    technos: [],
+    emplacements: ['[écran réservation]', '[écran paiement]'],
+    captures: [
+      { src: detailingAccueil, legende: 'Accueil : l’accroche, le camion-atelier et les points forts' },
+      { src: detailingPrestations, legende: 'Prestations : formules, durée et ce qui est compris' },
+      { src: detailingReservation, legende: 'Réservation : le choix de la formule, prix affichés' },
+      { src: detailingZone, legende: 'Zone d’intervention : frais de déplacement selon la distance' },
+      { src: detailingFidelite, legende: 'Carte de fidélité : une remise après 4 prestations' },
+      { src: detailingProfessionnels, legende: 'Espace professionnels : demande de devis pour les flottes' },
+    ],
+    contexte:
+      'Une démo complète pour un artisan de detailing auto à domicile, autour d’Abbeville (marque fictive « Perfect Clean »). Ce type d’artisan paie souvent un outil de réservation par abonnement, autour de 44 € par mois.',
+    besoin:
+      'Que les clients réservent seuls un créneau qui tient compte de la durée de la prestation et du trajet, avec le bon prix et les frais de déplacement calculés selon l’adresse. Et un système qui appartient à l’artisan, sans abonnement.',
+    solution:
+      'Un site avec un parcours de réservation en étapes, le paiement en ligne ou sur place, un espace client et un espace pro (planning, catalogue, horaires, factures). Hébergé chez o2switch, avec ses propres données, sans abonnement en dehors des frais de paiement.',
+    fonctionnalites: [
+      'Réservation en étapes : prestation, adresse, créneau, coordonnées',
+      'Frais de déplacement par tranches selon la distance, carte de la zone',
+      'Créneaux calculés avec la durée de la prestation et le trajet',
+      'Paiement en ligne de la totalité, ou réglé sur place',
+      'Mails de confirmation avec le rendez-vous à ajouter à son agenda',
+      'Espace client : rendez-vous, déplacement, annulation, factures',
+      'Espace pro : planning, catalogue, horaires, factures, carte de fidélité',
+      'Demande de devis pour les professionnels (flottes, utilitaires)',
+    ],
+    technos: ['React', 'TypeScript', 'Symfony', 'MySQL', 'Stripe', 'Leaflet'],
+    demo: { label: 'Essayer la démo en ligne', url: 'https://demo.bsandoz.fr' },
   },
   {
     id: 'ordv',
