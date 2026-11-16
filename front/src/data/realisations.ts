@@ -2,9 +2,12 @@
  * Réalisations présentées (cahier des charges, section 9). Textes repris du portfolio de Baptiste :
  * rien n'est inventé ; ce qui manque reste « [à compléter] ».
  */
+import detailingAbonnement from '../assets/realisations/demo-detailing/abonnement.webp';
 import detailingAccueil from '../assets/realisations/demo-detailing/accueil.webp';
+import detailingEncaisser from '../assets/realisations/demo-detailing/encaisser.webp';
 import detailingFidelite from '../assets/realisations/demo-detailing/fidelite.webp';
 import detailingPrestations from '../assets/realisations/demo-detailing/prestations.webp';
+import detailingPro from '../assets/realisations/demo-detailing/pro.webp';
 import detailingProfessionnels from '../assets/realisations/demo-detailing/professionnels.webp';
 import detailingReservation from '../assets/realisations/demo-detailing/reservation.webp';
 import detailingZone from '../assets/realisations/demo-detailing/zone.webp';
@@ -143,33 +146,40 @@ export const realisations: Realisation[] = [
     categorie: 'Detailing auto à domicile · démo',
     type: 'site',
     titre: 'Perfect Clean',
-    resume: 'Démo : réservation en ligne, frais de déplacement, espaces client et pro.',
+    resume: 'Démo : réservation en ligne, abonnements, paiement par QR code, espace pro.',
     annee: '2026',
     lien: { label: 'Voir la démo', to: cheminRealisation('demo-detailing') },
     apercu: 'telephones',
     emplacements: ['[écran réservation]', '[écran paiement]'],
     captures: [
-      { src: detailingAccueil, legende: 'Accueil : l’accroche, le camion-atelier et les points forts' },
+      { src: detailingAccueil, legende: 'Accueil : scène animée (boue, mousse, rinçage, garage) et réservation directe' },
       { src: detailingPrestations, legende: 'Prestations : formules, durée et ce qui est compris' },
-      { src: detailingReservation, legende: 'Réservation : le choix de la formule, prix affichés' },
+      { src: detailingReservation, legende: 'Réservation : formule complète, intérieur et extérieur au choix' },
+      { src: detailingAbonnement, legende: 'Abonnements : un lavage par semaine, quinzaine, mois ou année' },
+      { src: detailingPro, legende: 'Espace pro : la journée, l’itinéraire et l’encaissement' },
+      { src: detailingEncaisser, legende: 'Encaissement sur place : QR code de paiement par carte' },
       { src: detailingZone, legende: 'Zone d’intervention : frais de déplacement selon la distance' },
       { src: detailingFidelite, legende: 'Carte de fidélité : une remise après 4 prestations' },
-      { src: detailingProfessionnels, legende: 'Espace professionnels : demande de devis pour les flottes' },
+      { src: detailingProfessionnels, legende: 'Professionnels : demande de devis pour les flottes' },
     ],
     contexte:
       'Une démo complète pour un artisan de detailing auto à domicile, autour d’Abbeville (marque fictive « Perfect Clean »). Ce type d’artisan paie souvent un outil de réservation par abonnement, autour de 44 € par mois.',
     besoin:
       'Que les clients réservent seuls un créneau qui tient compte de la durée de la prestation et du trajet, avec le bon prix et les frais de déplacement calculés selon l’adresse. Et un système qui appartient à l’artisan, sans abonnement.',
     solution:
-      'Un site avec un parcours de réservation en étapes, le paiement en ligne ou sur place, un espace client et un espace pro (planning, catalogue, horaires, factures). Hébergé chez o2switch, avec ses propres données, sans abonnement en dehors des frais de paiement.',
+      'Un site avec un parcours de réservation en étapes, le paiement en ligne ou sur place, des abonnements prélevés automatiquement, un espace client et un espace pro (planning, encaissement, catalogue, horaires, factures). L’accueil s’ouvre sur une courte scène animée, et l’espace pro s’installe comme une application sur le téléphone. Hébergé chez o2switch, avec ses propres données, sans abonnement en dehors des frais de paiement.',
     fonctionnalites: [
-      'Réservation en étapes : prestation, adresse, créneau, coordonnées',
+      'Accueil animé : la voiture passe de la boue au garage en quelques secondes, puis réservation en un clic',
+      'Réservation en étapes : prestation et options, adresse, créneau, coordonnées',
+      'Formule complète : intérieur et extérieur au choix, avec une remise',
       'Frais de déplacement par tranches selon la distance, carte de la zone',
       'Créneaux calculés avec la durée de la prestation et le trajet',
-      'Paiement en ligne de la totalité, ou réglé sur place',
+      'Paiement en ligne de la totalité, ou réglé sur place (carte, QR code, espèces, virement, chèque)',
+      'Abonnements sans engagement, prélevés automatiquement (Stripe)',
       'Mails de confirmation avec le rendez-vous à ajouter à son agenda',
-      'Espace client : rendez-vous, déplacement, annulation, factures',
-      'Espace pro : planning, catalogue, horaires, factures, carte de fidélité',
+      'Espace client : rendez-vous, abonnement, déplacement, annulation, factures',
+      'Espace pro installable sur le téléphone : journée, itinéraire Maps ou Waze, encaissement, planning, catalogue, factures, comptabilité',
+      'Textes et formules modifiables directement sur le site par l’artisan',
       'Demande de devis pour les professionnels (flottes, utilitaires)',
     ],
     technos: ['React', 'TypeScript', 'Symfony', 'MySQL', 'Stripe', 'Leaflet'],

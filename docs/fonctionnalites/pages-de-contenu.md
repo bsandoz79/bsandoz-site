@@ -161,3 +161,5 @@ Chacune utilise `RealisationCard` avec `exemple: true`, qui ajoute le badge « E
 
 ## Réalisation « Perfect Clean » (2026-11-16)
 La fiche `demo-detailing` (`data/realisations.ts`) est complète : six captures (`assets/realisations/demo-detailing/`, 1 280 × 720 WebP) et le lien vers https://demo.bsandoz.fr. Ses textes viennent de la documentation du projet `bsandoz-booking`. Les captures ont été prises sur la démo servie en local, car la protection d'o2switch bloque les captures automatiques du site en ligne (erreur 429). Plus aucune réalisation n'a de « [à compléter] » : l'aperçu provisoire des cartes reste testé avec une réalisation fictive (`RealisationCard.test.tsx`).
+
+Mise à jour du 2026-11-16 (soir) : neuf captures (ajout des abonnements, de l'espace pro et de l'encaissement par QR code) et fonctionnalités complétées d'après la démo actuelle.

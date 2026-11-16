@@ -130,3 +130,4 @@ Types de tests :
 | 99 | [Édition sur place](99-feature-edition-sur-place.md) | `feature/edition-sur-place` | 2026-11-07 |
 | 100 | [Exemples d'outils dans la vitrine](100-feature-exemples-outils.md) | `feature/exemples-outils` | 2026-11-07 |
 | 101 | [Réalisation Perfect Clean (detailing auto)](101-feature-realisation-detailing.md) | `feature/realisation-detailing` | 2026-11-16 |
+| 102 | [Perfect Clean : mise à jour](102-feature-maj-perfect-clean.md) | `feature/maj-perfect-clean` | 2026-11-16 |
