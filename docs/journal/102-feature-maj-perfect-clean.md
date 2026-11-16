@@ -17,6 +17,8 @@ Branche `feature/maj-perfect-clean` · 2026-11-16
   - accueil animé.
 - **Capture écartée** : la scène de l'intérieur, car l'image IA montre des gobelets d'une marque connue.
 
+- **Complément (`chore/capture-pro-rouge`)** : capture « Professionnels » refaite après le passage de l'encart en rouge sur la démo.
+
 ## À quoi ça sert
 Montrer aux prospects l'état actuel de la démo, la plus complète des réalisations.
 
