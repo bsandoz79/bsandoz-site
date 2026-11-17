@@ -53,7 +53,14 @@ export function jsonLdEntreprise() {
       addressRegion: 'Somme',
       addressCountry: 'FR',
     },
-    areaServed: [{ '@type': 'City', name: 'Amiens' }, { '@type': 'Country', name: 'France' }],
+    areaServed: [
+      { '@type': 'City', name: 'Amiens' },
+      { '@type': 'City', name: 'Abbeville' },
+      { '@type': 'AdministrativeArea', name: 'Somme' },
+      { '@type': 'Country', name: 'France' },
+    ],
+    founder: { '@type': 'Person', name: site.name, jobTitle: 'Développeur web' },
+    logo: urlComplete('/logo.png'),
     sameAs: [contact.portfolio],
   };
 }
