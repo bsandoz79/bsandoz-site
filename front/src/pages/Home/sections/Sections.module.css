@@ -59,12 +59,22 @@
 }
 
 /* Vitrine pleine largeur ; le bouton pause reste aligné sur le contenu. */
-.vitrine {
-  margin-top: var(--space-5);
+/* Réalisations : grille, toutes les cartes visibles d'un coup (1 colonne sur téléphone, jusqu'à 3 sur grand écran). */
+.grilleRealisations {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 }
 
-.vitrine > button {
-  margin-inline-end: max(var(--space-5), calc((100% - var(--container)) / 2 + var(--space-5)));
+.grilleRealisations > li {
+  display: flex;
+}
+
+.grilleRealisations > li > * {
+  flex: 1;
 }
 
 .note {

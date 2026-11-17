@@ -71,16 +71,16 @@ describe("Page d'accueil", () => {
     expect(bloc).toHaveTextContent(autonomie.note);
   });
 
-  it('fait défiler les réalisations, avec une pause et le lien vers toutes les réalisations', () => {
+  it('montre toutes les réalisations d’un coup, en grille, et le lien vers toutes les réalisations', () => {
     renderHome();
     const bloc = section('Mes réalisations');
     const liste = within(bloc).getByRole('list', { name: 'Mes réalisations' });
     for (const realisation of realisations) {
       expect(within(liste).getByRole('article', { name: realisation.titre })).toBeInTheDocument();
     }
-    // La copie qui sert à boucler n'est ni lue ni atteignable au clavier.
     expect(within(bloc).getAllByRole('article')).toHaveLength(realisations.length + exemplesOutils.length);
-    expect(within(bloc).getByRole('button', { name: 'Mettre en pause' })).toBeInTheDocument();
+    // Plus de défilement automatique : rien à mettre en pause.
+    expect(within(bloc).queryByRole('button', { name: 'Mettre en pause' })).not.toBeInTheDocument();
     expect(within(bloc).getByRole('link', { name: /Voir toutes les réalisations/ })).toHaveAttribute('href', pages.realisations.path);
   });
 
