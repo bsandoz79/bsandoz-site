@@ -133,3 +133,4 @@ Types de tests :
 | 102 | [Perfect Clean : mise à jour](102-feature-maj-perfect-clean.md) | `feature/maj-perfect-clean` | 2026-11-16 |
 | 103 | [Logo « SB »](103-feature-logo-sb.md) | `feature/logo-sb` | 2026-11-17 |
 | 104 | [Réalisations en grille](104-feature-realisations-grille.md) | `feature/realisations-grille` | 2026-11-17 |
+| 105 | [Barre de navigation pleine largeur](105-style-nav-pleine-largeur.md) | `style/nav-pleine-largeur` | 2026-11-17 |

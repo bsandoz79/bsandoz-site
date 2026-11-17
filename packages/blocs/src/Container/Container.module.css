@@ -11,3 +11,7 @@
 .narrow {
   max-width: var(--container-narrow);
 }
+
+.full {
+  max-width: none;
+}
