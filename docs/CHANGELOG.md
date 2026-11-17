@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (accueil)
+- « Mes réalisations » : grille où toutes les cartes sont visibles d'un coup (1 à 3 colonnes), à la place de la bande qui défilait toute seule ; plus besoin d'attendre pour choisir un projet.
+
 ### Modifié (marque)
 - Nouveau logo « SB » (monogramme néon) dans l'en-tête et le pied de page, à la place des lettres sur fond bleu nuit ; il devient aussi l'icône d'onglet (à la place de l'icône par défaut de Vite) et l'icône d'écran d'accueil sur iPhone.
 

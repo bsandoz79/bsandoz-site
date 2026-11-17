@@ -87,8 +87,6 @@ export const autonomie = {
 export const realisationsSection = {
   title: 'Mes réalisations',
   lien: 'Voir toutes les réalisations',
-  pause: 'Mettre en pause',
-  lecture: 'Relancer le défilement',
 };
 
 export const methode = {
