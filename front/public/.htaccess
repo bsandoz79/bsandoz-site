@@ -1,11 +1,21 @@
-# Les routes React (ex. /tarifs) renvoient vers index.html.
+# Pas de redirection automatique /realisations -> /realisations/ (le dossier existe pour les pages des projets).
+DirectorySlash Off
+
 RewriteEngine On
 RewriteBase /
-RewriteRule ^index\.html$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
 
 # HTTPS obligatoire
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^index\.html$ - [L]
+
+# Pages générées à la construction (/a-propos -> a-propos.html) : lisibles sans JavaScript par les moteurs.
+RewriteCond %{REQUEST_URI} !\.html$
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# Les autres routes React (ex. /tarifs) renvoient vers index.html.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]

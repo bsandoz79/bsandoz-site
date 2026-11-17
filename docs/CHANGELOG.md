@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (référencement)
+- Une page HTML par page publique, générée à la construction : titre, description, adresse canonique, données structurées et texte principal lisibles par Google sans JavaScript (avant, toutes les pages envoyaient le même HTML vide).
+- Titres avec « Amiens » (accueil, pages métier, informatique) ; zone servie complétée (Abbeville, Somme).
+
 ### Ajouté (réalisations)
 - Réalisation « Chope ton chargeur » (comparateur de chargeurs, https://choptonchargeur.bsandoz.fr) : 7 captures, contexte, besoin, solution, fonctionnalités, technologies et lien vers le site ; page `/realisations/choptonchargeur` dans le plan du site.
 

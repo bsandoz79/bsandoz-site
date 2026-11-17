@@ -31,9 +31,9 @@ export type PageInfo = {
 export const pages = {
   accueil: {
     path: '/',
-    title: 'Création de sites web à Amiens',
+    title: 'Création de site internet à Amiens · Développeur web',
     description:
-      "Sites internet, prise de rendez-vous en ligne et applis pour artisans, commerçants et indépendants autour d'Amiens.",
+      'Développeur web à Amiens : création de sites internet sur mesure, prise de rendez-vous en ligne et applis pour artisans, commerçants et indépendants de la Somme.',
     heading: 'Un site à vous, que vous modifiez vous-même.',
   },
   realisations: {
@@ -44,32 +44,32 @@ export const pages = {
   },
   artisan: {
     path: '/site-artisan',
-    title: 'Site internet pour artisan',
+    title: 'Site internet pour artisan à Amiens',
     description: 'Un site pour artisan à domicile, avec prise de rendez-vous en ligne, autour d’Amiens.',
     heading: 'Vos clients réservent pendant que vous travaillez.',
   },
   ecommerce: {
     path: '/site-ecommerce',
-    title: 'Site internet pour commerce',
+    title: 'Site internet pour commerce à Amiens',
     description: 'Un site pour votre commerce : vente en ligne, click & collect et visibilité sur Google.',
     heading: 'Vendez aussi en ligne, et soyez trouvé sur Google.',
   },
   restaurant: {
     path: '/site-restaurant',
-    title: 'Site internet pour restaurant',
+    title: 'Site internet pour restaurant à Amiens',
     description: 'Un site pour votre restaurant : carte, horaires et réservations de table toujours à jour.',
     heading: 'Votre carte, vos horaires et vos réservations, toujours à jour.',
   },
   independant: {
     path: '/site-independant',
-    title: 'Site internet pour indépendant',
+    title: 'Site internet pour indépendant à Amiens',
     description:
       'Un site pour les professionnels de la santé et du bien-être : rendez-vous en ligne et moins de téléphone.',
     heading: 'Moins de temps au téléphone, plus avec vos clients.',
   },
   informatique: {
     path: '/informatique',
-    title: 'Informatique sur place',
+    title: 'Dépannage et informatique à domicile à Amiens',
     description:
       'Installation, passage à Linux, dépannage, sauvegarde et formation à domicile, autour d’Amiens.',
     heading: 'Votre PC ne passe pas à Windows 11 ? Ne le jetez pas.',
