@@ -36,8 +36,8 @@ describe('Page Réalisations', () => {
     const cartes = () => screen.getAllByRole('article').map((a) => a.getAttribute('aria-labelledby'));
 
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getByText('5 projets')).toBeInTheDocument();
-    expect(cartes()).toHaveLength(5);
+    expect(screen.getByText('6 projets')).toBeInTheDocument();
+    expect(cartes()).toHaveLength(6);
 
     await user.click(screen.getByRole('radio', { name: 'Sites web' }));
     expect(screen.getByText('3 projets')).toBeInTheDocument();
@@ -46,23 +46,32 @@ describe('Page Réalisations', () => {
     expect(screen.getByRole('article', { name: 'Christophe Poix Moto' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: 'Applis & plateformes' }));
-    expect(screen.getByText('2 projets')).toBeInTheDocument();
+    expect(screen.getByText('3 projets')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Cadeaux' })).toBeInTheDocument();
     expect(screen.getByRole('article', { name: "O'RDV" })).toBeInTheDocument();
     expect(screen.getByRole('article', { name: 'Alterno' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: 'Tout' }));
-    expect(cartes()).toHaveLength(5);
+    expect(cartes()).toHaveLength(6);
   });
 
   it('reprend le filtre de l’adresse, et ignore un filtre inconnu', () => {
     const { unmount } = afficher(`${pages.realisations.path}?type=appli`);
     expect(screen.getByRole('radio', { name: 'Applis & plateformes' })).toBeChecked();
-    expect(screen.getAllByRole('article')).toHaveLength(2);
+    expect(screen.getAllByRole('article')).toHaveLength(3);
     unmount();
 
     afficher(`${pages.realisations.path}?type=inconnu`);
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getAllByRole('article')).toHaveLength(5);
+    expect(screen.getAllByRole('article')).toHaveLength(6);
+  });
+
+  it('présente Cadeaux : captures, fonctionnalités et lien vers le site', () => {
+    afficher('/realisations/cadeaux');
+    expect(screen.getByRole('heading', { level: 1, name: 'Cadeaux' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Voir le site en ligne/ })).toHaveAttribute('href', 'https://cadeaux.bsandoz.fr');
+    expect(screen.getByText(/Liste d’envies partagée/)).toBeInTheDocument();
+    expect(screen.getAllByRole('img').length).toBeGreaterThanOrEqual(7);
   });
 
   it('présente Chope ton chargeur : captures, fonctionnalités et lien vers le site', () => {

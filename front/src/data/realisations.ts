@@ -2,6 +2,13 @@
  * Réalisations présentées (cahier des charges, section 9). Textes repris du portfolio de Baptiste :
  * rien n'est inventé ; ce qui manque reste « [à compléter] ».
  */
+import cadeauxAccueil from '../assets/realisations/cadeaux/accueil.webp';
+import cadeauxTableau from '../assets/realisations/cadeaux/tableau.webp';
+import cadeauxOccasion from '../assets/realisations/cadeaux/occasion.webp';
+import cadeauxBilan from '../assets/realisations/cadeaux/bilan.webp';
+import cadeauxCagnotte from '../assets/realisations/cadeaux/cagnotte.webp';
+import cadeauxParticiper from '../assets/realisations/cadeaux/participer.webp';
+import cadeauxEnvies from '../assets/realisations/cadeaux/envies.webp';
 import chargeurAccueil from '../assets/realisations/choptonchargeur/accueil.webp';
 import chargeurRecherche from '../assets/realisations/choptonchargeur/recherche.webp';
 import chargeurFiche from '../assets/realisations/choptonchargeur/fiche.webp';
@@ -191,6 +198,43 @@ export const realisations: Realisation[] = [
     ],
     technos: ['React', 'TypeScript', 'Symfony', 'MySQL', 'Stripe', 'Leaflet'],
     demo: { label: 'Essayer la démo en ligne', url: 'https://demo.bsandoz.fr' },
+  },
+  {
+    id: 'cadeaux',
+    categorie: 'Application web · projet personnel',
+    type: 'appli',
+    titre: 'Cadeaux',
+    resume: 'Ses cadeaux, son budget de l’année et des cagnottes à plusieurs.',
+    annee: '2026',
+    lien: { label: 'Voir le projet', to: cheminRealisation('cadeaux') },
+    apercu: 'site',
+    emplacements: ['[capture du site]'],
+    captures: [
+      { src: cadeauxAccueil, legende: 'Accueil : présentation et création du compte' },
+      { src: cadeauxTableau, legende: 'Tableau de bord : budget de l’année, anniversaires et occasions à venir' },
+      { src: cadeauxOccasion, legende: 'Noël : budget par personne, ce qui reste ou ce qui dépasse' },
+      { src: cadeauxBilan, legende: 'Bilan de l’année par occasion et par personne' },
+      { src: cadeauxCagnotte, legende: 'Cagnotte : envoi du lien en un geste et RIB de l’organisateur' },
+      { src: cadeauxParticiper, legende: 'Page partagée : un ami met sa part en un clic, sans compte' },
+      { src: cadeauxEnvies, legende: 'Liste d’envies : chacun réserve ce qu’il offre, sans doublon' },
+    ],
+    contexte:
+      'Entre Noël, les anniversaires et les fêtes, les cadeaux se suivent sans qu’on sache vraiment combien on y met dans l’année. Et pour un cadeau à plusieurs, tout se règle dans un groupe de messages : qui a payé, combien il manque, à qui envoyer l’argent.',
+    besoin:
+      'Noter qui reçoit quoi et pour combien, voir le total de l’année, et organiser un cadeau commun où chacun met sa part sans créer de compte.',
+    solution:
+      'Une application web avec une API en PHP et une extension Chrome. On y note ses proches, ses occasions et ses cadeaux ; le bilan se calcule tout seul. Une cagnotte se partage par un lien : chacun y met sa part en un clic, l’organisateur peut afficher son RIB, supprimé dès que la cagnotte est terminée. Le site ne touche jamais à l’argent : il note les montants.',
+    fonctionnalites: [
+      'Occasions (Noël, anniversaires, fêtes) avec, pour chaque proche, le cadeau, le budget prévu et ce qui a été dépensé',
+      'Bilan de l’année par occasion et par personne, comparé à l’année d’avant, et rappel de ce qui a déjà été offert',
+      'Cagnottes communes en parts égales ou libres, partagées par WhatsApp, Snapchat ou SMS, avec un aperçu du lien qui montre l’avancement',
+      'Liste d’envies partagée : les proches réservent ce qu’ils offrent, le propriétaire ne voit rien',
+      'Extension Chrome : un produit ajouté en un clic, et après un achat sur Amazon, « C’est un cadeau ? » puis une cagnotte proposée',
+      'Rappels par e-mail avant les anniversaires, RIB de l’organisateur chiffré et supprimé à la fin de la cagnotte',
+      'RGPD : export des données, suppression des comptes inactifs, pages légales ; appli installable sur le téléphone',
+    ],
+    technos: ['React', 'TypeScript', 'Vite', 'PHP', 'MySQL', 'PHPUnit', 'Extension Chrome', 'GitHub Actions'],
+    demo: { label: 'Voir le site en ligne', url: 'https://cadeaux.bsandoz.fr' },
   },
   {
     id: 'choptonchargeur',
