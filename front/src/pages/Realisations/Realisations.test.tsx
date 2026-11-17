@@ -36,11 +36,12 @@ describe('Page Réalisations', () => {
     const cartes = () => screen.getAllByRole('article').map((a) => a.getAttribute('aria-labelledby'));
 
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getByText('4 projets')).toBeInTheDocument();
-    expect(cartes()).toHaveLength(4);
+    expect(screen.getByText('5 projets')).toBeInTheDocument();
+    expect(cartes()).toHaveLength(5);
 
     await user.click(screen.getByRole('radio', { name: 'Sites web' }));
-    expect(screen.getByText('2 projets')).toBeInTheDocument();
+    expect(screen.getByText('3 projets')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Chope ton chargeur' })).toBeInTheDocument();
     expect(screen.queryByRole('article', { name: "O'RDV" })).not.toBeInTheDocument();
     expect(screen.getByRole('article', { name: 'Christophe Poix Moto' })).toBeInTheDocument();
 
@@ -50,7 +51,7 @@ describe('Page Réalisations', () => {
     expect(screen.getByRole('article', { name: 'Alterno' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: 'Tout' }));
-    expect(cartes()).toHaveLength(4);
+    expect(cartes()).toHaveLength(5);
   });
 
   it('reprend le filtre de l’adresse, et ignore un filtre inconnu', () => {
@@ -61,7 +62,14 @@ describe('Page Réalisations', () => {
 
     afficher(`${pages.realisations.path}?type=inconnu`);
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getAllByRole('article')).toHaveLength(4);
+    expect(screen.getAllByRole('article')).toHaveLength(5);
+  });
+
+  it('présente Chope ton chargeur : captures, fonctionnalités et lien vers le site', () => {
+    afficher('/realisations/choptonchargeur');
+    expect(screen.getByRole('heading', { level: 1, name: 'Chope ton chargeur' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /Chope ton chargeur : À acheter en priorité/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Voir le site en ligne/ })).toHaveAttribute('href', 'https://choptonchargeur.bsandoz.fr');
   });
 
   it('chaque projet a un type couvert par un filtre', () => {

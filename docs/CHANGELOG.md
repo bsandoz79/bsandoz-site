@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (réalisations)
+- Réalisation « Chope ton chargeur » (comparateur de chargeurs, https://choptonchargeur.bsandoz.fr) : 7 captures, contexte, besoin, solution, fonctionnalités, technologies et lien vers le site ; page `/realisations/choptonchargeur` dans le plan du site.
+
 ### Modifié (en-tête)
 - Barre de navigation et onglets du haut sur toute la largeur de l'écran : logo contre le bord gauche, boutons contre le bord droit. Nouvelle taille `full` du bloc `Container` (`@bsandoz79/blocs`).
 

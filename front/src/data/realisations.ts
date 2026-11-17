@@ -2,6 +2,13 @@
  * Réalisations présentées (cahier des charges, section 9). Textes repris du portfolio de Baptiste :
  * rien n'est inventé ; ce qui manque reste « [à compléter] ».
  */
+import chargeurAccueil from '../assets/realisations/choptonchargeur/accueil.webp';
+import chargeurRecherche from '../assets/realisations/choptonchargeur/recherche.webp';
+import chargeurFiche from '../assets/realisations/choptonchargeur/fiche.webp';
+import chargeurPriorites from '../assets/realisations/choptonchargeur/priorites.webp';
+import chargeurSansfil from '../assets/realisations/choptonchargeur/sansfil.webp';
+import chargeurOrdinateurs from '../assets/realisations/choptonchargeur/ordinateurs.webp';
+import chargeurGuide from '../assets/realisations/choptonchargeur/guide.webp';
 import detailingAbonnement from '../assets/realisations/demo-detailing/abonnement.webp';
 import detailingAccueil from '../assets/realisations/demo-detailing/accueil.webp';
 import detailingEncaisser from '../assets/realisations/demo-detailing/encaisser.webp';
@@ -184,6 +191,43 @@ export const realisations: Realisation[] = [
     ],
     technos: ['React', 'TypeScript', 'Symfony', 'MySQL', 'Stripe', 'Leaflet'],
     demo: { label: 'Essayer la démo en ligne', url: 'https://demo.bsandoz.fr' },
+  },
+  {
+    id: 'choptonchargeur',
+    categorie: 'Comparateur · projet personnel',
+    type: 'site',
+    titre: 'Chope ton chargeur',
+    resume: 'Le bon chargeur pour chaque téléphone ou PC, expliqué simplement.',
+    annee: '2026',
+    lien: { label: 'Voir le projet', to: cheminRealisation('choptonchargeur') },
+    apercu: 'site',
+    emplacements: ['[capture du site]'],
+    captures: [
+      { src: chargeurAccueil, legende: 'Accueil : recherche par téléphone ou par ordinateur portable' },
+      { src: chargeurRecherche, legende: 'Recherche par le nom seul, les plus récents d’abord' },
+      { src: chargeurFiche, legende: 'Fiche d’un téléphone : puissance, port, charge rapide, sans fil' },
+      { src: chargeurPriorites, legende: 'À acheter en priorité : conseillé par la marque et meilleur rapport qualité/prix' },
+      { src: chargeurSansfil, legende: 'Chargeurs sans fil compatibles' },
+      { src: chargeurOrdinateurs, legende: 'Ordinateurs portables par marque et par série' },
+      { src: chargeurGuide, legende: 'Le guide : bloc, câble, batterie, chargeurs premier prix' },
+    ],
+    contexte:
+      'Acheter un chargeur est devenu un casse-tête : watts, Power Delivery, PPS, câble 5 A, charge propre à chaque marque… On finit souvent avec un chargeur trop lent, ou un premier prix douteux.',
+    besoin:
+      'Dire en un clic quel chargeur prendre pour un téléphone ou un ordinateur précis, expliquer pourquoi sans jargon, et ne proposer que des produits fiables, en version française.',
+    solution:
+      'Un site rapide, pensé pour le téléphone : on tape son modèle, et un moteur de compatibilité calcule la vitesse réellement obtenue avec chaque chargeur. Le chargeur conseillé par la marque et le meilleur rapport qualité/prix passent en tête, chacun avec son câble et son explication. Le site vit de liens affiliés, sans stock ni vente directe, et chaque appareil a sa propre page pour être trouvé sur Google et par les assistants.',
+    fonctionnalites: [
+      'Recherche par nom seul (« s24 ultra », « iphone 15 ») parmi 1 566 téléphones USB-C et iPhone, et détection automatique de l’appareil',
+      'Pour chaque téléphone : le chargeur conseillé par la marque et le meilleur rapport qualité/prix mis en avant, puis les autres compatibles',
+      'Vitesse réellement obtenue et explication « Pourquoi il convient » (Power Delivery, PPS, 5 A, charge propre à la marque)',
+      'Effet sur la batterie (très rapide, rapide, doux), câble à associer en plusieurs longueurs, chargeurs sans fil MagSafe, Qi2 et Qi',
+      'Ordinateurs portables par marque et par série, y compris prises rondes et rectangulaires, avec le chargeur d’origine',
+      'Uniquement des marques connues en version prise française, liens affiliés vers Amazon',
+      'Référencement : une page par appareil générée à la construction (120 pages), FAQ structurée, sitemap, robots.txt ouvert aux assistants et llms.txt',
+    ],
+    technos: ['React', 'TypeScript', 'Vite', 'Vitest', 'Schema.org', 'GitHub Actions'],
+    demo: { label: 'Voir le site en ligne', url: 'https://choptonchargeur.bsandoz.fr' },
   },
   {
     id: 'ordv',
