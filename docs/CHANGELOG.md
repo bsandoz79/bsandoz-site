@@ -1,6 +1,12 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (réalisations)
+- Page d'une réalisation : les rubriques (contexte, besoin, solution, fonctionnalités) ne sont plus des cartes à barre rose, mais une suite de rubriques séparées par un filet, titre en petites capitales à gauche sur grand écran.
+
+### Ajouté (réalisations)
+- Réalisation « Cadeaux » (https://cadeaux.bsandoz.fr) : cadeaux et budget de l'année, cagnottes communes, liste d'envies, extension Chrome ; 7 captures.
+
 ### Ajouté (référencement)
 - Une page HTML par page publique, générée à la construction : titre, description, adresse canonique, données structurées et texte principal lisibles par Google sans JavaScript (avant, toutes les pages envoyaient le même HTML vide).
 - Titres avec « Amiens » (accueil, pages métier, informatique) ; zone servie complétée (Abbeville, Somme).

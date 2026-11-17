@@ -111,22 +111,18 @@
 
 .etude {
   display: grid;
-  gap: var(--space-4);
 }
 
+/*
+ * Étude du projet : une suite de rubriques séparées par un filet, sans cartes.
+ * Téléphone : le titre au-dessus du texte ; grand écran : le titre dans une colonne étroite à gauche.
+ */
 .bloc,
 .fonctionnalites {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: var(--space-2);
-  padding: var(--space-5);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-}
-
-.bloc {
-  border-top: 4px solid var(--color-rose);
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--color-border);
 }
 
 .blocTitre {
@@ -134,25 +130,45 @@
   font-weight: 800;
 }
 
+.bloc .blocTitre,
+.fonctionnalites .blocTitre {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.bloc p {
+  margin: 0;
+  max-width: 65ch;
+  font-size: var(--text-lg);
+  line-height: 1.65;
+}
+
 .fonctionnalites ul {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-2) var(--space-6);
   margin: 0;
-  padding: 0;
-  list-style: none;
+  padding: 0 0 0 1.1em;
+  max-width: 70ch;
 }
 
-.fonctionnalites li {
-  position: relative;
-  padding-left: var(--space-5);
+.fonctionnalites li::marker {
+  color: var(--color-text-muted);
 }
 
-.fonctionnalites li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--color-accent-texte);
-  font-weight: 800;
+@media (min-width: 960px) {
+  .bloc,
+  .fonctionnalites {
+    grid-template-columns: 12rem 1fr;
+    gap: var(--space-6);
+  }
+
+  .bloc .blocTitre,
+  .fonctionnalites .blocTitre {
+    padding-top: 0.35em;
+  }
 }
 
 .galerie {
@@ -258,10 +274,6 @@
 }
 
 @media (min-width: 960px) {
-  .etude {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .galerie {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

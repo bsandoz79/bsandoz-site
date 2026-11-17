@@ -136,3 +136,4 @@ Types de tests :
 | 105 | [Barre de navigation pleine largeur](105-style-nav-pleine-largeur.md) | `style/nav-pleine-largeur` | 2026-11-17 |
 | 106 | [Réalisation « Chope ton chargeur »](106-feature-realisation-choptonchargeur.md) | `feature/realisation-choptonchargeur` | 2026-11-17 |
 | 107 | [Pages lisibles par Google sans JavaScript](107-feature-seo-pages-statiques.md) | `feature/seo-pages-statiques` | 2026-11-17 |
+| 108 | [Page d'une réalisation sans cartes, et « Cadeaux »](108-style-realisation-sans-cartes.md) | `style/realisation-sans-cartes` | 2026-11-17 |
