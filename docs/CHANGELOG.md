@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (en-tête)
+- Barre de navigation et onglets du haut sur toute la largeur de l'écran : logo contre le bord gauche, boutons contre le bord droit. Nouvelle taille `full` du bloc `Container` (`@bsandoz79/blocs`).
+
 ### Modifié (accueil)
 - « Mes réalisations » : grille où toutes les cartes sont visibles d'un coup (1 à 3 colonnes), à la place de la bande qui défilait toute seule ; plus besoin d'attendre pour choisir un projet.
 

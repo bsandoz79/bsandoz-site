@@ -72,7 +72,7 @@ export function Header() {
       }}
     >
       <div className={styles.tabsBar}>
-        <Container as="nav" aria-label={header.tabsLabel}>
+        <Container as="nav" size="full" aria-label={header.tabsLabel}>
           <ul className={styles.tabs}>
             {serviceTabs.map((tab) => {
               const current = tab.to === informatiquePrefix ? inInformatique : !inInformatique;
@@ -92,7 +92,7 @@ export function Header() {
         </Container>
       </div>
 
-      <Container className={styles.bar}>
+      <Container size="full" className={styles.bar}>
         <Link to="/" className={styles.brand}>
           <img className={styles.logo} src={logoSb} alt="" width={114} height={96} />
           <span className={styles.name}>{header.name}</span>

@@ -27,4 +27,9 @@ describe('Container', () => {
     );
     expect(screen.getByText('Texte')).toHaveClass('container', 'narrow', 'extra');
   });
+
+  it('prend toute la largeur de l’écran', () => {
+    render(<Container size="full">Bandeau</Container>);
+    expect(screen.getByText('Bandeau')).toHaveClass('container', 'full');
+  });
 });

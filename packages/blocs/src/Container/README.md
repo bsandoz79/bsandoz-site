@@ -15,6 +15,6 @@ import { Container } from '@bsandoz79/blocs';
 | Prop | Type | Défaut | Rôle |
 | --- | --- | --- | --- |
 | `as` | balise ou composant | `'div'` | élément rendu (`section`, `nav`, `header`…) |
-| `size` | `'md' \| 'narrow'` | `'md'` | largeur maximale (`--container` ou `--container-narrow`) |
+| `size` | `'md' \| 'narrow' \| 'full'` | `'md'` | largeur maximale (`--container`, `--container-narrow`, ou toute la largeur de l'écran pour `full`, marges latérales gardées) |
 
 Toutes les autres propriétés natives (`id`, `aria-*`, `className`…) sont transmises.

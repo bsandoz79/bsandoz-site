@@ -1,7 +1,8 @@
 import type { ElementType, HTMLAttributes, ReactNode } from 'react';
 import styles from './Container.module.css';
 
-export type ContainerSize = 'md' | 'narrow';
+/** `md` : largeur de lecture ; `narrow` : étroite ; `full` : toute la largeur de l'écran (marges latérales gardées). */
+export type ContainerSize = 'md' | 'narrow' | 'full';
 
 export type ContainerProps = HTMLAttributes<HTMLElement> & {
   children: ReactNode;
