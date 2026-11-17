@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (marque)
+- Nouveau logo « SB » (monogramme néon) dans l'en-tête et le pied de page, à la place des lettres sur fond bleu nuit ; il devient aussi l'icône d'onglet (à la place de l'icône par défaut de Vite) et l'icône d'écran d'accueil sur iPhone.
+
 ### Modifié (réalisations)
 - Perfect Clean mis à jour avec les nouveautés de la démo.
   - Neuf captures : accueil animé avec réservation directe, prestations, formule complète, abonnements, espace pro, encaissement par QR code, zone, fidélité, encart professionnels.
