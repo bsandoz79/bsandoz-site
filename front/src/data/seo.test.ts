@@ -15,8 +15,9 @@ describe('SEO', () => {
     expect(chemins).toContain(pages.rendezVous.path);
     expect(chemins.filter((c) => c.startsWith('/mon-espace'))).toEqual([]);
     // Pages publiques, plus une page par réalisation.
-    expect(chemins).toHaveLength(Object.keys(pages).length - pagesNonIndexees.length + 4);
+    expect(chemins).toHaveLength(Object.keys(pages).length - pagesNonIndexees.length + 5);
     expect(chemins).toContain('/realisations/alterno');
+    expect(chemins).toContain('/realisations/choptonchargeur');
     expect(chemins).toContain('/realisations/ordv');
   });
 

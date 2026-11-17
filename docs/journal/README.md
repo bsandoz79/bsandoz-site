@@ -134,3 +134,4 @@ Types de tests :
 | 103 | [Logo « SB »](103-feature-logo-sb.md) | `feature/logo-sb` | 2026-11-17 |
 | 104 | [Réalisations en grille](104-feature-realisations-grille.md) | `feature/realisations-grille` | 2026-11-17 |
 | 105 | [Barre de navigation pleine largeur](105-style-nav-pleine-largeur.md) | `style/nav-pleine-largeur` | 2026-11-17 |
+| 106 | [Réalisation « Chope ton chargeur »](106-feature-realisation-choptonchargeur.md) | `feature/realisation-choptonchargeur` | 2026-11-17 |
