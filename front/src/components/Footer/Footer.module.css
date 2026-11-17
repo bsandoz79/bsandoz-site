@@ -92,20 +92,12 @@
   font-weight: 700;
 }
 
+/* Logo « SB » (monogramme néon), sur fond transparent. */
 .logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
+  display: inline-block;
+  width: auto;
   height: 2.25rem;
-  border-radius: var(--radius-sm);
-  background: var(--color-text-on-dark);
-  color: var(--color-navy);
-  font-weight: 800;
-}
-
-.logoAccent {
-  color: var(--color-rose);
+  vertical-align: middle;
 }
 
 .titre {

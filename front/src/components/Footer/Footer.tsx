@@ -5,6 +5,7 @@ import { rouvrirBandeau } from '../../app/consentement';
 import { bandeau } from '../../data/consentement';
 import { contact, footer, metierLinks } from '../../data/navigation';
 import { pages } from '../../data/pages';
+import logoSb from '../../assets/marque/logo-sb.png';
 import styles from './Footer.module.css';
 
 /** Année des droits, calculée une fois au chargement du site. */
@@ -37,9 +38,7 @@ export function Footer() {
         <div className={styles.colonnes}>
           <div className={styles.marque}>
             <p className={styles.name}>
-              <span className={styles.logo} aria-hidden="true">
-                S<span className={styles.logoAccent}>B</span>
-              </span>
+              <img className={styles.logo} src={logoSb} alt="" width={114} height={96} />
               {footer.name}
             </p>
             <p>{footer.tagline}</p>

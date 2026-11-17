@@ -2,6 +2,7 @@ import { useRef, useState, type KeyboardEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
 import { header, informatiquePrefix, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
+import logoSb from '../../assets/marque/logo-sb.png';
 import styles from './Header.module.css';
 import { ThemeToggle } from '../ThemeToggle';
 import { useMasquageAuDefilement } from './useMasquageAuDefilement';
@@ -93,9 +94,7 @@ export function Header() {
 
       <Container className={styles.bar}>
         <Link to="/" className={styles.brand}>
-          <span className={styles.logo} aria-hidden="true">
-            S<span className={styles.logoAccent}>B</span>
-          </span>
+          <img className={styles.logo} src={logoSb} alt="" width={114} height={96} />
           <span className={styles.name}>{header.name}</span>
         </Link>
 
