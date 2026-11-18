@@ -212,6 +212,8 @@ export function htmlDePage(modele: string, page: PageStatique): string {
     `<meta property="og:locale" content="fr_FR" />`,
   ].join('\n    ');
   // Les données structurées vont dans #root : React les remplace par les siennes, sans doublon.
+  // Le texte de la page (data-statique) est pour les robots et les navigateurs sans JavaScript : caché dès que
+  // JavaScript tourne (classe « js » posée dans index.html), sinon il s'affiche sans mise en forme avant React.
   const donnees = page.jsonLd
     .map((j) => `<script type="application/ld+json">${JSON.stringify(j).replace(/</g, '\\u003c')}</script>`)
     .join('');
@@ -219,5 +221,5 @@ export function htmlDePage(modele: string, page: PageStatique): string {
     .replace(/<title>[\s\S]*?<\/title>/, '')
     .replace(/<meta name="description"[^>]*>/, '')
     .replace('</head>', `  ${tete}\n  </head>`)
-    .replace('<div id="root"></div>', `<div id="root">${donnees}${page.contenu}</div>`);
+    .replace('<div id="root"></div>', `<div id="root">${donnees}<div data-statique>${page.contenu}</div></div>`);
 }

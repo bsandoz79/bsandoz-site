@@ -22,6 +22,8 @@ flowchart TB
 ## Pages lisibles sans JavaScript
 Après `vite build`, `scripts/prerendu.ts` (construit avec `vite build --ssr`, lancé par node) écrit une page HTML par page publique : `dist/a-propos.html`, `dist/realisations/ordv.html`… Chaque page a son titre, sa description, sa canonique, son fil d'Ariane et son texte principal. Le `.htaccess` sert `/a-propos` depuis `a-propos.html`. React remplace ce contenu au chargement.
 
+Ce texte est placé dans `<div data-statique>`. Le petit script du `<head>` (`index.html`) pose la classe `js` sur `<html>`, et `base.css` cache alors ce bloc (`.js [data-statique] { display: none }`) : les visiteurs ne voient jamais la page sans mise en forme avant React. Les robots qui lisent le HTML et les navigateurs sans JavaScript, eux, lisent le texte.
+
 ## Comment l'appeler
 ```tsx
 <PageMeta title={page.title} description={page.description} />          // page normale
