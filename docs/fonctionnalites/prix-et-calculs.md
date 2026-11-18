@@ -77,3 +77,6 @@ Les packs sont supprimés. Chaque formule inclut des petites options (`inclusPar
 
 ## Un seul prix affiché (2026-11-07)
 Le site n'affiche plus que « Sites à partir de 390 € », dans le haut de l'accueil. Le montant vient de `prixDepart()` (`data/offres.ts`, prix de la Vitrine+) et se modifie dans le bloc « Haut de page », avec le bouton « Modifier », ou dans le back-office. Les pages Tarifs et Estimation, les compléments, l'offre SEO seule, le pré-devis et les prix des pages métier et de la FAQ sont retirés. Les formules, options et calculs restent pour le back-office et l'aperçu des pages métier. Les CGV gardent le tarif horaire, car c'est un engagement contractuel.
+
+## Paiement en plusieurs fois
+Vitrine+ et Fonctionnel se paient en 3 ou 4 fois sans frais (échéances dans le devis) ; Vitrine en une fois. Textes : `data/accueil.ts` (`hero.prix.apres`), `data/faq.ts` (`paiement`), `data/legal.ts` (CGV, Paiement).

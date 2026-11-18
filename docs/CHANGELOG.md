@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (paiement)
+- Paiement en 3 ou 4 fois sans frais pour Vitrine+ et Fonctionnel : accueil, FAQ et CGV (échéances indiquées dans le devis).
+
 ### Modifié (accueil, formules)
 - « Comment ça se passe » : durée de chaque étape (premier aperçu d'un site vitrine en 5 à 7 jours ouvrés).
 - Retouches à volonté avant la mise en ligne, 30 jours d'ajustements après ; FAQ « Combien de retouches ai-je droit ? ».

@@ -65,6 +65,7 @@ export const questionsFaq: QuestionFaq[] = [
     question: 'Comment se passe le paiement ?',
     reponse: [
       'Un acompte à la commande, le solde à la mise en ligne.',
+      'Pour un site de plusieurs pages ou un site avec rendez-vous, boutique ou espace client, vous pouvez aussi payer en 3 ou 4 fois sans frais. Les échéances sont indiquées dans le devis.',
       'Prix nets, TVA non applicable (art. 293 B du CGI).',
     ],
   },

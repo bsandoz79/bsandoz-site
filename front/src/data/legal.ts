@@ -66,6 +66,7 @@ export const cgv: PageLegale = {
       titre: 'Paiement',
       paragraphes: [
         `Un acompte est versé à la commande (${A_COMPLETER('montant ou pourcentage de l’acompte')}), le solde à la mise en ligne.`,
+        'Pour les formules Vitrine+ et Fonctionnel, le client peut payer en 3 ou 4 fois sans frais : le nombre et les dates des échéances sont indiqués dans le devis.',
         `Moyens de paiement : ${A_COMPLETER('moyens de paiement acceptés')}.`,
       ],
     },
