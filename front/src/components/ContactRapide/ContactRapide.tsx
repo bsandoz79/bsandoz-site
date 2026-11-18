@@ -1,11 +1,19 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Autocomplete, Button, Container, TextField } from '@bsandoz79/blocs';
+import { Autocomplete, Button, ChoiceChips, Container, TextField } from '@bsandoz79/blocs';
 import { contactRapide } from '../../data/contact';
 import { nomsMetiers } from '../../data/metiersConnus';
 import { urlEnvoiDevis } from '../../data/devis';
 import { contact } from '../../data/navigation';
-import { construireEnvoiContact, messageVide, validerContact, type ErreursContact, type MessageContact } from './contact';
+import {
+  construireEnvoiContact,
+  messageVide,
+  validerContact,
+  type ErreursContact,
+  type MessageContact,
+  type StyleMaquette,
+  type TypeDemande,
+} from './contact';
 import { BoutonRdv } from '../BoutonRdv';
 import styles from './ContactRapide.module.css';
 
@@ -32,6 +40,8 @@ export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: 
   const [piege, setPiege] = useState('');
   const [dernierEnvoi, setDernierEnvoi] = useState(0);
   const Titre = `h${niveau}` as const;
+  const maquette = message.demande === 'maquette';
+  const envoye = maquette ? t.maquette.envoye : t.envoye;
 
   const maj = (champ: Partial<MessageContact>) => {
     setMessage((m) => ({ ...m, ...champ }));
@@ -79,18 +89,34 @@ export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: 
         <div className={styles.carte}>
           {statut === 'envoye' ? (
             <div className={styles.merci} role="status">
-              <p className={styles.merciTitre}>{t.envoye.titre}</p>
-              <p>{t.envoye.texte}</p>
+              <p className={styles.merciTitre}>{envoye.titre}</p>
+              <p>{envoye.texte}</p>
             </div>
           ) : (
             <form className={styles.formulaire} onSubmit={envoyer} noValidate aria-labelledby="contact-rapide-titre">
+              <ChoiceChips<TypeDemande>
+                legend={t.demande.legende}
+                name="contact-demande"
+                choices={t.demande.choix}
+                value={message.demande}
+                onChange={(demande) => maj({ demande })}
+              />
+              {maquette && <p className={styles.aide}>{t.maquette.aide}</p>}
               <div className={styles.deux}>
                 <TextField label={t.nom} required autoComplete="name" value={message.nom} error={erreurs.nom} onChange={(e) => maj({ nom: e.target.value })} />
                 <TextField label={t.entreprise} autoComplete="organization" value={message.entreprise} onChange={(e) => maj({ entreprise: e.target.value })} />
               </div>
               <div className={styles.deux}>
                 <TextField label={t.email} type="email" required autoComplete="email" value={message.email} error={erreurs.email} onChange={(e) => maj({ email: e.target.value })} />
-                <TextField label={t.telephone} type="tel" required autoComplete="tel" value={message.telephone} error={erreurs.telephone} onChange={(e) => maj({ telephone: e.target.value })} />
+                <TextField
+                  label={maquette ? t.maquette.telephone : t.telephone}
+                  type="tel"
+                  required={!maquette}
+                  autoComplete="tel"
+                  value={message.telephone}
+                  error={erreurs.telephone}
+                  onChange={(e) => maj({ telephone: e.target.value })}
+                />
               </div>
               <Autocomplete
                 label={t.activite}
@@ -103,9 +129,12 @@ export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: 
                 error={erreurs.activite}
                 onChange={(activite) => maj({ activite })}
               />
+              {maquette && (
+                <TextField label={t.maquette.ville} required autoComplete="address-level2" value={message.ville} error={erreurs.ville} onChange={(e) => maj({ ville: e.target.value })} />
+              )}
               <TextField
-                label={t.projet}
-                placeholder={t.projetAide}
+                label={maquette ? t.maquette.projet : t.projet}
+                placeholder={maquette ? t.maquette.projetAide : t.projetAide}
                 multiline
                 rows={4}
                 required
@@ -113,6 +142,16 @@ export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: 
                 error={erreurs.projet}
                 onChange={(e) => maj({ projet: e.target.value })}
               />
+
+              {maquette && (
+                <ChoiceChips<StyleMaquette>
+                  legend={t.maquette.style.legende}
+                  name="contact-style"
+                  choices={t.maquette.style.choix}
+                  value={message.style}
+                  onChange={(style) => maj({ style })}
+                />
+              )}
 
               {/* Champ piège anti-robots : invisible et ignoré par les lecteurs d'écran. */}
               <div className={styles.piege} aria-hidden="true">
@@ -146,7 +185,7 @@ export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: 
               )}
 
               <Button type="submit" size="lg" className={styles.envoyer} disabled={statut === 'envoi'}>
-                {statut === 'envoi' ? t.envoi : t.envoyer}
+                {statut === 'envoi' ? t.envoi : maquette ? t.maquette.envoyer : t.envoyer}
               </Button>
             </form>
           )}

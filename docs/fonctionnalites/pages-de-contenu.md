@@ -123,12 +123,11 @@ Sections, dans l'ordre (`pages/Home/Home.tsx`, données dans `data/accueil.ts`) 
 2. `Metiers` (`metiers`) : question, puis une bande `Marquee` de métiers.
 3. `Autonomie` (`autonomie`) : ce que le client change seul.
 4. `Realisations` (`realisationsSection`) : les projets de `data/realisations.ts` dans le bloc `Showcase`, sur toute la largeur.
-5. `Methode` (`methode` : quatre étapes, chacune avec sa durée `duree`), puis `Livraison` (`livraison`, dont les 30 jours d’ajustements).
+5. `Methode` (`methode` : quatre étapes, chacune avec sa durée `duree` ; 30 jours d’ajustements dans la dernière).
    Puis `Comparatif` (`comparatif` : plateforme à abonnement, moi, agence web ; tableau qui devient une liste sur téléphone).
-   Puis `Reponses` (`reponses` : phrase du client → texte du site, exemples fictifs).
 6. FAQ, carte des zones, contact rapide.
 
-Chaque section est un bloc modifiable (`accueil.metiers`, `accueil.autonomie`, `accueil.livraison`…).
+Chaque section est un bloc modifiable (`accueil.metiers`, `accueil.autonomie`, `accueil.comparatif`…).
 
 ```mermaid
 flowchart TB
@@ -137,12 +136,13 @@ flowchart TB
   data --> auto["Autonomie"]
   real["data/realisations.ts"] --> vitrine["Realisations<br/>(Showcase)"]
   data --> methode["Methode"]
-  data --> livraison["Livraison"]
+  data --> comparatif["Comparatif"]
+  contact["data/contact.ts"] --> formulaire["ContactRapide<br/>(devis ou maquette)"]
   hero --> devis["/devis"]
   vitrine --> projet["/realisations/…"]
 ```
 
-Tests : `Home.test.tsx` (ordre des sections, bande, autonomie, vitrine sans doublon lu, livraison) et `Showcase.test.tsx`.
+Tests : `Home.test.tsx` (ordre des sections, bande, autonomie, 3 réalisations, comparatif, un seul formulaire) et `Showcase.test.tsx`.
 
 ## Prix unique (2026-11-07)
 - **Haut de l'accueil** : « Sites à partir de 390 €. Le prix exact dans votre devis, sous 24 h. »

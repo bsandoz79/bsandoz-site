@@ -20,6 +20,35 @@ export const contactRapide = {
     "J'accepte que mes informations soient utilisées pour répondre à ma demande. Elles ne sont ni revendues ni utilisées à d'autres fins.",
   confidentialite: { label: 'Politique de confidentialité', to: pages.confidentialite.path },
   envoyer: 'Envoyer ma demande',
+  /** Ce que veut le visiteur : un devis, ou d'abord une maquette gratuite de sa page d'accueil. */
+  demande: {
+    legende: 'Vous souhaitez',
+    choix: [
+      { value: 'devis', label: 'Un devis' },
+      { value: 'maquette', label: 'Une maquette gratuite d’abord' },
+    ],
+  },
+  maquette: {
+    aide: 'Je vous envoie la maquette de votre page d’accueil par e-mail sous 72 h ouvrées. Gratuit et sans engagement.',
+    ville: 'Votre ville',
+    projet: 'Ce que vous faites, en deux phrases',
+    projetAide: 'Vos services, ce qui vous distingue, pour qui vous travaillez…',
+    telephone: 'Téléphone (facultatif)',
+    style: {
+      legende: 'Le style qui vous ressemble',
+      choix: [
+        { value: 'sobre', label: 'Sobre' },
+        { value: 'chaleureux', label: 'Chaleureux' },
+        { value: 'moderne', label: 'Moderne' },
+        { value: 'haut-de-gamme', label: 'Haut de gamme' },
+      ],
+    },
+    envoyer: 'Recevoir ma maquette',
+    envoye: {
+      titre: 'C’est noté !',
+      texte: 'Vous recevrez la maquette de votre page d’accueil par e-mail sous 72 h ouvrées. Pensez à regarder dans les indésirables.',
+    },
+  },
   envoi: 'Envoi…',
   envoye: {
     titre: 'Merci, c’est bien reçu !',
@@ -40,5 +69,6 @@ export const contactRapide = {
     activite: 'Indiquez votre métier ou votre activité.',
     projet: 'Décrivez votre projet en quelques mots.',
     consentement: 'Cochez la case pour que je puisse vous répondre.',
+    ville: 'Indiquez votre ville.',
   },
 };

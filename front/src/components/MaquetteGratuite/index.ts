@@ -1,1 +1,0 @@
-export { MaquetteGratuite } from './MaquetteGratuite';

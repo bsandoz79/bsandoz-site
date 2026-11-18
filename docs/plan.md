@@ -96,3 +96,4 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/reponses-site` : ce que vous me dites → ce que ça donne sur votre site
 - [x] `feature/exemples-metier` : réalisations et exemples filtrés par métier
 - [x] `feature/maquette-gratuite` : maquette de la page d'accueil envoyée sous 72 h ouvrées
+- [x] `style/accueil-allege` : retour de Baptiste, accueil trop chargé : 9 blocs, un seul formulaire (devis ou maquette gratuite)

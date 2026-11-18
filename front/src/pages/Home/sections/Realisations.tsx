@@ -3,14 +3,13 @@ import { Container, SectionTitle } from '@bsandoz79/blocs';
 import { RealisationCard } from '../../../components/RealisationCard';
 import { realisationsSection } from '../../../data/accueil';
 import { pages } from '../../../data/pages';
-import { exemplesOutils } from '../../../data/exemples';
 import { realisations } from '../../../data/realisations';
 import styles from './Sections.module.css';
 
-/**
- * Réalisations en grille, toutes visibles d'un coup (on choisit sans attendre), suivies d'exemples d'outils (maquettes
- * marquées « Exemple »), et le lien vers toutes les réalisations.
- */
+/** Nombre de réalisations sur l'accueil : les autres, et les exemples d'outils, sont sur la page Réalisations. */
+export const REALISATIONS_ACCUEIL = 3;
+
+/** Les trois premières réalisations, en grille, et le lien vers toutes les réalisations. */
 export function Realisations() {
   return (
     <section className="section" aria-labelledby="realisations-titre">
@@ -22,7 +21,7 @@ export function Realisations() {
           </Link>
         </div>
         <ul className={styles.grilleRealisations} aria-label={realisationsSection.title}>
-          {[...realisations, ...exemplesOutils].map((r) => (
+          {realisations.slice(0, REALISATIONS_ACCUEIL).map((r) => (
             <li key={r.id}><RealisationCard realisation={r} /></li>
           ))}
         </ul>

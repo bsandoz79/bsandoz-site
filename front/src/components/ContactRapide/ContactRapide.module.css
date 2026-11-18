@@ -79,6 +79,12 @@
 }
 
 /* Liste déroulante assortie aux champs de texte. */
+/* Promesse de la maquette gratuite, sous le choix. */
+.aide {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
 .erreur {
   color: var(--color-danger);
   font-size: var(--text-sm);

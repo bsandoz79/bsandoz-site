@@ -2,11 +2,9 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
-import { autonomie, comparatif, hero, livraison, methode, metiers, reponses } from '../../data/accueil';
+import { autonomie, comparatif, hero, methode, metiers } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
-import { maquette } from '../../data/maquette';
 import { pages } from '../../data/pages';
-import { exemplesOutils } from '../../data/exemples';
 import { realisations } from '../../data/realisations';
 
 function renderHome() {
@@ -34,10 +32,7 @@ describe("Page d'accueil", () => {
       autonomie.titre,
       'Mes réalisations',
       methode.title,
-      livraison.titre,
       comparatif.titre,
-      reponses.titre,
-      maquette.titre,
       faqAccueil.titre,
       'Je me déplace chez vous.',
       'Parlez-moi de votre projet.',
@@ -75,33 +70,16 @@ describe("Page d'accueil", () => {
     expect(bloc).toHaveTextContent(autonomie.note);
   });
 
-  it('montre toutes les réalisations d’un coup, en grille, et le lien vers toutes les réalisations', () => {
+  it('montre trois réalisations, sans les exemples, et le lien vers toutes les réalisations', () => {
     renderHome();
     const bloc = section('Mes réalisations');
     const liste = within(bloc).getByRole('list', { name: 'Mes réalisations' });
-    for (const realisation of realisations) {
+    for (const realisation of realisations.slice(0, 3)) {
       expect(within(liste).getByRole('article', { name: realisation.titre })).toBeInTheDocument();
     }
-    expect(within(bloc).getAllByRole('article')).toHaveLength(realisations.length + exemplesOutils.length);
-    // Plus de défilement automatique : rien à mettre en pause.
-    expect(within(bloc).queryByRole('button', { name: 'Mettre en pause' })).not.toBeInTheDocument();
+    expect(within(bloc).getAllByRole('article')).toHaveLength(3);
+    expect(within(bloc).queryByText('Exemple')).not.toBeInTheDocument();
     expect(within(bloc).getByRole('link', { name: /Voir toutes les réalisations/ })).toHaveAttribute('href', pages.realisations.path);
-  });
-
-  it('montre aussi des exemples d’outils, marqués « Exemple », qui mènent au devis', () => {
-    renderHome();
-    const liste = within(section('Mes réalisations')).getByRole('list', { name: 'Mes réalisations' });
-    for (const exemple of exemplesOutils) {
-      const carte = within(liste).getByRole('article', { name: exemple.titre });
-      expect(carte).toHaveTextContent('Exemple');
-      expect(within(carte).getByRole('link', { name: /Un outil comme celui-ci/ })).toHaveAttribute('href', pages.devis.path);
-    }
-  });
-
-  it('liste ce que le client reçoit à la livraison', () => {
-    renderHome();
-    const bloc = section(livraison.titre);
-    for (const item of livraison.items) expect(bloc).toHaveTextContent(item.titre);
   });
 
   it('compare plateforme, moi et agence dans un vrai tableau, sans prix', () => {
@@ -113,16 +91,10 @@ describe("Page d'accueil", () => {
     expect(tableau.textContent).not.toMatch(/\d+\s€/);
   });
 
-  it('montre ce que deviennent les mots du client, en exemples annoncés comme fictifs', () => {
+  it('n’a qu’un formulaire : devis ou maquette gratuite, au choix', () => {
     renderHome();
-    const bloc = section(reponses.titre);
-    const exemples = within(bloc).getAllByRole('listitem');
-    expect(exemples).toHaveLength(reponses.exemples.length);
-    exemples.forEach((li, i) => {
-      expect(li).toHaveTextContent(reponses.exemples[i].dit);
-      expect(li).toHaveTextContent(reponses.exemples[i].titre);
-    });
-    expect(bloc).toHaveTextContent('Exemples fictifs');
+    expect(screen.getAllByRole('form')).toHaveLength(1);
+    expect(screen.getByRole('radio', { name: 'Une maquette gratuite d’abord' })).toBeInTheDocument();
   });
 
   it('numérote les quatre étapes de la méthode', () => {
@@ -133,6 +105,7 @@ describe("Page d'accueil", () => {
     steps.forEach((step, i) => expect(step).toHaveTextContent(methode.steps[i].duree));
     expect(section(methode.title)).toHaveTextContent('5 à 7 jours ouvrés');
     expect(section(methode.title)).toHaveTextContent('Retouches à volonté');
+    expect(section(methode.title)).toHaveTextContent('30 jours d’ajustements');
   });
 
   it('finit par le formulaire de contact, avec le rendez-vous à côté', () => {

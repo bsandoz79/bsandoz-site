@@ -7,14 +7,19 @@ import { ContactRapide } from './ContactRapide';
 import { urlEnvoiDevis } from '../../data/devis';
 
 const complet: MessageContact = {
+  demande: 'devis',
   nom: 'Marie Dupont',
   entreprise: 'Dupont Jardins',
   telephone: '06 12 34 56 78',
   email: 'marie@exemple.fr',
   activite: 'Paysagiste',
   projet: 'Je suis paysagiste, je voudrais que mes clients réservent en ligne.',
+  ville: '',
+  style: 'sobre',
   consentement: true,
 };
+
+const maquette: MessageContact = { ...complet, demande: 'maquette', telephone: '', ville: 'Amiens', style: 'chaleureux' };
 
 describe('validerContact', () => {
   it('signale chaque champ obligatoire manquant ou invalide', () => {
@@ -29,6 +34,24 @@ describe('validerContact', () => {
   it('l’entreprise est facultative ; le métier doit être écrit', () => {
     expect(validerContact({ ...complet, entreprise: '' })).toEqual({});
     expect(validerContact({ ...complet, activite: 'A' })).toEqual({ activite: 'Indiquez votre métier ou votre activité.' });
+  });
+});
+
+describe('validerContact pour une maquette gratuite', () => {
+  it('demande la ville ; le téléphone devient facultatif mais reste vérifié', () => {
+    expect(validerContact(maquette)).toEqual({});
+    expect(validerContact({ ...maquette, ville: '' })).toEqual({ ville: 'Indiquez votre ville.' });
+    expect(validerContact({ ...maquette, telephone: '12' })).toEqual({ telephone: 'Numéro de téléphone invalide.' });
+    expect(validerContact({ ...complet, telephone: '' })).toEqual({ telephone: 'Numéro de téléphone invalide.' });
+  });
+
+  it('envoie une demande « Maquette gratuite » avec la ville et le style', () => {
+    const donnees = construireEnvoiContact(maquette, '');
+    expect(donnees.get('titre')).toBe('Maquette gratuite · Paysagiste');
+    const recap = String(donnees.get('recapitulatif'));
+    expect(recap).toContain('Ville : Amiens');
+    expect(recap).toContain('Style : Chaleureux');
+    expect(recap).toContain('72 h ouvrées');
   });
 });
 
@@ -134,6 +157,29 @@ describe('ContactRapide', () => {
     await user.click(screen.getByRole('button', { name: 'Envoyer ma demande' }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Merci de patienter une minute');
+  }, 15_000);
+
+  it('maquette gratuite : ville et style en plus, téléphone facultatif, message adapté', async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+    afficher();
+
+    await user.click(screen.getByRole('radio', { name: 'Une maquette gratuite d’abord' }));
+    expect(screen.getByText(/sous 72 h ouvrées/)).toBeInTheDocument();
+    await user.type(screen.getByRole('textbox', { name: /Prénom et nom/ }), complet.nom);
+    await user.type(screen.getByRole('textbox', { name: /E-mail/ }), complet.email);
+    await user.type(screen.getByRole('combobox', { name: /Votre métier ou activité/ }), complet.activite);
+    await user.type(screen.getByRole('textbox', { name: /Votre ville/ }), 'Amiens');
+    await user.type(screen.getByRole('textbox', { name: /deux phrases/ }), complet.projet);
+    await user.click(screen.getByRole('radio', { name: 'Moderne' }));
+    await user.click(screen.getByRole('checkbox', { name: /J'accepte/ }));
+    await user.click(screen.getByRole('button', { name: 'Recevoir ma maquette' }));
+
+    expect(await screen.findByRole('status')).toHaveTextContent('72 h ouvrées');
+    const envoi = fetchMock.mock.calls[0][1].body as FormData;
+    expect(envoi.get('titre')).toBe('Maquette gratuite · Paysagiste');
+    expect(String(envoi.get('recapitulatif'))).toContain('Style : Moderne');
   }, 15_000);
 
   it('propose aussi l’e-mail et le rendez-vous', () => {
