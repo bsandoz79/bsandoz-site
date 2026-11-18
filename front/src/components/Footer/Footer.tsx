@@ -38,7 +38,7 @@ export function Footer() {
         <div className={styles.colonnes}>
           <div className={styles.marque}>
             <p className={styles.name}>
-              <img className={styles.logo} src={logoSb} alt="" width={114} height={96} />
+              <img className={styles.logo} src={logoSb} alt="" width={152} height={96} />
               {footer.name}
             </p>
             <p>{footer.tagline}</p>

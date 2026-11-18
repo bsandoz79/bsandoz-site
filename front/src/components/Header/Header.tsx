@@ -94,7 +94,7 @@ export function Header() {
 
       <Container size="full" className={styles.bar}>
         <Link to="/" className={styles.brand}>
-          <img className={styles.logo} src={logoSb} alt="" width={114} height={96} />
+          <img className={styles.logo} src={logoSb} alt="" width={152} height={96} />
           <span className={styles.name}>{header.name}</span>
         </Link>
 
