@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé (marque)
+- Icône de 192 px pour les résultats Google (taille multiple de 48 demandée par Google).
+
 ### Corrigé (chargement)
 - Plus d'éclair de page en texte brut au chargement : le texte écrit pour Google est caché dès que JavaScript tourne, il reste lisible par les robots et sans JavaScript.
 
