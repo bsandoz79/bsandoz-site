@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (réalisations)
+- « Chope ton chargeur » devient « Shop ton chargeur » (https://shoptonchargeur.bsandoz.fr) : titre, lien et captures.
+
 ### Corrigé (marque)
 - Icône de 192 px pour les résultats Google (taille multiple de 48 demandée par Google).
 
