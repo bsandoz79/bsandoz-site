@@ -138,3 +138,4 @@ Types de tests :
 | 107 | [Pages lisibles par Google sans JavaScript](107-feature-seo-pages-statiques.md) | `feature/seo-pages-statiques` | 2026-11-17 |
 | 108 | [Page d'une réalisation sans cartes, et « Cadeaux »](108-style-realisation-sans-cartes.md) | `style/realisation-sans-cartes` | 2026-11-17 |
 | 109 | [Nouveau logo « SB »](109-feature-nouveau-logo.md) | `feature/nouveau-logo` | 2026-11-18 |
+| 110 | [Icône d'onglet : nouveau logo partout](110-fix-icone-onglet.md) | `fix/icone-onglet` | 2026-11-18 |
