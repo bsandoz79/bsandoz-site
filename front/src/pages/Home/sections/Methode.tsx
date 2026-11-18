@@ -15,6 +15,7 @@ export function Methode() {
               <span className={i === methode.steps.length - 1 ? `${styles.number} ${styles.last}` : styles.number}>
                 {i + 1}
               </span>
+              <p className={styles.duree}>{step.duree}</p>
               <h3 className={styles.title}>{step.title}</h3>
               <p className={sections.muted}>{step.text}</p>
             </Reveal>

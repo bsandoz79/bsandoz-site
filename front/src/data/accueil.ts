@@ -93,15 +93,25 @@ export const methode = {
   title: 'Comment ça se passe',
   steps: [
     {
+      duree: 'Quelques minutes',
       title: 'Vous décrivez votre projet',
-      text: 'Avec vos mots, sans jargon. Je vous réponds sous 24 h.',
+      text: 'Avec vos mots, sans jargon.',
     },
     {
+      duree: 'Sous 24 h',
       title: 'Je vous envoie un devis clair',
       text: "Avec des idées auxquelles vous n'aviez peut-être pas pensé, en options.",
     },
-    { title: 'Je crée votre site', text: 'Vous le voyez et le validez avant la mise en ligne.' },
-    { title: 'Il est en ligne', text: 'Il est à vous : vous le modifiez seul, et je reste joignable.' },
+    {
+      duree: '5 à 7 jours ouvrés',
+      title: 'Vous voyez votre site',
+      text: 'Un premier aperçu privé de votre site vitrine, une fois vos réponses reçues. Retouches à volonté jusqu’à ce qu’il vous plaise.',
+    },
+    {
+      duree: 'Le jour où vous validez',
+      title: 'Il est en ligne',
+      text: 'Il est à vous : vous le modifiez seul. 30 jours d’ajustements offerts après la mise en ligne.',
+    },
   ],
 };
 
@@ -113,6 +123,7 @@ export const livraison = {
     { titre: 'Un site à vous', texte: 'Le code, les contenus et les réglages vous appartiennent. Rien n’est verrouillé de mon côté.' },
     { titre: 'Votre nom de domaine', texte: 'À votre nom, comme l’hébergement.' },
     { titre: 'La prise en main', texte: 'Je vous montre comment modifier votre site, et je reste joignable ensuite.' },
+    { titre: '30 jours d’ajustements', texte: 'Un détail à changer après la mise en ligne ? C’est compris pendant 30 jours.' },
   ],
 };
 

@@ -27,3 +27,10 @@
   font-size: var(--text-lg);
   font-weight: 700;
 }
+
+/* Temps de l'étape, au-dessus de son titre. */
+.duree {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent-texte);
+}

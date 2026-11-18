@@ -104,6 +104,10 @@ describe("Page d'accueil", () => {
     renderHome();
     const steps = within(section(methode.title)).getAllByRole('listitem');
     expect(steps.map((step) => step.querySelector('h3')?.textContent)).toEqual(methode.steps.map((s) => s.title));
+    // Chaque étape dit combien de temps elle prend.
+    steps.forEach((step, i) => expect(step).toHaveTextContent(methode.steps[i].duree));
+    expect(section(methode.title)).toHaveTextContent('5 à 7 jours ouvrés');
+    expect(section(methode.title)).toHaveTextContent('Retouches à volonté');
   });
 
   it('finit par le formulaire de contact, avec le rendez-vous à côté', () => {

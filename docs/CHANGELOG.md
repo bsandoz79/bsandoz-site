@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (accueil, formules)
+- « Comment ça se passe » : durée de chaque étape (premier aperçu d'un site vitrine en 5 à 7 jours ouvrés).
+- Retouches à volonté avant la mise en ligne, 30 jours d'ajustements après ; FAQ « Combien de retouches ai-je droit ? ».
+
 ### Modifié (réalisations)
 - « Chope ton chargeur » devient « Shop ton chargeur » (https://shoptonchargeur.bsandoz.fr) : titre, lien et captures.
 
