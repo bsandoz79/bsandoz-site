@@ -127,6 +127,27 @@ export const livraison = {
   ],
 };
 
+/**
+ * Trois façons d'avoir un site, comparées honnêtement (idée reprise de Roselyn Pro, textes propres).
+ * Aucun chiffre sur les autres : les pratiques varient, d'où la note.
+ */
+export const comparatif = {
+  titre: 'Trois façons d’avoir un site',
+  intro: 'Chacune a ses avantages. Voici ce qui change pour vous.',
+  colonnes: ['Plateforme à abonnement', 'Avec moi', 'Agence web'],
+  /** Colonne mise en avant. */
+  miseEnAvant: 1,
+  lignes: [
+    { critere: 'Qui fait le site', valeurs: ['Vous, à partir d’un modèle', 'Moi, sur mesure', 'Une équipe'] },
+    { critere: 'Les textes', valeurs: ['Vous les écrivez', 'Vous, ou je les écris pour vous', 'Selon l’agence'] },
+    { critere: 'Le prix', valeurs: ['Un abonnement chaque mois', 'Un prix fixe, payable en 3 ou 4 fois', 'Sur devis'] },
+    { critere: 'Les modifications', valeurs: ['Dans l’outil de la plateforme', 'Vous, directement sur votre site', 'Selon le contrat'] },
+    { critere: 'Si vous partez', valeurs: ['Le site reste sur la plateforme', 'Le site et son nom de domaine sont à vous', 'Selon le contrat'] },
+    { critere: 'Votre contact', valeurs: ['Un support en ligne', 'Moi, à Amiens, réponse sous 24 h', 'Un chef de projet'] },
+  ],
+  note: 'Les pratiques varient d’une plateforme et d’une agence à l’autre : lisez toujours le contrat.',
+};
+
 /** Ce qui compte pour Baptiste : repris sur la page À propos. */
 export const pourquoi = {
   items: [

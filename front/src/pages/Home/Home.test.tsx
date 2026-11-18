@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
-import { autonomie, hero, livraison, methode, metiers } from '../../data/accueil';
+import { autonomie, comparatif, hero, livraison, methode, metiers } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
 import { pages } from '../../data/pages';
 import { exemplesOutils } from '../../data/exemples';
@@ -34,6 +34,7 @@ describe("Page d'accueil", () => {
       'Mes réalisations',
       methode.title,
       livraison.titre,
+      comparatif.titre,
       faqAccueil.titre,
       'Je me déplace chez vous.',
       'Parlez-moi de votre projet.',
@@ -98,6 +99,15 @@ describe("Page d'accueil", () => {
     renderHome();
     const bloc = section(livraison.titre);
     for (const item of livraison.items) expect(bloc).toHaveTextContent(item.titre);
+  });
+
+  it('compare plateforme, moi et agence dans un vrai tableau, sans prix', () => {
+    renderHome();
+    const tableau = within(section(comparatif.titre)).getByRole('table', { name: comparatif.titre });
+    expect(within(tableau).getAllByRole('columnheader').map((c) => c.textContent)).toEqual(comparatif.colonnes);
+    expect(within(tableau).getAllByRole('rowheader').map((c) => c.textContent)).toEqual(comparatif.lignes.map((l) => l.critere));
+    expect(within(tableau).getByRole('cell', { name: 'Le site et son nom de domaine sont à vous' })).toBeInTheDocument();
+    expect(tableau.textContent).not.toMatch(/\d+\s€/);
   });
 
   it('numérote les quatre étapes de la méthode', () => {

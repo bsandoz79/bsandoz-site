@@ -7,6 +7,7 @@ import { pages } from '../../data/pages';
 import { questionsFaq } from '../../data/faq';
 import { jsonLdEntreprise, jsonLdFaq } from '../../data/seo';
 import { Autonomie } from './sections/Autonomie';
+import { Comparatif } from './sections/Comparatif';
 import { Faq } from './sections/Faq';
 import { Hero } from './sections/Hero';
 import { Livraison } from './sections/Livraison';
@@ -38,6 +39,9 @@ export function Home() {
       </BlocModifiable>
       <BlocModifiable id="accueil.livraison">
         <Livraison />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.comparatif">
+        <Comparatif />
       </BlocModifiable>
       <BlocModifiable id="accueil.faq">
         <Faq />

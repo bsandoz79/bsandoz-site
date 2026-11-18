@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (accueil)
+- « Trois façons d'avoir un site » : plateforme à abonnement, moi, agence web, comparées sur six critères, sans chiffre sur les autres ; bloc modifiable.
+
 ### Ajouté (paiement)
 - Paiement en 3 ou 4 fois sans frais pour Vitrine+ et Fonctionnel : accueil, FAQ et CGV (échéances indiquées dans le devis).
 
