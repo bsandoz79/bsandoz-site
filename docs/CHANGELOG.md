@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (accueil)
+- Maquette gratuite de la page d'accueil, envoyée par e-mail sous 72 h ouvrées : formulaire sur l'accueil, demande enregistrée comme un devis (« Maquette gratuite · métier »).
+
 ### Ajouté (réalisations)
 - Filtre par métier sur la page Réalisations : réalisations et exemples d'outils du même secteur, combinable avec le type, gardé dans l'adresse.
 

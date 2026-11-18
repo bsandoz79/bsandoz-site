@@ -146,3 +146,4 @@ Types de tests :
 | 115 | [Comparatif : trois façons d'avoir un site](115-feature-comparatif.md) | `feature/comparatif` | 2026-11-18 |
 | 116 | [Vos mots, vos textes](116-feature-reponses-site.md) | `feature/reponses-site` | 2026-11-18 |
 | 117 | [Réalisations filtrées par métier](117-feature-exemples-metier.md) | `feature/exemples-metier` | 2026-11-18 |
+| 118 | [Maquette gratuite de la page d'accueil](118-feature-maquette-gratuite.md) | `feature/maquette-gratuite` | 2026-11-18 |
