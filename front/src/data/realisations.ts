@@ -240,7 +240,7 @@ export const realisations: Realisation[] = [
     id: 'choptonchargeur',
     categorie: 'Comparateur · projet personnel',
     type: 'site',
-    titre: 'Chope ton chargeur',
+    titre: 'Shop ton chargeur',
     resume: 'Le bon chargeur pour chaque téléphone ou PC, expliqué simplement.',
     annee: '2026',
     lien: { label: 'Voir le projet', to: cheminRealisation('choptonchargeur') },
@@ -271,7 +271,7 @@ export const realisations: Realisation[] = [
       'Référencement : une page par appareil générée à la construction (120 pages), FAQ structurée, sitemap, robots.txt ouvert aux assistants et llms.txt',
     ],
     technos: ['React', 'TypeScript', 'Vite', 'Vitest', 'Schema.org', 'GitHub Actions'],
-    demo: { label: 'Voir le site en ligne', url: 'https://choptonchargeur.bsandoz.fr' },
+    demo: { label: 'Voir le site en ligne', url: 'https://shoptonchargeur.bsandoz.fr' },
   },
   {
     id: 'ordv',

@@ -41,7 +41,7 @@ describe('Page Réalisations', () => {
 
     await user.click(screen.getByRole('radio', { name: 'Sites web' }));
     expect(screen.getByText('3 projets')).toBeInTheDocument();
-    expect(screen.getByRole('article', { name: 'Chope ton chargeur' })).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Shop ton chargeur' })).toBeInTheDocument();
     expect(screen.queryByRole('article', { name: "O'RDV" })).not.toBeInTheDocument();
     expect(screen.getByRole('article', { name: 'Christophe Poix Moto' })).toBeInTheDocument();
 
@@ -74,11 +74,11 @@ describe('Page Réalisations', () => {
     expect(screen.getAllByRole('img').length).toBeGreaterThanOrEqual(7);
   });
 
-  it('présente Chope ton chargeur : captures, fonctionnalités et lien vers le site', () => {
+  it('présente Shop ton chargeur : captures, fonctionnalités et lien vers le site', () => {
     afficher('/realisations/choptonchargeur');
-    expect(screen.getByRole('heading', { level: 1, name: 'Chope ton chargeur' })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /Chope ton chargeur : À acheter en priorité/ })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Voir le site en ligne/ })).toHaveAttribute('href', 'https://choptonchargeur.bsandoz.fr');
+    expect(screen.getByRole('heading', { level: 1, name: 'Shop ton chargeur' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /Shop ton chargeur : À acheter en priorité/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Voir le site en ligne/ })).toHaveAttribute('href', 'https://shoptonchargeur.bsandoz.fr');
   });
 
   it('chaque projet a un type couvert par un filtre', () => {
