@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé (marque)
+- Icône d'onglet : `favicon.ico` ajouté, adresses des icônes renouvelées (`?v=2`) pour que les navigateurs quittent l'ancienne, ancien `favicon.svg` remplacé.
+
 ### Modifié (marque)
 - Nouveau logo « SB » (S rose, B bleu) à la place du monogramme néon : en-tête, pied de page, icône d'onglet, écran d'accueil iPhone et grand format.
 
