@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (thème)
+- Thème clair par défaut ; le thème nuit reste au choix (bouton de l'en-tête), et ceux qui l'avaient choisi le gardent.
+
 ### Modifié (page restaurant)
 - Page « Site pour restaurant, kebab ou snack » : carte modifiable depuis le téléphone, QR code, appeler et itinéraire, à emporter ; exemple de carte d'un kebab fictif sur téléphone.
 

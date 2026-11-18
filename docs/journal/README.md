@@ -149,3 +149,4 @@ Types de tests :
 | 118 | [Maquette gratuite de la page d'accueil](118-feature-maquette-gratuite.md) | `feature/maquette-gratuite` | 2026-11-18 |
 | 119 | [Accueil allégé, un seul formulaire](119-style-accueil-allege.md) | `style/accueil-allege` | 2026-11-18 |
 | 120 | [Page « Site pour restaurant, kebab ou snack »](120-feature-page-restaurant.md) | `feature/page-restaurant` | 2026-11-19 |
+| 121 | [Thème clair par défaut](121-style-theme-clair.md) | `style/theme-clair` | 2026-11-19 |
