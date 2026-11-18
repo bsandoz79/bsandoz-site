@@ -13,14 +13,6 @@ export const contact: { email: string; phone: string; portfolio: string; adresse
 };
 
 /** Onglets des deux catégories de services (cahier des charges, section 2). */
-export const serviceTabs = [
-  { label: 'Sites & applis', to: pages.accueil.path },
-  { label: 'Informatique sur place', to: pages.informatique.path },
-] as const;
-
-/** Pages rattachées à l'onglet « Informatique sur place » : préfixe d'adresse. */
-export const informatiquePrefix = pages.informatique.path;
-
 /** Tous les appels à l'action mènent au formulaire de demande de devis. */
 export const lienDevis = pages.devis.path;
 
@@ -40,7 +32,6 @@ export const themeTextes = {
 export const header = {
   name: 'Baptiste Sandoz',
   navLabel: 'Navigation principale',
-  tabsLabel: 'Catégories de services',
   openMenu: 'Ouvrir le menu',
   closeMenu: 'Fermer le menu',
   /** Toujours visible dans la barre : icône, et texte sur grand écran. */
@@ -76,7 +67,7 @@ export const footer = {
   metiersLabel: 'Sites par métier',
   site: [
     { label: 'Réalisations', to: pages.realisations.path },
-    { label: 'Informatique sur place', to: pages.informatique.path },
+    { label: 'Dépannage informatique à domicile', to: pages.informatique.path },
     { label: 'Questions fréquentes', to: lienFaq },
   ] satisfies NavLink[],
   droits: (annee: number) => `© ${annee} Baptiste Sandoz`,

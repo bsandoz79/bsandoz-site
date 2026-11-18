@@ -8,7 +8,7 @@ export const TOLERANCE = 8;
 /**
  * Masque l'en-tête quand on descend, le réaffiche dès qu'on remonte.
  * `bloque` (menu ouvert, focus clavier dans l'en-tête) le garde visible.
- * Renvoie aussi `decolle` (la page a défilé : ombre) et `enHaut` (sous le seuil : la barre d'onglets s'affiche).
+ * Renvoie aussi `decolle` (la page a défilé : ombre) et `enHaut` (sous le seuil).
  */
 export function useMasquageAuDefilement(bloque: boolean) {
   const [masque, setMasque] = useState(false);

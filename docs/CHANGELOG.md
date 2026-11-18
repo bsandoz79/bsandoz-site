@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (en-tête)
+- Plus d'onglets « Sites & applis / Informatique sur place » en haut : le dépannage informatique est une page à part, liée en pied de page (« Dépannage informatique à domicile »).
+
 ### Modifié (thème)
 - Thème clair par défaut ; le thème nuit reste au choix (bouton de l'en-tête), et ceux qui l'avaient choisi le gardent.
 

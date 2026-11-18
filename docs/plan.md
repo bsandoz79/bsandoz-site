@@ -101,5 +101,5 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 ## Revue « patron de kebab » (19/11/2026)
 - [x] `feature/page-restaurant` : page restaurant, kebab ou snack, exemple de carte
 - [x] `style/theme-clair` : thème clair par défaut
-- [ ] `style/informatique-a-part` : informatique sortie des onglets du haut
+- [x] `style/informatique-a-part` : informatique sortie des onglets du haut
 - [ ] `feature/vous-gardez-tout` : « si je ne suis plus disponible, vous gardez tout »

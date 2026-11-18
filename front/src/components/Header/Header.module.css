@@ -1,7 +1,6 @@
 /* Mobile d'abord : le menu est replié derrière le bouton, puis s'affiche en ligne à partir de 960 px. */
 /* Collé en haut : il se cache quand on descend et revient dès qu'on remonte (useMasquageAuDefilement). */
 .header {
-  --hauteur-onglets: 2.75rem;
   position: sticky;
   top: 0;
   z-index: 30;
@@ -17,49 +16,9 @@
   transform: translateY(-100%);
 }
 
-/* En remontant hors du haut de page : seule la barre principale ; la barre d'onglets reste au-dessus de l'écran. */
-.compact {
-  transform: translateY(calc(-1 * var(--hauteur-onglets)));
-}
-
-/* Page Estimer : la barre d'onglets de l'en-tête est retirée (le configurateur a les siens). */
+/* Page défilée : une ombre détache l'en-tête du contenu. */
 .decolle {
   box-shadow: var(--shadow-header);
-}
-
-/* Onglets des catégories de services */
-.tabsBar {
-  background: var(--color-navy);
-}
-
-.tabs {
-  display: flex;
-  gap: var(--space-1);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow-x: auto;
-}
-
-.tab {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
-  padding-inline: var(--space-4);
-  border-bottom: 3px solid transparent;
-  color: var(--color-text-on-dark-muted);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.tab:hover {
-  color: var(--color-text-on-dark);
-}
-
-.tabCurrent {
-  border-bottom-color: var(--color-rose-light);
-  color: var(--color-text-on-dark);
 }
 
 /* Barre principale */
