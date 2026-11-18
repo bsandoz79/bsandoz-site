@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (accueil)
+- Le téléphone du haut de page fait défiler mes sites (Christophe Poix Moto, Perfect Clean, Cadeaux, Shop ton chargeur, kebab d'exemple, Alterno) avec leur nom ; immobile si les animations sont réduites.
+
 ### Ajouté (réassurance)
 - « Si un jour je ne suis plus disponible, vous gardez tout » : FAQ « À qui appartient le site ? » et comparatif (« Si vous partez »).
 

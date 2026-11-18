@@ -152,3 +152,4 @@ Types de tests :
 | 121 | [Thème clair par défaut](121-style-theme-clair.md) | `style/theme-clair` | 2026-11-19 |
 | 122 | [L'informatique à domicile, une page à part](122-style-informatique-a-part.md) | `style/informatique-a-part` | 2026-11-19 |
 | 123 | [« Vous gardez tout »](123-feature-vous-gardez-tout.md) | `feature/vous-gardez-tout` | 2026-11-19 |
+| 124 | [Téléphone animé : mes sites qui défilent](124-feature-telephone-anime.md) | `feature/telephone-anime` | 2026-11-19 |
