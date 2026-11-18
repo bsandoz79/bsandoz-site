@@ -2,6 +2,9 @@
 
 ## [Non publié]
 ### Ajouté (accueil)
+- « Vous parlez de votre métier, j'en fais les textes » : trois exemples fictifs, phrase du client → texte du site ; bloc modifiable.
+
+### Ajouté (accueil)
 - « Trois façons d'avoir un site » : plateforme à abonnement, moi, agence web, comparées sur six critères, sans chiffre sur les autres ; bloc modifiable.
 
 ### Ajouté (paiement)

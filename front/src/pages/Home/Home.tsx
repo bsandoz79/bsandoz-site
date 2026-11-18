@@ -14,6 +14,7 @@ import { Livraison } from './sections/Livraison';
 import { Metiers } from './sections/Metiers';
 import { Methode } from './sections/Methode';
 import { Realisations } from './sections/Realisations';
+import { Reponses } from './sections/Reponses';
 
 /** Page d'accueil : un site que le client modifie lui-même, les réalisations, la méthode, la livraison. */
 export function Home() {
@@ -42,6 +43,9 @@ export function Home() {
       </BlocModifiable>
       <BlocModifiable id="accueil.comparatif">
         <Comparatif />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.reponses">
+        <Reponses />
       </BlocModifiable>
       <BlocModifiable id="accueil.faq">
         <Faq />

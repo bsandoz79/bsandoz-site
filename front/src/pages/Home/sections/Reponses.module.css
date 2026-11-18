@@ -1,0 +1,56 @@
+/* Une ligne par exemple : la phrase du client, une flèche, le texte du site. En colonne sur téléphone. */
+.liste {
+  display: grid;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exemple {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.etiquette {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.citation {
+  margin: var(--space-2) 0 0;
+  font-style: italic;
+}
+
+.fleche {
+  color: var(--color-accent-texte);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.site {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.titre {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 48rem) {
+  .exemple {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}

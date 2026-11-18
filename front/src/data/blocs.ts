@@ -1,4 +1,4 @@
-import { autonomie, comparatif, hero, livraison, methode, metiers, realisationsSection } from './accueil';
+import { autonomie, comparatif, hero, livraison, methode, metiers, realisationsSection, reponses } from './accueil';
 import { contactRapide } from './contact';
 import { faqAccueil, questionsFaq } from './faq';
 import { medias } from './medias';
@@ -133,6 +133,20 @@ export const blocs: Record<string, Bloc> = {
         ...l.valeurs.map((_, j) => champ(`accueil.comparatif.${i}.${j}`, `${l.critere} · ${comparatif.colonnes[j]}`, l.valeurs, j)),
       ]),
       champ('accueil.comparatif.note', 'Note', comparatif, 'note', 'long'),
+    ],
+  },
+  'accueil.reponses': {
+    titre: 'Vos mots, vos textes',
+    champs: [
+      champ('accueil.reponses.titre', 'Titre', reponses, 'titre'),
+      champ('accueil.reponses.intro', 'Introduction', reponses, 'intro', 'long'),
+      ...reponses.exemples.flatMap((e, i) => [
+        champ(`accueil.reponses.${i}.metier`, `Exemple ${i + 1} : métier`, e, 'metier'),
+        champ(`accueil.reponses.${i}.dit`, `Exemple ${i + 1} : ce que dit le client`, e, 'dit', 'long'),
+        champ(`accueil.reponses.${i}.titre`, `Exemple ${i + 1} : titre sur le site`, e, 'titre'),
+        champ(`accueil.reponses.${i}.texte`, `Exemple ${i + 1} : texte sur le site`, e, 'texte', 'long'),
+      ]),
+      champ('accueil.reponses.note', 'Note', reponses, 'note'),
     ],
   },
   'accueil.faq': {

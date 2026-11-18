@@ -93,6 +93,6 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/deroule-durees` : durée de chaque étape, retouches à volonté, 30 jours d'ajustements
 - [x] `feature/paiement-plusieurs-fois` : 3 ou 4 fois sans frais pour Vitrine+ et Fonctionnel
 - [x] `feature/comparatif` : plateforme à abonnement, moi, agence web
-- [ ] `feature/reponses-site` : ce que vous me dites → ce que ça donne sur votre site
+- [x] `feature/reponses-site` : ce que vous me dites → ce que ça donne sur votre site
 - [ ] `feature/exemples-metier` : réalisations et exemples filtrés par métier
 - [ ] `feature/maquette-gratuite` : maquette de la page d'accueil envoyée sous 72 h ouvrées

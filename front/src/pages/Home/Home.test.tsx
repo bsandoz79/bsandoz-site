@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
-import { autonomie, comparatif, hero, livraison, methode, metiers } from '../../data/accueil';
+import { autonomie, comparatif, hero, livraison, methode, metiers, reponses } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
 import { pages } from '../../data/pages';
 import { exemplesOutils } from '../../data/exemples';
@@ -35,6 +35,7 @@ describe("Page d'accueil", () => {
       methode.title,
       livraison.titre,
       comparatif.titre,
+      reponses.titre,
       faqAccueil.titre,
       'Je me déplace chez vous.',
       'Parlez-moi de votre projet.',
@@ -108,6 +109,18 @@ describe("Page d'accueil", () => {
     expect(within(tableau).getAllByRole('rowheader').map((c) => c.textContent)).toEqual(comparatif.lignes.map((l) => l.critere));
     expect(within(tableau).getByRole('cell', { name: 'Le site et son nom de domaine sont à vous' })).toBeInTheDocument();
     expect(tableau.textContent).not.toMatch(/\d+\s€/);
+  });
+
+  it('montre ce que deviennent les mots du client, en exemples annoncés comme fictifs', () => {
+    renderHome();
+    const bloc = section(reponses.titre);
+    const exemples = within(bloc).getAllByRole('listitem');
+    expect(exemples).toHaveLength(reponses.exemples.length);
+    exemples.forEach((li, i) => {
+      expect(li).toHaveTextContent(reponses.exemples[i].dit);
+      expect(li).toHaveTextContent(reponses.exemples[i].titre);
+    });
+    expect(bloc).toHaveTextContent('Exemples fictifs');
   });
 
   it('numérote les quatre étapes de la méthode', () => {
