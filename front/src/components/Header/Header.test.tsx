@@ -53,20 +53,9 @@ describe('Header', () => {
     expect(within(mainNav()).getByRole('link', { name: 'Réalisations' })).toHaveAttribute('aria-current', 'page');
   });
 
-  describe('onglets des services', () => {
-    it('marque « Sites & applis » sur les pages des sites', () => {
-      renderAt(pages.realisations.path);
-      const tabs = within(screen.getByRole('navigation', { name: 'Catégories de services' }));
-      expect(tabs.getByRole('link', { name: 'Sites & applis' })).toHaveAttribute('aria-current', 'true');
-      expect(tabs.getByRole('link', { name: 'Informatique sur place' })).not.toHaveAttribute('aria-current');
-    });
-
-    it('marque « Informatique sur place » sur la page Informatique', () => {
-      renderAt(pages.informatique.path);
-      const tabs = within(screen.getByRole('navigation', { name: 'Catégories de services' }));
-      expect(tabs.getByRole('link', { name: 'Informatique sur place' })).toHaveAttribute('aria-current', 'true');
-      expect(tabs.getByRole('link', { name: 'Sites & applis' })).not.toHaveAttribute('aria-current');
-    });
+  it('n’a plus d’onglets de catégories : l’informatique à domicile est une page à part', () => {
+    renderAt(pages.realisations.path);
+    expect(screen.queryByRole('navigation', { name: 'Catégories de services' })).not.toBeInTheDocument();
   });
 
   describe('menu mobile', () => {

@@ -88,3 +88,6 @@ Le lien « Espace client » (`header.espaceClient`, `data/navigation.ts`) est to
 
 ## Barre de navigation sans tarifs (2026-11-07, `chore/prix-unique`)
 La barre ne propose plus que Réalisations, À propos et Questions fréquentes, avec le bouton « Demander un devis ». « Tarifs » et « Estimer » sont retirés, et « Tarifs » aussi du pied de page. « Questions fréquentes » mène à `/#faq` ; un lien vers une section n'est jamais signalé comme page en cours (`ItemLink`, `Header.tsx`). La paragraphe précédent sur « Estimer » est dépassé.
+
+## Depuis le 19/11/2026
+Plus de barre d'onglets « Sites & applis / Informatique sur place » : l'en-tête n'a que la barre principale. La page Informatique est liée en pied de page (« Dépannage informatique à domicile »).

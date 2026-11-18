@@ -15,12 +15,10 @@ function renderInformatique() {
 describe('Page Informatique sur place', () => {
   beforeEach(() => window.localStorage.clear());
 
-  it('présente la promesse et le contexte de Windows 10, avec l’onglet actif', () => {
+  it('présente la promesse et le contexte de Windows 10', () => {
     renderInformatique();
     expect(screen.getByRole('heading', { level: 1, name: pages.informatique.heading })).toBeInTheDocument();
     expect(screen.getByText(/Windows 10 n'est plus mis à jour depuis octobre 2025/)).toBeInTheDocument();
-    const onglets = within(screen.getByRole('navigation', { name: 'Catégories de services' }));
-    expect(onglets.getByRole('link', { name: 'Informatique sur place' })).toHaveAttribute('aria-current', 'true');
   });
 
   it('liste les prestations, sans prix, avec le réseau bientôt disponible', () => {

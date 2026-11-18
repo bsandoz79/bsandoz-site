@@ -1,7 +1,7 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Container, buttonClassName } from '@bsandoz79/blocs';
-import { header, informatiquePrefix, serviceTabs, type NavLink as NavItem } from '../../data/navigation';
+import { header, type NavLink as NavItem } from '../../data/navigation';
 import logoSb from '../../assets/marque/logo-sb.png';
 import styles from './Header.module.css';
 import { ThemeToggle } from '../ThemeToggle';
@@ -37,7 +37,7 @@ function ItemLink({ item, className }: { item: NavItem; className?: string }) {
 }
 
 /**
- * En-tête du site : onglets des deux catégories de services, logo, navigation
+ * En-tête du site : logo, navigation
  * (Réalisations, À propos, Questions fréquentes), bouton « Demander un devis » et menu repliable sur mobile.
  */
 export function Header() {
@@ -47,13 +47,11 @@ export function Header() {
   const menuOpen = menuOpenAt === pathname;
   // Le focus clavier dans l'en-tête le garde visible (on ne cache jamais ce qu'on est en train d'utiliser).
   const [focusDedans, setFocusDedans] = useState(false);
-  const { masque, decolle, enHaut } = useMasquageAuDefilement(menuOpen || focusDedans);
-  // Hors du haut de page, seule la barre principale revient : les onglets restent cachés.
-  const etat = masque ? styles.masque : enHaut ? '' : styles.compact;
+  const { masque, decolle } = useMasquageAuDefilement(menuOpen || focusDedans);
+  const etat = masque ? styles.masque : '';
 
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  const inInformatique = pathname.startsWith(informatiquePrefix);
   function onKeyDown(event: KeyboardEvent) {
     if (event.key !== 'Escape') return;
     if (menuOpen) {
@@ -71,27 +69,6 @@ export function Header() {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusDedans(false);
       }}
     >
-      <div className={styles.tabsBar}>
-        <Container as="nav" size="full" aria-label={header.tabsLabel}>
-          <ul className={styles.tabs}>
-            {serviceTabs.map((tab) => {
-              const current = tab.to === informatiquePrefix ? inInformatique : !inInformatique;
-              return (
-                <li key={tab.to}>
-                  <Link
-                    to={tab.to}
-                    className={current ? `${styles.tab} ${styles.tabCurrent}` : styles.tab}
-                    aria-current={current ? 'true' : undefined}
-                  >
-                    {tab.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </Container>
-      </div>
-
       <Container size="full" className={styles.bar}>
         <Link to="/" className={styles.brand}>
           <img className={styles.logo} src={logoSb} alt="" width={152} height={96} />
