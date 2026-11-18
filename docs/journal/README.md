@@ -142,3 +142,4 @@ Types de tests :
 | 111 | [Plus d'éclair de page sans mise en forme](111-fix-flash-pages-statiques.md) | `fix/flash-pages-statiques` | 2026-11-18 |
 | 112 | [Réalisation renommée « Shop ton chargeur »](112-fix-nom-shop-ton-chargeur.md) | `fix/nom-shop-ton-chargeur` | 2026-11-18 |
 | 113 | [Déroulé avec durées, retouches à volonté](113-feature-deroule-durees.md) | `feature/deroule-durees` | 2026-11-18 |
+| 114 | [Paiement en 3 ou 4 fois sans frais](114-feature-paiement-plusieurs-fois.md) | `feature/paiement-plusieurs-fois` | 2026-11-18 |

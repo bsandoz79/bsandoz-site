@@ -122,6 +122,7 @@ describe("Page d'accueil", () => {
     expect(screen.getAllByText('Développeur web à Amiens').length).toBeGreaterThan(0);
     const heroSection = section(pages.accueil.heading);
     expect(heroSection).toHaveTextContent(/Sites à partir de 390\s€\. Le prix exact dans votre devis/);
+    expect(heroSection).toHaveTextContent('payable en 3 ou 4 fois sans frais');
     // Aucun autre prix sur l'accueil (hors démonstration décorative du téléphone, cachée aux lecteurs d'écran).
     const visible = document.body.cloneNode(true) as HTMLElement;
     visible.querySelectorAll('[aria-hidden="true"]').forEach((el) => el.remove());

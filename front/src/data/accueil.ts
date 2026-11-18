@@ -5,7 +5,7 @@ export const hero = {
   badge: 'Création de sites internet sur mesure · Amiens',
   text: `Je crée des sites et des outils sur mesure pour les artisans, commerçants et indépendants, à Amiens et partout en France. Une fois en ligne, vous changez vous-même vos textes, vos photos et vos prix, sans coder.`,
   /** Suivi du seul prix affiché (`prixDepart`), puis « sur devis ». */
-  prix: { avant: 'Sites à partir de', apres: 'Le prix exact dans votre devis, sous 24 h.' },
+  prix: { avant: 'Sites à partir de', apres: 'Le prix exact dans votre devis, sous 24 h, payable en 3 ou 4 fois sans frais.' },
   /** Qui est derrière le site : photo, nom, métier. */
   identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
   primary: { label: 'Demander un devis', to: pages.devis.path },
