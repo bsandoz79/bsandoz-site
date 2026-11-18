@@ -22,3 +22,8 @@ img { max-width: 100%; display: block; }
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
+
+/* Texte des pages écrit pour Google (voir src/seo/prerendu.ts) : caché quand JavaScript affiche le vrai site, pour éviter un éclair de page sans mise en forme. */
+.js [data-statique] {
+  display: none;
+}

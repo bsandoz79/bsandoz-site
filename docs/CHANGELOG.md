@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé (chargement)
+- Plus d'éclair de page en texte brut au chargement : le texte écrit pour Google est caché dès que JavaScript tourne, il reste lisible par les robots et sans JavaScript.
+
 ### Corrigé (marque)
 - Icône d'onglet : `favicon.ico` ajouté, adresses des icônes renouvelées (`?v=2`) pour que les navigateurs quittent l'ancienne, ancien `favicon.svg` remplacé.
 

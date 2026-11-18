@@ -42,6 +42,8 @@ describe('Pages lisibles sans JavaScript', () => {
     expect(html).toContain(`<title>${echapper(propos.titre)}</title>`);
     expect(html).toMatch(/<div id="root"><script type="application\/ld\+json">/);
     expect(html).toContain('<script type="module" src="/assets/index.js">');
+    // Texte pour Google dans un bloc caché dès que JavaScript tourne : pas d'éclair de page sans mise en forme.
+    expect(html).toContain(`<div data-statique>${propos.contenu}</div>`);
   });
 
   it('échappe le HTML', () => {
