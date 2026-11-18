@@ -168,3 +168,6 @@ Mise à jour du 2026-11-16 (soir) : neuf captures (ajout des abonnements, de l'e
 
 ## Filtre par métier (page Réalisations)
 `data/secteurs.ts` : `secteurs` (choix), `secteurDe` (métier de chaque réalisation et exemple), `cartesRealisations(type, secteur)`. Paramètres d'adresse `type` et `metier`.
+
+## Page restaurant
+`exempleRestaurant: true` (`data/metiers.ts`) remplace l'aperçu générique par `ExempleRestaurant` (carte d'un kebab fictif sur téléphone, `data/restaurant.ts`) et ajoute les points du restaurateur.

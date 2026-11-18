@@ -1,0 +1,132 @@
+/* Téléphone d'exemple, en couleurs de restaurant (chaudes) quel que soit le thème du site : c'est le site du client. */
+.telephone {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 20rem);
+  padding: 0.6rem;
+  border-radius: 2.6rem;
+  background: var(--color-navy-deep);
+  box-shadow: var(--shadow-lg, 0 20px 40px rgb(0 0 0 / 0.25));
+}
+
+.etiquette {
+  position: absolute;
+  top: -0.75rem;
+  right: 1rem;
+  z-index: 1;
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+}
+
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.4rem 1rem 1rem;
+  border-radius: 2.1rem;
+  background: #fffaf3;
+  color: #2b1d14;
+  font-size: 0.85rem;
+}
+
+.entete {
+  display: grid;
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.nom {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #b4361c;
+}
+
+.lieu {
+  color: #6b5446;
+}
+
+.statut {
+  justify-self: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: #e3f3e6;
+  color: #1d6b34;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.actions li {
+  padding: 0.45rem 0.2rem;
+  border-radius: 0.6rem;
+  background: #b4361c;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.categorie {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.categorieTitre {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b4361c;
+}
+
+.plats {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plat {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed #e7d9c8;
+}
+
+.platTexte {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.platTexte span {
+  color: #6b5446;
+  font-size: 0.75rem;
+}
+
+.prix {
+  flex: none;
+  font-weight: 800;
+}
+
+.maj {
+  color: #6b5446;
+  font-size: 0.72rem;
+  text-align: center;
+}

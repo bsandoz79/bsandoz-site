@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (page restaurant)
+- Page « Site pour restaurant, kebab ou snack » : carte modifiable depuis le téléphone, QR code, appeler et itinéraire, à emporter ; exemple de carte d'un kebab fictif sur téléphone.
+
 ### Modifié (accueil)
 - Accueil allégé (9 blocs au lieu de 12) : un seul formulaire avec le choix « Un devis / Une maquette gratuite d'abord », 3 réalisations, blocs « Ce que vous recevez » et « Vos mots, vos textes » retirés, comparatif sans colonne colorée.
 

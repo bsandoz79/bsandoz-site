@@ -14,6 +14,8 @@ export type PageMetier = {
   exemple: OptionId[];
   /** Réalisation en lien avec le métier, s'il y en a une. */
   realisation?: string;
+  /** Restaurant : exemple de carte sur téléphone et points propres au métier (data/restaurant.ts). */
+  exempleRestaurant?: boolean;
 };
 
 export const pagesMetier: Record<PageMetierId, PageMetier> = {
@@ -37,10 +39,11 @@ export const pagesMetier: Record<PageMetierId, PageMetier> = {
   restaurant: {
     page: 'restaurant',
     metier: 'restaurant',
-    public: 'Restaurants et bars',
+    public: 'Restaurants, kebabs et snacks',
     intro:
-      'Pendant le service, vous ne pouvez pas répondre au téléphone. Votre site montre la carte et les horaires, et prend les réservations à votre place.',
+      'Pendant le rush, vous ne pouvez pas répondre au téléphone. Votre site montre la carte et les horaires, et vous la modifiez vous-même depuis votre téléphone, en quelques secondes.',
     exemple: ['table', 'clickcollect', 'avis'],
+    exempleRestaurant: true,
   },
   independant: {
     page: 'independant',
