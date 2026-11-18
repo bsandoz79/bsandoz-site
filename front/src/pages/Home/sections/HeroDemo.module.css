@@ -54,41 +54,9 @@
   transform: translateX(-50%);
 }
 
-.barreEtat {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.85rem 1.4rem 0.2rem;
-  background: var(--color-navy);
-  color: var(--color-text-on-dark);
-  font-size: 0.6875rem;
-  font-weight: 700;
-}
 
-.indicateurs {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-}
 
-.reseau {
-  width: 0.85rem;
-  height: 0.55rem;
-  background: linear-gradient(to right, var(--color-text-on-dark) 0 20%, transparent 20% 27%, var(--color-text-on-dark) 27% 47%, transparent 47% 54%, var(--color-text-on-dark) 54% 74%, transparent 74% 81%, var(--color-text-on-dark) 81%);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%);
-}
 
-.batterie {
-  width: 1.15rem;
-  height: 0.55rem;
-  border: 1.5px solid var(--color-text-on-dark);
-  border-radius: 0.2rem;
-  background: linear-gradient(to right, var(--color-text-on-dark) 0 70%, transparent 70%);
-  background-clip: content-box;
-  padding: 1px;
-}
 
 .screen {
   position: relative;
@@ -100,97 +68,19 @@
   background: var(--color-surface);
 }
 
-.top {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-3) var(--space-4) var(--space-4);
-  background: var(--color-navy);
-  color: var(--color-text-on-dark);
-}
 
-.business {
-  font-size: 0.75rem;
-  color: var(--color-text-on-dark-muted);
-}
 
-.screenTitle {
-  font-family: var(--font-display);
-  font-size: var(--text-base);
-  font-weight: 700;
-}
 
-.body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4);
-}
 
-.month {
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
-  font-weight: 600;
-}
 
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.375rem;
-  font-size: 0.6875rem;
-  text-align: center;
-}
 
-.weekday {
-  color: var(--color-text-muted);
-}
 
-.day {
-  padding-block: 0.375rem;
-}
 
-.off {
-  color: var(--color-border-strong);
-}
 
-.selected {
-  border-radius: 0.5rem;
-  background: var(--color-rose);
-  color: var(--color-text-on-dark);
-  font-weight: 600;
-}
 
-.slots {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-align: center;
-}
 
-.slot {
-  padding-block: 0.5rem;
-  border: 1px solid var(--color-border);
-  border-radius: 0.625rem;
-}
 
-.slotSelected {
-  border: 1.5px solid var(--color-rose);
-  background: var(--color-rose-soft);
-  color: var(--color-rose-dark);
-}
 
-.book {
-  padding: var(--space-3);
-  border-radius: var(--radius-sm);
-  background: var(--color-navy);
-  color: var(--color-text-on-dark);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-align: center;
-  white-space: nowrap;
-}
 
 .toast {
   position: absolute;
@@ -210,17 +100,7 @@
   animation-delay: 1s;
 }
 
-.toastBottom {
-  right: 0;
-  bottom: 4rem;
-  align-items: center;
-  animation-delay: 2s;
-}
 
-.toastText {
-  display: flex;
-  flex-direction: column;
-}
 
 .toastLabel {
   color: var(--color-text-muted);
@@ -231,17 +111,6 @@
   font-weight: 600;
 }
 
-.check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: var(--color-success-soft);
-  color: var(--color-success);
-  font-weight: 700;
-}
 
 @media (min-width: 960px) {
   .scene {
@@ -249,7 +118,7 @@
     height: 34rem;
   }
 
-  /* La photo à gauche, le téléphone devant elle à droite, les notifications autour. */
+  /* La photo à gauche, le téléphone devant elle à droite, le nom du site affiché au-dessus. */
   .scene {
     justify-content: flex-end;
     height: 36rem;
@@ -269,12 +138,6 @@
     z-index: 2;
   }
 
-  .toastBottom {
-    right: auto;
-    bottom: 1rem;
-    left: 9rem;
-    z-index: 2;
-  }
 }
 
 /* Photo de Baptiste : cadre en arche avec un liseré dégradé, le téléphone passe devant, en bas à droite. */
@@ -317,4 +180,59 @@
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 500;
+}
+
+/* Écrans qui défilent : une bande d'images, décalée d'un écran toutes les 3,5 s. */
+.defile {
+  display: flex;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ecran {
+  flex: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Petits points sous le téléphone : quel écran est affiché. */
+.points {
+  position: absolute;
+  right: 4.6rem;
+  bottom: -0.4rem;
+  z-index: 2;
+  display: none;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.points li {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.points .pointCourant {
+  width: 1.1rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-rose);
+}
+
+@media (min-width: 960px) {
+  .points {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .defile,
+  .points li {
+    transition: none;
+  }
 }

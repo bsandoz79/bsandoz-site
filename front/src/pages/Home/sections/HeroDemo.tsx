@@ -1,13 +1,43 @@
+import { useEffect, useState } from 'react';
+import alterno from '../../../assets/ecrans/alterno.webp';
+import cadeaux from '../../../assets/ecrans/cadeaux.webp';
+import christophePoixMoto from '../../../assets/ecrans/christophe-poix-moto.webp';
+import kebab from '../../../assets/ecrans/kebab.webp';
+import perfectClean from '../../../assets/ecrans/perfect-clean.webp';
+import shopTonChargeur from '../../../assets/ecrans/shoptonchargeur.webp';
 import { medias } from '../../../data/medias';
-import { hero, heroDemo } from '../../../data/accueil';
+import { DUREE_ECRAN_MS, ecransTelephone, hero } from '../../../data/accueil';
 import styles from './HeroDemo.module.css';
 
+const IMAGES: Record<(typeof ecransTelephone)[number]['id'], string> = {
+  'christophe-poix-moto': christophePoixMoto,
+  'perfect-clean': perfectClean,
+  cadeaux,
+  shoptonchargeur: shopTonChargeur,
+  kebab,
+  alterno,
+};
+
+/** Défilement automatique, sauf si l'utilisateur réduit les animations ou si la page est cachée. */
+function useEcranCourant(nombre: number) {
+  const [courant, setCourant] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const minuterie = window.setInterval(() => {
+      if (!document.hidden) setCourant((c) => (c + 1) % nombre);
+    }, DUREE_ECRAN_MS);
+    return () => window.clearInterval(minuterie);
+  }, [nombre]);
+  return courant;
+}
+
 /**
- * Téléphone de démonstration : écran de réservation d'un client fictif et notifications.
+ * Téléphone du haut de page : les sites de Baptiste défilent sur l'écran, avec leur nom à côté.
  * Purement décoratif, donc caché aux lecteurs d'écran.
  */
 export function HeroDemo() {
-  const [booking, payment] = heroDemo.notifications;
+  const courant = useEcranCourant(ecransTelephone.length);
+  const ecran = ecransTelephone[courant];
 
   return (
     <div className={styles.scene} aria-hidden="true">
@@ -19,66 +49,27 @@ export function HeroDemo() {
         </figcaption>
       </figure>
       <div className={styles.phone}>
-        {/* Cadre façon smartphone récent : boutons latéraux, îlot en haut de l'écran, barre d'état. */}
+        {/* Cadre façon smartphone récent : boutons latéraux, îlot en haut de l'écran. */}
         <span className={styles.boutonsGauche} />
         <span className={styles.boutonDroit} />
         <div className={styles.screen}>
           <span className={styles.ilot} />
-          <div className={styles.barreEtat}>
-            <span>9:41</span>
-            <span className={styles.indicateurs}>
-              <span className={styles.reseau} />
-              <span className={styles.batterie} />
-            </span>
-          </div>
-          <div className={styles.top}>
-            <span className={styles.business}>{heroDemo.business}</span>
-            <span className={styles.screenTitle}>{heroDemo.title}</span>
-          </div>
-          <div className={styles.body}>
-            <span className={styles.month}>{heroDemo.month}</span>
-            <div className={styles.calendar}>
-              {heroDemo.weekdays.map((weekday, i) => (
-                <span key={`${weekday}-${i}`} className={styles.weekday}>
-                  {weekday}
-                </span>
-              ))}
-              {heroDemo.days.map(({ day, off, selected }) => (
-                <span
-                  key={day}
-                  className={[styles.day, off ? styles.off : '', selected ? styles.selected : '']
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  {day}
-                </span>
-              ))}
-            </div>
-            <div className={styles.slots}>
-              {heroDemo.slots.map((slot) => (
-                <span
-                  key={slot}
-                  className={slot === heroDemo.selectedSlot ? `${styles.slot} ${styles.slotSelected}` : styles.slot}
-                >
-                  {slot}
-                </span>
-              ))}
-            </div>
-            <span className={styles.book}>{heroDemo.button}</span>
+          <div className={styles.defile} style={{ transform: `translateX(-${courant * 100}%)` }}>
+            {ecransTelephone.map((e) => (
+              <img key={e.id} className={styles.ecran} src={IMAGES[e.id]} alt="" width="400" height="848" loading="lazy" decoding="async" />
+            ))}
           </div>
         </div>
       </div>
-      <div className={`${styles.toast} ${styles.toastTop}`}>
-        <span className={styles.toastLabel}>{booking.label}</span>
-        <span className={styles.toastValue}>{booking.value}</span>
+      <div className={`${styles.toast} ${styles.toastTop} anim-appear`} key={ecran.id}>
+        <span className={styles.toastLabel}>{ecran.type}</span>
+        <span className={styles.toastValue}>{ecran.nom}</span>
       </div>
-      <div className={`${styles.toast} ${styles.toastBottom}`}>
-        <span className={styles.check}>✓</span>
-        <span className={styles.toastText}>
-          <span className={styles.toastLabel}>{payment.label}</span>
-          <span className={styles.toastValue}>{payment.value}</span>
-        </span>
-      </div>
+      <ol className={styles.points}>
+        {ecransTelephone.map((e, i) => (
+          <li key={e.id} className={i === courant ? styles.pointCourant : undefined} />
+        ))}
+      </ol>
     </div>
   );
 }
