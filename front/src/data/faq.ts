@@ -27,7 +27,10 @@ export const questionsFaq: QuestionFaq[] = [
   {
     id: 'propriete',
     question: 'À qui appartient le site ?',
-    reponse: ['À vous. Votre site vous appartient, sans abonnement imposé.'],
+    reponse: [
+      'À vous. Votre site vous appartient, sans abonnement imposé.',
+      'Et si un jour je ne suis plus disponible, vous gardez tout : le code du site, le nom de domaine, l’hébergement et les accès, à votre nom. Un autre développeur peut reprendre, rien n’est verrouillé de mon côté.',
+    ],
   },
   {
     id: 'hebergement',

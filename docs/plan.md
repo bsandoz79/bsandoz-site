@@ -102,4 +102,4 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/page-restaurant` : page restaurant, kebab ou snack, exemple de carte
 - [x] `style/theme-clair` : thème clair par défaut
 - [x] `style/informatique-a-part` : informatique sortie des onglets du haut
-- [ ] `feature/vous-gardez-tout` : « si je ne suis plus disponible, vous gardez tout »
+- [x] `feature/vous-gardez-tout` : « si je ne suis plus disponible, vous gardez tout »

@@ -130,7 +130,7 @@ export const comparatif = {
     { critere: 'Les textes', valeurs: ['Vous les écrivez', 'Vous, ou je les écris pour vous', 'Selon l’agence'] },
     { critere: 'Le prix', valeurs: ['Un abonnement chaque mois', 'Un prix fixe, payable en 3 ou 4 fois', 'Sur devis'] },
     { critere: 'Les modifications', valeurs: ['Dans l’outil de la plateforme', 'Vous, directement sur votre site', 'Selon le contrat'] },
-    { critere: 'Si vous partez', valeurs: ['Le site reste sur la plateforme', 'Le site et son nom de domaine sont à vous', 'Selon le contrat'] },
+    { critere: 'Si vous partez', valeurs: ['Le site reste sur la plateforme', 'Vous gardez tout : site, code, nom de domaine', 'Selon le contrat'] },
     { critere: 'Votre contact', valeurs: ['Un support en ligne', 'Moi, à Amiens, réponse sous 24 h', 'Un chef de projet'] },
   ],
   note: 'Les pratiques varient d’une plateforme et d’une agence à l’autre : lisez toujours le contrat.',
