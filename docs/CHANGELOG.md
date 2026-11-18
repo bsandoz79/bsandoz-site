@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (réalisations)
+- Filtre par métier sur la page Réalisations : réalisations et exemples d'outils du même secteur, combinable avec le type, gardé dans l'adresse.
+
 ### Ajouté (accueil)
 - « Vous parlez de votre métier, j'en fais les textes » : trois exemples fictifs, phrase du client → texte du site ; bloc modifiable.
 

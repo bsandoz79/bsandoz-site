@@ -3,7 +3,8 @@ import { ChoiceChips, Container, Reveal, SectionTitle, buttonClassName } from '@
 import { PageMeta } from '../../components/PageMeta';
 import { RealisationCard } from '../../components/RealisationCard';
 import { pages } from '../../data/pages';
-import { filtresRealisations, pageRealisations, realisationsFiltrees, type FiltreRealisation } from '../../data/realisations';
+import { filtresRealisations, pageRealisations, type FiltreRealisation } from '../../data/realisations';
+import { cartesRealisations, lireSecteur, secteurs, type Secteur } from '../../data/secteurs';
 import styles from './Realisations.module.css';
 
 /** Page Réalisations : une carte par projet ; chaque carte ouvre la page de ce seul projet. */
@@ -12,10 +13,12 @@ export function Realisations() {
   const t = pageRealisations;
   const [parametres, setParametres] = useSearchParams();
   const filtre = (filtresRealisations.find((f) => f.value === parametres.get('type'))?.value ?? 'tout') as FiltreRealisation;
-  const liste = realisationsFiltrees(filtre);
+  const secteur = lireSecteur(parametres.get('metier'));
+  const liste = cartesRealisations(filtre, secteur);
 
-  function choisir(valeur: FiltreRealisation) {
-    setParametres(valeur === 'tout' ? {} : { type: valeur }, { replace: true });
+  /** Garde l'autre filtre dans l'adresse ; « tout » et « tous » n'y figurent pas. */
+  function regler(type: FiltreRealisation, metier: Secteur) {
+    setParametres({ ...(type === 'tout' ? {} : { type }), ...(metier === 'tous' ? {} : { metier }) }, { replace: true });
   }
 
   return (
@@ -35,7 +38,15 @@ export function Realisations() {
             name="filtre-realisations"
             choices={filtresRealisations}
             value={filtre}
-            onChange={choisir}
+            onChange={(valeur) => regler(valeur, secteur)}
+          />
+          <ChoiceChips<Secteur>
+            legend={t.filtre.metier}
+            hideLegend
+            name="filtre-metier"
+            choices={[...secteurs]}
+            value={secteur}
+            onChange={(valeur) => regler(filtre, valeur)}
           />
           <p className={styles.nombre} aria-live="polite">
             {t.filtre.nombre(liste.length)}

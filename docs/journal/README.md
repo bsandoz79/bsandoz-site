@@ -145,3 +145,4 @@ Types de tests :
 | 114 | [Paiement en 3 ou 4 fois sans frais](114-feature-paiement-plusieurs-fois.md) | `feature/paiement-plusieurs-fois` | 2026-11-18 |
 | 115 | [Comparatif : trois façons d'avoir un site](115-feature-comparatif.md) | `feature/comparatif` | 2026-11-18 |
 | 116 | [Vos mots, vos textes](116-feature-reponses-site.md) | `feature/reponses-site` | 2026-11-18 |
+| 117 | [Réalisations filtrées par métier](117-feature-exemples-metier.md) | `feature/exemples-metier` | 2026-11-18 |

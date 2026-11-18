@@ -5,6 +5,8 @@ import { AppRoutes } from '../../app/routes';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
 import { idsRealisations } from '../../data/realisationsIds';
+import { exemplesOutils } from '../../data/exemples';
+import { secteurDe } from '../../data/secteurs';
 
 function afficher(chemin: string) {
   return render(
@@ -79,6 +81,35 @@ describe('Page Réalisations', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Shop ton chargeur' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /Shop ton chargeur : À acheter en priorité/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Voir le site en ligne/ })).toHaveAttribute('href', 'https://shoptonchargeur.bsandoz.fr');
+  });
+
+  it('filtre par métier : réalisations et exemples marqués « Exemple », combiné au type', async () => {
+    const user = userEvent.setup();
+    afficher(pages.realisations.path);
+    expect(screen.getByRole('radio', { name: 'Tous les métiers' })).toBeChecked();
+
+    await user.click(screen.getByRole('radio', { name: 'Artisans et services' }));
+    expect(screen.getByText('2 projets')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Christophe Poix Moto' })).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Perfect Clean' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('radio', { name: 'Commerce et restauration' }));
+    expect(screen.getByText('2 projets')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: /Carte par QR code/ })).toHaveTextContent('Exemple');
+
+    await user.click(screen.getByRole('radio', { name: 'Sites web' }));
+    expect(screen.getByText('1 projet')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: /Carte par QR code/ })).toBeInTheDocument();
+  });
+
+  it('reprend le métier de l’adresse', () => {
+    afficher(`${pages.realisations.path}?metier=photographes`);
+    expect(screen.getByRole('radio', { name: 'Photographes' })).toBeChecked();
+    expect(screen.getAllByRole('article')).toHaveLength(1);
+  });
+
+  it('chaque réalisation et chaque exemple a un métier', () => {
+    for (const carte of [...realisations, ...exemplesOutils]) expect(secteurDe[carte.id], carte.id).toBeDefined();
   });
 
   it('chaque projet a un type couvert par un filtre', () => {
