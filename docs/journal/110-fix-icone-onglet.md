@@ -20,5 +20,9 @@ Voir le même logo dans l'onglet, les favoris, l'écran d'accueil du téléphone
 ## Fichiers principaux
 - `front/index.html`, `front/public/favicon.ico`, `front/public/favicon.svg`
 
+## Complément (branche `fix/icone-google`)
+- `icone-192.png` (192 px, multiple de 48 comme le demande Google pour l'icône de ses résultats), citée dans `index.html`.
+- Google affichait un globe : avant ces corrections, `/favicon.ico` renvoyait une page HTML et l'icône citée était celle de Vite. Il reprend l'icône au prochain passage ; « Inspection de l'URL » → « Demander une indexation » dans la Search Console accélère.
+
 ## Reste ouvert
 - Google met à jour l'icône de ses résultats à son rythme (souvent quelques jours ou semaines).
