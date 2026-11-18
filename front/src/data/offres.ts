@@ -28,7 +28,7 @@ export const formules: Formule[] = [
     pointsForts: [
       '1 page sur un modèle soigné',
       'Mise en ligne et HTTPS',
-      '1 série de retouches',
+      'Retouches à volonté avant la mise en ligne',
       "1 h de formation si vous gérez l'hébergement",
     ],
   },
@@ -44,7 +44,7 @@ export const formules: Formule[] = [
       "Jusqu'à 5 pages, design personnalisé",
       'Formulaire de contact, galerie',
       'Référencement local + fiche Google',
-      '2 séries de retouches',
+      'Retouches à volonté avant la mise en ligne',
     ],
   },
   {

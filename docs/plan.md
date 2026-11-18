@@ -88,3 +88,11 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/planning-admin` : planning des rendez-vous et statistiques dans le back-office
 - [ ] `feature/edition-autres-pages` : mêmes blocs sur les autres pages (métiers, réalisations, À propos…)
 - [ ] `chore/a-completer` : remplir les « [à compléter] » avec les informations fournies
+
+## Inspiré de Roselyn Pro (validé le 18/11/2026)
+- [x] `feature/deroule-durees` : durée de chaque étape, retouches à volonté, 30 jours d'ajustements
+- [ ] `feature/paiement-plusieurs-fois` : 3 ou 4 fois sans frais pour Vitrine+ et Fonctionnel
+- [ ] `feature/comparatif` : plateforme à abonnement, moi, agence web
+- [ ] `feature/reponses-site` : ce que vous me dites → ce que ça donne sur votre site
+- [ ] `feature/exemples-metier` : réalisations et exemples filtrés par métier
+- [ ] `feature/maquette-gratuite` : maquette de la page d'accueil envoyée sous 72 h ouvrées

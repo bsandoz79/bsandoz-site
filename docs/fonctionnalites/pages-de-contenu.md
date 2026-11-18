@@ -123,7 +123,7 @@ Sections, dans l'ordre (`pages/Home/Home.tsx`, données dans `data/accueil.ts`) 
 2. `Metiers` (`metiers`) : question, puis une bande `Marquee` de métiers.
 3. `Autonomie` (`autonomie`) : ce que le client change seul.
 4. `Realisations` (`realisationsSection`) : les projets de `data/realisations.ts` dans le bloc `Showcase`, sur toute la largeur.
-5. `Methode` (`methode`), puis `Livraison` (`livraison`).
+5. `Methode` (`methode` : quatre étapes, chacune avec sa durée `duree`), puis `Livraison` (`livraison`, dont les 30 jours d’ajustements).
 6. FAQ, carte des zones, contact rapide.
 
 Chaque section est un bloc modifiable (`accueil.metiers`, `accueil.autonomie`, `accueil.livraison`…).

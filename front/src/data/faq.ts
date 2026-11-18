@@ -13,6 +13,7 @@ export const questionsFaq: QuestionFaq[] = [
     question: 'En combien de temps mon site est-il prêt ?',
     reponse: [
       'Comptez quelques jours pour un site d’une page, 1 à 2 semaines pour un site de plusieurs pages, et 3 à 6 semaines pour un site avec rendez-vous, boutique ou espace client. Le délai exact est dans le devis.',
+      'Pour un site vitrine, vous voyez un premier aperçu privé 5 à 7 jours ouvrés après avoir répondu à mes questions.',
     ],
   },
   {
@@ -34,6 +35,14 @@ export const questionsFaq: QuestionFaq[] = [
     reponse: [
       'Le nom de domaine et l’hébergement sont à votre nom. Si vous les gérez vous-même, je vous forme pendant 1 h.',
       'Si vous préférez déléguer, demandez-moi la formule hébergement + maintenance.',
+    ],
+  },
+  {
+    id: 'retouches',
+    question: 'Combien de retouches ai-je droit ?',
+    reponse: [
+      'Autant qu’il en faut avant la mise en ligne : le site part en ligne quand il vous plaît.',
+      'Après la mise en ligne, 30 jours d’ajustements sont compris.',
     ],
   },
   {
