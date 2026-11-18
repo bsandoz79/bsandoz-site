@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { autonomie, comparatif, hero, livraison, methode, metiers, reponses } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
+import { maquette } from '../../data/maquette';
 import { pages } from '../../data/pages';
 import { exemplesOutils } from '../../data/exemples';
 import { realisations } from '../../data/realisations';
@@ -36,6 +37,7 @@ describe("Page d'accueil", () => {
       livraison.titre,
       comparatif.titre,
       reponses.titre,
+      maquette.titre,
       faqAccueil.titre,
       'Je me déplace chez vous.',
       'Parlez-moi de votre projet.',

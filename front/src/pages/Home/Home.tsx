@@ -1,4 +1,5 @@
 import { BlocModifiable } from '../../components/BlocModifiable';
+import { MaquetteGratuite } from '../../components/MaquetteGratuite';
 import { CarteZones } from '../../components/CarteZones';
 import { ContactRapide } from '../../components/ContactRapide';
 import { PageMeta } from '../../components/PageMeta';
@@ -47,6 +48,7 @@ export function Home() {
       <BlocModifiable id="accueil.reponses">
         <Reponses />
       </BlocModifiable>
+      <MaquetteGratuite />
       <BlocModifiable id="accueil.faq">
         <Faq />
       </BlocModifiable>

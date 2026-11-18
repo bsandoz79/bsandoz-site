@@ -53,3 +53,12 @@ Oui. Le composant ne dépend que de `TextField`, `ChoiceChips` et `Button`, et l
 - `ContactRapide.test.tsx` : validation, « Autre », contenu envoyé, merci, échec, limite.
 - `Devis.test.tsx` : un seul formulaire, sans étapes ni estimation, et redirection de `/composer`.
 - Lancer : `npm run test -w front -- ContactRapide Devis`.
+
+## Maquette gratuite
+
+Formulaire `MaquetteGratuite` (accueil) : mêmes envoi et protections que le contact (`POST /demandes`, champ piège, un envoi par minute). Titre de la demande `Maquette gratuite · <métier>`, réponses dans `recapitulatif` (`construireEnvoiMaquette`, `front/src/data/maquette.ts`). Promesse affichée : maquette envoyée sous 72 h ouvrées.
+
+```mermaid
+flowchart LR
+  form["MaquetteGratuite (accueil)"] --> envoi["construireEnvoiMaquette"] --> api["POST /demandes"] --> bo["Back-office : demande « Maquette gratuite »"]
+```
