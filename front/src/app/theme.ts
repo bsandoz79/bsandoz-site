@@ -1,12 +1,12 @@
 /**
- * Thème du site : « nuit » (par défaut) ou « clair ». Le choix est gardé dans le navigateur
+ * Thème du site : « clair » (par défaut, depuis le 19/11/2026 : plus accueillant pour les commerçants) ou « nuit ». Le choix est gardé dans le navigateur
  * (stockage local, aucun cookie) et appliqué par l'attribut `data-theme` de <html>.
  * `index.html` applique déjà le thème avant l'affichage, pour éviter un flash de l'autre thème.
  */
 export type Theme = 'nuit' | 'clair';
 
 export const CLE_THEME = 'bsandoz.theme';
-export const THEME_PAR_DEFAUT: Theme = 'nuit';
+export const THEME_PAR_DEFAUT: Theme = 'clair';
 
 /** Couleur de la barre du navigateur sur téléphone, selon le thème. */
 export const COULEUR_BARRE: Record<Theme, string> = { nuit: '#0b0f29', clair: '#f7f6fa' };

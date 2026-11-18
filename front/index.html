@@ -9,18 +9,18 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/icone-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b0f29" />
-    <!-- Thème avant l'affichage (nuit par défaut, ou le choix gardé dans le navigateur) : pas de flash de l'autre thème. -->
+    <meta name="theme-color" content="#f7f6fa" />
+    <!-- Thème avant l'affichage (clair par défaut, ou le choix gardé dans le navigateur) : pas de flash de l'autre thème. -->
     <script>
       (function () {
-        var theme = 'nuit';
+        var theme = 'clair';
         try {
-          if (localStorage.getItem('bsandoz.theme') === 'clair') theme = 'clair';
+          if (localStorage.getItem('bsandoz.theme') === 'nuit') theme = 'nuit';
         } catch (e) {}
         document.documentElement.setAttribute('data-theme', theme);
         // JavaScript actif : le texte écrit pour Google (data-statique) est caché en attendant l'affichage du site.
         document.documentElement.classList.add('js');
-        if (theme === 'clair') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f6fa');
+        if (theme === 'nuit') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b0f29');
       })();
     </script>
     <meta name="description" content="Sites internet, prise de rendez-vous en ligne et applis pour artisans, commerçants et indépendants autour d'Amiens." />
