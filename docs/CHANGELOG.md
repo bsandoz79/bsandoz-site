@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (marque)
+- Nouveau logo « SB » (S rose, B bleu) à la place du monogramme néon : en-tête, pied de page, icône d'onglet, écran d'accueil iPhone et grand format.
+
 ### Modifié (réalisations)
 - Page d'une réalisation : les rubriques (contexte, besoin, solution, fonctionnalités) ne sont plus des cartes à barre rose, mais une suite de rubriques séparées par un filet, titre en petites capitales à gauche sur grand écran.
 
