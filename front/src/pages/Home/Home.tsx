@@ -1,5 +1,4 @@
 import { BlocModifiable } from '../../components/BlocModifiable';
-import { MaquetteGratuite } from '../../components/MaquetteGratuite';
 import { CarteZones } from '../../components/CarteZones';
 import { ContactRapide } from '../../components/ContactRapide';
 import { PageMeta } from '../../components/PageMeta';
@@ -11,13 +10,11 @@ import { Autonomie } from './sections/Autonomie';
 import { Comparatif } from './sections/Comparatif';
 import { Faq } from './sections/Faq';
 import { Hero } from './sections/Hero';
-import { Livraison } from './sections/Livraison';
 import { Metiers } from './sections/Metiers';
 import { Methode } from './sections/Methode';
 import { Realisations } from './sections/Realisations';
-import { Reponses } from './sections/Reponses';
 
-/** Page d'accueil : un site que le client modifie lui-même, les réalisations, la méthode, la livraison. */
+/** Page d'accueil : un site que le client modifie lui-même, les réalisations, la méthode, le comparatif, le contact. */
 export function Home() {
   return (
     <>
@@ -39,16 +36,9 @@ export function Home() {
       <BlocModifiable id="accueil.methode">
         <Methode />
       </BlocModifiable>
-      <BlocModifiable id="accueil.livraison">
-        <Livraison />
-      </BlocModifiable>
       <BlocModifiable id="accueil.comparatif">
         <Comparatif />
       </BlocModifiable>
-      <BlocModifiable id="accueil.reponses">
-        <Reponses />
-      </BlocModifiable>
-      <MaquetteGratuite />
       <BlocModifiable id="accueil.faq">
         <Faq />
       </BlocModifiable>

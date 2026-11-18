@@ -21,10 +21,13 @@
   color: var(--color-text-muted);
 }
 
-/* « Avec moi » : fond léger et texte en gras, sans effet. */
+/* « Avec moi » : titre en couleur d'accent et réponses en gras, sans fond ni effet. */
 .avant {
-  background: var(--color-rose-soft);
   font-weight: 600;
+}
+
+thead .avant {
+  color: var(--color-accent-texte);
 }
 
 .note {
@@ -69,9 +72,5 @@
     content: attr(data-colonne) ' : ';
     color: var(--color-text-muted);
     font-weight: 400;
-  }
-
-  .avant {
-    border-radius: var(--radius-sm);
   }
 }

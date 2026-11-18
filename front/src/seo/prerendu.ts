@@ -4,7 +4,7 @@
  * (titre, présentation, services, coordonnées). L'application React remplace ce contenu au chargement.
  * Les textes viennent des mêmes données que le site : rien n'est écrit deux fois.
  */
-import { autonomie, hero, livraison, methode, metiers } from '../data/accueil';
+import { autonomie, hero, methode, metiers } from '../data/accueil';
 import { aPropos } from '../data/apropos';
 import { questionsFaq } from '../data/faq';
 import { deroulementInformatique, informatiqueMentions, pageInformatique, servicesInformatique } from '../data/informatique';
@@ -102,7 +102,6 @@ function accueil(): PageStatique {
       `<ul>${realisations.map((r) => `<li>${lien(cheminRealisation(r.id), r.titre)} : ${echapper(r.resume)}</li>`).join('')}</ul>`,
     ),
     section(methode.title, `<ol>${methode.steps.map((s) => `<li>${echapper(`${s.title} : ${s.text}`)}</li>`).join('')}</ol>`),
-    section(livraison.titre, liste(livraison.items.map((i) => `${i.titre} : ${i.texte}`))),
     section(
       'Questions fréquentes',
       questionsFaq.map((q) => `<h3>${echapper(q.question)}</h3>${q.reponse.map(p).join('')}`).join(''),

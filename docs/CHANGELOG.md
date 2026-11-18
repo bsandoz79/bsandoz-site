@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (accueil)
+- Accueil allégé (9 blocs au lieu de 12) : un seul formulaire avec le choix « Un devis / Une maquette gratuite d'abord », 3 réalisations, blocs « Ce que vous recevez » et « Vos mots, vos textes » retirés, comparatif sans colonne colorée.
+
 ### Ajouté (accueil)
 - Maquette gratuite de la page d'accueil, envoyée par e-mail sous 72 h ouvrées : formulaire sur l'accueil, demande enregistrée comme un devis (« Maquette gratuite · métier »).
 

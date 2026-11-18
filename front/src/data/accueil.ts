@@ -115,18 +115,6 @@ export const methode = {
   ],
 };
 
-/** Ce que le client reçoit à la livraison. */
-export const livraison = {
-  titre: 'Ce que vous recevez à la livraison',
-  items: [
-    { titre: 'Votre site en ligne', texte: 'Vous l’avez vu et validé avant sa mise en ligne.' },
-    { titre: 'Un site à vous', texte: 'Le code, les contenus et les réglages vous appartiennent. Rien n’est verrouillé de mon côté.' },
-    { titre: 'Votre nom de domaine', texte: 'À votre nom, comme l’hébergement.' },
-    { titre: 'La prise en main', texte: 'Je vous montre comment modifier votre site, et je reste joignable ensuite.' },
-    { titre: '30 jours d’ajustements', texte: 'Un détail à changer après la mise en ligne ? C’est compris pendant 30 jours.' },
-  ],
-};
-
 /**
  * Trois façons d'avoir un site, comparées honnêtement (idée reprise de Roselyn Pro, textes propres).
  * Aucun chiffre sur les autres : les pratiques varient, d'où la note.
@@ -146,38 +134,6 @@ export const comparatif = {
     { critere: 'Votre contact', valeurs: ['Un support en ligne', 'Moi, à Amiens, réponse sous 24 h', 'Un chef de projet'] },
   ],
   note: 'Les pratiques varient d’une plateforme et d’une agence à l’autre : lisez toujours le contrat.',
-};
-
-/**
- * « Ce que vous me dites → ce que ça donne sur votre site » : montre que Baptiste écrit les textes.
- * Exemples fictifs, toujours annoncés comme tels (aucun client inventé).
- */
-export const reponses = {
-  titre: 'Vous parlez de votre métier, j’en fais les textes',
-  intro: 'Pas besoin de savoir écrire pour le web. Vous me racontez votre métier avec vos mots, j’en tire des textes clairs pour vos clients et pour Google.',
-  vous: 'Ce que vous me dites',
-  site: 'Ce que ça donne sur votre site',
-  exemples: [
-    {
-      metier: 'Coiffeuse',
-      dit: 'Je suis seule dans mon salon, alors je prends le temps avec chaque cliente.',
-      titre: 'Un salon où l’on prend le temps',
-      texte: 'Une seule coiffeuse, une cliente à la fois : votre rendez-vous n’est jamais pressé.',
-    },
-    {
-      metier: 'Couvreur',
-      dit: 'Je fais surtout des réparations après les tempêtes, et le devis est gratuit.',
-      titre: 'Tuiles envolées ? Votre toit réparé, devis gratuit',
-      texte: 'Après une tempête, j’interviens pour mettre votre toiture hors d’eau, puis la réparer.',
-    },
-    {
-      metier: 'Restaurant',
-      dit: 'Tout est fait maison avec les produits du marché, la carte change chaque semaine.',
-      titre: 'Fait maison, au rythme du marché',
-      texte: 'Une carte courte qui change chaque semaine, selon ce que le marché nous apporte.',
-    },
-  ],
-  note: 'Exemples fictifs, pour montrer la méthode.',
 };
 
 /** Ce qui compte pour Baptiste : repris sur la page À propos. */

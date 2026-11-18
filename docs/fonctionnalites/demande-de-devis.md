@@ -56,9 +56,9 @@ Oui. Le composant ne dépend que de `TextField`, `ChoiceChips` et `Button`, et l
 
 ## Maquette gratuite
 
-Formulaire `MaquetteGratuite` (accueil) : mêmes envoi et protections que le contact (`POST /demandes`, champ piège, un envoi par minute). Titre de la demande `Maquette gratuite · <métier>`, réponses dans `recapitulatif` (`construireEnvoiMaquette`, `front/src/data/maquette.ts`). Promesse affichée : maquette envoyée sous 72 h ouvrées.
+Même formulaire que le devis (`ContactRapide`) : le choix « Vous souhaitez : Un devis / Une maquette gratuite d'abord » ajoute la ville et le style, rend le téléphone facultatif et change le bouton et le message de fin (72 h ouvrées). Titre de la demande `Maquette gratuite · <métier>`, réponses dans `recapitulatif` (`construireEnvoiContact`, `components/ContactRapide/contact.ts`).
 
 ```mermaid
 flowchart LR
-  form["MaquetteGratuite (accueil)"] --> envoi["construireEnvoiMaquette"] --> api["POST /demandes"] --> bo["Back-office : demande « Maquette gratuite »"]
+  form["ContactRapide : devis ou maquette"] --> envoi["construireEnvoiContact"] --> api["POST /demandes"] --> bo["Back-office : « Projet » ou « Maquette gratuite »"]
 ```
