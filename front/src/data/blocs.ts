@@ -1,4 +1,4 @@
-import { autonomie, hero, livraison, methode, metiers, realisationsSection } from './accueil';
+import { autonomie, comparatif, hero, livraison, methode, metiers, realisationsSection } from './accueil';
 import { contactRapide } from './contact';
 import { faqAccueil, questionsFaq } from './faq';
 import { medias } from './medias';
@@ -107,6 +107,7 @@ export const blocs: Record<string, Bloc> = {
     champs: [
       champ('accueil.methode.titre', 'Titre', methode, 'title'),
       ...methode.steps.flatMap((s, i) => [
+        champ(`accueil.methode.${i}.duree`, `Durée de l’étape ${i + 1}`, s, 'duree'),
         champ(`accueil.methode.${i}.titre`, `Étape ${i + 1}`, s, 'title'),
         champ(`accueil.methode.${i}.texte`, `Texte de l’étape ${i + 1}`, s, 'text', 'long'),
       ]),
@@ -120,6 +121,18 @@ export const blocs: Record<string, Bloc> = {
         champ(`accueil.livraison.${i}.titre`, `Point ${i + 1}`, l, 'titre'),
         champ(`accueil.livraison.${i}.texte`, `Texte du point ${i + 1}`, l, 'texte', 'long'),
       ]),
+    ],
+  },
+  'accueil.comparatif': {
+    titre: 'Trois façons d’avoir un site',
+    champs: [
+      champ('accueil.comparatif.titre', 'Titre', comparatif, 'titre'),
+      champ('accueil.comparatif.intro', 'Introduction', comparatif, 'intro', 'long'),
+      ...comparatif.lignes.flatMap((l, i) => [
+        champ(`accueil.comparatif.${i}.critere`, `Critère ${i + 1}`, l, 'critere'),
+        ...l.valeurs.map((_, j) => champ(`accueil.comparatif.${i}.${j}`, `${l.critere} · ${comparatif.colonnes[j]}`, l.valeurs, j)),
+      ]),
+      champ('accueil.comparatif.note', 'Note', comparatif, 'note', 'long'),
     ],
   },
   'accueil.faq': {
