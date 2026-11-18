@@ -18,7 +18,7 @@ describe('Pages métier', () => {
   it.each([
     [pages.artisan, 'Artisans à domicile', 6, 'Atelier Brillance'],
     [pages.ecommerce, 'Commerçants', 6, 'Maison Lumen'],
-    [pages.restaurant, 'Restaurants et bars', 5, 'Le Petit Comptoir'],
+    [pages.restaurant, 'Restaurants, kebabs et snacks', 5, 'Le Comptoir Kebab'],
     [pages.independant, 'Santé et bien-être', 5, 'Studio Équilibre'],
   ])('%s : promesse, fonctions sans prix et exemple de site', (page, publicVise, nbFonctions, exemple) => {
     renderAt(page.path);
@@ -30,6 +30,17 @@ describe('Pages métier', () => {
     expect(fonctions).not.toHaveTextContent('€');
     expect(screen.getByRole('complementary', { name: 'Aperçu de votre futur site' })).toHaveTextContent(exemple);
     expect(screen.getByText(/Entreprise fictive, pour l’exemple/)).toBeInTheDocument();
+  });
+
+  it('restaurant : exemple de carte d’un kebab sur téléphone, et ce qui compte pour un restaurateur', () => {
+    renderAt(pages.restaurant.path);
+    const apercu = screen.getByRole('complementary', { name: 'Aperçu de votre futur site' });
+    expect(apercu).toHaveTextContent('Exemple');
+    expect(apercu).toHaveTextContent('Kebab classique');
+    for (const action of ['Appeler', 'Itinéraire', 'À emporter']) expect(apercu).toHaveTextContent(action);
+    const exemple = screen.getByRole('region', { name: 'Pour un restaurant, un kebab ou un snack' });
+    expect(exemple).toHaveTextContent('Votre carte, modifiée depuis votre téléphone');
+    expect(exemple).toHaveTextContent('Un QR code pour vos tables et votre vitrine');
   });
 
   it('montre la réalisation proche du métier quand il y en a une', () => {

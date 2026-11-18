@@ -8,6 +8,8 @@ import { metierTextes, pagesMetier, type PageMetierId } from '../../data/metiers
 import { options, optionsParMetier } from '../../data/offres';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
+import { exempleRestaurant } from '../../data/restaurant';
+import { ExempleRestaurant } from './ExempleRestaurant';
 import styles from './Metier.module.css';
 
 type Props = { id: PageMetierId };
@@ -70,9 +72,19 @@ export function Metier({ id }: Props) {
           <div className={styles.stack}>
             <SectionTitle
               id="exemple-titre"
-              title={metierTextes.exemple.title}
-              intro={metierTextes.exemple.note}
+              title={contenu.exempleRestaurant ? exempleRestaurant.titre : metierTextes.exemple.title}
+              intro={contenu.exempleRestaurant ? exempleRestaurant.note : metierTextes.exemple.note}
             />
+            {contenu.exempleRestaurant && (
+              <ul className={styles.points}>
+                {exempleRestaurant.points.map((point) => (
+                  <li key={point.titre}>
+                    <strong>{point.titre}</strong>
+                    <p className={styles.muted}>{point.texte}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
             {realisation && (
               <div className={styles.realisation}>
                 <p className={styles.realisationTitre}>{metierTextes.realisation.title}</p>
@@ -80,7 +92,11 @@ export function Metier({ id }: Props) {
               </div>
             )}
           </div>
-          <SitePreview label={apercuTextes.label} description={description} model={modele} />
+          {contenu.exempleRestaurant ? (
+            <ExempleRestaurant />
+          ) : (
+            <SitePreview label={apercuTextes.label} description={description} model={modele} />
+          )}
         </Container>
       </section>
 

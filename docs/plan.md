@@ -97,3 +97,9 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `feature/exemples-metier` : réalisations et exemples filtrés par métier
 - [x] `feature/maquette-gratuite` : maquette de la page d'accueil envoyée sous 72 h ouvrées
 - [x] `style/accueil-allege` : retour de Baptiste, accueil trop chargé : 9 blocs, un seul formulaire (devis ou maquette gratuite)
+
+## Revue « patron de kebab » (19/11/2026)
+- [x] `feature/page-restaurant` : page restaurant, kebab ou snack, exemple de carte
+- [ ] `style/theme-clair` : thème clair par défaut
+- [ ] `style/informatique-a-part` : informatique sortie des onglets du haut
+- [ ] `feature/vous-gardez-tout` : « si je ne suis plus disponible, vous gardez tout »

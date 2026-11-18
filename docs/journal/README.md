@@ -148,3 +148,4 @@ Types de tests :
 | 117 | [Réalisations filtrées par métier](117-feature-exemples-metier.md) | `feature/exemples-metier` | 2026-11-18 |
 | 118 | [Maquette gratuite de la page d'accueil](118-feature-maquette-gratuite.md) | `feature/maquette-gratuite` | 2026-11-18 |
 | 119 | [Accueil allégé, un seul formulaire](119-style-accueil-allege.md) | `style/accueil-allege` | 2026-11-18 |
+| 120 | [Page « Site pour restaurant, kebab ou snack »](120-feature-page-restaurant.md) | `feature/page-restaurant` | 2026-11-19 |

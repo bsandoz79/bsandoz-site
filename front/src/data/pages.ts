@@ -56,9 +56,9 @@ export const pages = {
   },
   restaurant: {
     path: '/site-restaurant',
-    title: 'Site internet pour restaurant à Amiens',
-    description: 'Un site pour votre restaurant : carte, horaires et réservations de table toujours à jour.',
-    heading: 'Votre carte, vos horaires et vos réservations, toujours à jour.',
+    title: 'Site internet pour restaurant, kebab ou snack à Amiens',
+    description: 'Un site pour votre restaurant, kebab ou snack : la carte modifiable depuis votre téléphone, un QR code, les horaires et le bouton Appeler.',
+    heading: 'Votre carte toujours à jour, modifiée depuis votre téléphone.',
   },
   independant: {
     path: '/site-independant',

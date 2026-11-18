@@ -158,3 +158,19 @@
     padding: var(--space-8) var(--space-7);
   }
 }
+
+/* Points propres au restaurant : une liste simple, un trait au-dessus de chaque point. */
+.points {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.points > li {
+  display: grid;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}

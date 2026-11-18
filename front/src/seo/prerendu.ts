@@ -9,6 +9,7 @@ import { aPropos } from '../data/apropos';
 import { questionsFaq } from '../data/faq';
 import { deroulementInformatique, informatiqueMentions, pageInformatique, servicesInformatique } from '../data/informatique';
 import { pagesMetier, type PageMetierId } from '../data/metiers';
+import { exempleRestaurant } from '../data/restaurant';
 import { contact } from '../data/navigation';
 import { pages, site, type PageInfo } from '../data/pages';
 import { pageRealisations, realisations } from '../data/realisations';
@@ -148,7 +149,10 @@ function realisation(r: (typeof realisations)[number]): PageStatique {
 
 function metier(id: PageMetierId): PageStatique {
   const m = pagesMetier[id];
-  return page(pages[id], p(m.public) + p(m.intro) + p(zone));
+  const restaurant = m.exempleRestaurant
+    ? section(exempleRestaurant.titre, liste(exempleRestaurant.points.map((pt) => `${pt.titre} : ${pt.texte}`)))
+    : '';
+  return page(pages[id], p(m.public) + p(m.intro) + restaurant + p(zone));
 }
 
 function informatique(): PageStatique {
