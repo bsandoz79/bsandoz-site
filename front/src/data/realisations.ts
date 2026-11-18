@@ -102,6 +102,7 @@ export const pageRealisations = {
   appel: { text: 'Un projet du même genre ?', label: 'Demander un devis', to: '/devis' },
   filtre: {
     legende: 'Afficher',
+    metier: 'Métier',
     nombre: (n: number) => (n > 1 ? `${n} projets` : `${n} projet`),
     aucun: 'Aucun projet de ce type pour le moment.',
   },
