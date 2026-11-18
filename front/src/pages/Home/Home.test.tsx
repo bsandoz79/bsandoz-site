@@ -87,7 +87,7 @@ describe("Page d'accueil", () => {
     const tableau = within(section(comparatif.titre)).getByRole('table', { name: comparatif.titre });
     expect(within(tableau).getAllByRole('columnheader').map((c) => c.textContent)).toEqual(comparatif.colonnes);
     expect(within(tableau).getAllByRole('rowheader').map((c) => c.textContent)).toEqual(comparatif.lignes.map((l) => l.critere));
-    expect(within(tableau).getByRole('cell', { name: 'Le site et son nom de domaine sont à vous' })).toBeInTheDocument();
+    expect(within(tableau).getByRole('cell', { name: 'Vous gardez tout : site, code, nom de domaine' })).toBeInTheDocument();
     expect(tableau.textContent).not.toMatch(/\d+\s€/);
   });
 
@@ -95,6 +95,12 @@ describe("Page d'accueil", () => {
     renderHome();
     expect(screen.getAllByRole('form')).toHaveLength(1);
     expect(screen.getByRole('radio', { name: 'Une maquette gratuite d’abord' })).toBeInTheDocument();
+  });
+
+  it('rassure : le client garde tout si Baptiste n’est plus disponible', async () => {
+    renderHome();
+    await userEvent.setup().click(within(section(faqAccueil.titre)).getByText('À qui appartient le site ?'));
+    expect(document.getElementById('propriete')).toHaveTextContent('si un jour je ne suis plus disponible, vous gardez tout');
   });
 
   it('numérote les quatre étapes de la méthode', () => {

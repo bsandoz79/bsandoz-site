@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (réassurance)
+- « Si un jour je ne suis plus disponible, vous gardez tout » : FAQ « À qui appartient le site ? » et comparatif (« Si vous partez »).
+
 ### Modifié (en-tête)
 - Plus d'onglets « Sites & applis / Informatique sur place » en haut : le dépannage informatique est une page à part, liée en pied de page (« Dépannage informatique à domicile »).
 
