@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (comparatif)
+- « Avec moi » en premier, encadré et « Recommandé » ; un signe par case (✓, ✕, ~) ; ligne « Le délai » ; conclusion surlignée.
+
 ### Modifié (accueil)
 - Téléphone de l'accueil sans encoche ; chaque site y défile tout seul de haut en bas ; réservation fictive jouée (jour, heure, « Réserver », rendez-vous et acompte reçus).
 
