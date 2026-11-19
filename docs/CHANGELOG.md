@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (comparatif)
+- « Avec moi » au milieu, entre la plateforme et l'agence ; encadré de conclusion retiré.
+
 ### Ajouté (pages métier)
 - 7 pages métier : bâtiment, beauté, professions libérales, cours et coaching, gîtes, associations, événementiel ; page artisan recentrée sur les services à domicile ; Doctolib sur la page santé ; tarif adapté aux associations (sur devis).
 - Bande des métiers de l'accueil cliquable (bloc `Marquee` : `renderItem`, pause au survol) ; 12 catégories de métier dans le configurateur et le devis.

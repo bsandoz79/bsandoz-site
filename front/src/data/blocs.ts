@@ -125,7 +125,6 @@ export const blocs: Record<string, Bloc> = {
         champ(`accueil.comparatif.${i}.critere`, `Critère ${i + 1}`, l, 'critere'),
         ...l.valeurs.map((v, j) => champ(`accueil.comparatif.${i}.${j}`, `${l.critere} · ${comparatif.colonnes[j]}`, v, 'texte')),
       ]),
-      champ('accueil.comparatif.conclusion', 'Conclusion', comparatif, 'conclusion', 'long'),
       champ('accueil.comparatif.note', 'Note', comparatif, 'note', 'long'),
     ],
   },

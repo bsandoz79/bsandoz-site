@@ -85,13 +85,12 @@ describe("Page d'accueil", () => {
   it('compare moi, plateforme et agence dans un vrai tableau, avec un signe par case et sans prix', () => {
     renderHome();
     const tableau = within(section(comparatif.titre)).getByRole('table', { name: comparatif.titre });
-    expect(within(tableau).getAllByRole('columnheader').map((c) => c.textContent)).toEqual(['Recommandé' + comparatif.colonnes[0], ...comparatif.colonnes.slice(1)]);
+    expect(within(tableau).getAllByRole('columnheader').map((c) => c.textContent)).toEqual([comparatif.colonnes[0], 'Recommandé' + comparatif.colonnes[1], comparatif.colonnes[2]]);
     expect(within(tableau).getAllByRole('rowheader').map((c) => c.textContent)).toEqual(comparatif.lignes.map((l) => l.critere));
     expect(within(tableau).getByRole('cell', { name: /^Oui : ?Vous gardez tout/ })).toBeInTheDocument();
     expect(within(tableau).getByRole('cell', { name: /^Non : ?Un abonnement à payer chaque mois/ })).toBeInTheDocument();
     // Tous les critères sont des avantages dans la colonne « Avec moi ».
     expect(comparatif.lignes.every((l) => l.valeurs[comparatif.miseEnAvant].verdict === 'oui')).toBe(true);
-    expect(section(comparatif.titre)).toHaveTextContent(comparatif.conclusion);
     expect(tableau.textContent).not.toMatch(/\d+\s€/);
   });
 

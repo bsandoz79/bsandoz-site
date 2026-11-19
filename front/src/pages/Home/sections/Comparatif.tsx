@@ -11,7 +11,7 @@ const SIGNES: Record<Verdict, { signe: string; texte: string; classe: string }> 
 
 /**
  * Avec moi, plateforme à abonnement, agence web : un vrai tableau (une liste par critère sur téléphone).
- * Chaque case a un signe (✓, ✕, ~) ; la colonne « Avec moi » est mise en avant, les autres sont plus discrètes.
+ * Chaque case a un signe (✓, ✕, ~) ; la colonne « Avec moi », au milieu, est mise en avant, les autres sont plus discrètes.
  */
 export function Comparatif() {
   const avant = (i: number) => i === comparatif.miseEnAvant;
@@ -51,7 +51,6 @@ export function Comparatif() {
             ))}
           </tbody>
         </table>
-        <p className={styles.conclusion}>{comparatif.conclusion}</p>
         <p className={styles.note}>{comparatif.note}</p>
       </Container>
     </section>
