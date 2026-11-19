@@ -104,4 +104,5 @@ Une ligne = une branche. Chaque branche : commits « un ajout = un commit », te
 - [x] `style/informatique-a-part` : informatique sortie des onglets du haut
 - [x] `feature/vous-gardez-tout` : « si je ne suis plus disponible, vous gardez tout »
 - [x] `feature/telephone-anime` : mes sites qui défilent dans le téléphone de l'accueil
+- [x] `feature/telephone-defilement` : téléphone sans encoche, sites qui défilent, réservation jouée
 - [ ] `feature/crocs` : site du kebab Crocs (Amiens, rue de Rouen), démo privée, en attente des photos de la carte et des avis

@@ -15,20 +15,51 @@ export const hero = {
 };
 
 /**
- * Téléphone du haut de page : il fait défiler les sites de Baptiste (vues téléphone), un écran toutes les 3,5 s.
- * Décoratif, caché aux lecteurs d'écran. Le kebab est une maquette : son étiquette le dit.
+ * Téléphone du haut de page : les sites de Baptiste défilent tout seuls (de haut en bas), puis une réservation fictive
+ * se joue (jour, heure, « Réserver », acompte reçu). Décoratif, caché aux lecteurs d'écran.
+ * `duree` : temps passé sur l'écran ; le défilement occupe ce temps (pause en haut et en bas).
  */
 export const ecransTelephone = [
-  { id: 'christophe-poix-moto', nom: 'Christophe Poix Moto', type: 'Réalisation' },
-  { id: 'perfect-clean', nom: 'Perfect Clean · réservation', type: 'Démo' },
-  { id: 'cadeaux', nom: 'Cadeaux', type: 'Réalisation' },
-  { id: 'shoptonchargeur', nom: 'Shop ton chargeur', type: 'Réalisation' },
-  { id: 'kebab', nom: 'Carte d’un kebab', type: 'Exemple' },
-  { id: 'alterno', nom: 'Alterno · appli Android', type: 'Réalisation' },
+  { id: 'christophe-poix-moto', nom: 'Christophe Poix Moto', type: 'Réalisation', duree: 9000 },
+  { id: 'reservation', nom: 'Réservation en ligne, acompte', type: 'Exemple', duree: 7000 },
+  { id: 'perfect-clean', nom: 'Perfect Clean', type: 'Démo', duree: 9000 },
+  { id: 'cadeaux', nom: 'Cadeaux', type: 'Réalisation', duree: 6500 },
+  { id: 'shoptonchargeur', nom: 'Shop ton chargeur', type: 'Réalisation', duree: 9000 },
+  { id: 'kebab', nom: 'Carte d’un kebab', type: 'Exemple', duree: 5000 },
+  { id: 'alterno', nom: 'Alterno · appli Android', type: 'Réalisation', duree: 4500 },
 ] as const;
 
-/** Temps d'affichage de chaque écran. */
-export const DUREE_ECRAN_MS = 3500;
+/** Écran de réservation fictif (codé, pas une capture), joué étape par étape sur le téléphone. */
+export const reservationDemo = {
+  business: 'Atelier Brillance',
+  title: 'Choisissez votre créneau',
+  month: 'Novembre 2026',
+  weekdays: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
+  /** Deux semaines : `off` = jour fermé. */
+  days: [
+    { day: 9, off: true },
+    { day: 10 },
+    { day: 11 },
+    { day: 12 },
+    { day: 13 },
+    { day: 14, selected: true },
+    { day: 15, off: true },
+    { day: 16 },
+    { day: 17 },
+    { day: 18 },
+    { day: 19 },
+    { day: 20 },
+    { day: 21 },
+    { day: 22, off: true },
+  ] as { day: number; off?: boolean; selected?: boolean }[],
+  slots: ['10:00', '13:30', '15:00', '16:30'],
+  selectedSlot: '10:00',
+  button: 'Réserver · acompte 30 €',
+  notifications: [
+    { label: 'Nouveau rendez-vous', value: 'Sam. 14 nov · 10:00' },
+    { label: 'Acompte reçu', value: '30,00 €', success: true },
+  ],
+};
 
 /** Bande défilante sous le haut de page : des métiers qui ont besoin d'un site. */
 export const metiers = {

@@ -2,6 +2,9 @@
 
 ## [Non publié]
 ### Modifié (accueil)
+- Téléphone de l'accueil sans encoche ; chaque site y défile tout seul de haut en bas ; réservation fictive jouée (jour, heure, « Réserver », rendez-vous et acompte reçus).
+
+### Modifié (accueil)
 - Le téléphone du haut de page fait défiler mes sites (Christophe Poix Moto, Perfect Clean, Cadeaux, Shop ton chargeur, kebab d'exemple, Alterno) avec leur nom ; immobile si les animations sont réduites.
 
 ### Ajouté (réassurance)
