@@ -96,7 +96,7 @@ function accueil(): PageStatique {
   const corps = [
     p(hero.badge),
     p(hero.text),
-    section(metiers.question, liste(metiers.items)),
+    section(metiers.question, liste(metiers.items.map((m) => m.nom))),
     section(autonomie.titre, p(autonomie.intro) + liste(autonomie.items.map((i) => `${i.titre} : ${i.texte}`))),
     section(
       'Mes réalisations',

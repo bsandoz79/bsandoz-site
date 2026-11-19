@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import styles from './Marquee.module.css';
 
 export type MarqueeProps = {
@@ -9,6 +9,8 @@ export type MarqueeProps = {
   /** Durée d'un tour complet, en secondes. */
   duration?: number;
   className?: string;
+  /** Rendu d'un élément (ex. un lien). `copie` : seconde liste, cachée aux lecteurs d'écran et hors du clavier. */
+  renderItem?: (item: string, copie: boolean) => ReactNode;
 };
 
 /**
@@ -16,7 +18,7 @@ export type MarqueeProps = {
  * la copie est cachée aux lecteurs d'écran. Si les animations sont réduites, la bande est figée
  * et les éléments passent à la ligne.
  */
-export function Marquee({ items, label, duration = 32, className }: MarqueeProps) {
+export function Marquee({ items, label, duration = 32, className, renderItem }: MarqueeProps) {
   const style = { '--marquee-duration': `${duration}s` } as CSSProperties;
 
   return (
@@ -25,14 +27,14 @@ export function Marquee({ items, label, duration = 32, className }: MarqueeProps
         <ul className={styles.list} aria-label={label}>
           {items.map((item) => (
             <li key={item} className={styles.item}>
-              {item}
+              {renderItem ? renderItem(item, false) : item}
             </li>
           ))}
         </ul>
         <ul className={`${styles.list} ${styles.copy}`} aria-hidden="true">
           {items.map((item) => (
             <li key={item} className={styles.item}>
-              {item}
+              {renderItem ? renderItem(item, true) : item}
             </li>
           ))}
         </ul>

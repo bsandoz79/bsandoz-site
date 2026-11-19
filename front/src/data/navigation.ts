@@ -18,10 +18,17 @@ export const lienDevis = pages.devis.path;
 
 /** Pages métier, listées dans le pied de page. */
 export const metierLinks: NavLink[] = [
-  { label: 'Artisan', to: pages.artisan.path },
-  { label: 'Commerce', to: pages.ecommerce.path },
-  { label: 'Restaurant', to: pages.restaurant.path },
+  { label: 'Bâtiment', to: pages.batiment.path },
+  { label: 'Services à domicile', to: pages.artisan.path },
+  { label: 'Beauté', to: pages.beaute.path },
   { label: 'Santé et bien-être', to: pages.independant.path },
+  { label: 'Restaurant', to: pages.restaurant.path },
+  { label: 'Commerce', to: pages.ecommerce.path },
+  { label: 'Professions libérales', to: pages.liberal.path },
+  { label: 'Cours et coaching', to: pages.cours.path },
+  { label: 'Gîtes', to: pages.hebergement.path },
+  { label: 'Associations', to: pages.association.path },
+  { label: 'Événementiel', to: pages.evenementiel.path },
 ];
 
 /** Bouton de thème de l'en-tête : libellé selon le thème vers lequel il bascule. */

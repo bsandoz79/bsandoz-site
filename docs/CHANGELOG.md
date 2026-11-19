@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (pages métier)
+- 7 pages métier : bâtiment, beauté, professions libérales, cours et coaching, gîtes, associations, événementiel ; page artisan recentrée sur les services à domicile ; Doctolib sur la page santé ; tarif adapté aux associations (sur devis).
+- Bande des métiers de l'accueil cliquable (bloc `Marquee` : `renderItem`, pause au survol) ; 12 catégories de métier dans le configurateur et le devis.
+
 ### Modifié (comparatif)
 - « Avec moi » en premier, encadré et « Recommandé » ; un signe par case (✓, ✕, ~) ; ligne « Le délai » ; conclusion surlignée.
 

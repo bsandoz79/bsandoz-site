@@ -22,3 +22,5 @@ La couleur du séparateur se règle avec la variable CSS `--marquee-accent` sur 
 ## Accessibilité
 - Une seule liste est lue par les lecteurs d'écran (la copie servant à boucler est cachée).
 - Si « réduire les animations » est activé, la bande est figée et les éléments passent à la ligne.
+
+`renderItem(item, copie)` (facultatif) : rendu personnalisé d'un élément, par exemple un lien ; `copie` vaut vrai pour la seconde liste (cachée aux lecteurs d'écran : mettre `tabIndex={-1}`). La bande s'arrête au survol et quand un élément a le focus.

@@ -51,3 +51,9 @@
     display: none;
   }
 }
+
+/* Pause au survol et quand un élément a le focus clavier : on peut cliquer ou lire. */
+.marquee:hover .track,
+.marquee:focus-within .track {
+  animation-play-state: paused;
+}

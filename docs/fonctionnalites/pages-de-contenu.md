@@ -171,3 +171,6 @@ Mise à jour du 2026-11-16 (soir) : neuf captures (ajout des abonnements, de l'e
 
 ## Page restaurant
 `exempleRestaurant: true` (`data/metiers.ts`) remplace l'aperçu générique par `ExempleRestaurant` (carte d'un kebab fictif sur téléphone, `data/restaurant.ts`) et ajoute les points du restaurateur.
+
+## Pages métier (11)
+`data/metiers.ts` (`pagesMetier`, dont `pagesPersonas`) : artisan (services à domicile), bâtiment, beauté, commerce, restaurant, santé (`independant`), professions libérales, cours, gîtes, associations, événementiel. Chaque page : `pages.ts` (adresse, titre, promesse), une catégorie `MetierId` (`offres.ts` : fonctions proposées ; `apercu.ts` : entreprise fictive ; `metiersConnus.ts` : métiers rangés dedans), une route (`app/routes.tsx`) et un lien de pied de page (`navigation.ts`).
