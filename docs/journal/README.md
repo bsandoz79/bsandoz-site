@@ -156,3 +156,4 @@ Types de tests :
 | 125 | [Téléphone : défilement, réservation jouée, sans encoche](125-feature-telephone-defilement.md) | `feature/telephone-defilement` | 2026-11-19 |
 | 126 | [Comparatif : l'avantage saute aux yeux](126-style-comparatif-evident.md) | `style/comparatif-evident` | 2026-11-19 |
 | 127 | [Dix personas : une page par grand métier](127-feature-personas.md) | `feature/personas` | 2026-11-19 |
+| 128 | [Comparatif : « Avec moi » au milieu](128-style-comparatif-milieu.md) | `style/comparatif-milieu` | 2026-11-19 |

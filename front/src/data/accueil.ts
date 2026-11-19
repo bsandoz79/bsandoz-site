@@ -145,20 +145,19 @@ export type Verdict = 'oui' | 'non' | 'variable';
 export const comparatif = {
   titre: 'Trois façons d’avoir un site',
   intro: 'Ce qui change pour vous, critère par critère.',
-  /** « Avec moi » en premier : c'est la colonne mise en avant. */
-  colonnes: ['Avec moi', 'Plateforme à abonnement', 'Agence web'],
-  miseEnAvant: 0,
+  /** « Avec moi » au milieu, entre les deux autres solutions : c'est la colonne mise en avant. */
+  colonnes: ['Plateforme à abonnement', 'Avec moi', 'Agence web'],
+  miseEnAvant: 1,
   badge: 'Recommandé',
   lignes: [
-    { critere: 'Le prix', valeurs: [{ texte: 'Un prix fixe, payable en 3 ou 4 fois', verdict: 'oui' }, { texte: 'Un abonnement à payer chaque mois', verdict: 'non' }, { texte: 'Sur devis', verdict: 'variable' }] },
-    { critere: 'Qui fait le site', valeurs: [{ texte: 'Moi, sur mesure pour votre métier', verdict: 'oui' }, { texte: 'Vous, à partir d’un modèle', verdict: 'non' }, { texte: 'Une équipe', verdict: 'oui' }] },
-    { critere: 'Les textes', valeurs: [{ texte: 'Je peux les écrire pour vous', verdict: 'oui' }, { texte: 'Vous les écrivez', verdict: 'non' }, { texte: 'Selon l’agence', verdict: 'variable' }] },
-    { critere: 'Le délai', valeurs: [{ texte: 'Un premier aperçu en 5 à 7 jours ouvrés', verdict: 'oui' }, { texte: 'Selon le temps que vous y passez', verdict: 'variable' }, { texte: 'Selon l’agence', verdict: 'variable' }] },
-    { critere: 'Les modifications', valeurs: [{ texte: 'Vous-même, sur votre site, sans abonnement', verdict: 'oui' }, { texte: 'Dans l’outil de la plateforme', verdict: 'oui' }, { texte: 'Selon le contrat', verdict: 'variable' }] },
-    { critere: 'Si vous partez', valeurs: [{ texte: 'Vous gardez tout : site, code, nom de domaine', verdict: 'oui' }, { texte: 'Le site reste sur la plateforme', verdict: 'non' }, { texte: 'Selon le contrat', verdict: 'variable' }] },
-    { critere: 'Votre contact', valeurs: [{ texte: 'Moi, à Amiens, réponse sous 24 h', verdict: 'oui' }, { texte: 'Un support en ligne', verdict: 'variable' }, { texte: 'Un chef de projet', verdict: 'oui' }] },
+    { critere: 'Le prix', valeurs: [{ texte: 'Un abonnement à payer chaque mois', verdict: 'non' }, { texte: 'Un prix fixe, payable en 3 ou 4 fois', verdict: 'oui' }, { texte: 'Sur devis', verdict: 'variable' }] },
+    { critere: 'Qui fait le site', valeurs: [{ texte: 'Vous, à partir d’un modèle', verdict: 'non' }, { texte: 'Moi, sur mesure pour votre métier', verdict: 'oui' }, { texte: 'Une équipe', verdict: 'oui' }] },
+    { critere: 'Les textes', valeurs: [{ texte: 'Vous les écrivez', verdict: 'non' }, { texte: 'Je peux les écrire pour vous', verdict: 'oui' }, { texte: 'Selon l’agence', verdict: 'variable' }] },
+    { critere: 'Le délai', valeurs: [{ texte: 'Selon le temps que vous y passez', verdict: 'variable' }, { texte: 'Un premier aperçu en 5 à 7 jours ouvrés', verdict: 'oui' }, { texte: 'Selon l’agence', verdict: 'variable' }] },
+    { critere: 'Les modifications', valeurs: [{ texte: 'Dans l’outil de la plateforme', verdict: 'oui' }, { texte: 'Vous-même, sur votre site, sans abonnement', verdict: 'oui' }, { texte: 'Selon le contrat', verdict: 'variable' }] },
+    { critere: 'Si vous partez', valeurs: [{ texte: 'Le site reste sur la plateforme', verdict: 'non' }, { texte: 'Vous gardez tout : site, code, nom de domaine', verdict: 'oui' }, { texte: 'Selon le contrat', verdict: 'variable' }] },
+    { critere: 'Votre contact', valeurs: [{ texte: 'Un support en ligne', verdict: 'variable' }, { texte: 'Moi, à Amiens, réponse sous 24 h', verdict: 'oui' }, { texte: 'Un chef de projet', verdict: 'oui' }] },
   ] satisfies { critere: string; valeurs: { texte: string; verdict: Verdict }[] }[],
-  conclusion: 'Avec moi : un site fait sur mesure, un prix fixe sans abonnement, et un site qui reste à vous.',
   note: 'Les pratiques varient d’une plateforme et d’une agence à l’autre : lisez toujours le contrat.',
 };
 
