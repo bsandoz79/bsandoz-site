@@ -16,7 +16,14 @@ describe('Pages métier', () => {
   beforeEach(() => window.localStorage.clear());
 
   it.each([
-    [pages.artisan, 'Artisans à domicile', 6, 'Atelier Brillance'],
+    [pages.artisan, 'Services à domicile', 6, 'Atelier Brillance'],
+    [pages.batiment, 'Artisans du bâtiment', 6, 'Atelier Vasseur'],
+    [pages.beaute, 'Coiffure, esthétique, ongles', 6, 'Salon Éclat'],
+    [pages.liberal, 'Avocats, experts-comptables, notaires', 5, 'Cabinet Aubrac'],
+    [pages.cours, 'Coachs, professeurs, auto-écoles', 5, 'Studio Tempo'],
+    [pages.hebergement, 'Gîtes et chambres d’hôtes', 5, 'Gîte Les Tilleuls'],
+    [pages.association, 'Associations et clubs', 4, 'Club Horizon'],
+    [pages.evenementiel, 'Photographes, DJ, traiteurs', 5, 'Studio Lumière'],
     [pages.ecommerce, 'Commerçants', 6, 'Maison Lumen'],
     [pages.restaurant, 'Restaurants, kebabs et snacks', 5, 'Le Comptoir Kebab'],
     [pages.independant, 'Santé et bien-être', 5, 'Studio Équilibre'],
@@ -58,6 +65,14 @@ describe('Pages métier', () => {
     renderAt(pages.independant.path);
     await user.click(within(screen.getByRole('main')).getAllByRole('link', { name: 'Demander un devis' })[0]);
     expect(screen.getByRole('heading', { level: 1, name: pages.devis.heading })).toBeInTheDocument();
+  });
+
+  it('santé : garde son Doctolib ; associations : tarif adapté, sans chiffre inventé', () => {
+    const { unmount } = renderAt(pages.independant.path);
+    expect(screen.getByText(/Vous utilisez déjà Doctolib/)).toBeInTheDocument();
+    unmount();
+    renderAt(pages.association.path);
+    expect(screen.getByText(/Tarif adapté aux associations : demandez-le dans votre devis/)).toBeInTheDocument();
   });
 
   it('propose un rendez-vous gratuit', () => {

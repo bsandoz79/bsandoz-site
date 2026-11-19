@@ -16,3 +16,15 @@
   font-size: var(--text-lg);
   font-weight: 700;
 }
+
+/* Chaque métier est un lien vers sa page. */
+.lien {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lien:hover,
+.lien:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

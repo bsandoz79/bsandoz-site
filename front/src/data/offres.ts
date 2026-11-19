@@ -70,13 +70,32 @@ export function formuleParId(id: FormuleId) {
 }
 
 /** Activités proposées dans le configurateur. */
-export type MetierId = 'artisan' | 'commerce' | 'restaurant' | 'sante' | 'autre';
+export type MetierId =
+  | 'artisan'
+  | 'batiment'
+  | 'beaute'
+  | 'commerce'
+  | 'restaurant'
+  | 'sante'
+  | 'liberal'
+  | 'cours'
+  | 'hebergement'
+  | 'association'
+  | 'evenementiel'
+  | 'autre';
 
 export const metiers: { id: MetierId; nom: string }[] = [
-  { id: 'artisan', nom: 'Artisan à domicile' },
+  { id: 'artisan', nom: 'Service à domicile' },
+  { id: 'batiment', nom: 'Artisan du bâtiment' },
+  { id: 'beaute', nom: 'Beauté (coiffure, esthétique)' },
   { id: 'commerce', nom: 'Commerce / e-commerce' },
   { id: 'restaurant', nom: 'Restaurant / bar' },
   { id: 'sante', nom: 'Santé / bien-être' },
+  { id: 'liberal', nom: 'Profession libérale' },
+  { id: 'cours', nom: 'Cours / coaching' },
+  { id: 'hebergement', nom: 'Gîte / hébergement' },
+  { id: 'association', nom: 'Association / club' },
+  { id: 'evenementiel', nom: 'Événementiel / créatif' },
   { id: 'autre', nom: 'Autre activité' },
 ];
 
@@ -183,6 +202,13 @@ export const optionsParFormule: Record<Exclude<FormuleId, 'fonctionnel'>, Option
 /** Gros modules proposés pour la formule Fonctionnel, selon le métier (les petites options s'y ajoutent). */
 export const optionsParMetier: Record<MetierId, OptionId[]> = {
   artisan: ['rdv', 'acompte', 'calcul', 'pwa', 'espace', 'avantapres'],
+  batiment: ['calcul', 'avantapres', 'avis', 'espace', 'pwa', 'seo'],
+  beaute: ['rdv', 'acompte', 'avantapres', 'avis', 'espace', 'pwa'],
+  liberal: ['rdv', 'espace', 'seo', 'anglais', 'avis'],
+  cours: ['rdv', 'acompte', 'espace', 'pwa', 'avis'],
+  hebergement: ['rdv', 'acompte', 'anglais', 'avis', 'seo'],
+  association: ['espace', 'boutique', 'pwa', 'seo'],
+  evenementiel: ['calcul', 'espace', 'boutique', 'avis', 'anglais'],
   commerce: ['boutique', 'clickcollect', 'espace', 'seo', 'avis', 'pwa'],
   restaurant: ['table', 'clickcollect', 'avis', 'pwa', 'anglais'],
   sante: ['rdv', 'acompte', 'espace', 'pwa', 'avis'],

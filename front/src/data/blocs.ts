@@ -81,7 +81,10 @@ export const blocs: Record<string, Bloc> = {
   },
   'accueil.metiers': {
     titre: 'Bande des métiers',
-    champs: [champ('accueil.metiers.question', 'Question', metiers, 'question'), ...liste('accueil.metiers', 'Métier', metiers.items)],
+    champs: [
+      champ('accueil.metiers.question', 'Question', metiers, 'question'),
+      ...metiers.items.map((m, i) => champ(`accueil.metiers.${i}`, `Métier ${i + 1}`, m, 'nom')),
+    ],
   },
   'accueil.autonomie': {
     titre: 'Vous le modifiez vous-même',

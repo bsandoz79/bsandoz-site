@@ -98,7 +98,8 @@ describe('Footer', () => {
   it('liste les pages par métier, sorties de la barre de navigation', () => {
     renderFooter();
     const metiers = screen.getByRole('navigation', { name: 'Sites par métier' });
-    expect(within(metiers).getByRole('link', { name: 'Artisan' })).toHaveAttribute('href', pages.artisan.path);
-    expect(within(metiers).getAllByRole('link')).toHaveLength(4);
+    expect(within(metiers).getByRole('link', { name: 'Services à domicile' })).toHaveAttribute('href', pages.artisan.path);
+    expect(within(metiers).getByRole('link', { name: 'Professions libérales' })).toHaveAttribute('href', pages.liberal.path);
+    expect(within(metiers).getAllByRole('link')).toHaveLength(11);
   });
 });

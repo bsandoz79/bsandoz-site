@@ -44,8 +44,8 @@ export const pages = {
   },
   artisan: {
     path: '/site-artisan',
-    title: 'Site internet pour artisan à Amiens',
-    description: 'Un site pour artisan à domicile, avec prise de rendez-vous en ligne, autour d’Amiens.',
+    title: 'Site internet pour service à domicile à Amiens',
+    description: 'Un site pour les services à domicile (detailing, ménage, réparation, jardinage) : rendez-vous et acompte en ligne, autour d’Amiens.',
     heading: 'Vos clients réservent pendant que vous travaillez.',
   },
   ecommerce: {
@@ -64,8 +64,50 @@ export const pages = {
     path: '/site-independant',
     title: 'Site internet pour indépendant à Amiens',
     description:
-      'Un site pour les professionnels de la santé et du bien-être : rendez-vous en ligne et moins de téléphone.',
+      'Un site pour les professionnels de la santé et du bien-être : présentation rassurante, rendez-vous en ligne ou votre Doctolib, moins de téléphone.',
     heading: 'Moins de temps au téléphone, plus avec vos clients.',
+  },
+  batiment: {
+    path: '/site-batiment',
+    title: 'Site internet pour artisan du bâtiment à Amiens',
+    description: 'Plombier, électricien, couvreur, menuisier : un site qui fait appeler, reçoit les demandes de devis et montre vos chantiers.',
+    heading: 'Les demandes de devis arrivent, même quand vous êtes sur un chantier.',
+  },
+  beaute: {
+    path: '/site-beaute',
+    title: 'Site internet pour coiffeur et esthéticienne à Amiens',
+    description: 'Coiffure, esthétique, ongles : réservation en ligne, prestations et prix, rappel la veille.',
+    heading: 'Vos clientes réservent en ligne, même pendant vos rendez-vous.',
+  },
+  liberal: {
+    path: '/site-profession-liberale',
+    title: 'Site internet pour avocat, expert-comptable ou notaire à Amiens',
+    description: 'Un site sobre et sérieux pour votre cabinet : domaines d’intervention, contact, rendez-vous, mentions de votre profession.',
+    heading: 'Un site sobre et sérieux, à l’image de votre cabinet.',
+  },
+  cours: {
+    path: '/site-cours-coaching',
+    title: 'Site internet pour coach, professeur ou auto-école à Amiens',
+    description: 'Coach sportif, professeur, auto-école : planning, réservation des séances, paiement en ligne et espace élève.',
+    heading: 'Vos élèves réservent leurs séances, sans vous appeler.',
+  },
+  hebergement: {
+    path: '/site-gite',
+    title: 'Site internet pour gîte et chambres d’hôtes près d’Amiens',
+    description: 'Gîte, chambres d’hôtes, location : réservation en direct sans commission, photos, version anglaise.',
+    heading: 'Vos voyageurs réservent en direct, sans commission.',
+  },
+  association: {
+    path: '/site-association',
+    title: 'Site internet pour association et club à Amiens',
+    description: 'Associations et clubs : actualités, événements, adhésions en ligne, espace adhérents. Tarif adapté.',
+    heading: 'Vos actualités, vos événements et vos adhésions au même endroit.',
+  },
+  evenementiel: {
+    path: '/site-evenementiel',
+    title: 'Site internet pour photographe, DJ ou traiteur à Amiens',
+    description: 'Photographe, DJ, traiteur, organisateur de mariages : portfolio, formules, demande de date et de devis.',
+    heading: 'Vos futurs clients voient votre travail et demandent leur date.',
   },
   informatique: {
     path: '/informatique',

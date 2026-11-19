@@ -155,3 +155,4 @@ Types de tests :
 | 124 | [Téléphone animé : mes sites qui défilent](124-feature-telephone-anime.md) | `feature/telephone-anime` | 2026-11-19 |
 | 125 | [Téléphone : défilement, réservation jouée, sans encoche](125-feature-telephone-defilement.md) | `feature/telephone-defilement` | 2026-11-19 |
 | 126 | [Comparatif : l'avantage saute aux yeux](126-style-comparatif-evident.md) | `style/comparatif-evident` | 2026-11-19 |
+| 127 | [Dix personas : une page par grand métier](127-feature-personas.md) | `feature/personas` | 2026-11-19 |

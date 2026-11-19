@@ -21,4 +21,13 @@ describe('Marquee', () => {
     const { container } = render(<Marquee label="Métiers" items={items} duration={10} />);
     expect((container.firstChild as HTMLElement).style.getPropertyValue('--marquee-duration')).toBe('10s');
   });
+
+  it('peut rendre chaque élément en lien, la copie restant hors du clavier', () => {
+    render(<Marquee label="Métiers" items={['Plombiers']} renderItem={(item, copie) => <a href="/x" tabIndex={copie ? -1 : undefined}>{item}</a>} />);
+    const liens = document.querySelectorAll('a');
+    expect(liens).toHaveLength(2);
+    expect(liens[0]).not.toHaveAttribute('tabindex');
+    expect(liens[1]).toHaveAttribute('tabindex', '-1');
+  });
 });
+

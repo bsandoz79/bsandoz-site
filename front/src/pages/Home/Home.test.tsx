@@ -199,4 +199,12 @@ describe("Page d'accueil", () => {
       expect(scrollIntoView.mock.contexts[0]).toBe(section(faqAccueil.titre));
     });
   });
+
+  it('la bande des métiers mène à la page de chaque métier', () => {
+    renderHome();
+    const bande = screen.getByRole('list', { name: metiers.label });
+    expect(within(bande).getByRole('link', { name: 'Avocats' })).toHaveAttribute('href', pages.liberal.path);
+    expect(within(bande).getByRole('link', { name: 'Plombiers' })).toHaveAttribute('href', pages.batiment.path);
+    expect(within(bande).getByRole('link', { name: 'Gîtes' })).toHaveAttribute('href', pages.hebergement.path);
+  });
 });
