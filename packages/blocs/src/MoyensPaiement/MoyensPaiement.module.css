@@ -1,0 +1,126 @@
+/* Moyens de paiement : petites cartes blanches, une par moyen, couleurs habituelles de chaque marque. */
+.bloc {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.titre {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.liste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carte {
+  display: inline-grid;
+  place-items: center;
+  min-width: 3.25rem;
+  height: 2rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: 0.45rem;
+  background: #fff;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.carteAmex {
+  border-color: #2e77bc;
+  background: #2e77bc;
+}
+
+.svg {
+  width: 2rem;
+  height: 1.3rem;
+}
+
+.visa {
+  color: #1a1f71;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.amex {
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.applepay,
+.googlepay {
+  color: #111;
+  font-weight: 700;
+}
+
+.stripe {
+  color: #635bff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.paypal {
+  color: #003087;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.virement,
+.especes,
+.cheque {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #3d4256;
+  font-weight: 700;
+}
+
+.icone {
+  width: 1rem;
+  height: 1rem;
+}
+
+.mention {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Taille réduite (pied de page). */
+.petite .carte {
+  min-width: 2.75rem;
+  height: 1.6rem;
+  font-size: 0.7rem;
+}
+
+.petite .visa,
+.petite .stripe {
+  font-size: 0.8rem;
+}
+
+.petite .svg {
+  width: 1.6rem;
+  height: 1.05rem;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

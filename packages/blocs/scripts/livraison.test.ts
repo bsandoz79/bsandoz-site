@@ -17,8 +17,8 @@ describe('livraison de blocs', () => {
   const livrerVers = (blocs: string[], options = {}) =>
     livrer({ src: SRC, destination, blocs, version: '1.0.0', date: '2026-11-05', ...options });
 
-  it('liste les 17 blocs de la bibliothèque', () => {
-    expect(listerBlocs(SRC)).toHaveLength(17);
+  it('liste les 18 blocs de la bibliothèque', () => {
+    expect(listerBlocs(SRC)).toHaveLength(18);
     expect(listerBlocs(SRC)).toContain('Calendar');
   });
 
