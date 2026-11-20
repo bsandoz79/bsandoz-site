@@ -19,6 +19,8 @@ describe('Pages légales', () => {
     expect(screen.getByRole('region', { name: 'Éditeur du site' })).toHaveTextContent('319 rue de Rouen, 80000 Amiens');
     expect(screen.getByRole('region', { name: 'Éditeur du site' })).toHaveTextContent('07 69 28 78 37');
     expect(screen.getByRole('region', { name: 'Hébergeur' })).toHaveTextContent('o2switch');
+    expect(screen.getByRole('region', { name: 'Hébergeur' })).toHaveTextContent('chemin des Pardiaux, 63000 Clermont-Ferrand');
+    expect(screen.getByRole('region', { name: 'Hébergeur' })).not.toHaveTextContent('à compléter');
   });
 
   it('CGV : prix nets, paiement, tarif horaire, délais tirés des données', () => {

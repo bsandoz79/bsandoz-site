@@ -29,7 +29,8 @@ export const mentionsLegales: PageLegale = {
     },
     {
       titre: 'Hébergeur',
-      paragraphes: [`o2switch. ${A_COMPLETER('adresse et téléphone de l’hébergeur')}.`],
+      // Siège : annuaire des entreprises (SIREN 510 909 807) ; capital, RCS et téléphone : page d'accueil d'o2switch (20/11/2026).
+      paragraphes: ['o2switch, SAS au capital de 100 000 €, RCS Clermont-Ferrand, SIRET 510 909 807 00032. Siège : chemin des Pardiaux, 63000 Clermont-Ferrand. Téléphone : 04 44 44 60 40. Site : www.o2switch.fr.'],
     },
     {
       titre: 'Propriété intellectuelle',

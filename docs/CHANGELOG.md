@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Corrigé (mentions légales)
+- Hébergeur complet : o2switch, SAS, RCS Clermont-Ferrand, SIRET, siège chemin des Pardiaux à Clermont-Ferrand (annuaire des entreprises), téléphone.
+
 ### Modifié (comparatif)
 - « Avec moi » au milieu, entre la plateforme et l'agence ; encadré de conclusion retiré.
 
