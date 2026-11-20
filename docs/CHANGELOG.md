@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (réalisations)
+- Les captures d'un projet (et sa couverture) s'ouvrent en grand par-dessus la page, avec une croix pour fermer et des flèches pour passer à la suivante, au lieu d'un nouvel onglet : nouveau bloc `Visionneuse` (`@bsandoz79/blocs`) ; 5 tests.
+
 ### Ajouté (moyens de paiement)
 - Bloc `MoyensPaiement` (`@bsandoz79/blocs`) : une petite carte par moyen (Visa, Mastercard, American Express, Apple Pay, Google Pay, Stripe, virement, PayPal, espèces, chèque), titre et mention facultatifs, taille petite ; 3 tests.
 - bsandoz.fr : moyens acceptés (carte par Stripe, Apple Pay, Google Pay, virement) sous le prix de l'accueil et dans le pied de page ; FAQ « Comment se passe le paiement ? » et conditions de vente complétées (`data/paiement.ts`).

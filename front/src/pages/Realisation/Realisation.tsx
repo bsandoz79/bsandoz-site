@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Container, Reveal, buttonClassName } from '@bsandoz79/blocs';
+import { Container, Reveal, Visionneuse, buttonClassName } from '@bsandoz79/blocs';
 import { PageMeta } from '../../components/PageMeta';
 import { pageRealisations, realisationParId, realisations } from '../../data/realisations';
 import { NotFound } from '../NotFound';
@@ -11,12 +12,15 @@ const t = pageRealisations;
 export function Realisation() {
   const { id } = useParams();
   const realisation = realisationParId(id);
+  // Capture agrandie par-dessus la page (au lieu d'un nouvel onglet) ; null : aucune.
+  const [agrandie, setAgrandie] = useState<number | null>(null);
   if (!realisation) return <NotFound />;
 
   const rang = realisations.indexOf(realisation);
   const precedent = realisations[(rang - 1 + realisations.length) % realisations.length];
   const suivant = realisations[(rang + 1) % realisations.length];
   const [couverture, ...autres] = realisation.captures;
+  const images = realisation.captures.map((c) => ({ url: c.src, description: `${realisation.titre} : ${c.legende}` }));
 
   return (
     <>
@@ -57,7 +61,9 @@ export function Realisation() {
               <span />
               <span />
             </span>
-            <img src={couverture.src} alt={`${realisation.titre} : ${couverture.legende}`} className={styles.image} />
+            <button type="button" className={styles.agrandir} onClick={() => setAgrandie(0)} aria-label={`${t.agrandir} : ${couverture.legende}`}>
+              <img src={couverture.src} alt="" className={styles.image} />
+            </button>
           </figure>
         ) : (
           <p className={styles.aVenir}>{t.capturesAVenir}</p>
@@ -95,13 +101,12 @@ export function Realisation() {
               {t.captures}
             </h2>
             <ul className={styles.galerie}>
-              {autres.map((capture) => (
+              {autres.map((capture, i) => (
                 <li key={capture.src}>
                   <figure className={styles.vignette}>
-                    <a href={capture.src} target="_blank" rel="noopener" className={styles.vignetteLien}>
-                      <img src={capture.src} alt={`${realisation.titre} : ${capture.legende}`} loading="lazy" decoding="async" />
-                      <span className="sr-only"> (agrandir, nouvel onglet)</span>
-                    </a>
+                    <button type="button" className={styles.vignetteLien} onClick={() => setAgrandie(i + 1)} aria-label={`${t.agrandir} : ${capture.legende}`}>
+                      <img src={capture.src} alt="" loading="lazy" decoding="async" />
+                    </button>
                     <figcaption>{capture.legende}</figcaption>
                   </figure>
                 </li>
@@ -109,6 +114,8 @@ export function Realisation() {
             </ul>
           </section>
         )}
+
+        <Visionneuse photos={images} index={agrandie} onChange={setAgrandie} onClose={() => setAgrandie(null)} />
 
         <nav className={styles.voisins} aria-label="Autres réalisations">
           <Link to={precedent.lien.to} className={styles.voisin}>
