@@ -22,4 +22,5 @@ export * from './Showcase';
 export * from './SitePreview';
 export * from './Stepper';
 export * from './TextField';
+export * from './Visionneuse';
 export { prefersReducedMotion } from './motion';

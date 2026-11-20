@@ -73,13 +73,13 @@ describe('Page Réalisations', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Cadeaux' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Voir le site en ligne/ })).toHaveAttribute('href', 'https://cadeaux.bsandoz.fr');
     expect(screen.getByText(/Liste d’envies partagée/)).toBeInTheDocument();
-    expect(screen.getAllByRole('img').length).toBeGreaterThanOrEqual(7);
+    expect(screen.getAllByRole('button', { name: /^Agrandir la capture/ }).length).toBeGreaterThanOrEqual(7);
   });
 
   it('présente Shop ton chargeur : captures, fonctionnalités et lien vers le site', () => {
     afficher('/realisations/choptonchargeur');
     expect(screen.getByRole('heading', { level: 1, name: 'Shop ton chargeur' })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /Shop ton chargeur : À acheter en priorité/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Agrandir la capture : À acheter en priorité/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Voir le site en ligne/ })).toHaveAttribute('href', 'https://shoptonchargeur.bsandoz.fr');
   });
 
@@ -141,8 +141,8 @@ describe('Page d’une réalisation', () => {
       expect(screen.getByRole('heading', { level: 2, name: titre })).toBeInTheDocument();
     }
     expect(screen.getByText('MySQL')).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: "O'RDV : Accueil et recherche de professionnels" })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: "O'RDV : Espace professionnel" })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: "Agrandir la capture : Accueil et recherche de professionnels" })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: "Agrandir la capture : Espace professionnel" })).toBeInTheDocument();
     const demo = screen.getByRole('link', { name: /Tester la démo en ligne/ });
     expect(demo).toHaveAttribute('href', 'https://o-rdv.vercel.app');
     expect(demo).toHaveAttribute('rel', 'noopener noreferrer');
@@ -151,8 +151,8 @@ describe('Page d’une réalisation', () => {
   it('présente la démo Perfect Clean : captures, fonctionnalités et lien vers demo.bsandoz.fr', () => {
     afficher('/realisations/demo-detailing');
     expect(screen.getByRole('heading', { level: 1, name: 'Perfect Clean' })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /Perfect Clean : Zone d’intervention/ })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /Perfect Clean : Encaissement sur place/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Agrandir la capture : Zone d’intervention/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Agrandir la capture : Encaissement sur place/ })).toBeInTheDocument();
     expect(screen.getByText(/Abonnements sans engagement/)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Ce que fait le site' })).toBeInTheDocument();
     expect(screen.queryByText('[à compléter]')).not.toBeInTheDocument();
@@ -172,7 +172,7 @@ describe('Page d’une réalisation', () => {
   it('présente Alterno : application mobile, captures, fonctionnalités et lien vers le code', () => {
     afficher('/realisations/alterno');
     expect(screen.getByRole('heading', { level: 1, name: 'Alterno' })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: 'Alterno : Simulation de semaines' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Agrandir la capture : Simulation de semaines' })).toBeInTheDocument();
     expect(screen.getByText('Recalcul automatique : arrivée plus tard, départ plus tôt, pause plus longue')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Voir le code sur GitHub/ })).toHaveAttribute('href', 'https://github.com/bsandoz79/Alterno');
   });
@@ -180,5 +180,20 @@ describe('Page d’une réalisation', () => {
   it('affiche la page introuvable pour un projet inconnu', () => {
     afficher('/realisations/projet-inconnu');
     expect(screen.getByRole('heading', { level: 1, name: 'Page introuvable' })).toBeInTheDocument();
+  });
+
+  it('ouvre les captures d’un projet en grand, par-dessus la page, sans nouvel onglet', async () => {
+    afficher(`${pages.realisations.path}/christophe-poix-moto`);
+    expect(document.querySelector('a[target="_blank"] img')).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: 'Agrandir la capture : Prestations' }));
+    const visionneuse = screen.getByRole('dialog', { name: 'Photo agrandie' });
+    expect(visionneuse).toHaveTextContent('Prestations · 2 / 6');
+    await userEvent.click(within(visionneuse).getByRole('button', { name: 'Photo suivante' }));
+    expect(visionneuse).toHaveTextContent('Galerie des interventions · 3 / 6');
+    await userEvent.click(within(visionneuse).getByRole('button', { name: 'Fermer' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    // La couverture aussi s'ouvre en grand.
+    await userEvent.click(screen.getByRole('button', { name: 'Agrandir la capture : Accueil' }));
+    expect(screen.getByRole('dialog', { name: 'Photo agrandie' })).toHaveTextContent('Accueil · 1 / 6');
   });
 });

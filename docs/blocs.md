@@ -21,6 +21,7 @@ Liste des blocs de la bibliothèque `@bsandoz79/blocs` (`packages/blocs/src/`, m
 | [`Showcase`](../packages/blocs/src/Showcase/README.md) | vitrine de cartes qui défile en continu, pause, rangée à faire glisser si animations réduites | prêt |
 | [`Autocomplete`](../packages/blocs/src/Autocomplete/README.md) | champ texte qui propose de finir le mot pendant la saisie (combobox accessible) | prêt |
 | [`Calendar`](../packages/blocs/src/Calendar/README.md) | calendrier mensuel accessible, jours indisponibles, navigation clavier | prêt |
+| [`Visionneuse`](../packages/blocs/src/Visionneuse/README.md) | image agrandie par-dessus la page (croix, Échap, flèches), au lieu d'un nouvel onglet | prêt |
 | [`MoyensPaiement`](../packages/blocs/src/MoyensPaiement/README.md) | ligne des moyens de paiement acceptés (Visa, Mastercard, Apple Pay, virement…), taille normale ou petite | prêt |
 
 Les blocs animés s'appuient sur `packages/blocs/src/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».

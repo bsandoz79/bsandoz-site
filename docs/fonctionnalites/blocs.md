@@ -37,10 +37,11 @@ Un bloc déjà livré n'est jamais écrasé sans `--ecraser`, pour ne pas perdre
 flowchart LR
   subgraph Blocs["@bsandoz79/blocs"]
     Button; Container; Card; SectionTitle; Reveal; RotatingWords; Marquee
-    ChoiceChips; OptionCard; PriceSummary; SitePreview; Stepper; TextField; Accordion; Calendar; MoyensPaiement
+    ChoiceChips; OptionCard; PriceSummary; SitePreview; Stepper; TextField; Accordion; Calendar; MoyensPaiement; Visionneuse
   end
   Home["Accueil"] --> Card & SectionTitle & Reveal & RotatingWords & Marquee & Button & MoyensPaiement
   Pied["Pied de page"] --> MoyensPaiement
+  Projet["Page d'un projet"] --> Visionneuse
   Composer["/composer"] --> ChoiceChips & OptionCard & PriceSummary & SitePreview
   Tarifs["/tarifs"] --> ChoiceChips & OptionCard & PriceSummary
   Devis["/devis"] --> Stepper & TextField & OptionCard & ChoiceChips
@@ -94,6 +95,7 @@ Installation dans un site client, personnalisation des couleurs, publication d'u
 | Accordion | questions dépliables | `details`/`summary` natifs |
 | Calendar | calendrier mensuel | grille ARIA, clavier complet |
 | MoyensPaiement | moyens de paiement acceptés | liste nommée, nom complet de chaque moyen lu |
+| Visionneuse | image agrandie par-dessus la page | fenêtre modale, focus gardé puis rendu, Échap, flèches |
 
 ## Versions
 `packages/blocs/package.json` porte la version de la bibliothèque, indépendante de celle du site. Un site client choisit sa version et ne change que s'il le décide.

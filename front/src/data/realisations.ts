@@ -97,6 +97,8 @@ export const pageRealisations = {
   technos: 'Technologies',
   captures: 'Captures',
   capturesAVenir: 'Les captures arrivent bientôt.',
+  /** Nom des boutons qui ouvrent une capture en grand. */
+  agrandir: 'Agrandir la capture',
   precedent: 'Projet précédent',
   suivant: 'Projet suivant',
   appel: { text: 'Un projet du même genre ?', label: 'Demander un devis', to: '/devis' },

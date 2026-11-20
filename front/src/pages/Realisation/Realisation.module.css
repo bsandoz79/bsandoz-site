@@ -99,6 +99,23 @@
   border-radius: var(--radius-sm);
 }
 
+/* Image de couverture cliquable : s'ouvre en grand dans la visionneuse. */
+.agrandir {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  cursor: zoom-in;
+}
+
+.agrandir:focus-visible,
+.vignetteLien:focus-visible {
+  outline: 3px solid var(--color-rose);
+  outline-offset: 3px;
+}
+
 .aVenir {
   margin-top: calc(-1 * var(--space-8));
   padding: var(--space-6);
@@ -188,6 +205,10 @@
 
 .vignetteLien {
   display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  cursor: zoom-in;
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
