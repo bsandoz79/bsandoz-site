@@ -1,6 +1,10 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (moyens de paiement)
+- Bloc `MoyensPaiement` (`@bsandoz79/blocs`) : une petite carte par moyen (Visa, Mastercard, American Express, Apple Pay, Google Pay, Stripe, virement, PayPal, espèces, chèque), titre et mention facultatifs, taille petite ; 3 tests.
+- bsandoz.fr : moyens acceptés (carte par Stripe, Apple Pay, Google Pay, virement) sous le prix de l'accueil et dans le pied de page ; FAQ « Comment se passe le paiement ? » et conditions de vente complétées (`data/paiement.ts`).
+
 ### Corrigé (mentions légales)
 - Hébergeur complet : o2switch, SAS, RCS Clermont-Ferrand, SIRET, siège chemin des Pardiaux à Clermont-Ferrand (annuaire des entreprises), téléphone.
 

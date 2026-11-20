@@ -1,3 +1,4 @@
+import { paiement } from './paiement';
 import { formuleParId, mentionsPrix, tarifHoraire } from './offres';
 import { contact } from './navigation';
 import { CONSOMMATION_L_100KM, COUT_KM, PRIX_GAZOLE_LITRE, RAYON_KM, formatFrais, zoneSansFrais } from './zones';
@@ -68,7 +69,7 @@ export const cgv: PageLegale = {
       paragraphes: [
         `Un acompte est versé à la commande (${A_COMPLETER('montant ou pourcentage de l’acompte')}), le solde à la mise en ligne.`,
         'Pour les formules Vitrine+ et Fonctionnel, le client peut payer en 3 ou 4 fois sans frais : le nombre et les dates des échéances sont indiqués dans le devis.',
-        `Moyens de paiement : ${A_COMPLETER('moyens de paiement acceptés')}.`,
+        paiement.conditions,
       ],
     },
     {

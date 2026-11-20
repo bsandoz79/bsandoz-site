@@ -12,6 +12,7 @@ export * from './Card';
 export * from './ChoiceChips';
 export * from './Container';
 export * from './Marquee';
+export * from './MoyensPaiement';
 export * from './OptionCard';
 export * from './PriceSummary';
 export * from './Reveal';

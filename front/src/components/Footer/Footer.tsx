@@ -1,10 +1,11 @@
 import { BoutonRdv } from '../BoutonRdv';
 import { Link, useLocation } from 'react-router-dom';
-import { Container } from '@bsandoz79/blocs';
+import { Container, MoyensPaiement } from '@bsandoz79/blocs';
 import { rouvrirBandeau } from '../../app/consentement';
 import { bandeau } from '../../data/consentement';
 import { contact, footer, metierLinks } from '../../data/navigation';
 import { pages } from '../../data/pages';
+import { paiement } from '../../data/paiement';
 import logoSb from '../../assets/marque/logo-sb.png';
 import styles from './Footer.module.css';
 
@@ -96,6 +97,7 @@ export function Footer() {
 
         <div className={styles.bas}>
           <p>{footer.droits(ANNEE)}</p>
+          <MoyensPaiement label={paiement.label} moyens={paiement.moyens} taille="petite" />
           <nav aria-label={footer.legalLabel}>
             <ul className={styles.legal}>
               {footer.legal.map((item) => (
