@@ -1,6 +1,6 @@
 import { questionsFaq } from './faq';
 import { pages } from './pages';
-import { cheminsIndexables, pagesNonIndexees, genererSitemap, jsonLdEntreprise, jsonLdFaq, robotsTxt, urlComplete } from './seo';
+import { INDEXNOW_CLE, cheminsIndexables, pagesNonIndexees, genererSitemap, jsonLdEntreprise, jsonLdFaq, requeteIndexNow, robotsTxt, urlComplete } from './seo';
 
 describe('SEO', () => {
   it('construit les adresses complètes', () => {
@@ -56,5 +56,14 @@ describe('SEO', () => {
     const faq = jsonLdFaq(questionsFaq);
     expect(faq.mainEntity).toHaveLength(questionsFaq.length);
     expect(faq.mainEntity[0].acceptedAnswer.text).toContain('1 à 2 semaines');
+  });
+
+  it('prépare l’annonce IndexNow : clé valide, servie sur le site, toutes les pages du sitemap', () => {
+    expect(INDEXNOW_CLE).toMatch(/^[a-f0-9]{32}$/);
+    const r = requeteIndexNow();
+    expect(r.host).toBe('bsandoz.fr');
+    expect(r.keyLocation).toBe(`https://bsandoz.fr/${INDEXNOW_CLE}.txt`);
+    expect(r.urlList).toEqual(cheminsIndexables().map(urlComplete));
+    expect(r.urlList.some((u) => u.includes('/mon-espace'))).toBe(false);
   });
 });

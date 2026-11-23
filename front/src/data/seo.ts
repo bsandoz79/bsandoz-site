@@ -32,6 +32,22 @@ export function genererSitemap(chemins: string[] = cheminsIndexables()) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
 
+/**
+ * Clé IndexNow (indexnow.org) : publique par nature, elle prouve à Bing (et Yandex, Seznam…) que les adresses
+ * envoyées viennent bien de ce site. Elle est servie dans le fichier `/<clé>.txt` (généré au build).
+ */
+export const INDEXNOW_CLE = '8fbbf36d29c065f8c3d833fb0971b56a';
+
+/** Corps de la requête IndexNow : toutes les pages du sitemap, à envoyer après chaque mise en ligne. */
+export function requeteIndexNow(chemins: string[] = cheminsIndexables()) {
+  return {
+    host: new URL(site.url).host,
+    key: INDEXNOW_CLE,
+    keyLocation: `${site.url}/${INDEXNOW_CLE}.txt`,
+    urlList: chemins.map(urlComplete),
+  };
+}
+
 /** Contenu du fichier `robots.txt`. */
 export const robotsTxt = () => `User-agent: *\nAllow: /\nDisallow: ${pages.monEspace.path}\nDisallow: ${pages.admin.path}\n\nSitemap: ${site.url}/sitemap.xml\n`;
 

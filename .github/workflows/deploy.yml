@@ -59,8 +59,12 @@ jobs:
           set net:max-retries 3
           set net:reconnect-interval-base 5
           # 1. Tout sauf index.html : les nouveaux fichiers (JS, CSS, images) arrivent d'abord.
-          mirror --reverse --verbose --parallel=2 --exclude-glob index.html front/dist/ "${FTP_SERVER_DIR:-/}"
+          mirror --reverse --verbose --parallel=2 --exclude-glob index.html --exclude-glob indexnow.json front/dist/ "${FTP_SERVER_DIR:-/}"
           # 2. index.html en dernier : il ne pointe que vers des fichiers déjà présents.
           put -O "${FTP_SERVER_DIR:-/}" front/dist/index.html
           bye
           EOF
+      # Annonce les pages à Bing (IndexNow) une fois en ligne : la clé /<clé>.txt doit déjà être sur le serveur.
+      - name: Annonce à IndexNow (Bing)
+        if: env.FTP_SERVER != ''
+        run: node front/scripts/indexnow.mjs front/dist/indexnow.json
