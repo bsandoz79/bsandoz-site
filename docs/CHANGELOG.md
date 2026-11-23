@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (réseaux sociaux)
+- Pied de page : les icônes au trait d'Instagram et de Facebook sont remplacées par leurs vrais logos en couleur (carré dégradé, rond bleu), un peu plus grands.
+
 ### Ajouté (Facebook)
 - Page Facebook bsandoz : lien avec icône dans le pied de page (colonne Contact, nouvel onglet), dans `sameAs` et dans `llms.txt` ; 1 test.
 
