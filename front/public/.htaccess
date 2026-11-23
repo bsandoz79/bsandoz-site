@@ -1,6 +1,9 @@
 # Pas de redirection automatique /realisations -> /realisations/ (le dossier existe pour les pages des projets).
 DirectorySlash Off
 
+# Fichiers texte (robots.txt, llms.txt) en UTF-8 : accents lisibles par les robots et les assistants IA.
+AddCharset utf-8 .txt
+
 RewriteEngine On
 RewriteBase /
 

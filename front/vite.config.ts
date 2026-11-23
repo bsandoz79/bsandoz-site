@@ -3,9 +3,10 @@ import { fileURLToPath } from 'node:url'
 import { createServer, defineConfig, type Plugin } from 'vite'
 
 type ModuleSeo = { genererSitemap: () => string; robotsTxt: () => string }
+type ModuleLlms = { genererLlmsTxt: () => string }
 
 /**
- * Génère sitemap.xml et robots.txt au build, à partir de la liste des pages (src/data/seo.ts).
+ * Génère sitemap.xml, robots.txt et llms.txt (résumé pour les assistants IA) au build, à partir de la liste des pages (src/data/seo.ts).
  * Le module TypeScript est chargé par un serveur Vite éphémère, sans le copier dans la configuration.
  */
 function fichiersSeo(): Plugin {
@@ -23,6 +24,8 @@ function fichiersSeo(): Plugin {
         const seo = (await serveur.ssrLoadModule('/src/data/seo.ts')) as ModuleSeo
         this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: seo.genererSitemap() })
         this.emitFile({ type: 'asset', fileName: 'robots.txt', source: seo.robotsTxt() })
+        const llms = (await serveur.ssrLoadModule('/src/seo/llms.ts')) as ModuleLlms
+        this.emitFile({ type: 'asset', fileName: 'llms.txt', source: llms.genererLlmsTxt() })
       } finally {
         await serveur.close()
       }
