@@ -44,6 +44,14 @@ describe('Footer', () => {
     expect(lien).toHaveAttribute('target', '_blank');
   });
 
+  it('mène à la Page Facebook, dans un nouvel onglet', () => {
+    renderFooter();
+    const nav = within(screen.getByRole('navigation', { name: 'Contact' }));
+    const lien = nav.getByRole('link', { name: 'Facebook bsandoz (nouvel onglet)' });
+    expect(lien).toHaveAttribute('href', 'https://www.facebook.com/bsandoz');
+    expect(lien).toHaveAttribute('target', '_blank');
+  });
+
   it("n'affiche pas de téléphone s'il n'est pas renseigné", () => {
     contact.phone = '';
     renderFooter();

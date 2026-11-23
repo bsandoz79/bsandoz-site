@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (Facebook)
+- Page Facebook bsandoz : lien avec icône dans le pied de page (colonne Contact, nouvel onglet), dans `sameAs` et dans `llms.txt` ; 1 test.
+
 ### Ajouté (réseaux sociaux)
 - Compte Instagram @bsandoz_ : lien avec une petite icône au trait dans le pied de page (colonne Contact, nouvel onglet), dans les données structurées (`sameAs`) et dans `llms.txt`. Liste `contact.reseaux` prête pour la Page Facebook ; 2 tests.
 
