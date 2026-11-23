@@ -42,6 +42,7 @@ export function genererLlmsTxt(): string {
     `- Adresse : ${rue}, ${codePostal} ${ville} (Somme, Hauts-de-France)`,
     ...(contact.phone ? [`- Téléphone : ${contact.phone}`] : []),
     `- E-mail : ${contact.email}`,
+    ...contact.reseaux.map((r) => `- ${r.nom} : ${r.url}`),
     `- Demander un devis : ${urlComplete(pages.devis.path)}`,
     `- Prendre rendez-vous : ${urlComplete(pages.rendezVous.path)}`,
     '',

@@ -77,7 +77,7 @@ export function jsonLdEntreprise() {
     ],
     founder: { '@type': 'Person', name: site.name, jobTitle: 'Développeur web' },
     logo: urlComplete('/logo.png'),
-    sameAs: [contact.portfolio],
+    sameAs: [contact.portfolio, ...contact.reseaux.map((r) => r.url)],
   };
 }
 

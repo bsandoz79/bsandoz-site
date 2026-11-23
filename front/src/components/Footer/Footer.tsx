@@ -3,11 +3,28 @@ import { Link, useLocation } from 'react-router-dom';
 import { Container, MoyensPaiement } from '@bsandoz79/blocs';
 import { rouvrirBandeau } from '../../app/consentement';
 import { bandeau } from '../../data/consentement';
-import { contact, footer, metierLinks } from '../../data/navigation';
+import { contact, footer, metierLinks, type Reseau } from '../../data/navigation';
 import { pages } from '../../data/pages';
 import { paiement } from '../../data/paiement';
 import logoSb from '../../assets/marque/logo-sb.png';
 import styles from './Footer.module.css';
+
+/** Icône au trait d'un réseau social (dessinée en code, couleur du texte). */
+function IconeReseau({ nom }: { nom: Reseau['nom'] }) {
+  return (
+    <svg viewBox="0 0 24 24" className={styles.iconeReseau} aria-hidden="true" focusable="false">
+      {nom === 'Instagram' ? (
+        <>
+          <rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" strokeWidth="1.7" />
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.7" />
+          <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
+        </>
+      ) : (
+        <path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4a21 21 0 0 0-2.3-.1c-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+      )}
+    </svg>
+  );
+}
 
 /** Année des droits, calculée une fois au chargement du site. */
 const ANNEE = new Date().getFullYear();
@@ -88,6 +105,14 @@ export function Footer() {
               <li>
                 <a href={contact.portfolio}>{footer.portfolioLabel}</a>
               </li>
+              {contact.reseaux.map((r) => (
+                <li key={r.nom}>
+                  <a href={r.url} className={styles.reseau} rel="me noopener" target="_blank" aria-label={`${r.nom} ${r.compte} (nouvel onglet)`}>
+                    <IconeReseau nom={r.nom} />
+                    {r.nom}
+                  </a>
+                </li>
+              ))}
               <li>
                 <Link to={footer.espaceClient.to}>{footer.espaceClient.label}</Link>
               </li>

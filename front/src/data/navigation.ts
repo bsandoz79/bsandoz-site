@@ -4,12 +4,23 @@ import { pages } from './pages';
 /** Lien de navigation : `to` pour une page du site, `href` pour un site externe. */
 export type NavLink = { label: string } & ({ to: string; href?: undefined } | { href: string; to?: undefined });
 
-export const contact: { email: string; phone: string; portfolio: string; adresse: { rue: string; codePostal: string; ville: string } } = {
+/** Réseau social de l'entreprise (pied de page, données structurées « sameAs », llms.txt). */
+export type Reseau = { nom: 'Instagram' | 'Facebook'; compte: string; url: string };
+
+export const contact: {
+  email: string;
+  phone: string;
+  portfolio: string;
+  adresse: { rue: string; codePostal: string; ville: string };
+  reseaux: Reseau[];
+} = {
   email: 'contact@bsandoz.fr',
   /** Rien n'est affiché si le numéro est vide. */
   phone: '07 69 28 78 37',
   adresse: { rue: '319 rue de Rouen', codePostal: '80000', ville: 'Amiens' },
   portfolio: 'https://portfolio.bsandoz.fr',
+  /** Comptes créés par Baptiste (Instagram le 23/11/2026). Facebook : à ajouter quand la Page existe. */
+  reseaux: [{ nom: 'Instagram', compte: '@bsandoz_', url: 'https://www.instagram.com/bsandoz_/' }],
 };
 
 /** Onglets des deux catégories de services (cahier des charges, section 2). */

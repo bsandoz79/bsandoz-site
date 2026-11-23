@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (réseaux sociaux)
+- Compte Instagram @bsandoz_ : lien avec une petite icône au trait dans le pied de page (colonne Contact, nouvel onglet), dans les données structurées (`sameAs`) et dans `llms.txt`. Liste `contact.reseaux` prête pour la Page Facebook ; 2 tests.
+
 ### Ajouté (référencement Bing)
 - IndexNow : à chaque mise en ligne, toutes les pages du sitemap sont annoncées à Bing (et aux autres moteurs IndexNow), qui les relit sans attendre ; clé publique servie dans `/<clé>.txt` ; un refus ne bloque jamais le déploiement ; 1 test.
 
