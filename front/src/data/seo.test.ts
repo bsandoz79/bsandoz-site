@@ -68,6 +68,6 @@ describe('SEO', () => {
   });
 
   it('relie le site au portfolio et aux réseaux sociaux (sameAs)', () => {
-    expect(jsonLdEntreprise().sameAs).toEqual(['https://portfolio.bsandoz.fr', 'https://www.instagram.com/bsandoz_/']);
+    expect(jsonLdEntreprise().sameAs).toEqual(['https://portfolio.bsandoz.fr', 'https://www.instagram.com/bsandoz_/', 'https://www.facebook.com/bsandoz']);
   });
 });

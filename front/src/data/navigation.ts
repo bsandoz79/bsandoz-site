@@ -20,7 +20,10 @@ export const contact: {
   adresse: { rue: '319 rue de Rouen', codePostal: '80000', ville: 'Amiens' },
   portfolio: 'https://portfolio.bsandoz.fr',
   /** Comptes créés par Baptiste (Instagram le 23/11/2026). Facebook : à ajouter quand la Page existe. */
-  reseaux: [{ nom: 'Instagram', compte: '@bsandoz_', url: 'https://www.instagram.com/bsandoz_/' }],
+  reseaux: [
+    { nom: 'Instagram', compte: '@bsandoz_', url: 'https://www.instagram.com/bsandoz_/' },
+    { nom: 'Facebook', compte: 'bsandoz', url: 'https://www.facebook.com/bsandoz' },
+  ],
 };
 
 /** Onglets des deux catégories de services (cahier des charges, section 2). */
