@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (référencement Bing)
+- IndexNow : à chaque mise en ligne, toutes les pages du sitemap sont annoncées à Bing (et aux autres moteurs IndexNow), qui les relit sans attendre ; clé publique servie dans `/<clé>.txt` ; un refus ne bloque jamais le déploiement ; 1 test.
+
 ### Ajouté (référencement par les IA)
 - `llms.txt` généré au build à partir des données du site : résumé pour ChatGPT, Claude, Perplexity… (qui je suis, coordonnées, formules et prix, informatique, métiers, réalisations, FAQ) ; fichiers texte servis en UTF-8 ; 3 tests.
 
