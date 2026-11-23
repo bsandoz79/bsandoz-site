@@ -1,6 +1,9 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (référencement par les IA)
+- `llms.txt` généré au build à partir des données du site : résumé pour ChatGPT, Claude, Perplexity… (qui je suis, coordonnées, formules et prix, informatique, métiers, réalisations, FAQ) ; fichiers texte servis en UTF-8 ; 3 tests.
+
 ### Modifié (réalisations)
 - Les captures d'un projet (et sa couverture) s'ouvrent en grand par-dessus la page, avec une croix pour fermer et des flèches pour passer à la suivante, au lieu d'un nouvel onglet : nouveau bloc `Visionneuse` (`@bsandoz79/blocs`) ; 5 tests.
 
