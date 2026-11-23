@@ -36,6 +36,14 @@ describe('Footer', () => {
     expect(nav.getByRole('link', { name: 'Mon portfolio' })).toHaveAttribute('href', 'https://portfolio.bsandoz.fr');
   });
 
+  it('mène au compte Instagram, dans un nouvel onglet', () => {
+    renderFooter();
+    const nav = within(screen.getByRole('navigation', { name: 'Contact' }));
+    const lien = nav.getByRole('link', { name: 'Instagram @bsandoz_ (nouvel onglet)' });
+    expect(lien).toHaveAttribute('href', 'https://www.instagram.com/bsandoz_/');
+    expect(lien).toHaveAttribute('target', '_blank');
+  });
+
   it("n'affiche pas de téléphone s'il n'est pas renseigné", () => {
     contact.phone = '';
     renderFooter();

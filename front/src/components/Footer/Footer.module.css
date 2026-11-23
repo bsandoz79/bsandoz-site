@@ -183,3 +183,16 @@
     justify-content: space-between;
   }
 }
+
+/* Lien vers un réseau social : petite icône au trait devant le nom. */
+.liste .reseau {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.iconeReseau {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+}
