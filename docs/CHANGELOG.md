@@ -1,6 +1,8 @@
 # Journal des modifications
 
 ## [Non publié]
+### Modifié (relance « Toujours là ? »)
+- Titre de la fenêtre : « Alors demandez votre devis » (au lieu de « Alors faites un devis »).
 ### Ajouté (relance « Toujours là ? »)
 - Fenêtre « Toujours là ? · Alors faites un devis », au milieu de l'écran sur un fond voilé, 30 minutes après l'ouverture du site : « Demander mon devis gratuit » (vers le formulaire de devis) ou « Plus tard ». La croix, Échap ou un clic à côté la ferment ; le focus reste dedans tant qu'elle est ouverte. Attend la fermeture du bandeau des cookies ; une fois par visiteur, puis plus rien pendant 30 jours ; mêmes pages exclues que la carte « Avant de partir ». 6 tests.
 ### Ajouté (réalisation Croc's)
