@@ -36,7 +36,7 @@ export const relanceDevis = {
   /** Après une ouverture, on ne la remontre pas avant ce nombre de jours. */
   silenceJours: 30,
   surtitre: 'Toujours là ?',
-  titre: 'Alors faites un devis',
+  titre: 'Alors demandez votre devis',
   texte: 'Votre projet vous trotte dans la tête ? Décrivez-le en quelques lignes : je vous envoie un devis gratuit sous 24 h, sans engagement.',
   devis: { label: 'Demander mon devis gratuit', to: pages.devis.path },
   plusTard: 'Plus tard',

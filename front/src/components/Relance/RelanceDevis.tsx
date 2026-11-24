@@ -25,7 +25,7 @@ function noterOuverture() {
 }
 
 /**
- * Fenêtre « Toujours là ? Alors faites un devis », au milieu de l'écran, 30 minutes après l'ouverture du site
+ * Fenêtre « Toujours là ? Alors demandez votre devis », au milieu de l'écran, 30 minutes après l'ouverture du site
  * (le temps compte d'une page à l'autre). Elle attend que le bandeau des cookies soit fermé et ne s'ouvre qu'une fois par mois.
  * Fond voilé : un clic à côté, la croix, « Plus tard » ou Échap la ferment.
  */
