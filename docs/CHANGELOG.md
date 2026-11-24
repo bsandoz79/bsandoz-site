@@ -1,6 +1,8 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (relance « Toujours là ? »)
+- Fenêtre « Toujours là ? · Alors faites un devis », au milieu de l'écran sur un fond voilé, 30 minutes après l'ouverture du site : « Demander mon devis gratuit » (vers le formulaire de devis) ou « Plus tard ». La croix, Échap ou un clic à côté la ferment ; le focus reste dedans tant qu'elle est ouverte. Attend la fermeture du bandeau des cookies ; une fois par visiteur, puis plus rien pendant 30 jours ; mêmes pages exclues que la carte « Avant de partir ». 6 tests.
 ### Ajouté (réalisation Croc's)
 - Croc's dans les réalisations, en tête : site d'un snack d'Amiens que le patron modifie en touchant l'écran ; 6 captures (accueil, carte, mode modification, espace du patron, venir). Pas de lien vers le site tant que la démo est privée.
 ### Modifié (captures)

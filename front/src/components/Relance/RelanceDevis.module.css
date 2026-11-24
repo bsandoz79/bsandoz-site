@@ -1,0 +1,131 @@
+/* Fenêtre « Toujours là ? » : au milieu de l'écran, sur un fond voilé. */
+.fond {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-navy) 55%, transparent);
+  backdrop-filter: blur(3px);
+  animation: voile 0.3s ease both;
+}
+
+@keyframes voile {
+  from { opacity: 0; }
+}
+
+.fenetre {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  width: min(100%, 26rem);
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-bar);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.surtitre {
+  margin: 0;
+  color: var(--color-accent-texte);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.titre {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: 1.2;
+}
+
+.texte {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.principal,
+.secondaire {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--duration) ease, color var(--duration) ease;
+}
+
+.principal {
+  background: var(--color-rose);
+  color: var(--color-text-on-dark);
+}
+
+.principal:hover {
+  background: var(--color-rose-hover);
+  color: var(--color-text-on-dark);
+}
+
+.secondaire {
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.secondaire:hover {
+  color: var(--color-text);
+}
+
+.fermer {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.fermer:hover {
+  background: var(--color-veil-navy);
+  color: var(--color-text);
+}
+
+.principal:focus-visible,
+.secondaire:focus-visible,
+.fermer:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fond {
+    animation: none;
+  }
+}

@@ -65,3 +65,6 @@ flowchart LR
 
 ## Relance « Avant de partir »
 30 secondes après l'arrivée sur le site, une carte discrète propose la maquette gratuite (`/devis?demande=maquette`, qui coche déjà la maquette) ou un appel. Une fois par visiteur, puis rien pendant 30 jours ; jamais sur le devis, le rendez-vous, les pages légales ou privées ; après le bandeau des cookies. Réglages et textes : `front/src/data/relance.ts`. Composant : `front/src/components/Relance/`.
+
+## Relance « Toujours là ? »
+30 minutes après l'ouverture du site, une fenêtre au milieu de l'écran (fond voilé) dit « Toujours là ? Alors faites un devis » et mène au formulaire de devis ; « Plus tard », la croix, Échap ou un clic à côté la ferment. Une fois par visiteur, puis rien pendant 30 jours (clé `bsandoz-relance-devis`) ; mêmes pages exclues que la carte « Avant de partir » ; après le bandeau des cookies. Réglages et textes : `relanceDevis` dans `front/src/data/relance.ts`. Composant : `front/src/components/Relance/RelanceDevis.tsx`.

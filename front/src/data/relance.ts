@@ -25,3 +25,20 @@ export const relance = {
 export function relanceAutorisee(pathname: string) {
   return !relance.masqueeSur.includes(pathname) && !relance.masqueeSous.some((debut) => pathname.startsWith(debut));
 }
+
+/**
+ * Fenêtre « Toujours là ? » : au milieu de l'écran, 30 minutes après l'ouverture du site,
+ * pour inviter à demander un devis. Mêmes pages exclues que la carte « Avant de partir ».
+ */
+export const relanceDevis = {
+  /** Temps passé sur le site avant l'ouverture, en millisecondes (cumulé d'une page à l'autre). */
+  delaiMs: 30 * 60_000,
+  /** Après une ouverture, on ne la remontre pas avant ce nombre de jours. */
+  silenceJours: 30,
+  surtitre: 'Toujours là ?',
+  titre: 'Alors faites un devis',
+  texte: 'Votre projet vous trotte dans la tête ? Décrivez-le en quelques lignes : je vous envoie un devis gratuit sous 24 h, sans engagement.',
+  devis: { label: 'Demander mon devis gratuit', to: pages.devis.path },
+  plusTard: 'Plus tard',
+  fermer: 'Fermer',
+};

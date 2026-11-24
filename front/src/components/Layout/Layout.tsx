@@ -5,14 +5,14 @@ import { BandeauCookies } from '../BandeauCookies';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { MobileBar } from '../MobileBar';
-import { Relance } from '../Relance';
+import { Relance, RelanceDevis } from '../Relance';
 import { RetourHaut } from '../RetourHaut';
 import styles from './Layout.module.css';
 
 /**
  * Mise en page commune à toutes les pages : lien d'évitement, en-tête, contenu,
  * pied de page, barre « Demander un devis » sur mobile, bouton « revenir en haut », bandeau des services tiers
- * et carte « Avant de partir » (après 30 secondes).
+ * carte « Avant de partir » (après 30 secondes) et fenêtre « Toujours là ? » (après 30 minutes).
  */
 export function Layout() {
   const { pathname, hash } = useLocation();
@@ -38,6 +38,7 @@ export function Layout() {
       <RetourHaut />
       <BandeauCookies />
       <Relance />
+      <RelanceDevis />
     </div>
   );
 }
