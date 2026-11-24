@@ -6,7 +6,7 @@ import { RealisationCard } from './RealisationCard';
 
 const [moto] = realisations;
 /** Projet sans captures : la carte montre une illustration provisoire. */
-const provisoire = { ...realisations[1], captures: [], emplacements: ['[écran réservation]', '[écran paiement]'] };
+const provisoire = { ...realisations.find((r) => r.id === 'demo-detailing')!, captures: [], emplacements: ['[écran réservation]', '[écran paiement]'] };
 
 function renderCard(ui: ReactElement) {
   return render(<MemoryRouter>{ui}</MemoryRouter>);

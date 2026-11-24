@@ -158,3 +158,4 @@ Types de tests :
 | 127 | [Dix personas : une page par grand métier](127-feature-personas.md) | `feature/personas` | 2026-11-19 |
 | 128 | [Comparatif : « Avec moi » au milieu](128-style-comparatif-milieu.md) | `style/comparatif-milieu` | 2026-11-19 |
 | 138 | [Carte « Avant de partir » après 30 secondes](138-feature-relance-avant-de-partir.md) | `feature/relance-avant-de-partir` | 2026-11-24 |
+| 139 | [Croc's en réalisation, captures d'O'RDV et de Shop ton chargeur refaites](139-feature-realisations-crocs.md) | `feature/realisations-crocs` | 2026-11-24 |

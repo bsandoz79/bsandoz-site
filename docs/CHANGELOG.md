@@ -1,6 +1,11 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (réalisation Croc's)
+- Croc's dans les réalisations, en tête : site d'un snack d'Amiens que le patron modifie en touchant l'écran ; 6 captures (accueil, carte, mode modification, espace du patron, venir). Pas de lien vers le site tant que la démo est privée.
+### Modifié (captures)
+- O'RDV : captures refaites avec la nouvelle barre de navigation et les nouveaux filtres (accueil, résultats par catégorie, fiche, réservation, connexion, inscription).
+- Shop ton chargeur : les 7 captures refaites (design noir et titane, notes en couleur), légendes et fonctionnalités à jour.
 ### Ajouté (relance « Avant de partir »)
 - Carte « Avant de partir · Donnez vie à votre idée », 30 secondes après l'arrivée sur le site : « Recevoir ma maquette gratuite » (formulaire avec la maquette déjà cochée) ou « Appeler le 07 69 28 78 37 ». Discrète, en bas de l'écran, sans bloquer la page ; attend la fermeture du bandeau des cookies ; une fois par visiteur, puis plus rien pendant 30 jours ; jamais sur les pages de devis, de rendez-vous, légales ou privées. 6 tests.
 ### Ajouté (tarifs sur l'accueil)

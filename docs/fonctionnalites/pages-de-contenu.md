@@ -48,7 +48,7 @@ Les pages sont propres au site ; les blocs utilisés (`Card`, `SectionTitle`, `R
 - **fonctionnels** : `Home.test.tsx`, `Metier.test.tsx`, `Realisations.test.tsx`, `APropos.test.tsx`, `Informatique.test.tsx`, `Legal.test.tsx`.
 
 ## Réalisations
-`/realisations` liste les projets en cartes (`components/RealisationCard`, couverture = première capture). Chaque carte mène à `/realisations/<projet>` (`pages/Realisation`), qui n'affiche que ce projet. Données : `data/realisations.ts` (captures WebP dans `src/assets/realisations/`), identifiants pour le plan du site : `data/realisationsIds.ts`. Projets : Christophe Poix Moto, démo detailing, O'RDV, Alterno.
+`/realisations` liste les projets en cartes (`components/RealisationCard`, couverture = première capture). Chaque carte mène à `/realisations/<projet>` (`pages/Realisation`), qui n'affiche que ce projet. Données : `data/realisations.ts` (captures WebP dans `src/assets/realisations/`), identifiants pour le plan du site : `data/realisationsIds.ts`. Projets, dans l'ordre : Croc's, Christophe Poix Moto, démo detailing (Perfect Clean), Cadeaux, Shop ton chargeur, O'RDV, Alterno.
 
 ## FAQ sur l'accueil
 La FAQ est une section de l'accueil, juste avant la carte des zones (`id="faq"`). La fin de l'accueil est : Questions fréquentes → Carte → Formulaire de contact, pour que la page se termine par l'action ; le pied de page n'y répète pas son appel « Un projet en tête ? ». Elle montre 3 questions, puis 3 de plus à chaque clic sur « Voir plus de questions (n restantes) ». Après chaque clic, le focus clavier passe à la première nouvelle question. Le lien « Questions fréquentes » du pied de page mène à `/#faq` (`lienFaq`). L'ancienne adresse `/faq` y redirige, ce qui garde valables les liens déjà partagés. Elle est retirée du plan du site. Les données structurées FAQPage sont maintenant sur l'accueil. Le nombre de questions par paquet se règle dans `faqAccueil.parPaquet`.
@@ -175,3 +175,6 @@ Mise à jour du 2026-11-16 (soir) : neuf captures (ajout des abonnements, de l'e
 
 ## Pages métier (11)
 `data/metiers.ts` (`pagesMetier`, dont `pagesPersonas`) : artisan (services à domicile), bâtiment, beauté, commerce, restaurant, santé (`independant`), professions libérales, cours, gîtes, associations, événementiel. Chaque page : `pages.ts` (adresse, titre, promesse), une catégorie `MetierId` (`offres.ts` : fonctions proposées ; `apercu.ts` : entreprise fictive ; `metiersConnus.ts` : métiers rangés dedans), une route (`app/routes.tsx`) et un lien de pied de page (`navigation.ts`).
+
+## Réalisation « Croc's » (2026-11-24)
+La fiche `crocs` (`data/realisations.ts`, métier « Commerce et restauration ») présente le site du snack, sans lien tant que la démo est privée. Six captures (`assets/realisations/crocs/`) prises sur `apps/crocs/front` de bsandoz-booking servi en local ; pour le mode modification et l'espace du patron, la session est simulée dans le navigateur au moment de la capture. Les captures d'O'RDV (site en ligne, sans les comptes de test) et de Shop ton chargeur (site local) ont été refaites le même jour après leurs changements de design.

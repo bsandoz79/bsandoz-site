@@ -38,11 +38,12 @@ describe('Page Réalisations', () => {
     const cartes = () => screen.getAllByRole('article').map((a) => a.getAttribute('aria-labelledby'));
 
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getByText('6 projets')).toBeInTheDocument();
-    expect(cartes()).toHaveLength(6);
+    expect(screen.getByText('7 projets')).toBeInTheDocument();
+    expect(cartes()).toHaveLength(7);
 
     await user.click(screen.getByRole('radio', { name: 'Sites web' }));
-    expect(screen.getByText('3 projets')).toBeInTheDocument();
+    expect(screen.getByText('4 projets')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Croc’s' })).toBeInTheDocument();
     expect(screen.getByRole('article', { name: 'Shop ton chargeur' })).toBeInTheDocument();
     expect(screen.queryByRole('article', { name: "O'RDV" })).not.toBeInTheDocument();
     expect(screen.getByRole('article', { name: 'Christophe Poix Moto' })).toBeInTheDocument();
@@ -54,7 +55,7 @@ describe('Page Réalisations', () => {
     expect(screen.getByRole('article', { name: 'Alterno' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: 'Tout' }));
-    expect(cartes()).toHaveLength(6);
+    expect(cartes()).toHaveLength(7);
   });
 
   it('reprend le filtre de l’adresse, et ignore un filtre inconnu', () => {
@@ -65,7 +66,7 @@ describe('Page Réalisations', () => {
 
     afficher(`${pages.realisations.path}?type=inconnu`);
     expect(screen.getByRole('radio', { name: 'Tout' })).toBeChecked();
-    expect(screen.getAllByRole('article')).toHaveLength(6);
+    expect(screen.getAllByRole('article')).toHaveLength(7);
   });
 
   it('présente Cadeaux : captures, fonctionnalités et lien vers le site', () => {
@@ -94,11 +95,12 @@ describe('Page Réalisations', () => {
     expect(screen.getByRole('article', { name: 'Perfect Clean' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('radio', { name: 'Commerce et restauration' }));
-    expect(screen.getByText('2 projets')).toBeInTheDocument();
+    expect(screen.getByText('3 projets')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Croc’s' })).toBeInTheDocument();
     expect(screen.getByRole('article', { name: /Carte par QR code/ })).toHaveTextContent('Exemple');
 
     await user.click(screen.getByRole('radio', { name: 'Sites web' }));
-    expect(screen.getByText('1 projet')).toBeInTheDocument();
+    expect(screen.getByText('2 projets')).toBeInTheDocument();
     expect(screen.getByRole('article', { name: /Carte par QR code/ })).toBeInTheDocument();
   });
 
@@ -141,7 +143,7 @@ describe('Page d’une réalisation', () => {
       expect(screen.getByRole('heading', { level: 2, name: titre })).toBeInTheDocument();
     }
     expect(screen.getByText('MySQL')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: "Agrandir la capture : Accueil et recherche de professionnels" })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: "Agrandir la capture : Accueil : recherche, catégories et filtres" })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: "Agrandir la capture : Espace professionnel" })).toBeInTheDocument();
     const demo = screen.getByRole('link', { name: /Tester la démo en ligne/ });
     expect(demo).toHaveAttribute('href', 'https://o-rdv.vercel.app');
@@ -164,7 +166,7 @@ describe('Page d’une réalisation', () => {
   it('mène aux projets précédent et suivant, et revient à la liste', () => {
     afficher('/realisations/christophe-poix-moto');
     const voisins = within(screen.getByRole('navigation', { name: 'Autres réalisations' }));
-    expect(voisins.getByRole('link', { name: /Projet précédent/ })).toHaveAttribute('href', '/realisations/alterno');
+    expect(voisins.getByRole('link', { name: /Projet précédent/ })).toHaveAttribute('href', '/realisations/crocs');
     expect(voisins.getByRole('link', { name: /Projet suivant/ })).toHaveAttribute('href', '/realisations/demo-detailing');
     expect(screen.getByRole('link', { name: '← Toutes les réalisations' })).toHaveAttribute('href', pages.realisations.path);
   });
