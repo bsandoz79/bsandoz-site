@@ -18,6 +18,7 @@ export type Secteur = (typeof secteurs)[number]['value'];
 
 /** Secteur de chaque carte (réalisation ou exemple). Un test vérifie que toutes en ont un. */
 export const secteurDe: Record<string, Exclude<Secteur, 'tous'>> = {
+  crocs: 'commerce',
   'christophe-poix-moto': 'artisans',
   'demo-detailing': 'artisans',
   cadeaux: 'perso',

@@ -9,6 +9,12 @@ import cadeauxBilan from '../assets/realisations/cadeaux/bilan.webp';
 import cadeauxCagnotte from '../assets/realisations/cadeaux/cagnotte.webp';
 import cadeauxParticiper from '../assets/realisations/cadeaux/participer.webp';
 import cadeauxEnvies from '../assets/realisations/cadeaux/envies.webp';
+import crocsAccueil from '../assets/realisations/crocs/accueil.webp';
+import crocsCarte from '../assets/realisations/crocs/carte.webp';
+import crocsModificationHaut from '../assets/realisations/crocs/modification-haut.webp';
+import crocsModification from '../assets/realisations/crocs/modification.webp';
+import crocsEspacePro from '../assets/realisations/crocs/espace-pro.webp';
+import crocsVenir from '../assets/realisations/crocs/venir.webp';
 import chargeurAccueil from '../assets/realisations/choptonchargeur/accueil.webp';
 import chargeurRecherche from '../assets/realisations/choptonchargeur/recherche.webp';
 import chargeurFiche from '../assets/realisations/choptonchargeur/fiche.webp';
@@ -41,6 +47,7 @@ import ordvAccueil from '../assets/realisations/ordv/accueil.webp';
 import ordvConnexion from '../assets/realisations/ordv/connexion.webp';
 import ordvEspacePro from '../assets/realisations/ordv/espace-pro.webp';
 import ordvInscription from '../assets/realisations/ordv/inscription.webp';
+import ordvRecherche from '../assets/realisations/ordv/recherche.webp';
 import ordvPriseDeRendezVous from '../assets/realisations/ordv/prise-de-rendez-vous.webp';
 import ordvReservation from '../assets/realisations/ordv/reservation.webp';
 
@@ -125,6 +132,41 @@ export function realisationsFiltrees(filtre: string | null): Realisation[] {
 }
 
 export const realisations: Realisation[] = [
+  {
+    id: 'crocs',
+    categorie: 'Restauration rapide · Amiens',
+    type: 'site',
+    titre: 'Croc’s',
+    resume: 'Site d’un snack d’Amiens, que le patron modifie en touchant l’écran.',
+    annee: '2026',
+    lien: { label: 'Voir le projet', to: cheminRealisation('crocs') },
+    apercu: 'site',
+    emplacements: ['[capture du site]'],
+    captures: [
+      { src: crocsAccueil, legende: 'Accueil : appeler ou venir en un geste, photos qui défilent' },
+      { src: crocsCarte, legende: 'La carte complète, avec ses prix, sur une seule page' },
+      { src: crocsModificationHaut, legende: 'Mode modification : le patron touche un texte ou une photo pour le changer' },
+      { src: crocsModification, legende: 'Mode modification de la carte : plats, prix, rubriques, « Épuisé »' },
+      { src: crocsEspacePro, legende: 'Espace du patron, installable sur son téléphone' },
+      { src: crocsVenir, legende: 'Venir : itinéraire, temps de trajet et horaires du jour' },
+    ],
+    contexte:
+      'Croc’s est un snack de la rue de Rouen, à Amiens : kebabs, tacos, libanais, paninis et burgers. Sa carte n’existait que sur la vitrine et sur des annuaires pas toujours à jour.',
+    besoin:
+      'Un site simple, rapide sur téléphone, avec la carte et les prix, l’itinéraire et les horaires. Et surtout un patron autonome : changer un prix, un plat épuisé ou une fermeture sans appeler personne.',
+    solution:
+      'Un site d’une page, aux couleurs de l’enseigne : la carte complète, l’appel et l’itinéraire en un geste, le temps de trajet depuis chez soi. Le patron se connecte depuis son téléphone et modifie son site directement, en touchant ce qu’il veut changer. C’est enregistré tout de suite.',
+    fonctionnalites: [
+      'Carte complète par rubriques, prix en euros, plats « Nouveau » et « Épuisé »',
+      'Bouton d’appel, itinéraire Google Maps, Waze ou Plans, carte de l’adresse',
+      'Temps de trajet en voiture, à vélo et à pied depuis sa position ou une adresse',
+      'Horaires avec le jour même mis en avant, annonce de fermeture exceptionnelle',
+      'Modification sur le site : le patron touche un plat, un prix, un texte ou une photo pour le changer',
+      'Espace du patron installable sur le téléphone, déconnexion automatique après 30 minutes',
+      'Mentions légales et données personnelles',
+    ],
+    technos: ['React', 'TypeScript', 'Vite', 'Symfony', 'MySQL', 'GitHub Actions'],
+  },
   {
     id: 'christophe-poix-moto',
     categorie: 'Réparation moto à domicile',
@@ -250,11 +292,11 @@ export const realisations: Realisation[] = [
     apercu: 'site',
     emplacements: ['[capture du site]'],
     captures: [
-      { src: chargeurAccueil, legende: 'Accueil : recherche par téléphone ou par ordinateur portable' },
-      { src: chargeurRecherche, legende: 'Recherche par le nom seul, les plus récents d’abord' },
+      { src: chargeurAccueil, legende: 'Accueil noir et titane : recherche et modèles récents avec leur puissance' },
+      { src: chargeurRecherche, legende: 'Recherche par le nom seul (« s24 »), les plus récents d’abord' },
       { src: chargeurFiche, legende: 'Fiche d’un téléphone : puissance, port, charge rapide, sans fil' },
-      { src: chargeurPriorites, legende: 'À acheter en priorité : conseillé par la marque et meilleur rapport qualité/prix' },
-      { src: chargeurSansfil, legende: 'Chargeurs sans fil compatibles' },
+      { src: chargeurPriorites, legende: 'À acheter en priorité, avec une note en couleur et le câble qui va avec' },
+      { src: chargeurSansfil, legende: 'Chargeurs sans fil compatibles (MagSafe, Qi2, Qi)' },
       { src: chargeurOrdinateurs, legende: 'Ordinateurs portables par marque et par série' },
       { src: chargeurGuide, legende: 'Le guide : bloc, câble, batterie, chargeurs premier prix' },
     ],
@@ -267,8 +309,9 @@ export const realisations: Realisation[] = [
     fonctionnalites: [
       'Recherche par nom seul (« s24 ultra », « iphone 15 ») parmi 1 566 téléphones USB-C et iPhone, et détection automatique de l’appareil',
       'Pour chaque téléphone : le chargeur conseillé par la marque et le meilleur rapport qualité/prix mis en avant, puis les autres compatibles',
-      'Vitesse réellement obtenue et explication « Pourquoi il convient » (Power Delivery, PPS, 5 A, charge propre à la marque)',
-      'Effet sur la batterie (très rapide, rapide, doux), câble à associer en plusieurs longueurs, chargeurs sans fil MagSafe, Qi2 et Qi',
+      'Une note en couleur pour chaque chargeur : Idéal, Très bon, Compatible ou Charge lente, selon la vitesse réellement obtenue',
+      'Cartes épurées et cliquables, câble à associer en plusieurs longueurs, chargeurs sans fil MagSafe, Qi2 et Qi',
+      'Design noir et blanc à effet titane, animations discrètes (apparitions, jauges de puissance, recherche tapée)',
       'Ordinateurs portables par marque et par série, y compris prises rondes et rectangulaires, avec le chargeur d’origine',
       'Uniquement des marques connues en version prise française, liens affiliés vers Amazon',
       'Référencement : une page par appareil générée à la construction (120 pages), FAQ structurée, sitemap, robots.txt ouvert aux assistants et llms.txt',
@@ -287,9 +330,10 @@ export const realisations: Realisation[] = [
     apercu: 'plateforme',
     emplacements: ['[recherche de professionnels]'],
     captures: [
-      { src: ordvAccueil, legende: 'Accueil et recherche de professionnels' },
-      { src: ordvPriseDeRendezVous, legende: 'Prise de rendez-vous' },
-      { src: ordvReservation, legende: 'Choix du créneau' },
+      { src: ordvAccueil, legende: 'Accueil : recherche, catégories et filtres' },
+      { src: ordvRecherche, legende: 'Résultats par catégorie, avec la carte des professionnels' },
+      { src: ordvPriseDeRendezVous, legende: 'Fiche d’un professionnel' },
+      { src: ordvReservation, legende: 'Réservation : prestation puis date' },
       { src: ordvEspacePro, legende: 'Espace professionnel' },
       { src: ordvConnexion, legende: 'Connexion' },
       { src: ordvInscription, legende: 'Inscription' },
@@ -301,7 +345,7 @@ export const realisations: Realisation[] = [
     solution:
       'Une plateforme en deux espaces : le professionnel publie ses disponibilités et gère son planning, le client recherche un prestataire et réserve un créneau libre en quelques clics. Les données personnelles sont chiffrées en base.',
     fonctionnalites: [
-      'Accueil avec recherche de professionnels',
+      'Accueil avec recherche, catégories et filtres (ouvert maintenant, note, autour de moi, tri)',
       'Inscription et connexion, espace client et espace pro',
       'Prise de rendez-vous avec les seuls créneaux disponibles',
       'Espace professionnel : planning et réservations',
