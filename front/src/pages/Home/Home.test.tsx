@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
-import { autonomie, comparatif, hero, methode, metiers } from '../../data/accueil';
+import { autonomie, comparatif, hero, methode, metiers, tarifs } from '../../data/accueil';
 import { faqAccueil, questionsFaq } from '../../data/faq';
 import { pages } from '../../data/pages';
 import { realisations } from '../../data/realisations';
@@ -33,6 +33,7 @@ describe("Page d'accueil", () => {
       'Mes réalisations',
       methode.title,
       comparatif.titre,
+      tarifs.titre,
       faqAccueil.titre,
       'Je me déplace chez vous.',
       'Parlez-moi de votre projet.',
@@ -123,17 +124,32 @@ describe("Page d'accueil", () => {
     expect(within(contact).getByRole('form', { name: 'Parlez-moi de votre projet.' })).toBeInTheDocument();
     expect(within(contact).getByRole('link', { name: /Prendre un rendez-vous gratuit/ })).toHaveAttribute('href', pages.rendezVous.path);
   });
-  it('montre qui est derrière le site, et un seul prix : « à partir de 390 € »', () => {
+  it('montre qui est derrière le site, et le prix de départ : « à partir de 99 € »', () => {
     renderHome();
     expect(screen.getAllByText('Baptiste Sandoz').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Développeur web à Amiens').length).toBeGreaterThan(0);
     const heroSection = section(pages.accueil.heading);
-    expect(heroSection).toHaveTextContent(/Sites à partir de 390\s€\. Le prix exact dans votre devis/);
+    expect(heroSection).toHaveTextContent(/Sites à partir de 99\s€\. Le prix exact dans votre devis/);
     expect(heroSection).toHaveTextContent('payable en 3 ou 4 fois sans frais');
-    // Aucun autre prix sur l'accueil (hors démonstration décorative du téléphone, cachée aux lecteurs d'écran).
-    const visible = document.body.cloneNode(true) as HTMLElement;
-    visible.querySelectorAll('[aria-hidden="true"]').forEach((el) => el.remove());
-    expect(visible.textContent?.match(/\d+\s€/g)?.map((p) => p.replace(/\s/g, ' '))).toEqual(['390 €']);
+    // Les moyens de paiement sont sous les tarifs, plus dans le haut de page.
+    expect(within(heroSection).queryByRole('list', { name: 'Moyens de paiement acceptés' })).not.toBeInTheDocument();
+  });
+
+  it('tarifs après le comparatif : 3 cartes cliquables vers le devis, page en plus, paiement', () => {
+    renderHome();
+    const bloc = section(tarifs.titre);
+    const cartes = within(bloc).getAllByRole('link', { name: new RegExp(tarifs.appel) });
+    expect(cartes.map((c) => c.getAttribute('aria-label')?.replace(/\s/g, ' '))).toEqual([
+      `Vitrine, à partir de 99 € : ${tarifs.appel}`,
+      `Vitrine+, à partir de 389 € : ${tarifs.appel}`,
+      `Fonctionnel, à partir de 989 € : ${tarifs.appel}`,
+    ]);
+    expect(cartes[1]).toHaveAttribute('href', '/devis?formule=vitrinePlus');
+    expect(bloc).toHaveTextContent(/Page supplémentaire : \+ 50\s€/);
+    expect(bloc).toHaveTextContent('Payable en 3 ou 4 fois sans frais');
+    const moyens = within(bloc).getByRole('list', { name: 'Moyens de paiement acceptés' });
+    expect(within(moyens).getByRole('link', { name: 'Klarna, site officiel (nouvel onglet)' })).toHaveAttribute('href', 'https://www.klarna.com/fr/');
+    expect(within(moyens).queryByText(/Mastercard|American Express|Visa/)).not.toBeInTheDocument();
   });
 
   it('garde le reflet seulement sur le bouton principal', () => {

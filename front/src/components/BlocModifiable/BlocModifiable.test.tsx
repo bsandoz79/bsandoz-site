@@ -10,7 +10,7 @@ import { BlocModifiable } from './BlocModifiable';
 
 vi.mock('../../app/image', () => ({ imageEnBase64: vi.fn(async () => 'QUJD') }));
 
-const vitrinePlus = formuleParId('vitrinePlus');
+const vitrine = formuleParId('vitrine');
 const badgeInitial = hero.badge;
 const portraitInitial = medias.portrait;
 
@@ -109,15 +109,15 @@ describe('BlocModifiable', () => {
     await user.click(await screen.findByRole('button', { name: 'Modifier : Prix « à partir de » (€)' }));
     const prix = screen.getByRole('textbox', { name: 'Prix « à partir de » (€)' });
     await user.clear(prix);
-    await user.type(prix, '429');
+    await user.type(prix, '129');
     await user.click(screen.getByRole('button', { name: 'Valider' }));
-    expect(screen.getByText(/429/)).toBeInTheDocument();
+    expect(screen.getByText(/129/)).toBeInTheDocument();
     expect(barre).toHaveTextContent('2 changements à enregistrer');
 
     await user.click(within(barre).getByRole('button', { name: 'Enregistrer' }));
     await waitFor(() => expect(screen.queryByRole('group', { name: /Modification/ })).not.toBeInTheDocument());
     expect(envois['/backoffice/contenus']).toEqual([{ contenus: { 'accueil.hero.badge': 'Essentiel' } }]);
-    expect(envois['/backoffice/prix']).toEqual([{ prix: { 'formule.vitrinePlus': 429 } }]);
+    expect(envois['/backoffice/prix']).toEqual([{ prix: { 'formule.vitrine': 129 } }]);
     expect(screen.getByRole('heading', { name: 'Essentiel' })).toBeInTheDocument();
   });
 
@@ -209,9 +209,9 @@ describe('BlocModifiable', () => {
     await user.click(screen.getByRole('button', { name: 'Enregistrer' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('n’a pas abouti');
     // L'envoi a été refusé : on reste en modification, rien n'est perdu.
-    expect(envois['/backoffice/prix']).toEqual([{ prix: { 'formule.vitrinePlus': 150 } }]);
+    expect(envois['/backoffice/prix']).toEqual([{ prix: { 'formule.vitrine': 150 } }]);
     expect(screen.getByRole('group', { name: 'Modification : Haut de page' })).toBeInTheDocument();
-    expect(vitrinePlus.prix).toBe(150);
+    expect(vitrine.prix).toBe(150);
   });
 
   it('chaque bloc du registre a des champs lisibles', () => {

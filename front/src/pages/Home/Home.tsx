@@ -13,8 +13,9 @@ import { Hero } from './sections/Hero';
 import { Metiers } from './sections/Metiers';
 import { Methode } from './sections/Methode';
 import { Realisations } from './sections/Realisations';
+import { Tarifs } from './sections/Tarifs';
 
-/** Page d'accueil : un site que le client modifie lui-même, les réalisations, la méthode, le comparatif, le contact. */
+/** Page d'accueil : un site que le client modifie lui-même, les réalisations, la méthode, le comparatif, les tarifs, le contact. */
 export function Home() {
   return (
     <>
@@ -38,6 +39,9 @@ export function Home() {
       </BlocModifiable>
       <BlocModifiable id="accueil.comparatif">
         <Comparatif />
+      </BlocModifiable>
+      <BlocModifiable id="accueil.tarifs">
+        <Tarifs />
       </BlocModifiable>
       <BlocModifiable id="accueil.faq">
         <Faq />

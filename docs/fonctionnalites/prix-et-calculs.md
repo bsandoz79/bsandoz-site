@@ -75,7 +75,10 @@ Un prix, une option, un pack : `src/data/offres.ts`, puis relancer les tests (il
 ## Options incluses (2026-11-07)
 Les packs sont supprimés. Chaque formule inclut des petites options (`inclusParFormule` : Vitrine 1, Vitrine+ 2, Fonctionnel 3). Les gros modules (`gros: true`) restent toujours payants. `optionsIncluses(config)` retient les premières petites options cochées, et `inclusRestantes(config)` dit combien il en reste. `calculerEstimation` compte les options incluses dans `valeur` et `offert`, pas dans `total` ; les lignes portent `offerte: true` (affichées « Inclus »). Toutes les petites options (`petitesOptions`) sont proposées avec chaque formule. Le pré-devis ne part plus que d'une estimation validée (`preDevis(config)`). Les paragraphes plus haut qui parlent de packs ou de besoins cochés sont dépassés.
 
-## Un seul prix affiché (2026-11-07)
+## Tarifs sur l'accueil (2026-11-24)
+À la demande de Baptiste, les trois formules reviennent sur l'accueil, dans « Les tarifs », juste après le comparatif : Vitrine à partir de 99 €, Vitrine+ à partir de 389 €, Fonctionnel à partir de 989 €, et la page en plus à 50 €. Ces quatre prix se modifient dans le bloc « Les tarifs » (bouton « Modifier ») ou dans le back-office. `prixDepart()` donne maintenant le plus petit prix des formules (« Sites à partir de 99 € » en haut de l'accueil). Moyens de paiement : une seule pastille « Carte bancaire » au lieu de Visa, Mastercard et Amex ; Klarna ajouté ; chaque pastille ouvre le site officiel du moyen (`paiement.liens`).
+
+## Un seul prix affiché (2026-11-07, remplacé le 2026-11-24)
 Le site n'affiche plus que « Sites à partir de 390 € », dans le haut de l'accueil. Le montant vient de `prixDepart()` (`data/offres.ts`, prix de la Vitrine+) et se modifie dans le bloc « Haut de page », avec le bouton « Modifier », ou dans le back-office. Les pages Tarifs et Estimation, les compléments, l'offre SEO seule, le pré-devis et les prix des pages métier et de la FAQ sont retirés. Les formules, options et calculs restent pour le back-office et l'aperçu des pages métier. Les CGV gardent le tarif horaire, car c'est un engagement contractuel.
 
 ## Paiement en plusieurs fois

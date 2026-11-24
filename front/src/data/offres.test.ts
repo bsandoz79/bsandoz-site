@@ -26,7 +26,7 @@ describe('offres', () => {
   it('reprend les prix du cahier des charges', () => {
     expect(formules.map((f) => [f.id, f.prix, f.prixMinimum])).toEqual([
       ['vitrine', 99, true],
-      ['vitrinePlus', 390, true],
+      ['vitrinePlus', 389, true],
       ['fonctionnel', 989, true],
     ]);
   });

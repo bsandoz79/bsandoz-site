@@ -71,11 +71,6 @@
   font-weight: 700;
 }
 
-/* Moyens de paiement, juste sous le prix : discrets. */
-.paiement {
-  margin-top: calc(-1 * var(--space-2));
-}
-
 .rdv {
   display: flex;
   flex-wrap: wrap;

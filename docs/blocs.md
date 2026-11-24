@@ -22,6 +22,6 @@ Liste des blocs de la bibliothèque `@bsandoz79/blocs` (`packages/blocs/src/`, m
 | [`Autocomplete`](../packages/blocs/src/Autocomplete/README.md) | champ texte qui propose de finir le mot pendant la saisie (combobox accessible) | prêt |
 | [`Calendar`](../packages/blocs/src/Calendar/README.md) | calendrier mensuel accessible, jours indisponibles, navigation clavier | prêt |
 | [`Visionneuse`](../packages/blocs/src/Visionneuse/README.md) | image agrandie par-dessus la page (croix, Échap, flèches), au lieu d'un nouvel onglet | prêt |
-| [`MoyensPaiement`](../packages/blocs/src/MoyensPaiement/README.md) | ligne des moyens de paiement acceptés (Visa, Mastercard, Apple Pay, virement…), taille normale ou petite | prêt |
+| [`MoyensPaiement`](../packages/blocs/src/MoyensPaiement/README.md) | ligne des moyens de paiement acceptés (carte bancaire, Apple Pay, Klarna, virement…), taille normale ou petite, pastilles cliquables vers le site officiel (`liens`) | prêt |
 
 Les blocs animés s'appuient sur `packages/blocs/src/motion.ts` (`prefersReducedMotion`) pour respecter le réglage « réduire les animations ».

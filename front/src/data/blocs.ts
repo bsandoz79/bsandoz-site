@@ -1,8 +1,8 @@
-import { autonomie, comparatif, hero, methode, metiers, realisationsSection } from './accueil';
+import { autonomie, comparatif, hero, methode, metiers, realisationsSection, tarifs } from './accueil';
 import { contactRapide } from './contact';
 import { faqAccueil, questionsFaq } from './faq';
 import { medias } from './medias';
-import { formules } from './offres';
+import { formules, options } from './offres';
 import { pages } from './pages';
 import { carteTextes } from './zones';
 
@@ -66,7 +66,7 @@ export const blocs: Record<string, Bloc> = {
       champ('accueil.hero.titre', 'Grand titre', pages.accueil, 'heading', 'long'),
       champ('accueil.hero.texte', 'Texte', hero, 'text', 'long'),
       champ('accueil.hero.prixAvant', 'Avant le prix', hero.prix, 'avant'),
-      prix('formule.vitrinePlus', 'Prix « à partir de » (€)', formules.find((f) => f.id === 'vitrinePlus')!),
+      prix('formule.vitrine', 'Prix « à partir de » (€)', formules.find((f) => f.id === 'vitrine')!),
       champ('accueil.hero.prixApres', 'Après le prix', hero.prix, 'apres'),
       champ('accueil.hero.nom', 'Votre nom', hero.identite, 'nom'),
       champ('accueil.hero.role', 'Votre métier', hero.identite, 'role'),
@@ -126,6 +126,16 @@ export const blocs: Record<string, Bloc> = {
         ...l.valeurs.map((v, j) => champ(`accueil.comparatif.${i}.${j}`, `${l.critere} · ${comparatif.colonnes[j]}`, v, 'texte')),
       ]),
       champ('accueil.comparatif.note', 'Note', comparatif, 'note', 'long'),
+    ],
+  },
+  'accueil.tarifs': {
+    titre: 'Les tarifs',
+    champs: [
+      champ('accueil.tarifs.titre', 'Titre', tarifs, 'titre'),
+      champ('accueil.tarifs.intro', 'Introduction', tarifs, 'intro', 'long'),
+      champ('accueil.tarifs.appel', 'Texte du bas des cartes', tarifs, 'appel'),
+      ...formules.map((f) => prix(`formule.${f.id}`, `Prix ${f.nom} (€)`, f)),
+      prix('option.page', 'Prix d’une page en plus (€)', options.page),
     ],
   },
   'accueil.faq': {

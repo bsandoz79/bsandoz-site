@@ -145,7 +145,8 @@ flowchart TB
 Tests : `Home.test.tsx` (ordre des sections, bande, autonomie, 3 réalisations, comparatif, un seul formulaire) et `Showcase.test.tsx`.
 
 ## Prix unique (2026-11-07)
-- **Haut de l'accueil** : « Sites à partir de 390 €. Le prix exact dans votre devis, sous 24 h. »
+- **Haut de l'accueil** : « Sites à partir de 99 €. Le prix exact dans votre devis, sous 24 h. » (le plus petit prix des formules).
+- **Les tarifs** (accueil, juste après « Trois façons d'avoir un site ») : les trois formules en cartes cliquables (Vitrine dès 99 €, Vitrine+ dès 389 €, Fonctionnel dès 989 €), chacune vers `/devis?formule=…` (formule et prix pré-remplis dans « Votre projet ») ; la page en plus (+ 50 €) ; « Payable en 3 ou 4 fois sans frais » mis en avant, puis les moyens de paiement, chacun cliquable vers son site officiel.
 - **FAQ** : plus aucun montant. Délais en mots, et textes ou logo « indiqués dans le devis ».
 - **Pages métier** : les fonctions sans leur prix.
 - **Pourquoi moi** : « Un devis clair » remplace « Des prix affichés ».

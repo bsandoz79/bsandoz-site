@@ -1,4 +1,5 @@
 import { contactRapide } from '../../data/contact';
+import { formules, prixFormule } from '../../data/offres';
 
 export type TypeDemande = (typeof contactRapide.demande.choix)[number]['value'];
 export type StyleMaquette = (typeof contactRapide.maquette.style.choix)[number]['value'];
@@ -81,4 +82,10 @@ export function construireEnvoiContact(m: MessageContact, piege: string) {
   donnees.append('predevis', '');
   donnees.append('site_web', piege);
   return donnees;
+}
+
+/** Projet pré-rempli quand on arrive d'une carte de tarif (/devis?formule=vitrinePlus) : la formule et son prix. */
+export function projetDeFormule(id: string | null): string {
+  const formule = formules.find((f) => f.id === id);
+  return formule ? `Formule ${formule.nom} (${prixFormule(formule)}). ` : '';
 }

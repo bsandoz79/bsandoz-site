@@ -1,0 +1,144 @@
+/* Tarifs : trois cartes cliquables aux couleurs du site (bleu nuit, rose), puis le paiement. */
+.cartes {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .cartes { grid-template-columns: repeat(3, 1fr); }
+}
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration), border-color var(--duration), box-shadow var(--duration);
+}
+
+.carte:hover {
+  border-color: var(--color-rose);
+  box-shadow: var(--shadow-rose);
+  transform: translateY(-3px);
+}
+
+.carte:focus-visible {
+  outline: 3px solid var(--color-rose);
+  outline-offset: 3px;
+}
+
+.nom {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.accroche {
+  color: var(--color-text-muted);
+}
+
+.prix {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.aPartirDe {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.prix strong {
+  color: var(--color-accent-texte);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.delai {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.points {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.point {
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.point::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent-texte);
+  font-weight: 800;
+}
+
+.appel {
+  margin-top: auto;
+  color: var(--color-accent-texte);
+  font-weight: 700;
+}
+
+.page {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.page strong { color: var(--color-text); }
+
+.paiement {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+/* Le paiement en plusieurs fois, mis en évidence. */
+.plusieursFois {
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-rose);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 800;
+}
+
+.mention {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 480px) {
+  .plusieursFois { font-size: var(--text-base); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carte, .carte:hover { transition: none; transform: none; }
+}
