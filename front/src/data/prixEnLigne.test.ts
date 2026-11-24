@@ -18,7 +18,7 @@ afterEach(() => {
 describe('Prix du code', () => {
   it('garde les prix annoncés tant que rien n’est modifié', () => {
     expect(prixDeBase['formule.vitrine']).toBe(99);
-    expect(prixDeBase['formule.vitrinePlus']).toBe(390);
+    expect(prixDeBase['formule.vitrinePlus']).toBe(389);
     expect(prixDeBase['formule.fonctionnel']).toBe(989);
   });
 });

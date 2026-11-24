@@ -1,6 +1,13 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (tarifs sur l'accueil)
+- Section « Les tarifs » juste après « Trois façons d'avoir un site » : Vitrine (à partir de 99 €, 1 page), Vitrine+ (à partir de 389 €), Fonctionnel (à partir de 989 €), en cartes cliquables vers la demande de devis ou de maquette, avec la formule et son prix pré-remplis ; page supplémentaire (+ 50 €) ; « Payable en 3 ou 4 fois sans frais » mis en évidence, puis les moyens de paiement (déplacés du haut de page). Prix modifiables dans le bloc « Les tarifs » ; 4 tests.
+### Modifié (prix et paiement)
+- Vitrine+ à 389 € (au lieu de 390 €). Haut de l'accueil : « Sites à partir de 99 € » (le plus petit prix des formules).
+- Moyens de paiement : une seule pastille « Carte bancaire » au lieu de Visa, Mastercard et American Express ; Klarna ajouté (paiement en plusieurs fois, activé dans Stripe). FAQ et conditions de vente à jour.
+- Bloc `MoyensPaiement` (`@bsandoz79/blocs`) : pastilles `cb` et `klarna`, et `liens` : chaque pastille ouvre le site officiel du moyen dans un nouvel onglet (pied de page et tarifs) ; 2 tests.
+
 ### Modifié (réseaux sociaux)
 - Pied de page : les icônes au trait d'Instagram et de Facebook sont remplacées par leurs vrais logos en couleur (carré dégradé, rond bleu), un peu plus grands.
 

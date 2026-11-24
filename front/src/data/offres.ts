@@ -36,7 +36,7 @@ export const formules: Formule[] = [
     id: 'vitrinePlus',
     nom: 'Vitrine+',
     accroche: 'Une vitrine qui ramène des contacts.',
-    prix: 390,
+    prix: 389,
     prixMinimum: true,
     delai: '1 à 2 semaines',
     description: "Jusqu'à 5 pages, formulaire, référencement local.",
@@ -306,11 +306,11 @@ export const marche: Record<MarcheId, Marche> = {
 };
 
 /**
- * Seul prix affiché sur le site : « à partir de », celui de la Vitrine+ (plusieurs pages, design personnalisé,
- * modifiable par le client). Le reste est chiffré dans le devis. Suit le prix modifié dans le back-office.
+ * Prix de départ annoncé en haut de l'accueil : « Sites à partir de … », le plus petit prix des formules (la Vitrine),
+ * détaillées juste après le comparatif. Suit les prix modifiés dans le back-office.
  */
 export function prixDepart() {
-  return formuleParId('vitrinePlus').prix;
+  return Math.min(...formules.map((f) => f.prix));
 }
 
 /** Tarif horaire après la mise en ligne. */

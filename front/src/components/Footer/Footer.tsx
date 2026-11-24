@@ -140,7 +140,7 @@ export function Footer() {
 
         <div className={styles.bas}>
           <p>{footer.droits(ANNEE)}</p>
-          <MoyensPaiement label={paiement.label} moyens={paiement.moyens} taille="petite" />
+          <MoyensPaiement label={paiement.label} moyens={paiement.moyens} liens={paiement.liens} taille="petite" />
           <nav aria-label={footer.legalLabel}>
             <ul className={styles.legal}>
               {footer.legal.map((item) => (

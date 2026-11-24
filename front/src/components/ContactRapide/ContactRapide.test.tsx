@@ -189,3 +189,23 @@ describe('ContactRapide', () => {
     expect(screen.getByRole('link', { name: /Prendre un rendez-vous gratuit/ })).toHaveAttribute('href', pages.rendezVous.path);
   });
 });
+
+describe('ContactRapide, venu d’une carte de tarif', () => {
+  it('pré-remplit le projet avec la formule choisie et son prix', () => {
+    render(
+      <MemoryRouter initialEntries={['/devis?formule=vitrinePlus']}>
+        <ContactRapide />
+      </MemoryRouter>,
+    );
+    expect((screen.getByLabelText(/Votre projet/) as HTMLTextAreaElement).value.replace(/\s/g, ' ')).toBe('Formule Vitrine+ (à partir de 389 €). ');
+  });
+
+  it('formule inconnue ou absente : projet vide', () => {
+    render(
+      <MemoryRouter initialEntries={['/devis?formule=inconnue']}>
+        <ContactRapide />
+      </MemoryRouter>,
+    );
+    expect(screen.getByLabelText(/Votre projet/)).toHaveValue('');
+  });
+});

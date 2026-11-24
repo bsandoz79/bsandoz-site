@@ -4,7 +4,7 @@ import { pages } from './pages';
 export const hero = {
   badge: 'Création de sites internet sur mesure · Amiens',
   text: `Je crée des sites et des outils sur mesure pour les artisans, commerçants et indépendants, à Amiens et partout en France. Une fois en ligne, vous changez vous-même vos textes, vos photos et vos prix, sans coder.`,
-  /** Suivi du seul prix affiché (`prixDepart`), puis « sur devis ». */
+  /** Autour du prix de départ (`prixDepart`, le plus petit des formules), détaillées dans « Les tarifs ». */
   prix: { avant: 'Sites à partir de', apres: 'Le prix exact dans votre devis, sous 24 h, payable en 3 ou 4 fois sans frais.' },
   /** Qui est derrière le site : photo, nom, métier. */
   identite: { nom: 'Baptiste Sandoz', role: 'Développeur web à Amiens', alt: 'Baptiste Sandoz, développeur web à Amiens' },
@@ -159,6 +159,16 @@ export const comparatif = {
     { critere: 'Votre contact', valeurs: [{ texte: 'Un support en ligne', verdict: 'variable' }, { texte: 'Moi, à Amiens, réponse sous 24 h', verdict: 'oui' }, { texte: 'Un chef de projet', verdict: 'oui' }] },
   ] satisfies { critere: string; valeurs: { texte: string; verdict: Verdict }[] }[],
   note: 'Les pratiques varient d’une plateforme et d’une agence à l’autre : lisez toujours le contrat.',
+};
+
+/**
+ * Tarifs, juste après le comparatif : les trois formules en cartes cliquables (vers la demande de devis, formule
+ * pré-remplie), la page en plus, puis les moyens de paiement et le paiement en plusieurs fois.
+ */
+export const tarifs = {
+  titre: 'Les tarifs',
+  intro: 'Trois formules, un prix de départ clair. Le prix exact est dans votre devis, sous 24 h.',
+  appel: 'Demander un devis ou une maquette',
 };
 
 /** Ce qui compte pour Baptiste : repris sur la page À propos. */

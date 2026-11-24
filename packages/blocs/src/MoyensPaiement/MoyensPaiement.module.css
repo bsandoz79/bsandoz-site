@@ -40,6 +40,38 @@
   background: #2e77bc;
 }
 
+.carteKlarna {
+  border-color: #ffa8cd;
+  background: #ffa8cd;
+}
+
+.klarna {
+  color: #0b051d;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+/* Pastille cliquable (site officiel du moyen) : légère élévation au survol. */
+.lien {
+  text-decoration: none;
+  transition: transform var(--duration, 0.25s), box-shadow var(--duration, 0.25s), border-color var(--duration, 0.25s);
+}
+
+.lien:hover {
+  border-color: var(--color-border-strong, #d7d5e0);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+  transform: translateY(-1px);
+}
+
+.lien:focus-visible {
+  outline: 3px solid var(--color-rose, #c9184a);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lien, .lien:hover { transition: none; transform: none; }
+}
+
 .svg {
   width: 2rem;
   height: 1.3rem;
@@ -78,6 +110,7 @@
   font-weight: 800;
 }
 
+.cb,
 .virement,
 .especes,
 .cheque {

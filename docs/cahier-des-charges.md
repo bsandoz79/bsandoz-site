@@ -44,7 +44,7 @@ Prix nets, TVA non applicable (art. 293 B du CGI). Après mise en ligne : 50 €
 | Formule | Prix | Contenu | Délai |
 | --- | --- | --- | --- |
 | Vitrine | 99 € | 1 page sur un modèle, contenus fournis, 1 série de retouches, mise en ligne + HTTPS, mentions légales, 1 h de formation si le client gère l'hébergement ; domaine et hébergement à sa charge | 3 jours |
-| Vitrine+ | 390 € | Jusqu'à 5 pages, design personnalisé, formulaire, galerie, SEO local + fiche Google, 2 séries de retouches | 1 à 2 semaines |
+| Vitrine+ | 389 € (390 € jusqu'au 24/11/2026) | Jusqu'à 5 pages, design personnalisé, formulaire, galerie, SEO local + fiche Google, 2 séries de retouches | 1 à 2 semaines |
 | Fonctionnel | dès 989 € | Sur mesure : RDV, devis, boutique, appli, espace client | 3 à 6 semaines |
 
 ### Options (prix à garder dans `src/data/`, jamais en dur)

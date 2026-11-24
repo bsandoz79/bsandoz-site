@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Autocomplete, Button, ChoiceChips, Container, TextField } from '@bsandoz79/blocs';
 import { contactRapide } from '../../data/contact';
 import { nomsMetiers } from '../../data/metiersConnus';
@@ -8,6 +8,7 @@ import { contact } from '../../data/navigation';
 import {
   construireEnvoiContact,
   messageVide,
+  projetDeFormule,
   validerContact,
   type ErreursContact,
   type MessageContact,
@@ -34,7 +35,8 @@ type ContactRapideProps = {
 
 /** Formulaire de contact, en carte : le formulaire à gauche, les autres moyens de contact à droite. */
 export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: ContactRapideProps) {
-  const [message, setMessage] = useState<MessageContact>(messageVide);
+  const [parametres] = useSearchParams();
+  const [message, setMessage] = useState<MessageContact>(() => ({ ...messageVide, projet: projetDeFormule(parametres.get('formule')) }));
   const [erreurs, setErreurs] = useState<ErreursContact>({});
   const [statut, setStatut] = useState<'saisie' | 'envoi' | 'envoye' | 'echec' | 'trop-rapide'>('saisie');
   const [piege, setPiege] = useState('');
