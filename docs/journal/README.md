@@ -157,3 +157,4 @@ Types de tests :
 | 126 | [Comparatif : l'avantage saute aux yeux](126-style-comparatif-evident.md) | `style/comparatif-evident` | 2026-11-19 |
 | 127 | [Dix personas : une page par grand métier](127-feature-personas.md) | `feature/personas` | 2026-11-19 |
 | 128 | [Comparatif : « Avec moi » au milieu](128-style-comparatif-milieu.md) | `style/comparatif-milieu` | 2026-11-19 |
+| 138 | [Carte « Avant de partir » après 30 secondes](138-feature-relance-avant-de-partir.md) | `feature/relance-avant-de-partir` | 2026-11-24 |

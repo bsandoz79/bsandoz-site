@@ -36,7 +36,12 @@ type ContactRapideProps = {
 /** Formulaire de contact, en carte : le formulaire à gauche, les autres moyens de contact à droite. */
 export function ContactRapide({ titre = t.titre, niveau = 2, intro = t.intro }: ContactRapideProps) {
   const [parametres] = useSearchParams();
-  const [message, setMessage] = useState<MessageContact>(() => ({ ...messageVide, projet: projetDeFormule(parametres.get('formule')) }));
+  const [message, setMessage] = useState<MessageContact>(() => ({
+    ...messageVide,
+    // « ?demande=maquette » (carte « Avant de partir ») : la maquette gratuite est déjà choisie.
+    demande: parametres.get('demande') === 'maquette' ? 'maquette' : messageVide.demande,
+    projet: projetDeFormule(parametres.get('formule')),
+  }));
   const [erreurs, setErreurs] = useState<ErreursContact>({});
   const [statut, setStatut] = useState<'saisie' | 'envoi' | 'envoye' | 'echec' | 'trop-rapide'>('saisie');
   const [piege, setPiege] = useState('');

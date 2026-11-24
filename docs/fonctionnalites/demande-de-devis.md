@@ -62,3 +62,6 @@ Même formulaire que le devis (`ContactRapide`) : le choix « Vous souhaitez : U
 flowchart LR
   form["ContactRapide : devis ou maquette"] --> envoi["construireEnvoiContact"] --> api["POST /demandes"] --> bo["Back-office : « Projet » ou « Maquette gratuite »"]
 ```
+
+## Relance « Avant de partir »
+30 secondes après l'arrivée sur le site, une carte discrète propose la maquette gratuite (`/devis?demande=maquette`, qui coche déjà la maquette) ou un appel. Une fois par visiteur, puis rien pendant 30 jours ; jamais sur le devis, le rendez-vous, les pages légales ou privées ; après le bandeau des cookies. Réglages et textes : `front/src/data/relance.ts`. Composant : `front/src/components/Relance/`.

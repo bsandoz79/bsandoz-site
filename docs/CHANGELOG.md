@@ -1,6 +1,8 @@
 # Journal des modifications
 
 ## [Non publié]
+### Ajouté (relance « Avant de partir »)
+- Carte « Avant de partir · Donnez vie à votre idée », 30 secondes après l'arrivée sur le site : « Recevoir ma maquette gratuite » (formulaire avec la maquette déjà cochée) ou « Appeler le 07 69 28 78 37 ». Discrète, en bas de l'écran, sans bloquer la page ; attend la fermeture du bandeau des cookies ; une fois par visiteur, puis plus rien pendant 30 jours ; jamais sur les pages de devis, de rendez-vous, légales ou privées. 6 tests.
 ### Ajouté (tarifs sur l'accueil)
 - Section « Les tarifs » juste après « Trois façons d'avoir un site » : Vitrine (à partir de 99 €, 1 page), Vitrine+ (à partir de 389 €), Fonctionnel (à partir de 989 €), en cartes cliquables vers la demande de devis ou de maquette, avec la formule et son prix pré-remplis ; page supplémentaire (+ 50 €) ; « Payable en 3 ou 4 fois sans frais » mis en évidence, puis les moyens de paiement (déplacés du haut de page). Prix modifiables dans le bloc « Les tarifs » ; 4 tests.
 ### Modifié (prix et paiement)
